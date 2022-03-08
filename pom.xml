@@ -8,6 +8,7 @@
         <module>zhengcheng-mall-im</module>
         <module>zhengcheng-mall-common</module>
         <module>zhengcheng-mall-api</module>
+        <module>zhengcheng-mall-echarts</module>
     </modules>
 
     <parent>
