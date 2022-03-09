@@ -9,24 +9,23 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>zhengcheng-mall-api</artifactId>
-
-    <properties>
-        <maven.compiler.source>8</maven.compiler.source>
-        <maven.compiler.target>8</maven.compiler.target>
-    </properties>
+    <artifactId>zhengcheng-mall-api-provider</artifactId>
+    <version>1.0-SNAPSHOT</version>
 
     <dependencies>
         <dependency>
-            <groupId>com.zhengcheng.mall</groupId>
-            <artifactId>zhengcheng-mall-common</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <artifactId>spring-cloud-openfeign-core</artifactId>
+            <groupId>org.springframework.cloud</groupId>
+            <scope>provided</scope>
         </dependency>
         <dependency>
-            <groupId>com.zhengcheng.mall</groupId>
-            <artifactId>zhengcheng-mall-api-provider</artifactId>
-            <version>1.0-SNAPSHOT</version>
+            <groupId>com.zhengcheng</groupId>
+            <artifactId>zc-core-spring-boot-starter</artifactId>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>cn.dev33</groupId>
+            <artifactId>sa-token-spring-boot-starter</artifactId>
         </dependency>
     </dependencies>
-
 </project>

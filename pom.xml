@@ -9,6 +9,7 @@
         <module>zhengcheng-mall-common</module>
         <module>zhengcheng-mall-api</module>
         <module>zhengcheng-mall-echarts</module>
+        <module>zhengcheng-mall-api-provider</module>
     </modules>
 
     <parent>
