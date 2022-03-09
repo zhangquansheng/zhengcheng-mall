@@ -1,12 +1,12 @@
 package com.zhengcheng.mall.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+import com.zhengcheng.mall.common.config.MallProperties;
 import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.mapper.UserMapper;
 import com.zhengcheng.mall.service.UserService;
@@ -29,22 +29,20 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private UserMapper userMapper;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
-    @Value("${user.no.random.length}")
-    private int userNoRandomLength;
-    @Value("${user.password.md5.sign}")
-    private String userPasswordMd5Sign;
+    @Autowired
+    private MallProperties mallProperties;
 
     @Transactional
     @Override
     public boolean save(User user) {
-        user.setUserNo(RandomUtil.randomString(userNoRandomLength));
+        user.setUserNo(RandomUtil.randomString(mallProperties.getUserNoRandomLength()));
         user.setPassword(bCryptPasswordEncoder.encode(md5(user.getPassword())));
         user.setLastLogin(LocalDateTimeUtil.now());
         return userMapper.insert(user) > 0;
     }
 
     private String md5(String password) {
-        return SecureUtil.md5(StrUtil.format("{}{}", password, userPasswordMd5Sign));
+        return SecureUtil.md5(StrUtil.format("{}{}", password, mallProperties.getUserPasswordMd5Sign()));
     }
 
     @Override

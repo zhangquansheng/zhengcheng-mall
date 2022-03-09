@@ -11,7 +11,7 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
  * @since 2022/3/9 14:27
  */
 @Configuration
-public class CommonConfig {
+public class MallConfig {
 
     /**
      * 注入BCryptPasswordEncoder
