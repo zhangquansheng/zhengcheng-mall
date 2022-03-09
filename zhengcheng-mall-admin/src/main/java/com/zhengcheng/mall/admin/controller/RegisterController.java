@@ -22,7 +22,7 @@ public class RegisterController {
     @ApiOperation("注册页面")
     @GetMapping
     public String reg(ModelMap model) {
-        model.addAttribute("publicKeyStr", "");
+        model.addAttribute("publicKeyStr", "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2Nq+V4OqVHlIMxj7EVRW3Ofwm7E8sNf8rqmFoTpwvFnFwveKhsowZBjmH4Om9a7aQ6QqaOOMHe2URfhy5HuxhUIyq6Z6y3qF7i31wtbdCIEbmOobuW5oiHNF2AUQXQ752XrasEiuGom4JG1hgVIFAF68YIxeYzNgN8/I8AfxhsQIDAQAB");
         return "reg";
     }
 
