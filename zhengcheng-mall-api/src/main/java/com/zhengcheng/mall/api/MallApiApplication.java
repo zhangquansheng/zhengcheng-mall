@@ -1,8 +1,6 @@
 package com.zhengcheng.mall.api;
 
 import org.springframework.boot.builder.SpringApplicationBuilder;
-import org.springframework.context.annotation.Bean;
-import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
 import com.zhengcheng.core.annotation.EnableZhengChengService;
@@ -21,11 +19,4 @@ public class MallApiApplication {
         new SpringApplicationBuilder(MallApiApplication.class).run(args);
     }
 
-    /**
-     * 注入BCryptPasswordEncoder
-     */
-    @Bean
-    public BCryptPasswordEncoder bCryptPasswordEncoder() {
-        return new BCryptPasswordEncoder();
-    }
 }
