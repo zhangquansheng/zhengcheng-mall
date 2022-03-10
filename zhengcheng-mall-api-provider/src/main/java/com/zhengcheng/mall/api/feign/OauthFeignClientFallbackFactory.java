@@ -1,11 +1,11 @@
 package com.zhengcheng.mall.api.feign;
 
+import org.springframework.cloud.openfeign.FallbackFactory;
 import org.springframework.stereotype.Component;
 
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 
-import feign.hystrix.FallbackFactory;
 import lombok.extern.slf4j.Slf4j;
 
 /**
