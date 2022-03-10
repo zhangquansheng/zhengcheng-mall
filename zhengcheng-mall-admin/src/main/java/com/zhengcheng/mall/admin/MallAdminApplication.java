@@ -2,6 +2,7 @@ package com.zhengcheng.mall.admin;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
+import org.springframework.cloud.openfeign.EnableFeignClients;
 import org.springframework.context.annotation.ComponentScan;
 
 import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
@@ -13,6 +14,7 @@ import com.alibaba.nacos.spring.context.annotation.config.NacosPropertySource;
  * @since 2022/3/9 17:34
  */
 @ComponentScan(basePackages ="com.zhengcheng.mall")
+@EnableFeignClients(basePackages = { "com.zhengcheng.**.feign" })
 @SpringBootApplication
 @NacosPropertySource(dataId = "zhengcheng-mall", autoRefreshed = true)
 public class MallAdminApplication {

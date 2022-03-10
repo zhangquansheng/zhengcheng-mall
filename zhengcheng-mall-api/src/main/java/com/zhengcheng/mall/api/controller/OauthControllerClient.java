@@ -13,7 +13,7 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.controller.facade.OauthFacade;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
-import com.zhengcheng.mall.api.feign.OauthFeign;
+import com.zhengcheng.mall.api.feign.OauthFeignClient;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/oauth")
-public class OauthController implements OauthFeign {
+public class OauthControllerClient implements OauthFeignClient {
 
     @Autowired
     private OauthFacade userFacade;

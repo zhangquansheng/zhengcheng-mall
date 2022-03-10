@@ -12,8 +12,8 @@ import com.zhengcheng.mall.api.dto.TokenInfoDTO;
  * @author quansheng1.zhang
  * @since 2022/3/9 18:41
  */
-@FeignClient(name = "OauthFeign", url = "${zc.mall.api.url}")
-public interface OauthFeign {
+@FeignClient(name = "OauthFeign", url = "${zc.mall.api.url}", fallbackFactory = OauthFeignClientFallbackFactory.class)
+public interface OauthFeignClient {
 
     @RequestMapping(value = "/logout", method = RequestMethod.GET)
     Result<Void> logout();
