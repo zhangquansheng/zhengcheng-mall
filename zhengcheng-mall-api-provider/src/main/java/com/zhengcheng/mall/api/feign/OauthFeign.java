@@ -4,8 +4,7 @@ import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.Result;
-
-import cn.dev33.satoken.stp.SaTokenInfo;
+import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 
 /**
  * OauthFeign
@@ -23,10 +22,10 @@ public interface OauthFeign {
     Result<Void> logoutByToken(@RequestParam("access_token") String accessToken);
 
     @GetMapping("/token")
-    Result<SaTokenInfo> getToken(@RequestParam("username") String username,
-                                        @RequestParam("enPassword") String enPassword);
+    Result<TokenInfoDTO> getToken(@RequestParam("username") String username,
+                                  @RequestParam("enPassword") String enPassword);
 
     @PostMapping("/token")
-    Result<SaTokenInfo> postToken(@RequestParam("username") String username,
+    Result<TokenInfoDTO> postToken(@RequestParam("username") String username,
                                    @RequestParam("password") String password);
 }

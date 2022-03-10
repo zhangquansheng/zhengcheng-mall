@@ -12,10 +12,12 @@ import org.springframework.web.context.request.ServletRequestAttributes;
 
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.controller.facade.OauthFacade;
+import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.feign.OauthFeign;
 
 import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.bean.BeanUtil;
 import io.swagger.annotations.ApiOperation;
 
 /**
@@ -50,17 +52,19 @@ public class OauthController implements OauthFeign {
     @ApiOperation(value = "password获取token")
     @GetMapping("/token")
     @Override
-    public Result<SaTokenInfo> getToken(@RequestParam("username") String username,
-        @RequestParam("enPassword") String enPassword) {
-        return Result.successData(userFacade.login(username, enPassword, getRequest()));
+    public Result<TokenInfoDTO> getToken(@RequestParam("username") String username,
+                                         @RequestParam("enPassword") String enPassword) {
+        SaTokenInfo saTokenInfo = userFacade.login(username, enPassword, getRequest());
+        return Result.successData(BeanUtil.copyProperties(saTokenInfo,TokenInfoDTO.class));
     }
 
     @ApiOperation(value = "password获取token")
     @PostMapping("/token")
     @Override
-    public Result<SaTokenInfo> postToken(@RequestParam("username") String username,
+    public Result<TokenInfoDTO> postToken(@RequestParam("username") String username,
         @RequestParam("password") String password) {
-        return Result.successData(userFacade.login(username, password, getRequest()));
+        SaTokenInfo saTokenInfo = userFacade.login(username, password, getRequest());
+        return Result.successData(BeanUtil.copyProperties(saTokenInfo,TokenInfoDTO.class));
     }
 
     @Nullable
