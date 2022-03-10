@@ -12,20 +12,24 @@ import com.zhengcheng.mall.api.dto.TokenInfoDTO;
  * @author quansheng1.zhang
  * @since 2022/3/9 18:41
  */
-@FeignClient(name = "OauthFeign", url = "${zc.mall.api.url}", fallbackFactory = OauthFeignClientFallbackFactory.class)
+@FeignClient(name = OauthFeignClient.NAME, fallbackFactory = OauthFeignClientFallbackFactory.class)
 public interface OauthFeignClient {
+    /**
+     * Nacos 对服务名大小写敏感
+     */
+    String NAME = "zhengcheng-mall";
 
-    @RequestMapping(value = "/logout", method = RequestMethod.GET)
+    @RequestMapping(value = "/oauth/logout", method = RequestMethod.GET)
     Result<Void> logout();
 
-    @RequestMapping(value = "/logoutByToken", method = RequestMethod.GET)
+    @RequestMapping(value = "/oauth/logoutByToken", method = RequestMethod.GET)
     Result<Void> logoutByToken(@RequestParam("access_token") String accessToken);
 
-    @GetMapping("/token")
+    @GetMapping("/oauth/token")
     Result<TokenInfoDTO> getToken(@RequestParam("username") String username,
                                   @RequestParam("enPassword") String enPassword);
 
-    @PostMapping("/token")
+    @PostMapping("/oauth/token")
     Result<TokenInfoDTO> postToken(@RequestParam("username") String username,
                                    @RequestParam("password") String password);
 }
