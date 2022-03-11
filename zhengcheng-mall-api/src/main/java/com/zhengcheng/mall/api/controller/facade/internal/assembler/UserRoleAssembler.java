@@ -5,8 +5,8 @@ import java.util.List;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 
-import com.zhengcheng.mall.api.controller.command.UserRoleCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserRoleDTO;
+import com.zhengcheng.mall.api.command.UserRoleCommand;
+import com.zhengcheng.mall.api.dto.UserRoleDTO;
 import com.zhengcheng.mall.domain.entity.UserRole;
 
 /**

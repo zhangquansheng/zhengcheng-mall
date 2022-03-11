@@ -2,7 +2,7 @@ package com.zhengcheng.mall.api.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserLoginLogDTO;
+import com.zhengcheng.mall.api.dto.UserLoginLogDTO;
 
 /**
  * 登录日志表(UserLoginLog)表Facade接口

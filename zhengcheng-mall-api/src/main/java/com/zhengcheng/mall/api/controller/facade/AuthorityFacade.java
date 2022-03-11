@@ -2,9 +2,9 @@ package com.zhengcheng.mall.api.controller.facade;
 
 import java.util.List;
 
-import com.zhengcheng.mall.api.controller.command.AuthorityCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.AuthorityDTO;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.TreeNodeDTO;
+import com.zhengcheng.mall.api.command.AuthorityCommand;
+import com.zhengcheng.mall.api.dto.AuthorityDTO;
+import com.zhengcheng.mall.api.dto.TreeNodeDTO;
 
 /**
  * 权限表(Authority)表Facade接口

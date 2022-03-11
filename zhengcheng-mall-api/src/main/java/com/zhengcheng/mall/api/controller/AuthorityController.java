@@ -9,10 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.constant.CommonConstants;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.api.controller.command.AuthorityCommand;
+import com.zhengcheng.mall.api.command.AuthorityCommand;
 import com.zhengcheng.mall.api.controller.facade.AuthorityFacade;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.AuthorityDTO;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.TreeNodeDTO;
+import com.zhengcheng.mall.api.dto.AuthorityDTO;
+import com.zhengcheng.mall.api.dto.TreeNodeDTO;
 
 import cn.hutool.core.util.URLUtil;
 import io.swagger.annotations.Api;

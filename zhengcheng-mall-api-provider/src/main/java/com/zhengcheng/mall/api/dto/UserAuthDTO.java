@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.controller.facade.internal.dto;
+package com.zhengcheng.mall.api.dto;
 
 import java.io.Serializable;
 
@@ -9,20 +9,20 @@ import lombok.Data;
 import lombok.NoArgsConstructor;
 
 /**
- * 用户角色表(UserRole)数据传输对象
+ * 用户授权表(UserAuth)数据传输对象
  *
  * @author quansheng1.zhang
- * @since 2021-08-13 14:26:58
+ * @since 2021-08-14 17:28:11
  */
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class UserRoleDTO implements Serializable {
-    private static final long serialVersionUID = -95854532738238016L;
+public class UserAuthDTO implements Serializable {
+    private static final long serialVersionUID = 809348928343168776L;
     @ApiModelProperty("用户ID(user表ID)")
     private Long userId;
-    @ApiModelProperty("角色ID(role表ID)")
-    private Long roleId;
+    @ApiModelProperty("社会化用户ID(social_user表ID)")
+    private Long socialUserId;
 
 }

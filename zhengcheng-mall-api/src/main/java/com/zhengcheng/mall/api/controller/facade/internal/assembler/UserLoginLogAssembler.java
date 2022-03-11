@@ -7,7 +7,7 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserLoginLogDTO;
+import com.zhengcheng.mall.api.dto.UserLoginLogDTO;
 import com.zhengcheng.mall.domain.entity.UserLoginLog;
 
 

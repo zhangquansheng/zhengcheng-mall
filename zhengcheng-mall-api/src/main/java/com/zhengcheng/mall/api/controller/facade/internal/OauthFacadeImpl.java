@@ -4,8 +4,6 @@ import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
 
-import cn.hutool.core.codec.Base64;
-import cn.hutool.crypto.asymmetric.KeyType;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -24,7 +22,6 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.net.NetUtil;
 import lombok.extern.slf4j.Slf4j;
-import cn.hutool.crypto.asymmetric.RSA;
 /**
  * UserFacadeImpl
  *
@@ -39,14 +36,11 @@ public class OauthFacadeImpl implements OauthFacade {
     private UserService userService;
     @Autowired
     private UserLoginLogService userLoginLogService;
-    @Autowired
-    private RSA rsa;
 
     @Override
     public SaTokenInfo login(String username, String enPassword, HttpServletRequest request) {
         User user = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
-        String password = new String(rsa.decrypt(Base64.decode(enPassword), KeyType.PrivateKey));
-        return userLogin(user, password, request);
+        return userLogin(user, userService.rasDecrypt(enPassword), request);
     }
 
     private SaTokenInfo userLogin(User user, String password, HttpServletRequest request) {

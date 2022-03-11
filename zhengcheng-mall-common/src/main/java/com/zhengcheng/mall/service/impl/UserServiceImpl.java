@@ -11,10 +11,13 @@ import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.mapper.UserMapper;
 import com.zhengcheng.mall.service.UserService;
 
+import cn.hutool.core.codec.Base64;
 import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
+import cn.hutool.crypto.asymmetric.KeyType;
+import cn.hutool.crypto.asymmetric.RSA;
 
 /**
  * 用户(User)表服务实现类
@@ -31,6 +34,8 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
     private MallProperties mallProperties;
+    @Autowired
+    private RSA rsa;
 
     @Transactional
     @Override
@@ -41,12 +46,18 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
         return userMapper.insert(user) > 0;
     }
 
-    private String md5(String password) {
-        return SecureUtil.md5(StrUtil.format("{}{}", password, mallProperties.getUserPasswordMd5Sign()));
-    }
-
     @Override
     public boolean isSamePassword(String password, String encodedPassword) {
         return bCryptPasswordEncoder.matches(md5(password), encodedPassword);
     }
+
+    @Override
+    public String rasDecrypt(String enPassword) {
+        return new String(rsa.decrypt(Base64.decode(enPassword), KeyType.PrivateKey));
+    }
+
+    private String md5(String password) {
+        return SecureUtil.md5(StrUtil.format("{}{}", password, mallProperties.getUserPasswordMd5Sign()));
+    }
+
 }

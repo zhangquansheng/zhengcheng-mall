@@ -2,9 +2,9 @@ package com.zhengcheng.mall.api.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.api.controller.command.UserCommand;
-import com.zhengcheng.mall.api.controller.command.UserRoleCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserDTO;
+import com.zhengcheng.mall.api.command.UserCommand;
+import com.zhengcheng.mall.api.command.UserRoleCommand;
+import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
  * 用户(User)表Facade接口
@@ -31,6 +31,13 @@ public interface UserFacade {
      * @return UserDTO
      */
     UserDTO findById(Long id);
+
+    /**
+     * 根据用户名查询用户信息
+     * @param username 用户名
+     * @return UserDTO
+     */
+    UserDTO findByUsername(String username);
 
     /**
      * 添加单条数据

@@ -2,14 +2,13 @@ package com.zhengcheng.mall.api.controller.facade.internal.assembler;
 
 import java.util.List;
 
-import com.zhengcheng.mall.domain.entity.Authority;
 import org.mapstruct.Builder;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.zhengcheng.mall.api.controller.command.AuthorityCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.AuthorityDTO;
+import com.zhengcheng.mall.api.command.AuthorityCommand;
+import com.zhengcheng.mall.api.dto.AuthorityDTO;
 import com.zhengcheng.mall.domain.entity.Authority;
 
 /**

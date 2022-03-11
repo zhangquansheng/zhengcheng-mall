@@ -12,7 +12,7 @@ import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.controller.facade.UserLoginLogFacade;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserLoginLogDTO;
+import com.zhengcheng.mall.api.dto.UserLoginLogDTO;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import cn.dev33.satoken.annotation.SaCheckRole;

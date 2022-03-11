@@ -12,10 +12,10 @@ import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.api.controller.command.RoleAuthorityCommand;
-import com.zhengcheng.mall.api.controller.command.RoleCommand;
+import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
+import com.zhengcheng.mall.api.command.RoleCommand;
 import com.zhengcheng.mall.api.controller.facade.RoleFacade;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.RoleDTO;
+import com.zhengcheng.mall.api.dto.RoleDTO;
 
 import cn.hutool.core.util.URLUtil;
 import io.swagger.annotations.Api;

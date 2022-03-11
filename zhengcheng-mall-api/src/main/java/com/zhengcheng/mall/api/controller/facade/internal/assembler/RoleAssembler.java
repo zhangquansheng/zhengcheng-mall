@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.zhengcheng.mall.api.controller.command.RoleCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.RoleDTO;
+import com.zhengcheng.mall.api.command.RoleCommand;
+import com.zhengcheng.mall.api.dto.RoleDTO;
 import com.zhengcheng.mall.domain.entity.Role;
 
 /**

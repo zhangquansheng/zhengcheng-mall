@@ -8,11 +8,11 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
-import com.zhengcheng.mall.api.controller.command.AuthorityCommand;
+import com.zhengcheng.mall.api.command.AuthorityCommand;
 import com.zhengcheng.mall.api.controller.facade.AuthorityFacade;
 import com.zhengcheng.mall.api.controller.facade.internal.assembler.AuthorityAssembler;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.AuthorityDTO;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.TreeNodeDTO;
+import com.zhengcheng.mall.api.dto.AuthorityDTO;
+import com.zhengcheng.mall.api.dto.TreeNodeDTO;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.service.AuthorityService;
 

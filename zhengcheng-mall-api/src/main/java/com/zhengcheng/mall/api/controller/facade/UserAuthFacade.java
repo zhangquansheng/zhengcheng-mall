@@ -2,8 +2,8 @@ package com.zhengcheng.mall.api.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.api.controller.command.UserAuthCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserAuthDTO;
+import com.zhengcheng.mall.api.command.UserAuthCommand;
+import com.zhengcheng.mall.api.dto.UserAuthDTO;
 
 /**
  * 用户授权表(UserAuth)表Facade接口

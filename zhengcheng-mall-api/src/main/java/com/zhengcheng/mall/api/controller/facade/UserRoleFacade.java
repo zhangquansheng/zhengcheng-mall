@@ -2,8 +2,8 @@ package com.zhengcheng.mall.api.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.api.controller.command.UserRoleCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserRoleDTO;
+import com.zhengcheng.mall.api.command.UserRoleCommand;
+import com.zhengcheng.mall.api.dto.UserRoleDTO;
 
 /**
  * 用户角色表(UserRole)表Facade接口

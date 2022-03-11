@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
  */
 @RestController
 @RequestMapping("/oauth")
-public class OauthControllerClient implements OauthFeignClient {
+public class OauthController implements OauthFeignClient {
 
     @Autowired
     private OauthFacade userFacade;

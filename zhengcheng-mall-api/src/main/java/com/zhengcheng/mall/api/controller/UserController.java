@@ -4,16 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.constant.CommonConstants;
-import com.zhengcheng.common.validation.annotation.Insert;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.api.controller.command.UserCommand;
-import com.zhengcheng.mall.api.controller.command.UserRoleCommand;
+import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserDTO;
+import com.zhengcheng.mall.api.dto.UserDTO;
+import com.zhengcheng.mall.api.feign.UserFeignClient;
 
 import cn.dev33.satoken.stp.StpUtil;
-import cn.hutool.core.util.URLUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -26,37 +23,29 @@ import io.swagger.annotations.ApiOperation;
 @Api(tags = {"用户(User)接口"})
 @RestController
 @RequestMapping("/user")
-public class UserController {
+public class UserController implements UserFeignClient {
 
     @Autowired
     private UserFacade userFacade;
 
+    @ApiOperation("根据用户名查询用户基本信息")
+    @GetMapping("/findByUsername")
+    @Override
+    public Result<UserDTO> findByUsername(@RequestParam("username")String username) {
+        return Result.successData(userFacade.findByUsername(username));
+    }
+
     @ApiOperation("当前用户信息")
     @GetMapping("/current")
+    @Override
     public Result<UserDTO> current() {
         return Result.successData(userFacade.findCurrent(Long.parseLong(String.valueOf(StpUtil.getLoginId()))));
     }
 
     @ApiOperation("添加用户")
     @PostMapping("/add")
-    public Result<Long> add(@RequestHeader(CommonConstants.USER_ID_PARAM_NAME) Long userId,
-        @RequestHeader(CommonConstants.USER_NAME_PARAM_NAME) String userName,
-        @Validated @RequestBody UserCommand userCommand) {
-        userCommand.setUpdateUserId(userId);
-        userCommand.setUpdateUserName(URLUtil.decode(userName));
-
+    @Override
+    public Result<Long> add(@Validated @RequestBody UserCommand userCommand) {
         return Result.successData(userFacade.add(userCommand));
     }
-
-    @ApiOperation("编辑用户角色")
-    @PostMapping("/role")
-    public Result<Void> role(@RequestHeader(CommonConstants.USER_ID_PARAM_NAME) Long userId,
-        @RequestHeader(CommonConstants.USER_NAME_PARAM_NAME) String userName,
-        @Validated({Insert.class}) @RequestBody UserRoleCommand userRoleCommand) {
-        userRoleCommand.setUpdateUserId(userId);
-        userRoleCommand.setUpdateUserName(URLUtil.decode(userName));
-        userFacade.addUserRole(userRoleCommand);
-        return Result.success();
-    }
-
 }

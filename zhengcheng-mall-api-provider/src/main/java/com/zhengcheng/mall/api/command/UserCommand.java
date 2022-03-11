@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.controller.command;
+package com.zhengcheng.mall.api.command;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;

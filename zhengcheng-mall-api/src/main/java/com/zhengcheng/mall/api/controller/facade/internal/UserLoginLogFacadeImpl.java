@@ -9,7 +9,7 @@ import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.api.controller.facade.UserLoginLogFacade;
 import com.zhengcheng.mall.api.controller.facade.internal.assembler.UserLoginLogAssembler;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserLoginLogDTO;
+import com.zhengcheng.mall.api.dto.UserLoginLogDTO;
 import com.zhengcheng.mall.domain.entity.UserLoginLog;
 import com.zhengcheng.mall.service.UserLoginLogService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;

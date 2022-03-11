@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.zhengcheng.mall.api.controller.command.UserCommand;
-import com.zhengcheng.mall.api.controller.facade.internal.dto.UserDTO;
+import com.zhengcheng.mall.api.command.UserCommand;
+import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.domain.entity.User;
 
 

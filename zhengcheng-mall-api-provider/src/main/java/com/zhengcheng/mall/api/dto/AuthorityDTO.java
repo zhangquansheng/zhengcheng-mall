@@ -1,56 +1,48 @@
-package com.zhengcheng.mall.api.controller.command;
+package com.zhengcheng.mall.api.dto;
 
-import javax.validation.constraints.NotNull;
-
-import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.UserCommand;
+import java.io.Serializable;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
- * 权限表(Authority)数据查询对象
+ * 权限表(Authority)数据传输对象
  *
  * @author quansheng1.zhang
  * @since 2021-08-13 14:46:58
  */
-@EqualsAndHashCode(callSuper = true)
-@Builder
+@Data
 @AllArgsConstructor
 @NoArgsConstructor
-@Data
-public class AuthorityCommand extends UserCommand {
-    private static final long serialVersionUID = 808453051183645421L;
+@Builder
+public class AuthorityDTO implements Serializable {
+    private static final long serialVersionUID = -71655364525774779L;
 
-    @ApiModelProperty("ID，更新时候必填")
-    @NotNull(message = "ID不能为空", groups = {Update.class})
+    @ApiModelProperty("ID")
     private Long id;
-
     @ApiModelProperty("名称")
     private String name;
-
     @ApiModelProperty("编码")
     private String code;
-
     @ApiModelProperty("前端路由")
     private String route;
-
     @ApiModelProperty("图标")
     private String icon;
-
     @ApiModelProperty("父ID")
     private Long pid;
-
+    @ApiModelProperty("数路径")
+    private String treePath;
+    @ApiModelProperty("层级(最多三级1,2,3)")
+    private Integer level;
     @ApiModelProperty("后端接口URL")
     private String url;
-
     @ApiModelProperty("备注")
     private String remark;
-
     @ApiModelProperty("类型，0-菜单权限，1-按钮权限")
     private Integer type;
-
     @ApiModelProperty("排序")
     private Integer sort;
-
 }
