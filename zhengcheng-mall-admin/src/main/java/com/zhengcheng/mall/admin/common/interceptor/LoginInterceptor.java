@@ -20,6 +20,7 @@ import com.zhengcheng.mall.api.dto.UserDTO;
  * @author :    zhngquansheng
  * @date :    2019/12/20 15:17
  */
+@Deprecated
 @Component
 public class LoginInterceptor extends HandlerInterceptorAdapter {
 
@@ -81,7 +82,7 @@ public class LoginInterceptor extends HandlerInterceptorAdapter {
         if (modelAndView != null) {
             String viewName = modelAndView.getViewName();
             if (!StringUtils.startsWith(viewName, REDIRECT_VIEW_NAME_PREFIX)) {
-                modelAndView.addObject(MEMBER_ATTRIBUTE_NAME, userService.getCurrent());
+//                modelAndView.addObject(MEMBER_ATTRIBUTE_NAME, userService.getCurrent());
             }
         }
     }
