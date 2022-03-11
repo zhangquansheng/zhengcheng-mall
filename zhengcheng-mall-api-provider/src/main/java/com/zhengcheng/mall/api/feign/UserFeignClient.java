@@ -26,13 +26,13 @@ public interface UserFeignClient {
      */
     String NAME = "zhengcheng-mall";
 
+    @ApiOperation("通过token获取用户消息")
+    @GetMapping("/user/findByByToken")
+    Result<UserDTO> findByByToken(@RequestParam("accessToken")String accessToken);
+
     @ApiOperation("根据用户名查询用户基本信息")
     @GetMapping("/user/findByUsername")
     Result<UserDTO> findByUsername(@RequestParam("username")String username);
-
-    @ApiOperation("当前用户信息")
-    @GetMapping("/user/current")
-    Result<UserDTO> current();
 
     @ApiOperation("添加用户")
     @PostMapping("/user/add")

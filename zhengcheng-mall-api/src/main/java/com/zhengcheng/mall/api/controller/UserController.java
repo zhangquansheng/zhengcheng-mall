@@ -10,7 +10,6 @@ import com.zhengcheng.mall.api.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 
-import cn.dev33.satoken.stp.StpUtil;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -28,18 +27,18 @@ public class UserController implements UserFeignClient {
     @Autowired
     private UserFacade userFacade;
 
+    @ApiOperation("通过token获取用户消息")
+    @GetMapping("/findByByToken")
+    @Override
+    public Result<UserDTO> findByByToken(@RequestParam("accessToken")String accessToken) {
+        return Result.successData(userFacade.findByByToken(accessToken));
+    }
+
     @ApiOperation("根据用户名查询用户基本信息")
     @GetMapping("/findByUsername")
     @Override
     public Result<UserDTO> findByUsername(@RequestParam("username")String username) {
         return Result.successData(userFacade.findByUsername(username));
-    }
-
-    @ApiOperation("当前用户信息")
-    @GetMapping("/current")
-    @Override
-    public Result<UserDTO> current() {
-        return Result.successData(userFacade.findCurrent(Long.parseLong(String.valueOf(StpUtil.getLoginId()))));
     }
 
     @ApiOperation("添加用户")

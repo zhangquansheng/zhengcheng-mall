@@ -1,7 +1,8 @@
 package com.zhengcheng.mall.admin.controller;
 
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
  * IndexController - 首页
@@ -12,8 +13,9 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class IndexController {
 
-    @GetMapping("/index")
-    public String index() {
+    @RequestMapping("/")
+    public String index(Model model) {
+        model.addAttribute("currentUserId", 1);
         return "index";
     }
 

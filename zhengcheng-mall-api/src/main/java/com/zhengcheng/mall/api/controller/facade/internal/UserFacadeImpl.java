@@ -24,8 +24,8 @@ import com.zhengcheng.mall.service.UserRoleService;
 import com.zhengcheng.mall.service.UserService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
+import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
-import cn.hutool.crypto.asymmetric.RSA;
 
 /**
  * 用户(User)外观模式，接口实现
@@ -44,11 +44,16 @@ public class UserFacadeImpl implements UserFacade {
     private RoleAuthorityService roleAuthorityService;
     @Autowired
     private UserAssembler userAssembler;
-    @Autowired
-    private RSA rsa;
 
     @Override
-    public UserDTO findCurrent(Long id) {
+    public UserDTO findByByToken(String tokenValue) {
+       Object loginId = StpUtil.getLoginIdByToken(tokenValue);
+       if(Objects.isNull(loginId)){
+           // TODO 专属的登录过期业务异常
+           throw new BizException("登录信息已过期！");
+       }
+
+        Long id = Long.valueOf(String.valueOf(loginId));
         UserDTO userDTO = this.findById(id);
         userDTO.setRoleCodes(userRoleService.getRoleCodeList(id));
         userDTO.setAuthorityCodes(roleAuthorityService.getAuthorityCodeList(id));

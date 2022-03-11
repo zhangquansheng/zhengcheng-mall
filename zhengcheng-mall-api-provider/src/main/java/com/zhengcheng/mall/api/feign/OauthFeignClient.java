@@ -19,9 +19,6 @@ public interface OauthFeignClient {
      */
     String NAME = "zhengcheng-mall";
 
-    @RequestMapping(value = "/oauth/logout", method = RequestMethod.GET)
-    Result<Void> logout();
-
     @RequestMapping(value = "/oauth/logoutByToken", method = RequestMethod.GET)
     Result<Void> logoutByToken(@RequestParam("access_token") String accessToken);
 

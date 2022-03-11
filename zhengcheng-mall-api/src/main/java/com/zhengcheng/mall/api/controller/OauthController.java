@@ -33,18 +33,10 @@ public class OauthController implements OauthFeignClient {
     @Autowired
     private OauthFacade userFacade;
 
-    @ApiOperation(value = "注销登录")
-    @GetMapping(value = "/logout")
-    @Override
-    public Result<Void> logout() {
-        StpUtil.logout();
-        return Result.success();
-    }
-
     @ApiOperation(value = "指定token的会话注销登录")
     @GetMapping(value = "/logoutByToken")
     @Override
-    public Result<Void> logoutByToken(@RequestParam("access_token") String accessToken) {
+    public Result<Void> logoutByToken(@RequestParam("accessToken") String accessToken) {
         StpUtil.logoutByTokenValue(accessToken);
         return Result.success();
     }
@@ -69,7 +61,8 @@ public class OauthController implements OauthFeignClient {
 
     @Nullable
     private HttpServletRequest getRequest() {
-        return Objects.nonNull(getServletRequestAttributes())?getServletRequestAttributes().getRequest():null;
+        ServletRequestAttributes servletRequestAttributes = getServletRequestAttributes();
+        return Objects.nonNull(servletRequestAttributes)?servletRequestAttributes.getRequest():null;
     }
 
     @Nullable

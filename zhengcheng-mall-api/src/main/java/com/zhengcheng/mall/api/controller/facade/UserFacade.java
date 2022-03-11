@@ -15,14 +15,11 @@ import com.zhengcheng.mall.api.dto.UserDTO;
 public interface UserFacade {
 
     /**
-     * 查询当前登录的用户，返回角色，权限
-     * 
-     * @param id
-     *            用户ID
+     * 通过token获取用户消息
+     * @param tokenValue 令牌
      * @return UserDTO
      */
-    UserDTO findCurrent(Long id);
-
+    UserDTO findByByToken(String tokenValue);
     /**
      * 通过ID查询单条数据
      *

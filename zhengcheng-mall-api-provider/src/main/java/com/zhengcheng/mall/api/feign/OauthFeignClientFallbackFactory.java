@@ -21,12 +21,6 @@ public class OauthFeignClientFallbackFactory implements FallbackFactory<OauthFei
     public OauthFeignClient create(Throwable throwable) {
         return new OauthFeignClient() {
             @Override
-            public Result<Void> logout() {
-                log.error("OauthFeignClient logout fallback message: {}", throwable.getMessage(), throwable);
-                return Result.fallbackResult();
-            }
-
-            @Override
             public Result<Void> logoutByToken(String accessToken) {
                 log.error("OauthFeignClient logoutByToken fallback accessToken: {} , message: {}", accessToken, throwable.getMessage(), throwable);
                 return Result.fallbackResult();
