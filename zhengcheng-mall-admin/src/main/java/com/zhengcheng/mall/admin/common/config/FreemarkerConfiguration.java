@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.config;
+package com.zhengcheng.mall.admin.common.config;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;

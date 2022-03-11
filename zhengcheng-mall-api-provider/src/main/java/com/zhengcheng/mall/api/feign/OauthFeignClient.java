@@ -1,7 +1,9 @@
 package com.zhengcheng.mall.api.feign;
 
 import org.springframework.cloud.openfeign.FeignClient;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
@@ -19,7 +21,7 @@ public interface OauthFeignClient {
      */
     String NAME = "zhengcheng-mall";
 
-    @RequestMapping(value = "/oauth/logoutByToken", method = RequestMethod.GET)
+    @GetMapping(value = "/oauth/logoutByToken")
     Result<Void> logoutByToken(@RequestParam("access_token") String accessToken);
 
     @GetMapping("/oauth/token")
