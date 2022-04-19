@@ -34,22 +34,22 @@ public interface RoleFeignClient {
     String NAME = "zhengcheng-mall";
 
     @ApiOperation("通过主键查询单条数据")
-    @GetMapping("/{id}")
+    @GetMapping("/role/{id}")
     Result<RoleDTO> findById(@PathVariable("id") Long id);
 
     @ApiOperation("添加单条数据")
-    @PostMapping("/add")
+    @PostMapping("/role/add")
     Result<Long> add(@Validated({Insert.class}) @RequestBody RoleCommand roleCommand);
 
     @ApiOperation("更新单条数据")
-    @PostMapping("/update")
+    @PostMapping("/role/update")
     Result<Long> update(@Validated({Update.class}) @RequestBody RoleCommand roleCommand);
 
     @ApiOperation("分页查询")
-    @PostMapping("/page")
+    @PostMapping("/role/page")
     Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand);
 
     @ApiOperation("编辑角色权限")
-    @PostMapping("/authority")
+    @PostMapping("/role/authority")
     Result<Void> authority(@Validated({Insert.class}) @RequestBody RoleAuthorityCommand roleAuthorityCommand);
 }

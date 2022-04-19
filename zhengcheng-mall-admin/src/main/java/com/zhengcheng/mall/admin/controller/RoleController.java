@@ -4,9 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
@@ -31,9 +29,16 @@ public class RoleController {
     @Autowired
     private RoleFeignClient roleFeignClient;
 
+    @ApiOperation("权限页面")
+    @GetMapping("/view")
+    public String view() {
+        return "/view/system/role";
+    }
+
     @ApiOperation("分页查询")
     @PostMapping("/page")
-    public Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
+    public @ResponseBody
+    Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
         return roleFeignClient.page(pageCommand);
     }
 }

@@ -11,24 +11,6 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">用户名</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">邮箱</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
                     <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="role-query">
                         <i class="layui-icon layui-icon-search"></i>
                         查询
@@ -63,13 +45,13 @@
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
     <button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="power"><i
-            class="layui-icon layui-icon-vercode"></i></button>
+                class="layui-icon layui-icon-vercode"></i></button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
 </script>
 
 <script type="text/html" id="role-enable">
-    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="role-enable" {{
+    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="是|否" lay-filter="role-enable" {{
            d.enable== true ? 'checked' : '' }} />
 </script>
 
@@ -86,10 +68,12 @@
         let cols = [
             [
                 {type: 'checkbox'},
-                {title: '角色名', field: 'roleName', align: 'center', width: 100},
-                {title: 'Key值', field: 'roleCode', align: 'center'},
-                {title: '描述', field: 'details', align: 'center'},
-                {title: '是否可用', field: 'enable', align: 'center', templet: '#role-enable'},
+                {title: '角色名', field: 'name', align: 'center', width: 100},
+                {title: 'Key值', field: 'code', align: 'center'},
+                {title: '描述', field: 'description', align: 'center'},
+                {title: '是否内置', field: 'isSystem', align: 'center', templet: '#role-enable'},
+                {title: '创建时间', field: 'createTime', align: 'center'},
+                {title: '更新时间', field: 'updateTime', align: 'center'},
                 {title: '操作', toolbar: '#role-bar', align: 'center', width: 195}
             ]
         ]
@@ -101,6 +85,24 @@
             cols: cols,
             skin: 'line',
             toolbar: '#role-toolbar',
+            method: 'post', //如果无需自定义HTTP类型，可不加该参数
+            contentType: 'application/json',
+            request: {
+                pageName: 'pageNo' //页码的参数名称，默认：page
+                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
+            },
+            response: {
+                statusCode: 200 //规定成功的状态码，默认：0
+                , msgName: 'message' //规定状态信息的字段名称，默认：msg
+            },
+            parseData: function (res) { //res 即为原始返回的数据
+                return {
+                    "code": res.code,
+                    "msg": res.message, //解析提示文本
+                    "count": res.data.total, //解析数据长度
+                    "data": res.data.records //解析数据列表
+                };
+            },
             defaultToolbar: [{
                 title: '刷新',
                 layEvent: 'refresh',

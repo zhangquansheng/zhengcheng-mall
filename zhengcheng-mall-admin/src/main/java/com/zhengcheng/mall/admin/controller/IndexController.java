@@ -21,7 +21,7 @@ public class IndexController {
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
         TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
-        model.addAttribute("currentUserId", tokenInfoDTO.getLoginId());
+//        model.addAttribute("currentUserId", tokenInfoDTO.getLoginId());
         return "index";
     }
 
