@@ -1,42 +1,29 @@
 {
-	"code": 0,
-	"msg": "...",
-	"count": 3,
-	"data": [{
-		"createTime": null,
-		"createBy": null,
-		"updateTime": null,
-		"updateBy": null,
-		"remark": null,
-		"roleId": "1",
-		"roleName": "超级管理员",
-		"roleCode": "admin",
-		"enable": "1",
-		"details": "超级管理员",
-		"checked": false
-	}, {
-		"createTime": null,
-		"createBy": null,
-		"updateTime": null,
-		"updateBy": null,
-		"remark": null,
-		"roleId": "2",
-		"roleName": "普通管理员",
-		"roleCode": "manager",
-		"enable": "0",
-		"details": "普通管理员",
-		"checked": false
-	}, {
-		"createTime": null,
-		"createBy": null,
-		"updateTime": null,
-		"updateBy": null,
-		"remark": null,
-		"roleId": "3",
-		"roleName": "普通用户",
-		"roleCode": "pearson",
-		"enable": "0",
-		"details": "普通用户",
-		"checked": false
-	}]
+  "code": 200,
+  "message": "请求成功",
+  "data": {
+    "pageNo": 1,
+    "pageSize": 10,
+    "total": 2,
+    "records": [
+      {
+        "id": 2,
+        "createTime": "2021-08-20 16:58:38",
+        "updateTime": "2021-08-20 17:13:59",
+        "name": "string",
+        "code": "CC",
+        "isSystem": 0,
+        "description": "string"
+      },
+      {
+        "id": 1,
+        "createTime": "2021-08-13 16:13:49",
+        "updateTime": "2021-08-13 16:13:49",
+        "name": "管理员",
+        "code": "admin",
+        "isSystem": 1,
+        "description": "数据管理员"
+      }
+    ]
+  }
 }
