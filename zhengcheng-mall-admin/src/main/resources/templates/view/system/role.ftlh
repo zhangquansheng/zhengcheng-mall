@@ -164,7 +164,7 @@
                     headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
                     success: function (result) {
                         layer.close(loading);
-                        if (result.success) {
+                        if (result.code == 200) {
                             layer.msg(result.message, {icon: 1, time: 1000}, function () {
                                 obj.del();
                             });
