@@ -7,6 +7,8 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
 import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 
+import cn.dev33.satoken.interceptor.SaAnnotationInterceptor;
+
 /**
  * MallAdminMvcConfiguration
  *
@@ -24,6 +26,8 @@ public class MallAdminMvcConfiguration implements WebMvcConfigurer {
                 "/static/**",
                 "/swagger-ui.html", "/doc.html", "/webjars/**", "/swagger-resources", "/swagger-resources/**",
                 "/v2/api-docs");
+        // 注册注解拦截器，并排除不需要注解鉴权的接口地址 (与登录拦截器无关)
+        registry.addInterceptor(new SaAnnotationInterceptor()).addPathPatterns("/**");
     }
 
     @Override
