@@ -158,17 +158,18 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['roleId'],
+                    url: MODULE_PATH + "remove/" + obj.data['id'],
                     dataType: 'json',
                     type: 'delete',
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
                     success: function (result) {
                         layer.close(loading);
                         if (result.success) {
-                            layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
                                 obj.del();
                             });
                         } else {
-                            layer.msg(result.msg, {icon: 2, time: 1000});
+                            layer.msg(result.message, {icon: 2, time: 1000});
                         }
                     }
                 })
@@ -186,7 +187,7 @@
                 ids += data[i].roleId + ",";
             }
             ids = ids.substr(0, ids.length - 1);
-            layer.confirm('确定要删除这些用户', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除这些角色', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({

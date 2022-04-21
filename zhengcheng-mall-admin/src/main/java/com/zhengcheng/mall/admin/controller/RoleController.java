@@ -43,4 +43,13 @@ public class RoleController {
     Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
         return Result.successData(roleFacade.page(pageCommand));
     }
+
+    @ApiOperation("根据ID删除")
+    @SaCheckPermission("sys:role:del")
+    @DeleteMapping("/operate/remove/{id}")
+    public @ResponseBody
+    Result<Void> removeById(@PathVariable("id")Long id) {
+        roleFacade.removeById(id);
+        return Result.success();
+    }
 }

@@ -24,6 +24,12 @@ public interface RoleFacade {
     RoleDTO findById(Long id);
 
     /**
+     * 通过ID删除单条数据
+     * @param id
+     *          主键
+     */
+    void removeById(Long id);
+    /**
      * 添加单条数据
      *
      * @param roleCommand

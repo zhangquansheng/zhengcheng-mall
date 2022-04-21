@@ -44,6 +44,11 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
+    public void removeById(Long id) {
+        roleService.removeById(id);
+    }
+
+    @Override
     public Long add(RoleCommand roleCommand) {
         Role role = roleAssembler.toEntity(roleCommand);
         roleService.save(role);
