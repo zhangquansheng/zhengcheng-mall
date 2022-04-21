@@ -9,22 +9,6 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
         table = layui.table,
         element = layui.element;
 
-    layui.use(['table'], function () {
-
-        /* table全局设置 */
-        var token = '这里你可以从缓存中获取token';
-        if (token && token.access_token) {
-            layui.table.set({
-                headers: {'Authorization': 'Bearer ' + token.access_token},
-                parseData: function (res) {  // 利用parseData实现预处理
-					
-                    return res;
-                }
-            });
-        }
-
-    });
-
     var common = new function () {
 
         /**

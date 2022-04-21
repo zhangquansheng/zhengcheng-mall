@@ -9,19 +9,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 
+import cn.hutool.json.JSONUtil;
+import lombok.extern.slf4j.Slf4j;
+
 /**
  * IndexController - 首页
  *
  * @author quansheng1.zhang
  * @since 2021/5/19 15:37
  */
+@Slf4j
 @Controller
 public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
         TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
-//        model.addAttribute("currentUserId", tokenInfoDTO.getLoginId());
+        log.info(JSONUtil.toJsonStr(tokenInfoDTO));
         return "index";
     }
 

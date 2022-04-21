@@ -75,7 +75,7 @@
                                     location.href = "${redirectUrl}";
                                 });
                             }
-                        })
+                        });
                     } else {
                         layer.msg('用户名或者密码不正确！');
                     }

@@ -87,7 +87,7 @@
             toolbar: '#role-toolbar',
             method: 'post', //如果无需自定义HTTP类型，可不加该参数
             contentType: 'application/json',
-            headers: {token: layui.data('zhengchengMallAdmin')['sa-token']},
+            headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
             request: {
                 pageName: 'pageNo' //页码的参数名称，默认：page
                 , limitName: 'pageSize' //每页数据量的参数名，默认：limit
