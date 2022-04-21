@@ -26,5 +26,6 @@ public class RoleDTO extends BaseDTO {
     private Integer isSystem;
     @ApiModelProperty("描述")
     private String description;
-
+    @ApiModelProperty("是否启用")
+    private boolean enable;
 }

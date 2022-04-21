@@ -29,7 +29,7 @@ public class RoleController {
     @Autowired
     private RoleFeignClient roleFeignClient;
 
-    @ApiOperation("权限页面")
+    @ApiOperation("角色页面")
     @GetMapping("/view")
     public String view() {
         return "/view/system/role";

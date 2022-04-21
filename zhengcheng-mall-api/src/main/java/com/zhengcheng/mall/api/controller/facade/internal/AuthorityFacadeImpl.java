@@ -34,6 +34,11 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     private AuthorityAssembler authorityAssembler;
 
     @Override
+    public List<AuthorityDTO> findAll() {
+        return authorityAssembler.toDTOs(authorityService.list());
+    }
+
+    @Override
     public AuthorityDTO findById(Long id) {
         return authorityAssembler.toDTO(authorityService.getById(id));
     }

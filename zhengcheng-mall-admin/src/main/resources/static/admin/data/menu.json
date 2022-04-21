@@ -368,7 +368,7 @@
         "icon": "layui-icon layui-icon-face-cry",
         "type": 1,
         "openType": "_iframe",
-        "href": "view/system/power.html"
+        "href": "admin/authority/view"
       },
       {
         "id": 604,

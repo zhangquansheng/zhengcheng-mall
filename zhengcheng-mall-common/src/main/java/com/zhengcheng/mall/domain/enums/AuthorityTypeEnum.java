@@ -13,14 +13,16 @@ import lombok.Getter;
 @Getter
 public enum AuthorityTypeEnum {
 
-    MENU(0, "菜单"),
+    CATALOGUE(0,"目录"),
 
-    BUTTON(1, "按钮");
+    MENU(1, "菜单"),
+
+    BUTTON(2, "按钮");
 
     @EnumValue
     private final int value;
 
-    private String desc;
+    private final String desc;
 
     AuthorityTypeEnum(final int value, final String desc) {
         this.value = value;

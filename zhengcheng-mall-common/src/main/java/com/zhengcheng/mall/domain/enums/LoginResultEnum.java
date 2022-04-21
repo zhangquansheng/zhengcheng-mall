@@ -20,7 +20,7 @@ public enum LoginResultEnum {
     @EnumValue
     private final int value;
 
-    private String desc;
+    private final String desc;
 
     LoginResultEnum(final int value, final String desc) {
         this.value = value;

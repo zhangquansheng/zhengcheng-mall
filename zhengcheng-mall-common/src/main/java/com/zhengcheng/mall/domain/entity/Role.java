@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengcheng.mybatis.plus.model.BaseEntity;
 
@@ -37,5 +38,9 @@ public class Role extends BaseEntity<Role> {
      * 描述
      */
     private String description;
-
+    /**
+     * 是否启用
+     */
+    @TableField(value = "is_enable")
+    private boolean enable;
 }

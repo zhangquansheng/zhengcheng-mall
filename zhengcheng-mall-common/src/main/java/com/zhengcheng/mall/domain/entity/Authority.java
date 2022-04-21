@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengcheng.mall.domain.enums.AuthorityTypeEnum;
 import com.zhengcheng.mybatis.plus.model.BaseEntity;
@@ -59,12 +60,16 @@ public class Authority extends BaseEntity<Authority> {
      */
     private String remark;
     /**
-     * 类型，0-菜单权限，1-按钮权限
+     * 类型，0-目录，1-菜单，2-按钮
      */
     private AuthorityTypeEnum type;
     /**
      * 排序
      */
     private Integer sort;
-
+    /**
+     * 是否启用
+     */
+    @TableField(value = "is_enable")
+    private boolean enable;
 }

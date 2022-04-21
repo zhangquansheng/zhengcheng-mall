@@ -15,6 +15,10 @@ import com.zhengcheng.mall.api.dto.TreeNodeDTO;
 public interface AuthorityFacade {
 
     /**
+     * 查询所有权限
+     */
+    List<AuthorityDTO> findAll();
+    /**
      * 通过ID查询单条数据
      *
      * @param id
