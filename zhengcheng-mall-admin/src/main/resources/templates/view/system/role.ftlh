@@ -71,7 +71,7 @@
                 {title: '角色名', field: 'name', align: 'center', width: 100},
                 {title: 'Key值', field: 'code', align: 'center'},
                 {title: '描述', field: 'description', align: 'center'},
-                {title: '是否内置', field: 'isSystem', align: 'center', templet: '#role-enable'},
+                {title: '是否启用', field: 'enable', align: 'center', templet: '#role-enable'},
                 {title: '创建时间', field: 'createTime', align: 'center'},
                 {title: '更新时间', field: 'updateTime', align: 'center'},
                 {title: '操作', toolbar: '#role-bar', align: 'center', width: 195}

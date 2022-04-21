@@ -17,7 +17,6 @@ import com.zhengcheng.mall.api.controller.facade.RoleFacade;
 import com.zhengcheng.mall.api.dto.RoleDTO;
 import com.zhengcheng.mall.api.feign.RoleFeignClient;
 
-import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -58,7 +57,6 @@ public class RoleController implements RoleFeignClient {
 
     @Override
     @ApiOperation("分页查询")
-    @SaCheckPermission("sys:role:main")
     @PostMapping("/page")
     public Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
         return Result.successData(roleFacade.page(pageCommand));
