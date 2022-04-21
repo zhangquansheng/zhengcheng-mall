@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.controller.facade.internal.assembler;
+package com.zhengcheng.mall.admin.controller.facade.internal.assembler;
 
 import java.util.List;
 
@@ -7,8 +7,8 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
-import com.zhengcheng.mall.api.command.RoleCommand;
-import com.zhengcheng.mall.api.dto.RoleDTO;
+import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.domain.entity.Role;
 
 /**

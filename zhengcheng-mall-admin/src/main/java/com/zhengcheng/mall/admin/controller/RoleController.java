@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.api.dto.RoleDTO;
-import com.zhengcheng.mall.api.feign.RoleFeignClient;
+import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
+import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
@@ -28,7 +28,7 @@ import io.swagger.annotations.ApiOperation;
 public class RoleController {
 
     @Autowired
-    private RoleFeignClient roleFeignClient;
+    private RoleFacade roleFacade;
 
     @ApiOperation("角色页面")
     @GetMapping("/view")
@@ -41,6 +41,6 @@ public class RoleController {
     @PostMapping("/page")
     public @ResponseBody
     Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
-        return roleFeignClient.page(pageCommand);
+        return Result.successData(roleFacade.page(pageCommand));
     }
 }

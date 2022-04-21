@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.controller.facade.internal;
+package com.zhengcheng.mall.admin.controller.facade.internal;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -11,11 +11,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
+import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
+import com.zhengcheng.mall.admin.controller.facade.internal.assembler.RoleAssembler;
 import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
-import com.zhengcheng.mall.api.command.RoleCommand;
-import com.zhengcheng.mall.api.controller.facade.RoleFacade;
-import com.zhengcheng.mall.api.controller.facade.internal.assembler.RoleAssembler;
-import com.zhengcheng.mall.api.dto.RoleDTO;
 import com.zhengcheng.mall.domain.entity.Role;
 import com.zhengcheng.mall.domain.entity.RoleAuthority;
 import com.zhengcheng.mall.service.RoleAuthorityService;

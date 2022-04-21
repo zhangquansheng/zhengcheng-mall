@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.dto;
+package com.zhengcheng.mall.admin.controller.dto;
 
 import com.zhengcheng.common.dto.BaseDTO;
 

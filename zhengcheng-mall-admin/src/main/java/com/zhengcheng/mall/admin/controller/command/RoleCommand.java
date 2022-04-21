@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.api.command;
+package com.zhengcheng.mall.admin.controller.command;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;

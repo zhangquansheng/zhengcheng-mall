@@ -87,22 +87,6 @@
             toolbar: '#role-toolbar',
             method: 'post', //如果无需自定义HTTP类型，可不加该参数
             contentType: 'application/json',
-            request: {
-                pageName: 'pageNo' //页码的参数名称，默认：page
-                , limitName: 'pageSize' //每页数据量的参数名，默认：limit
-            },
-            response: {
-                statusCode: 200 //规定成功的状态码，默认：0
-                , msgName: 'message' //规定状态信息的字段名称，默认：msg
-            },
-            parseData: function (res) { //res 即为原始返回的数据
-                return {
-                    "code": res.code,
-                    "msg": res.message, //解析提示文本
-                    "count": res.data.total, //解析数据长度
-                    "data": res.data.records //解析数据列表
-                };
-            },
             defaultToolbar: [{
                 title: '刷新',
                 layEvent: 'refresh',

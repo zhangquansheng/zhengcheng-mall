@@ -1,10 +1,10 @@
-package com.zhengcheng.mall.api.controller.facade;
+package com.zhengcheng.mall.admin.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
-import com.zhengcheng.mall.api.command.RoleCommand;
-import com.zhengcheng.mall.api.dto.RoleDTO;
 
 /**
  * 角色表(Role)表Facade接口
