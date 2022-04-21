@@ -29,4 +29,13 @@ public class IndexController {
         return "index";
     }
 
+    @RequestMapping("/view/console/console1")
+    public String console1(Model model, HttpSession session) {
+        return "/view/console/console1";
+    }
+
+    @RequestMapping("/view/console/console2")
+    public String console2(Model model, HttpSession session) {
+        return "/view/console/console2";
+    }
 }

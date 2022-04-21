@@ -12,7 +12,7 @@
         "icon": "layui-icon layui-icon-console",
         "type": 1,
         "openType": "_iframe",
-        "href": "view/console/console1.html"
+        "href": "view/console/console1"
       },
       {
         "id": 13,
@@ -20,7 +20,7 @@
         "icon": "layui-icon layui-icon-console",
         "type": 1,
         "openType": "_iframe",
-        "href": "view/console/console2.html"
+        "href": "view/console/console2"
       },
       {
         "id": 14,
