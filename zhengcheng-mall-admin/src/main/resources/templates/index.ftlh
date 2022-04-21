@@ -94,7 +94,7 @@
         var popup = layui.popup;
 
         admin.setConfigType("yml");
-        admin.setConfigPath("config/pear.config.yml");
+        admin.setConfigPath("config/pear.config.yml?v=1.1");
 
         admin.render();
 

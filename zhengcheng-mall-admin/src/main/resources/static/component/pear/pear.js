@@ -46,7 +46,6 @@ layui.use(['table'], function () {
 
     /* table全局设置 */
     var token = layui.data('zhengchengMallAdmin').satoken;
-    console.log('-------------->token: ' + token);
     if (token) {
         layui.table.set({
             headers: {'satoken': token}
