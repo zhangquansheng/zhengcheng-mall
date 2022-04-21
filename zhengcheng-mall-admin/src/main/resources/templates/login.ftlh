@@ -61,6 +61,12 @@
                 dataType: 'json',
                 success: function (res) {
                     if (res.code === 200) {
+                        // 存储token
+                        layui.data('zhengchengMallAdmin', {
+                            key: res.data.tokenName,
+                            value: res.data.tokenValue
+                        });
+
                         button.load({
                             elem: '.login',
                             time: 1500,
