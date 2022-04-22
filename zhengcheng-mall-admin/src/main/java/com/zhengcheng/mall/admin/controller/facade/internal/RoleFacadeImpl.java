@@ -51,8 +51,8 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @Override
     public void enable(EnableCommand enableCommand) {
-        roleService.update(new LambdaUpdateWrapper<Role>().set(Role::isEnable, enableCommand.isEnable()).eq(Role::getId,
-                enableCommand.getId()));
+        roleService.update(new LambdaUpdateWrapper<Role>().set(Role::isEnable, enableCommand.isEnable())
+                .set(Role::getUpdateUserId, enableCommand.getUpdateUserId()).eq(Role::getId, enableCommand.getId()));
     }
 
     @Override

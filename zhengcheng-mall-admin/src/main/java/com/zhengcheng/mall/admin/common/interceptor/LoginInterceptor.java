@@ -8,9 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
-
-
 
 /**
  * Interceptor - 用户登录拦截器
@@ -28,20 +27,22 @@ public class LoginInterceptor implements HandlerInterceptor {
     /**
      * 默认登录URL
      */
-    private static final String DEFAULT_LOGIN_URL = "/login";
+    private static final String DEFAULT_LOGIN_URL           = "/login";
 
     /**
      * 登录URL
      */
-    private String loginUrl = DEFAULT_LOGIN_URL;
+    private String              loginUrl                    = DEFAULT_LOGIN_URL;
 
-    public static final String PRINCIPAL_ATTRIBUTE_NAME = "USER.PRINCIPAL";
+    public static final String  PRINCIPAL_ATTRIBUTE_NAME    = "USER.PRINCIPAL";
 
     @Override
-    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler) throws Exception {
+    public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
+            throws Exception {
         HttpSession session = request.getSession();
         TokenInfoDTO principal = (TokenInfoDTO) session.getAttribute(PRINCIPAL_ATTRIBUTE_NAME);
         if (principal != null) {
+            TokenInfoHolder.setTokenInfo(principal);
             return true;
         } else {
             String requestType = request.getHeader("X-Requested-With");
@@ -51,8 +52,11 @@ public class LoginInterceptor implements HandlerInterceptor {
                 return false;
             } else {
                 if (request.getMethod().equalsIgnoreCase("GET")) {
-                    String redirectUrl = request.getQueryString() != null ? request.getRequestURI() + "?" + request.getQueryString() : request.getRequestURI();
-                    response.sendRedirect(request.getContextPath() + loginUrl + "?" + REDIRECT_URL_PARAMETER_NAME + "=" + URLEncoder.encode(redirectUrl, "UTF-8"));
+                    String redirectUrl = request.getQueryString() != null
+                            ? request.getRequestURI() + "?" + request.getQueryString()
+                            : request.getRequestURI();
+                    response.sendRedirect(request.getContextPath() + loginUrl + "?" + REDIRECT_URL_PARAMETER_NAME + "="
+                            + URLEncoder.encode(redirectUrl, "UTF-8"));
                 } else {
                     response.sendRedirect(request.getContextPath() + loginUrl);
                 }
@@ -61,4 +65,9 @@ public class LoginInterceptor implements HandlerInterceptor {
         }
     }
 
+    @Override
+    public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
+                                Exception ex) {
+        TokenInfoHolder.removeTokenInfo();
+    }
 }

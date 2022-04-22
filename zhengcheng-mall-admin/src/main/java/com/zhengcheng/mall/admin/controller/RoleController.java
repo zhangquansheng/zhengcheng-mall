@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
@@ -56,6 +57,7 @@ public class RoleController {
     @SaCheckPermission("sys:role:enable")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Void> enable(@Valid @RequestBody EnableCommand enableCommand) {
+        enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
         roleFacade.enable(enableCommand);
         return Result.success();
     }
