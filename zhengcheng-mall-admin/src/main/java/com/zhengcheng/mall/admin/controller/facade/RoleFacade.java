@@ -29,6 +29,8 @@ public interface RoleFacade {
      *          主键
      */
     void removeById(Long id);
+
+    void enable();
     /**
      * 添加单条数据
      *
