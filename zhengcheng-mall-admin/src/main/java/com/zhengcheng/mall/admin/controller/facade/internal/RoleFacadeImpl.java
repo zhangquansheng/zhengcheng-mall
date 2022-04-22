@@ -11,6 +11,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
@@ -32,9 +33,9 @@ import com.zhengcheng.mybatis.plus.utils.PageUtil;
 public class RoleFacadeImpl implements RoleFacade {
 
     @Autowired
-    private RoleService roleService;
+    private RoleService          roleService;
     @Autowired
-    private RoleAssembler roleAssembler;
+    private RoleAssembler        roleAssembler;
     @Autowired
     private RoleAuthorityService roleAuthorityService;
 
@@ -49,6 +50,12 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
+    public void enable(EnableCommand enableCommand) {
+        roleService.update(new LambdaUpdateWrapper<Role>().set(Role::isEnable, enableCommand.isEnable()).eq(Role::getId,
+                enableCommand.getId()));
+    }
+
+    @Override
     public Long add(RoleCommand roleCommand) {
         Role role = roleAssembler.toEntity(roleCommand);
         roleService.save(role);
@@ -58,14 +65,14 @@ public class RoleFacadeImpl implements RoleFacade {
     @Override
     public Long update(RoleCommand roleCommand) {
         roleService.update(new LambdaUpdateWrapper<Role>().set(Role::getName, roleCommand.getName())
-            .set(Role::getDescription, roleCommand.getDescription()).eq(Role::getId, roleCommand.getId()));
+                .set(Role::getDescription, roleCommand.getDescription()).eq(Role::getId, roleCommand.getId()));
         return roleCommand.getId();
     }
 
     @Override
     public PageInfo<RoleDTO> page(PageCommand pageCommand) {
         IPage<Role> page = roleService.page(PageUtil.getPage(pageCommand),
-            new LambdaQueryWrapper<Role>().orderByDesc(Role::getCreateTime));
+                new LambdaQueryWrapper<Role>().orderByDesc(Role::getCreateTime));
 
         PageInfo<RoleDTO> pageInfo = PageInfo.empty(pageCommand);
         pageInfo.setTotal(page.getTotal());
@@ -76,8 +83,8 @@ public class RoleFacadeImpl implements RoleFacade {
     @Override
     public void addRoleAuthority(RoleAuthorityCommand roleAuthorityCommand) {
         List<RoleAuthority> roleAuthorityList = new ArrayList<>();
-        roleAuthorityCommand.getAuthorityIds().forEach(authorityId -> roleAuthorityList
-            .add(RoleAuthority.builder().authorityId(authorityId).roleId(roleAuthorityCommand.getRoleId()).build()));
+        roleAuthorityCommand.getAuthorityIds().forEach(authorityId -> roleAuthorityList.add(
+                RoleAuthority.builder().authorityId(authorityId).roleId(roleAuthorityCommand.getRoleId()).build()));
         roleAuthorityService.save(roleAuthorityList);
     }
 }

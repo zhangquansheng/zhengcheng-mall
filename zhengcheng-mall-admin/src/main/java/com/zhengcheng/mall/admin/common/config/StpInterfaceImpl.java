@@ -20,7 +20,7 @@ public class StpInterfaceImpl implements StpInterface {
 
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return Lists.newArrayList("sys:role:main","sys:role:del");
+        return Lists.newArrayList("sys:role:main", "sys:role:del", "sys:role:enable");
     }
 
     @Override

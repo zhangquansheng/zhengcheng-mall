@@ -120,7 +120,24 @@
         });
 
         form.on('switch(role-enable)', function (obj) {
-            layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+            $.ajax({
+                url: MODULE_PATH + "enable",
+                dataType: 'json',
+                type: 'post',
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: this.value,
+                    enable: obj.elem.checked
+                }),
+                success: function (result) {
+                    if (result.code != 200) {
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    } else {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                    }
+                }
+            });
         });
 
         window.add = function () {
@@ -172,7 +189,7 @@
                             layer.msg(result.message, {icon: 2, time: 1000});
                         }
                     }
-                })
+                });
             });
         }
 

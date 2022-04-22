@@ -9,6 +9,7 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 
@@ -22,7 +23,7 @@ import io.swagger.annotations.ApiOperation;
  * @author quansheng1.zhang
  * @since 2022/4/19 18:18
  */
-@Api(tags = {"角色"})
+@Api(tags = { "角色" })
 @Controller
 @RequestMapping("/admin/role")
 public class RoleController {
@@ -39,17 +40,23 @@ public class RoleController {
     @ApiOperation("分页查询")
     @SaCheckPermission("sys:role:main")
     @PostMapping("/page")
-    public @ResponseBody
-    Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
+    public @ResponseBody Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
         return Result.successData(roleFacade.page(pageCommand));
     }
 
     @ApiOperation("根据ID删除")
     @SaCheckPermission("sys:role:del")
     @DeleteMapping("/operate/remove/{id}")
-    public @ResponseBody
-    Result<Void> removeById(@PathVariable("id")Long id) {
+    public @ResponseBody Result<Void> removeById(@PathVariable("id") Long id) {
         roleFacade.removeById(id);
+        return Result.success();
+    }
+
+    @ApiOperation("根据ID启用/禁用")
+    @SaCheckPermission("sys:role:enable")
+    @PostMapping("/operate/enable")
+    public @ResponseBody Result<Void> enable(@Valid @RequestBody EnableCommand enableCommand) {
+        roleFacade.enable(enableCommand);
         return Result.success();
     }
 }

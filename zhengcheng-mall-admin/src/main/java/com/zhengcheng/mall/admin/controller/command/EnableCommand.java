@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import javax.validation.constraints.NotNull;
+
 import com.zhengcheng.common.web.UserCommand;
 
 import lombok.*;
@@ -21,9 +23,10 @@ public class EnableCommand extends UserCommand {
     /**
      * ID
      */
-    private Long id;
+    @NotNull(message = "ID不能为空")
+    private Long              id;
     /**
      * 是否开启
      */
-    private boolean enable;
+    private boolean           enable;
 }

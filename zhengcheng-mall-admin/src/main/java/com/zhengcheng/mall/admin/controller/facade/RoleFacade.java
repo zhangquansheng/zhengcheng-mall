@@ -2,6 +2,7 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
@@ -30,7 +31,12 @@ public interface RoleFacade {
      */
     void removeById(Long id);
 
-    void enable();
+    /**
+     * 开启/禁用
+     * @param enableCommand EnableCommand
+     */
+    void enable(EnableCommand enableCommand);
+
     /**
      * 添加单条数据
      *
