@@ -146,7 +146,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'add'
             });
         }
 

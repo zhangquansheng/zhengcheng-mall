@@ -38,6 +38,12 @@ public class RoleController {
         return "/view/system/role";
     }
 
+    @ApiOperation("新增角色页面")
+    @GetMapping("/add")
+    public String add() {
+        return "/view/system/role/add";
+    }
+
     @ApiOperation("分页查询")
     @SaCheckPermission("sys:role:main")
     @PostMapping("/page")
