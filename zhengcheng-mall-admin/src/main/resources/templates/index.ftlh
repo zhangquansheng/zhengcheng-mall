@@ -86,6 +86,8 @@
 <!-- 依 赖 脚 本 -->
 <script src="component/layui/layui.js"></script>
 <script src="component/pear/pear.js"></script>
+<script src="admin/js/socket.io-2.2.0.js"></script>
+<script src="admin/js/moment-2.24.0.min.js"></script>
 <!-- 框 架 初 始 化 -->
 <script>
     layui.use(['admin', 'jquery', 'popup'], function () {
@@ -109,6 +111,8 @@
 
         // 初始化消息回调
         admin.message();
+
+        // socketio 初始化
 
         // admin.message(function(id, title, context, form) {});
     })
