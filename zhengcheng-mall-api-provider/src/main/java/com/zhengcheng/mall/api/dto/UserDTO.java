@@ -23,19 +23,25 @@ public class UserDTO implements Serializable {
     private static final long serialVersionUID = -87464380427076695L;
 
     @ApiModelProperty("用户号")
-    private String userNo;
+    private String            userNo;
+    @ApiModelProperty("用户名")
+    private String            username;
     @ApiModelProperty("邮箱")
-    private String email;
+    private String            email;
     @ApiModelProperty("手机号")
-    private String mobile;
+    private String            mobile;
     @ApiModelProperty("姓名")
-    private String name;
+    private String            name;
     @ApiModelProperty("头像")
-    private String avatar;
+    private String            avatar;
+    @ApiModelProperty("是否启用")
+    private boolean           enable;
     @ApiModelProperty("最后登录时间")
-    private String lastLogin;
+    private String            lastLogin;
+    @ApiModelProperty("注册时间")
+    private String            createTime;
     @ApiModelProperty("角色列表")
-    private List<String> roleCodes;
+    private List<String>      roleCodes;
     @ApiModelProperty("权限列表")
-    private List<String> authorityCodes;
+    private List<String>      authorityCodes;
 }

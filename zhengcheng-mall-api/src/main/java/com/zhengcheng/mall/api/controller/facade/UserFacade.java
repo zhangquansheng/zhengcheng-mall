@@ -3,7 +3,6 @@ package com.zhengcheng.mall.api.controller.facade;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.api.command.UserCommand;
-import com.zhengcheng.mall.api.command.UserRoleCommand;
 import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
@@ -20,6 +19,7 @@ public interface UserFacade {
      * @return UserDTO
      */
     UserDTO findByByToken(String tokenValue);
+
     /**
      * 通过ID查询单条数据
      *
@@ -53,11 +53,4 @@ public interface UserFacade {
      */
     PageInfo<UserDTO> page(PageCommand pageCommand);
 
-    /**
-     * 添加用户角色
-     * 
-     * @param userRoleCommand
-     *            UserRoleCommand
-     */
-    void addUserRole(UserRoleCommand userRoleCommand);
 }

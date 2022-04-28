@@ -24,7 +24,7 @@ import io.swagger.annotations.ApiOperation;
  * @author quansheng1.zhang
  * @since 2022/4/19 18:18
  */
-@Api(tags = { "角色" })
+@Api(tags = { "角色管理" })
 @Controller
 @RequestMapping("/admin/role")
 public class RoleController {

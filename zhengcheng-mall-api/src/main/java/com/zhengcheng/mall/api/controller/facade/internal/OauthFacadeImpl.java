@@ -22,6 +22,7 @@ import cn.dev33.satoken.stp.SaTokenInfo;
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.net.NetUtil;
 import lombok.extern.slf4j.Slf4j;
+
 /**
  * UserFacadeImpl
  *
@@ -33,7 +34,7 @@ import lombok.extern.slf4j.Slf4j;
 public class OauthFacadeImpl implements OauthFacade {
 
     @Autowired
-    private UserService userService;
+    private UserService         userService;
     @Autowired
     private UserLoginLogService userLoginLogService;
 
@@ -52,17 +53,17 @@ public class OauthFacadeImpl implements OauthFacade {
             throw new BizException("用户名或密码错误！");
         }
 
-        if (user.isDisabled()) {
+        if (!user.isEnable()) {
             userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
-                .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
-                .result(LoginResultEnum.FAILURE).content("用户已被禁用！").build());
+                    .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
+                    .result(LoginResultEnum.FAILURE).content("用户已被禁用！").build());
             throw new BizException("用户已被禁用！");
         }
 
         StpUtil.login(user.getId());
-        userLoginLogService.save(
-            UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN).serverIp(NetUtil.getLocalhostStr())
-                .loginIp(IpAddressUtils.getIpAddress(request)).result(LoginResultEnum.SUCCESS).build());
+        userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
+                .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
+                .result(LoginResultEnum.SUCCESS).build());
         return StpUtil.getTokenInfo();
     }
 }

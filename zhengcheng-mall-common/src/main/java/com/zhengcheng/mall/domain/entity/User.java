@@ -2,6 +2,7 @@ package com.zhengcheng.mall.domain.entity;
 
 import java.time.LocalDateTime;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengcheng.mybatis.plus.model.BaseEntity;
 
@@ -27,38 +28,39 @@ public class User extends BaseEntity<User> {
     /**
      * 用户名
      */
-    private String username;
+    private String            username;
     /**
      * 用户号
      */
-    private String userNo;
+    private String            userNo;
     /**
      * 邮箱
      */
-    private String email;
+    private String            email;
     /**
      * 手机号
      */
-    private String mobile;
+    private String            mobile;
     /**
      * 姓名
      */
-    private String name;
+    private String            name;
     /**
      * 密码
      */
-    private String password;
+    private String            password;
     /**
      * 头像
      */
-    private String avatar;
+    private String            avatar;
     /**
-     * 0有效，1无效
+     * 是否启用
      */
-    private boolean disabled;
+    @TableField(value = "is_enable")
+    private boolean           enable;
     /**
      * 最后登录时间
      */
-    private LocalDateTime lastLogin;
+    private LocalDateTime     lastLogin;
 
 }
