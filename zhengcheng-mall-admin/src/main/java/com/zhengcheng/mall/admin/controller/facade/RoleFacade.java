@@ -5,7 +5,6 @@ import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
-import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
 
 /**
  * 角色表(Role)表Facade接口
@@ -62,11 +61,4 @@ public interface RoleFacade {
      */
     PageInfo<RoleDTO> page(PageCommand pageCommand);
 
-    /**
-     * 编辑角色权限
-     * 
-     * @param roleAuthorityCommand
-     *            角色权限
-     */
-    void addRoleAuthority(RoleAuthorityCommand roleAuthorityCommand);
 }

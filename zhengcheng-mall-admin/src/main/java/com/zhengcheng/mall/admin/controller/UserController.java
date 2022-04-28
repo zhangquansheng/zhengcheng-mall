@@ -9,8 +9,8 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
-import com.zhengcheng.mall.admin.controller.dto.UserDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
+import com.zhengcheng.mall.api.dto.UserDTO;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;

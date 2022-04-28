@@ -2,7 +2,7 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
-import com.zhengcheng.mall.admin.controller.dto.UserDTO;
+import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
  * 用户(User)表Facade接口

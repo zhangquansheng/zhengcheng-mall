@@ -1,8 +1,5 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
-import java.util.ArrayList;
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -16,9 +13,7 @@ import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.RoleAssembler;
-import com.zhengcheng.mall.api.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.domain.entity.Role;
-import com.zhengcheng.mall.domain.entity.RoleAuthority;
 import com.zhengcheng.mall.service.RoleAuthorityService;
 import com.zhengcheng.mall.service.RoleService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
@@ -80,11 +75,4 @@ public class RoleFacadeImpl implements RoleFacade {
         return pageInfo;
     }
 
-    @Override
-    public void addRoleAuthority(RoleAuthorityCommand roleAuthorityCommand) {
-        List<RoleAuthority> roleAuthorityList = new ArrayList<>();
-        roleAuthorityCommand.getAuthorityIds().forEach(authorityId -> roleAuthorityList.add(
-                RoleAuthority.builder().authorityId(authorityId).roleId(roleAuthorityCommand.getRoleId()).build()));
-        roleAuthorityService.save(roleAuthorityList);
-    }
 }
