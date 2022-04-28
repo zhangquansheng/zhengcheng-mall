@@ -216,7 +216,7 @@
 
             table.render({
                 elem: '#dict-data-table',
-                url: "/admin/dict/data",
+                url: "/admin/dict/dataType",
                 page: true,
                 height: 'full-148',
                 cols: dataCols,
