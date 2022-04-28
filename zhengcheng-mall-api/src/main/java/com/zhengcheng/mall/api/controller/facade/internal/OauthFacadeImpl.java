@@ -53,7 +53,7 @@ public class OauthFacadeImpl implements OauthFacade {
             throw new BizException("用户名或密码错误！");
         }
 
-        if (!user.isEnable()) {
+        if (!user.getEnable()) {
             userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
                     .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
                     .result(LoginResultEnum.FAILURE).content("用户已被禁用！").build());
