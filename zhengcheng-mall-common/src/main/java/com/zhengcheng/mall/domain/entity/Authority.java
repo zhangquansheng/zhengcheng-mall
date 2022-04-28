@@ -26,39 +26,39 @@ public class Authority extends BaseEntity<Authority> {
     /**
      * 名称
      */
-    private String name;
+    private String            name;
     /**
      * 编码
      */
-    private String code;
+    private String            code;
     /**
      * 前端路由
      */
-    private String route;
+    private String            route;
     /**
      * 图标
      */
-    private String icon;
+    private String            icon;
     /**
      * 父ID
      */
-    private Long pid;
+    private Long              pid;
     /**
      * 数路径
      */
-    private String treePath;
+    private String            treePath;
     /**
      * 层级(最多三级1,2,3)
      */
-    private Integer level;
+    private Integer           level;
     /**
      * 后端接口URL
      */
-    private String url;
+    private String            url;
     /**
      * 备注
      */
-    private String remark;
+    private String            remark;
     /**
      * 类型，0-目录，1-菜单，2-按钮
      */
@@ -66,10 +66,10 @@ public class Authority extends BaseEntity<Authority> {
     /**
      * 排序
      */
-    private Integer sort;
+    private Integer           sort;
     /**
      * 是否启用
      */
     @TableField(value = "is_enable")
-    private boolean enable;
+    private Boolean           enable;
 }

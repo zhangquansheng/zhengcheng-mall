@@ -8,10 +8,10 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 角色表(Role)实体类
+ * 数据字典类型
  *
  * @author quansheng1.zhang
- * @since 2021-08-13 14:19:03
+ * @since 2022/4/28 20:22
  */
 @Builder
 @NoArgsConstructor
@@ -19,21 +19,18 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("role")
-public class Role extends BaseEntity<Role> {
-    private static final long serialVersionUID = -97897294551047190L;
+@TableName("dict_type")
+public class DictType extends BaseEntity<DictType> {
+    private static final long serialVersionUID = -4183266293032891930L;
+
     /**
      * 名称
      */
     private String            name;
     /**
-     * 角色编码
+     * 编码
      */
     private String            code;
-    /**
-     * 是否内置
-     */
-    private Integer           isSystem;
     /**
      * 描述
      */
@@ -43,4 +40,12 @@ public class Role extends BaseEntity<Role> {
      */
     @TableField(value = "is_enable")
     private Boolean           enable;
+    /**
+     * 备注
+     */
+    private String            remark;
+    /**
+     * 参数
+     */
+    private String            params;
 }

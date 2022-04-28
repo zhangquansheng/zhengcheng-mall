@@ -14,7 +14,6 @@ import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.RoleAssembler;
 import com.zhengcheng.mall.domain.entity.Role;
-import com.zhengcheng.mall.service.RoleAuthorityService;
 import com.zhengcheng.mall.service.RoleService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
@@ -28,11 +27,9 @@ import com.zhengcheng.mybatis.plus.utils.PageUtil;
 public class RoleFacadeImpl implements RoleFacade {
 
     @Autowired
-    private RoleService          roleService;
+    private RoleService   roleService;
     @Autowired
-    private RoleAssembler        roleAssembler;
-    @Autowired
-    private RoleAuthorityService roleAuthorityService;
+    private RoleAssembler roleAssembler;
 
     @Override
     public RoleDTO findById(Long id) {
@@ -46,7 +43,7 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @Override
     public void enable(EnableCommand enableCommand) {
-        roleService.update(new LambdaUpdateWrapper<Role>().set(Role::isEnable, enableCommand.isEnable())
+        roleService.update(new LambdaUpdateWrapper<Role>().set(Role::getEnable, enableCommand.isEnable())
                 .set(Role::getUpdateUserId, enableCommand.getUpdateUserId()).eq(Role::getId, enableCommand.getId()));
     }
 

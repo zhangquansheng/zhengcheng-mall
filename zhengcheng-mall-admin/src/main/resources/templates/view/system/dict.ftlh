@@ -95,7 +95,7 @@
 
 <script type="text/html" id="dict-type-enable">
     <input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-type-enable"
-           {{d.enable== '0' ? 'checked' : '' }}>
+           {{d.enable ? 'checked' : '' }}>
 </script>
 
 <script type="text/html" id="dict-data-toolbar">
@@ -138,7 +138,7 @@
             },
                 {
                     title: '字典名称',
-                    field: 'typeName',
+                    field: 'name',
                     align: 'center',
                     width: 120
                 },
@@ -194,7 +194,7 @@
 
         table.render({
             elem: '#dict-type-table',
-            url: "../../admin/data/dictType.json",
+            url: "/admin/dict/type/page",
             method: 'post',
             contentType: 'application/json',
             page: true,
@@ -216,8 +216,11 @@
 
             table.render({
                 elem: '#dict-data-table',
-                url: "/admin/dict/dataType",
+                url: "/admin/dict/data/page",
+                where: {typeCode: typeCode},
                 page: true,
+                method: 'post',
+                contentType: 'application/json',
                 height: 'full-148',
                 cols: dataCols,
                 skin: 'line',

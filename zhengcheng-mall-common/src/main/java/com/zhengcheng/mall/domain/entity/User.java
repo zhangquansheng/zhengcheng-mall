@@ -57,7 +57,7 @@ public class User extends BaseEntity<User> {
      * 是否启用
      */
     @TableField(value = "is_enable")
-    private boolean           enable;
+    private Boolean           enable;
     /**
      * 最后登录时间
      */
