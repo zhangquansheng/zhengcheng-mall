@@ -20,10 +20,12 @@
         <dependency>
             <groupId>com.corundumstudio.socketio</groupId>
             <artifactId>netty-socketio</artifactId>
+            <version>1.7.19</version>
         </dependency>
         <dependency>
             <groupId>org.redisson</groupId>
             <artifactId>redisson</artifactId>
+            <version>3.12.0</version>
         </dependency>
     </dependencies>
 
