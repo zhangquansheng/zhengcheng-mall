@@ -90,10 +90,11 @@
 <script src="admin/js/moment-2.24.0.min.js"></script>
 <!-- 框 架 初 始 化 -->
 <script>
-    layui.use(['admin', 'jquery', 'popup'], function () {
+    layui.use(['admin', 'jquery', 'popup', 'layer'], function () {
         var $ = layui.jquery;
         var admin = layui.admin;
         var popup = layui.popup;
+        var layer = layui.layer;
 
         admin.setConfigType("yml");
         admin.setConfigPath("config/pear.config.yml?v=1.1");
@@ -123,6 +124,10 @@
 
         socket.on('adminImMessageEvent', function (data) {
             console.log(data);
+            layer.open({
+                title: data.title
+                , content: data.content
+            });
         });
 
         // admin.message(function(id, title, context, form) {});

@@ -54,5 +54,5 @@ public class Message extends BaseEntity<Message> {
     /**
      * 消息内容
      */
-    private String            context;
+    private String            content;
 }
