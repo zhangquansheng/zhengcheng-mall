@@ -113,7 +113,13 @@
         admin.message();
 
         // socketio 初始化
+        var socket = io('${socketioUrl}', {
+            transports: ['polling', 'websocket']
+        });
 
+        socket.on('connect', function () {
+            console.log('连接成功');
+        });
         // admin.message(function(id, title, context, form) {});
     })
 </script>

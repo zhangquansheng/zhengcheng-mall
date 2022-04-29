@@ -26,12 +26,8 @@ public class IndexController {
     public String index(Model model, HttpSession session) {
         TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
         log.info(JSONUtil.toJsonStr(tokenInfoDTO));
-        //        StrBuilder strBuilder = StrBuilder.create("http://");
-        //        strBuilder.append(nettySocketProperties.getHost()).append(":").append(nettySocketProperties.getPort())
-        //                .append(ImConstants.LAYIM_CHAT_NAMESPACE).append("?").append(ImConstants.HANDSHAKE_DATA_PARAM_ID)
-        //                .append("=").append(userService.getCurrentUserId()).append("&token=")
-        //                .append(nettySocketProperties.getToken());
-        //        model.addAttribute("socketioUrl", strBuilder.toString());
+        model.addAttribute("socketioUrl",
+                "http://localhost:9092/admin/im" + "?" + "rt-token=daf98363-3f7a-4d07-964e-e30d82582736");
         return "index";
     }
 
