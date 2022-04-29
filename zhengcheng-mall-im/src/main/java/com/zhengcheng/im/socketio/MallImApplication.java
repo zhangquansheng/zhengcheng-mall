@@ -3,15 +3,16 @@ package com.zhengcheng.im.socketio;
 import org.redisson.Redisson;
 import org.redisson.api.RedissonClient;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
+import org.springframework.boot.builder.SpringApplicationBuilder;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
 import org.springframework.context.annotation.Bean;
 
-import com.corundumstudio.socketio.AuthorizationListener;
-import com.corundumstudio.socketio.HandshakeData;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import com.corundumstudio.socketio.store.RedissonStoreFactory;
 import com.zhengcheng.im.socketio.config.properties.NettySocketProperties;
+
+import cn.hutool.core.util.StrUtil;
 
 /**
  * MallImApplication
@@ -23,10 +24,9 @@ import com.zhengcheng.im.socketio.config.properties.NettySocketProperties;
 @SpringBootApplication
 public class MallImApplication {
 
-    /**
-     * token参数
-     */
-    public static final String URL_PARAM_TOKEN = "token";
+    public static void main(String[] args) {
+        new SpringApplicationBuilder(MallImApplication.class).run(args);
+    }
 
     @Bean
     public SocketIOServer socketIOServer(NettySocketProperties nettySocketProperties) {
@@ -49,15 +49,9 @@ public class MallImApplication {
         config.setPingInterval(nettySocketProperties.getPingInterval());
         config.setUpgradeTimeout(nettySocketProperties.getUpgradeTimeout());
         config.setPingTimeout(nettySocketProperties.getPingTimeout());
-        config.setAuthorizationListener(new AuthorizationListener() {
-            @Override
-            public boolean isAuthorized(HandshakeData data) {
-                String token = data.getSingleUrlParam(URL_PARAM_TOKEN);
-                if (nettySocketProperties.getToken().equals(token)) {
-                    return true;
-                }
-                return false;
-            }
+        config.setAuthorizationListener(data -> {
+            String tokenValue = data.getSingleUrlParam(nettySocketProperties.getTokenName());
+            return StrUtil.equals(nettySocketProperties.getTokenValue(), tokenValue);
         });
         return new SocketIOServer(config);
     }

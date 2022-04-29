@@ -1,0 +1,18 @@
+spring:
+  application:
+    name: zhengcheng-mall-im
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 127.0.0.1:8848
+  config:
+    import:
+      - optional:nacos:zhengcheng-mall-im.properties
+server:
+  port: 9091

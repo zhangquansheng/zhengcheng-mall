@@ -24,7 +24,14 @@ public class NettySocketProperties {
     private Integer            pingInterval   = 300000;
     private Integer            upgradeTimeout = 25000;
     private Integer            pingTimeout    = 60000;
-    private String             token;
+    /**
+     * 访问令牌名
+     */
+    private String             tokenName;
+    /**
+     * 访问令牌值
+     */
+    private String             tokenValue;
     private boolean            randomSession  = true;
     private RedissonProperties redisson;
 }
