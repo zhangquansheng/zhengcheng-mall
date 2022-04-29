@@ -113,13 +113,18 @@
         admin.message();
 
         // socketio 初始化
-        var socket = io('${socketioUrl}', {
+        var socket = io('http://localhost:9092/admin/im?rt-token=daf98363-3f7a-4d07-964e-e30d82582736&id=3', {
             transports: ['polling', 'websocket']
         });
 
         socket.on('connect', function () {
             console.log('连接成功');
         });
+
+        socket.on('adminImMessageEvent', function (data) {
+            console.log(data);
+        });
+
         // admin.message(function(id, title, context, form) {});
     })
 </script>

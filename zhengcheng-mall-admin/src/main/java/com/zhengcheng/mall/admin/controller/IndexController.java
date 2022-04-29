@@ -26,8 +26,6 @@ public class IndexController {
     public String index(Model model, HttpSession session) {
         TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
         log.info(JSONUtil.toJsonStr(tokenInfoDTO));
-        model.addAttribute("socketioUrl",
-                "http://localhost:9092/admin/im" + "?" + "rt-token=daf98363-3f7a-4d07-964e-e30d82582736");
         return "index";
     }
 
