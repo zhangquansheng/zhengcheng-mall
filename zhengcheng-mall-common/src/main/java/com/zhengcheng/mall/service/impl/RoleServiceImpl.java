@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.service.impl;
 
+import java.util.List;
 import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -33,5 +34,10 @@ public class RoleServiceImpl extends ServiceImpl<RoleMapper, Role> implements Ro
             return roleMapper.insert(role) > 0;
         }
         throw new BizException(StrUtil.format("角色编码【{}】已存在！", role.getCode()));
+    }
+
+    @Override
+    public List<String> getRoleList(Object loginId, String loginType) {
+        return roleMapper.getRoleList(loginId);
     }
 }

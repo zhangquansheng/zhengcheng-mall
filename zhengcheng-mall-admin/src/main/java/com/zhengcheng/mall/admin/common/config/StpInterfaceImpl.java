@@ -1,11 +1,12 @@
 package com.zhengcheng.mall.admin.common.config;
 
-import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.google.common.collect.Lists;
+import com.zhengcheng.mall.service.AuthorityService;
+import com.zhengcheng.mall.service.RoleService;
 
 import cn.dev33.satoken.stp.StpInterface;
 
@@ -18,14 +19,18 @@ import cn.dev33.satoken.stp.StpInterface;
 @Component
 public class StpInterfaceImpl implements StpInterface {
 
+    @Autowired
+    private RoleService      roleService;
+    @Autowired
+    private AuthorityService authorityService;
+
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
-        return Lists.newArrayList("sys:role:main", "sys:role:del", "sys:role:enable", "sys:user:main",
-                "sys:dictType:main", "sys:dictData:main");
+        return authorityService.getPermissionList(loginId, loginType);
     }
 
     @Override
     public List<String> getRoleList(Object loginId, String loginType) {
-        return new ArrayList<>();
+        return roleService.getRoleList(loginId, loginType);
     }
 }

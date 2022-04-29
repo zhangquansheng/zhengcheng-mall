@@ -1,5 +1,9 @@
 package com.zhengcheng.mall.domain.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengcheng.mall.domain.entity.Role;
 
@@ -11,4 +15,10 @@ import com.zhengcheng.mall.domain.entity.Role;
  */
 public interface RoleMapper extends BaseMapper<Role> {
 
+    /**
+     * 查询角色编码列表
+     * @param loginId 用户ID
+     * @return 角色编码列表
+     */
+    List<String> getRoleList(@Param("loginId") Object loginId);
 }

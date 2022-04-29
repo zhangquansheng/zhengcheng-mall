@@ -61,4 +61,9 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
         return authorityMapper.insert(authority) > 0;
     }
+
+    @Override
+    public List<String> getPermissionList(Object loginId, String loginType) {
+        return authorityMapper.getPermissionList(loginId);
+    }
 }

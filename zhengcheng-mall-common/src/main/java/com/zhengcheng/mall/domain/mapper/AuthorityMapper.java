@@ -1,5 +1,9 @@
 package com.zhengcheng.mall.domain.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.zhengcheng.mall.domain.entity.Authority;
 
@@ -10,5 +14,7 @@ import com.zhengcheng.mall.domain.entity.Authority;
  * @since 2021-08-13 14:46:57
  */
 public interface AuthorityMapper extends BaseMapper<Authority> {
+
+    List<String> getPermissionList(@Param("loginId") Object loginId);
 
 }
