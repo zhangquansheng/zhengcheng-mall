@@ -10,7 +10,7 @@ import org.springframework.context.annotation.Bean;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.annotation.SpringAnnotationScanner;
 import com.corundumstudio.socketio.store.RedissonStoreFactory;
-import com.zhengcheng.im.socketio.config.properties.NettySocketProperties;
+import com.zhengcheng.im.socketio.common.properties.NettySocketProperties;
 
 import cn.hutool.core.util.StrUtil;
 

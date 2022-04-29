@@ -1,4 +1,4 @@
-package com.zhengcheng.im.socketio.config.properties;
+package com.zhengcheng.im.socketio.common.properties;
 
 import lombok.Data;
 

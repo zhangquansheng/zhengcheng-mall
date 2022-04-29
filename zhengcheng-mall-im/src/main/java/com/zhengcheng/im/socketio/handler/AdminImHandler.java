@@ -6,7 +6,7 @@ import java.util.Set;
 import java.util.UUID;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.stereotype.Component;
 
 import com.corundumstudio.socketio.HandshakeData;
@@ -20,6 +20,7 @@ import com.zhengcheng.mall.domain.entity.Message;
 import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.NumberUtil;
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -35,22 +36,22 @@ public class AdminImHandler {
     /**
      * 后台管理即时通讯通道
      */
-    private final String                  ADMIN_IM_NAMESPACE      = "/admin/im";
+    private static final String     ADMIN_IM_NAMESPACE      = "/admin/im";
 
     /**
      * SocketIO 表示当前用户的参数
      */
-    private final String                  HANDSHAKE_DATA_PARAM_ID = "id";
+    private static final String     HANDSHAKE_DATA_PARAM_ID = "id";
 
     /**
      * 后台管理即时通讯消息事件名称
      */
-    private final String                  ADMIN_IM_MESSAGE_EVENT  = "adminImMessageEvent";
+    private static final String     ADMIN_IM_MESSAGE_EVENT  = "adminImMessageEvent";
 
-    private final SocketIONamespace       namespace;
+    private final SocketIONamespace namespace;
 
     @Autowired
-    private RedisTemplate<String, Object> redisTemplate;
+    private StringRedisTemplate     stringRedisTemplate;
 
     @Autowired
     public AdminImHandler(SocketIOServer server) {
@@ -65,9 +66,10 @@ public class AdminImHandler {
             log.info("Client[{}] - Connected to chat module through '{}'", client.getSessionId(),
                     handshakeData.getUrl());
             String id = client.getHandshakeData().getSingleUrlParam(HANDSHAKE_DATA_PARAM_ID);
-            if (StrUtil.isNotBlank(id) && NumberUtil.isInteger(id)) {
+            if (this.isNumId(id)) {
                 Long userId = Long.valueOf(id);
-                redisTemplate.opsForSet().add(this.getConnectedSessionCacheKey(userId), client.getSessionId());
+                stringRedisTemplate.opsForSet().add(this.getConnectedSessionCacheKey(userId),
+                        client.getSessionId().toString());
             }
         };
     }
@@ -76,11 +78,21 @@ public class AdminImHandler {
         return client -> {
             log.info("Client[{}] - Disconnected from chat module.", client.getSessionId());
             String id = client.getHandshakeData().getSingleUrlParam(HANDSHAKE_DATA_PARAM_ID);
-            if (StrUtil.isNotBlank(id) && NumberUtil.isInteger(id)) {
+            if (this.isNumId(id)) {
                 Long userId = Long.valueOf(id);
-                redisTemplate.opsForSet().remove(this.getConnectedSessionCacheKey(userId), client.getSessionId());
+                stringRedisTemplate.opsForSet().remove(this.getConnectedSessionCacheKey(userId),
+                        client.getSessionId().toString());
             }
         };
+    }
+
+    /**
+     * 是否是数字ID
+     * @param id ID
+     * @return 是否
+     */
+    private boolean isNumId(String id) {
+        return StrUtil.isNotBlank(id) && NumberUtil.isInteger(id);
     }
 
     /**
@@ -99,6 +111,7 @@ public class AdminImHandler {
         if (CollectionUtil.isNotEmpty(socketIOClientList)) {
             for (SocketIOClient socketIOClient : socketIOClientList) {
                 socketIOClient.sendEvent(ADMIN_IM_MESSAGE_EVENT, message);
+                log.info("Client[{}] - sendMessage : {}", socketIOClient.getSessionId(), JSONUtil.toJsonStr(message));
             }
             return true;
         }
@@ -112,13 +125,14 @@ public class AdminImHandler {
      * @return 客户端
      */
     private List<SocketIOClient> getSocketIOClient(Long userId) {
-        Set<Object> uuidSet = redisTemplate.opsForSet().members(this.getConnectedSessionCacheKey(userId));
         List<SocketIOClient> socketIOClientList = new ArrayList<>();
-        for (Object uuid : uuidSet) {
+        Set<String> uuidSet = stringRedisTemplate.opsForSet().members(this.getConnectedSessionCacheKey(userId));
+        assert uuidSet != null;
+        for (String uuid : uuidSet) {
             if (uuid == null) {
                 continue;
             }
-            SocketIOClient socketIOClient = namespace.getClient((UUID) uuid);
+            SocketIOClient socketIOClient = namespace.getClient(UUID.fromString(uuid));
             if (socketIOClient != null) {
                 socketIOClientList.add(socketIOClient);
             }

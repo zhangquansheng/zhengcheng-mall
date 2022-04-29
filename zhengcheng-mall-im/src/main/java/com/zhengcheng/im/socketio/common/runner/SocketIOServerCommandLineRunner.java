@@ -1,4 +1,4 @@
-package com.zhengcheng.im.socketio.config.runner;
+package com.zhengcheng.im.socketio.common.runner;
 
 import javax.annotation.PreDestroy;
 

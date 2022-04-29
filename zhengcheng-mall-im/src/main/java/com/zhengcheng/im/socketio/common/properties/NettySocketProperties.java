@@ -1,4 +1,4 @@
-package com.zhengcheng.im.socketio.config.properties;
+package com.zhengcheng.im.socketio.common.properties;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.cloud.context.config.annotation.RefreshScope;
