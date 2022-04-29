@@ -20,4 +20,11 @@ public interface AuthorityService extends IService<Authority> {
      * @return 权限编码列表
      */
     List<String> getPermissionList(Object loginId, String loginType);
+
+    /**
+     * 查询所有权限列表
+     * @param userId 用户ID
+     * @return 权限列表
+     */
+    List<Authority> getAuthorityList(Long userId);
 }

@@ -1,7 +1,10 @@
 package com.zhengcheng.mall.admin.controller.facade;
 
+import java.util.List;
+
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
+import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
@@ -29,4 +32,10 @@ public interface UserFacade {
      */
     PageInfo<UserDTO> page(UserPageCommand userPageCommand);
 
+    /**
+     * 查询用户的菜单
+     * @param userId 用户ID
+     * @return 菜单
+     */
+    List<MenuDTO> menu(Long userId);
 }

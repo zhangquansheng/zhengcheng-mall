@@ -18,4 +18,21 @@
           AND authority.`code` != ''
 	    AND authority.`code` IS NOT NULL
     </select>
+
+    <select id="getAuthorityList" resultType="com.zhengcheng.mall.domain.entity.Authority">
+        SELECT DISTINCT authority.*
+        FROM authority
+                 LEFT JOIN role_authority ON authority.id = role_authority.authority_id
+                 LEFT JOIN role ON role_authority.role_id = role.id
+                 LEFT JOIN user_role ON role.id = user_role.role_id
+        WHERE role.is_enable = 1
+          AND role.is_deleted = 'N'
+          AND user_role.is_deleted = 'N'
+          AND role_authority.is_deleted = 'N'
+          AND authority.is_deleted = 'N'
+          AND user_role.user_id = #{userId}
+          AND authority.is_enable = 1
+        ORDER BY authority.sort, authority.create_time
+    </select>
+
 </mapper>

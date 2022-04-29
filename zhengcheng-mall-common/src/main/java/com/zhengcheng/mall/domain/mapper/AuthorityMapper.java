@@ -17,4 +17,5 @@ public interface AuthorityMapper extends BaseMapper<Authority> {
 
     List<String> getPermissionList(@Param("loginId") Object loginId);
 
+    List<Authority> getAuthorityList(@Param("userId") Long userId);
 }

@@ -4,7 +4,7 @@
     "image": "admin/images/logo.png"
   },
   "menu": {
-    "data": "admin/data/menu.json",
+    "data": "/admin/user/menu",
     "method": "GET",
     "accordion": true,
     "collaspe": false,

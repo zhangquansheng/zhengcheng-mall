@@ -39,14 +39,14 @@ public class DictController {
     }
 
     @ApiOperation("分页查询字典类型")
-    @SaCheckPermission("sys:dictType:main")
+    @SaCheckPermission("sys:dict:main")
     @PostMapping("/type/page")
     public @ResponseBody Result<PageInfo<DictTypeDTO>> typePage(@Valid @RequestBody PageCommand pageCommand) {
         return Result.successData(dictFacade.typePage(pageCommand));
     }
 
     @ApiOperation("分页查询字典")
-    @SaCheckPermission("sys:dictData:main")
+    @SaCheckPermission("sys:dict:main")
     @PostMapping("/data/page")
     public @ResponseBody Result<PageInfo<DictDataDTO>> dataPage(@Valid @RequestBody DictDataPageCommand dictDataPageCommand) {
         return Result.successData(dictFacade.dataPage(dictDataPageCommand));

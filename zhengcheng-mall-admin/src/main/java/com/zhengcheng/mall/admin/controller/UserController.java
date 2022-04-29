@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.admin.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +10,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
+import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.dto.UserDTO;
 
@@ -41,5 +45,11 @@ public class UserController {
     @PostMapping("/page")
     public @ResponseBody Result<PageInfo<UserDTO>> page(@Valid @RequestBody UserPageCommand userPageCommand) {
         return Result.successData(userFacade.page(userPageCommand));
+    }
+
+    @ApiOperation("用户后台管理菜单")
+    @GetMapping("/menu")
+    public @ResponseBody List<MenuDTO> menu() {
+        return userFacade.menu(TokenInfoHolder.getUserId());
     }
 }

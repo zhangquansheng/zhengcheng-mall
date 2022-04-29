@@ -1,5 +1,9 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -7,10 +11,14 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
+import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssembler;
 import com.zhengcheng.mall.api.dto.UserDTO;
+import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.domain.entity.User;
+import com.zhengcheng.mall.domain.enums.AuthorityTypeEnum;
+import com.zhengcheng.mall.service.AuthorityService;
 import com.zhengcheng.mall.service.UserService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
@@ -26,9 +34,11 @@ import cn.hutool.core.util.StrUtil;
 public class UserFacadeImpl implements UserFacade {
 
     @Autowired
-    private UserService   userService;
+    private UserService      userService;
     @Autowired
-    private UserAssembler userAssembler;
+    private AuthorityService authortiyService;
+    @Autowired
+    private UserAssembler    userAssembler;
 
     @Override
     public UserDTO findById(Long id) {
@@ -46,6 +56,36 @@ public class UserFacadeImpl implements UserFacade {
         pageInfo.setTotal(page.getTotal());
         pageInfo.setRecords(userAssembler.toDTOs(page.getRecords()));
         return pageInfo;
+    }
+
+    @Override
+    public List<MenuDTO> menu(Long userId) {
+        List<Authority> authorities = authortiyService.getAuthorityList(userId);
+        // 查询 pid=0 的目录
+        List<Authority> catalogues = authorities.stream().filter(s -> s.getPid() == 0).collect(Collectors.toList());
+        List<MenuDTO> menuDTOs = new ArrayList<>();
+        catalogues.forEach(catalogue -> {
+            MenuDTO menuDTO = this.toMenuDTO(catalogue);
+            // 获取目录下的菜单
+            List<Authority> menus = authorities.stream().filter(s -> s.getPid().equals(catalogue.getId()))
+                    .collect(Collectors.toList());
+            List<MenuDTO> children = new ArrayList<>();
+            menus.forEach(menu -> children.add(this.toMenuDTO(menu)));
+            menuDTO.setChildren(children);
+            menuDTOs.add(menuDTO);
+        });
+        return menuDTOs;
+    }
+
+    private MenuDTO toMenuDTO(Authority authority) {
+        MenuDTO menuDTO = new MenuDTO();
+        menuDTO.setId(authority.getId());
+        menuDTO.setTitle(authority.getName());
+        menuDTO.setIcon(authority.getIcon());
+        menuDTO.setType(authority.getType().getValue());
+        menuDTO.setOpenType(AuthorityTypeEnum.MENU.equals(authority.getType()) ? "_iframe" : "");
+        menuDTO.setHref(authority.getUrl());
+        return menuDTO;
     }
 
 }

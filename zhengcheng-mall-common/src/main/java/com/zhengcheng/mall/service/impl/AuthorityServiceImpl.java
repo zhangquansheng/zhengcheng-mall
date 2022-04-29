@@ -41,6 +41,7 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
             }
         }
 
+        authority.setCreateUserId(authority.getUpdateUserId());
         authority.setEnable(Boolean.TRUE);
         // 设置树路径和层级
         if (Objects.isNull(authority.getPid()) || authority.getPid() <= 0) {
@@ -65,5 +66,10 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     @Override
     public List<String> getPermissionList(Object loginId, String loginType) {
         return authorityMapper.getPermissionList(loginId);
+    }
+
+    @Override
+    public List<Authority> getAuthorityList(Long userId) {
+        return authorityMapper.getAuthorityList(userId);
     }
 }
