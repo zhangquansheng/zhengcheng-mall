@@ -9,8 +9,10 @@ import org.springframework.web.bind.annotation.*;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
+import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
-import com.zhengcheng.mall.admin.controller.facade.DictTypeFacade;
+import com.zhengcheng.mall.admin.controller.facade.DictFacade;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
@@ -28,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 public class DictController {
 
     @Autowired
-    private DictTypeFacade dictTypeFacade;
+    private DictFacade dictFacade;
 
     @ApiOperation("字典页面")
     @GetMapping("/view")
@@ -36,10 +38,17 @@ public class DictController {
         return "/view/system/dict";
     }
 
-    @ApiOperation("分页查询")
+    @ApiOperation("分页查询字典类型")
     @SaCheckPermission("sys:dictType:main")
     @PostMapping("/type/page")
-    public @ResponseBody Result<PageInfo<DictTypeDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
-        return Result.successData(dictTypeFacade.page(pageCommand));
+    public @ResponseBody Result<PageInfo<DictTypeDTO>> typePage(@Valid @RequestBody PageCommand pageCommand) {
+        return Result.successData(dictFacade.typePage(pageCommand));
+    }
+
+    @ApiOperation("分页查询字典")
+    @SaCheckPermission("sys:dictData:main")
+    @PostMapping("/data/page")
+    public @ResponseBody Result<PageInfo<DictDataDTO>> dataPage(@Valid @RequestBody DictDataPageCommand dictDataPageCommand) {
+        return Result.successData(dictFacade.dataPage(dictDataPageCommand));
     }
 }

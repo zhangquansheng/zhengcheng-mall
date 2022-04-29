@@ -118,7 +118,7 @@
 
 <script type="text/html" id="dict-data-enable">
     <input type="checkbox" value="{{d.dataId}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable"
-           {{d.enable== '0' ? 'checked' : '' }}>
+           {{d.enable ? 'checked' : '' }}>
 </script>
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
@@ -168,13 +168,13 @@
             },
                 {
                     title: '标签',
-                    field: 'dataLabel',
+                    field: 'name',
                     align: 'center',
                     width: 120
                 },
                 {
                     title: '对应值',
-                    field: 'dataValue',
+                    field: 'value',
                     align: 'center'
                 },
                 {
@@ -212,12 +212,13 @@
         window.renderData = function (code) {
 
             typeCode = code;
+            console.log('选择的字典类型编码=' + typeCode);
             $(".empty").hide();
 
             table.render({
                 elem: '#dict-data-table',
                 url: "/admin/dict/data/page",
-                where: {typeCode: typeCode},
+                where: {'typeCode': typeCode},
                 page: true,
                 method: 'post',
                 contentType: 'application/json',
@@ -234,7 +235,7 @@
             } else if (obj.event === 'edit') {
                 window.editType(obj);
             } else if (obj.event === 'details') {
-                window.renderData(obj.data['typeCode'])
+                window.renderData(obj.data['code']);
             }
         });
 
