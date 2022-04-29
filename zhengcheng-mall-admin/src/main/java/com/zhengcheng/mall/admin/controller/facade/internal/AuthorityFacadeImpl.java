@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
@@ -29,7 +30,8 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
 
     @Override
     public List<AuthorityDTO> findAll() {
-        return authorityAssembler.toDTOs(authorityService.list());
+        return authorityAssembler.toDTOs(authorityService
+                .list(new LambdaQueryWrapper<Authority>().orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort)));
     }
 
     @Override

@@ -44,10 +44,6 @@ public class Authority extends BaseEntity<Authority> {
      */
     private Long              pid;
     /**
-     * 数路径
-     */
-    private String            treePath;
-    /**
      * 层级(最多三级1,2,3)
      */
     private Integer           level;

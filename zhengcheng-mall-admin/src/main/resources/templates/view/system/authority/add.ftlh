@@ -10,30 +10,37 @@
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
+                <label class="layui-form-label">上级</label>
+                <div class="layui-input-block">
+                    <input type="text" name="pid" autocomplete="off" placeholder="请输入名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" lay-verify="title" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" autocomplete="off" placeholder="请输入名称"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">编码</label>
                 <div class="layui-input-block">
-                    <input type="text" name="code" lay-verify="title" autocomplete="off" placeholder="请输入编码"
+                    <input type="text" name="code" autocomplete="off" placeholder="请输入编码"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图标</label>
                 <div class="layui-input-block">
-                    <input type="text" name="icon" lay-verify="title" autocomplete="off" placeholder="请输入图标"
+                    <input type="text" name="icon" autocomplete="off" placeholder="请输入图标"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">URL</label>
                 <div class="layui-input-block">
-                    <input type="text" name="url" lay-verify="title" autocomplete="off" placeholder="请输入URL"
+                    <input type="text" name="url" autocomplete="off" placeholder="请输入URL"
                            class="layui-input">
                 </div>
             </div>
@@ -43,6 +50,13 @@
                     <input type="radio" name="type" value="0" title="目录" checked>
                     <input type="radio" name="type" value="1" title="菜单">
                     <input type="radio" name="type" value="2" title="按钮">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">排序</label>
+                <div class="layui-input-block">
+                    <input type="text" name="sort" autocomplete="off" placeholder="请输入排序"
+                           class="layui-input">
                 </div>
             </div>
         </div>
@@ -76,8 +90,8 @@
                 contentType: 'application/json',
                 type: 'post',
                 success: function (result) {
-                    if (result.success) {
-                        layer.msg(result.msg, {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {
                             icon: 1,
                             time: 1000
                         }, function () {
@@ -86,7 +100,7 @@
                             parent.layui.table.reload("power-table");
                         });
                     } else {
-                        layer.msg(result.msg, {
+                        layer.msg(result.message, {
                             icon: 2,
                             time: 1000
                         });

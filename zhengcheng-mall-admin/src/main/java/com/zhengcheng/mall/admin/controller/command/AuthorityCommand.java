@@ -47,7 +47,7 @@ public class AuthorityCommand extends UserCommand {
     @ApiModelProperty("备注")
     private String            remark;
 
-    @ApiModelProperty("类型，0-菜单权限，1-按钮权限")
+    @ApiModelProperty("类型，0-目录权限，1-菜单权限，2-按钮权限")
     private Integer           type;
 
     @ApiModelProperty("排序")

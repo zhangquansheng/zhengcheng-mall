@@ -33,8 +33,6 @@ public class AuthorityDTO implements Serializable {
     private String            icon;
     @ApiModelProperty("父ID")
     private Long              pid;
-    @ApiModelProperty("数路径")
-    private String            treePath;
     @ApiModelProperty("层级(最多三级1,2,3)")
     private Integer           level;
     @ApiModelProperty("后端接口URL")

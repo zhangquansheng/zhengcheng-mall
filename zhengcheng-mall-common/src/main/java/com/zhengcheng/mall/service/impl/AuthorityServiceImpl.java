@@ -29,19 +29,22 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     @Autowired
     private AuthorityMapper authorityMapper;
     @Autowired
-    private MallProperties mallProperties;
+    private MallProperties  mallProperties;
 
     @Override
     public boolean save(Authority authority) {
-        List<Authority> codeAuthorities =
-            authorityMapper.selectList(new LambdaQueryWrapper<Authority>().eq(Authority::getCode, authority.getCode()));
-        if (CollectionUtil.isNotEmpty(codeAuthorities)) {
-            throw new BizException(StrUtil.format("已存在 code : [{}] 对应的权限！", authority.getCode()));
+        if (StrUtil.isNotBlank(authority.getCode())) {
+            List<Authority> codeAuthorities = authorityMapper
+                    .selectList(new LambdaQueryWrapper<Authority>().eq(Authority::getCode, authority.getCode()));
+            if (CollectionUtil.isNotEmpty(codeAuthorities)) {
+                throw new BizException(StrUtil.format("已存在 code : [{}] 对应的权限！", authority.getCode()));
+            }
         }
 
+        authority.setEnable(Boolean.TRUE);
         // 设置树路径和层级
         if (Objects.isNull(authority.getPid()) || authority.getPid() <= 0) {
-            authority.setTreePath(",");
+            authority.setPid(0L);
             authority.setLevel(1);
         } else {
             Authority pAuthority = authorityMapper.selectById(authority.getPid());
@@ -49,11 +52,11 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
                 throw new BizException(StrUtil.format("不存在 pId:[{}] 对应的权限！", authority.getPid()));
             }
             if (pAuthority.getLevel() + 1 > mallProperties.getAuthorityMaxLevel()) {
-                throw new BizException(StrUtil.format("已经超过最大层级， maxLevel：[{}]", mallProperties.getAuthorityMaxLevel()));
+                throw new BizException(
+                        StrUtil.format("已经超过最大层级， maxLevel：[{}]", mallProperties.getAuthorityMaxLevel()));
             }
 
             authority.setLevel(pAuthority.getLevel() + 1);
-            authority.setTreePath(StrUtil.format("{}{},", pAuthority.getTreePath(), pAuthority.getId()));
         }
 
         return authorityMapper.insert(authority) > 0;
