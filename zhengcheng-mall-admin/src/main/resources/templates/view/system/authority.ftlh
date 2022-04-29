@@ -147,7 +147,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'add.html'
+                content: MODULE_PATH + 'add'
             });
         }
 
@@ -213,7 +213,7 @@
                                 icon: 1,
                                 time: 1000
                             }, function () {
-                                table.reload('user-table');
+                                table.reload('power-table');
                             });
                         } else {
                             layer.msg(result.msg, {

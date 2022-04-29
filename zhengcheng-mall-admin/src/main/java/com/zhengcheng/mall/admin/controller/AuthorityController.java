@@ -2,13 +2,15 @@ package com.zhengcheng.mall.admin.controller;
 
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
+import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 
@@ -32,6 +34,12 @@ public class AuthorityController {
         return "/view/system/authority";
     }
 
+    @ApiOperation("新增权限页面")
+    @GetMapping("/operate/add")
+    public String add() {
+        return "/view/system/authority/add";
+    }
+
     @Autowired
     private AuthorityFacade authorityFacade;
 
@@ -41,4 +49,11 @@ public class AuthorityController {
         return Result.successData(authorityFacade.findAll());
     }
 
+    @ApiOperation("保存")
+    @PostMapping("/save")
+    public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
+        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityFacade.add(authorityCommand);
+        return Result.success();
+    }
 }
