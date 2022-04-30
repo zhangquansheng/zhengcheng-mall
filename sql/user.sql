@@ -11,7 +11,7 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 28/04/2022 18:02:35
+ Date: 30/04/2022 22:16:55
 */
 
 SET NAMES utf8mb4;
@@ -24,11 +24,10 @@ DROP TABLE IF EXISTS `authority`;
 CREATE TABLE `authority`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `name` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
-  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '编码',
-  `route` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '前端路由',
+  `code` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '编码',
+  `route` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '前端路由',
   `icon` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL DEFAULT '' COMMENT '图标',
   `pid` bigint(20) NOT NULL COMMENT '父ID',
-  `tree_path` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '数路径',
   `level` int(11) NOT NULL DEFAULT 1 COMMENT '层级(最多三级1,2,3)',
   `url` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT '' COMMENT '后端接口URL',
   `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
@@ -43,16 +42,30 @@ CREATE TABLE `authority`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 6 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 22 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of authority
 -- ----------------------------
-INSERT INTO `authority` VALUES (1, '系统管理', '', '', 'layui-icon-set-fill', 0, ',1,', 1, '', '', 0, 1, 1, 0, 0, '2021-08-13 16:15:55', 0, '2022-04-21 10:19:17');
-INSERT INTO `authority` VALUES (2, '用户管理', 'sys:user:main', '', 'layui-icon-username', 1, ',1,2,', 1, '/system/user/main', '', 1, 0, 1, 0, 0, '2022-04-21 10:20:33', 0, '2022-04-21 10:36:45');
-INSERT INTO `authority` VALUES (3, '角色管理', 'sys:role:main', '', 'layui-icon-user', 1, ',1,3,', 1, '/system/role/main', '', 1, 0, 1, 0, 0, '2022-04-21 10:36:42', 0, '2022-04-21 10:36:48');
-INSERT INTO `authority` VALUES (4, '权限管理', 'sys:power:main', '', 'layui-icon-vercode', 1, ',1,4,', 1, '/system/power/main', '', 1, 0, 1, 0, 0, '2022-04-21 10:37:37', 0, '2022-04-21 10:37:37');
-INSERT INTO `authority` VALUES (5, '角色列表', 'sys:role:data', '', 'layui-icon-rate', 3, ',1,3,5,', 1, '', '', 2, 0, 1, 0, 0, '2022-04-21 10:38:46', 0, '2022-04-21 10:40:52');
+INSERT INTO `authority` VALUES (1, '系统管理', '', '', 'layui-icon-set-fill', 0, 1, '', '', 0, 5, 1, 0, 0, '2021-08-13 16:15:55', 0, '2022-04-29 17:03:53');
+INSERT INTO `authority` VALUES (2, '用户管理', 'sys:user:main', '', 'layui-icon-username', 1, 2, '/admin/user/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:20:33', 0, '2022-04-29 19:37:44');
+INSERT INTO `authority` VALUES (3, '角色管理', 'sys:role:main', '', 'layui-icon-user', 1, 2, '/admin/role/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:36:42', 0, '2022-04-29 19:38:03');
+INSERT INTO `authority` VALUES (4, '权限管理', 'sys:power:main', '', 'layui-icon-vercode', 1, 2, '/admin/authority/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:37:37', 0, '2022-04-29 19:38:20');
+INSERT INTO `authority` VALUES (5, '角色列表', 'sys:role:data', '', 'layui-icon-rate', 3, 3, '', '', 2, 0, 1, 0, 0, '2022-04-21 10:38:46', 0, '2022-04-29 15:35:55');
+INSERT INTO `authority` VALUES (8, '工作空间', '', '', 'layui-icon layui-icon-console', 0, 1, '', NULL, 0, 1, 1, 0, 0, '2022-04-29 16:55:40', 3, '2022-04-29 16:55:58');
+INSERT INTO `authority` VALUES (9, '常用组件', '', '', 'layui-icon layui-icon-component', 0, 1, '', NULL, 0, 2, 1, 0, 0, '2022-04-29 17:01:43', 3, '2022-04-29 17:01:43');
+INSERT INTO `authority` VALUES (10, '结果页面', '', '', 'layui-icon layui-icon-auz', 0, 1, '', NULL, 0, 3, 1, 0, 0, '2022-04-29 17:03:07', 3, '2022-04-29 17:03:07');
+INSERT INTO `authority` VALUES (11, '错误页面', '', '', 'layui-icon layui-icon-face-cry', 0, 1, '', NULL, 0, 4, 1, 0, 0, '2022-04-29 17:03:40', 3, '2022-04-29 17:03:40');
+INSERT INTO `authority` VALUES (12, '常用页面', '', '', 'layui-icon layui-icon-template-1', 0, 1, '', NULL, 0, 6, 1, 0, 0, '2022-04-29 17:04:27', 3, '2022-04-29 17:04:27');
+INSERT INTO `authority` VALUES (13, '数据图表', '', '', 'layui-icon layui-icon-chart', 0, 1, '', NULL, 0, 7, 1, 0, 0, '2022-04-29 17:05:02', 3, '2022-04-29 17:05:02');
+INSERT INTO `authority` VALUES (14, '开发工具', '', '', 'layui-icon layui-icon-util', 0, 1, '', NULL, 0, 8, 1, 0, 0, '2022-04-29 17:05:29', 3, '2022-04-29 17:05:29');
+INSERT INTO `authority` VALUES (15, '控制后台', '', '', 'layui-icon layui-icon-console', 8, 2, 'view/console/console1', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:10:21', 3, '2022-04-29 17:10:21');
+INSERT INTO `authority` VALUES (16, '数据分析', '', '', 'layui-icon layui-icon-console', 8, 2, 'view/console/console2', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:11:17', 3, '2022-04-29 17:11:17');
+INSERT INTO `authority` VALUES (17, '百度一下', '', '', 'layui-icon layui-icon-console', 8, 2, 'https://www.baidu.com/', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:12:21', 3, '2022-04-29 17:12:21');
+INSERT INTO `authority` VALUES (18, '表单构建', '', '', 'layui-icon layui-icon-util', 14, 2, 'component/code/index.html', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:13:38', 3, '2022-04-29 17:13:38');
+INSERT INTO `authority` VALUES (19, '部门管理', '', '', 'layui-icon layui-icon-face-cry', 1, 2, 'view/system/deptment.html', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:15:17', 3, '2022-04-29 17:15:17');
+INSERT INTO `authority` VALUES (20, '行为日志', 'sys:log:main', '', 'layui-icon layui-icon-face-cry', 1, 2, '/admin/log/view', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:15:37', 3, '2022-04-30 21:29:33');
+INSERT INTO `authority` VALUES (21, '数据字典', 'sys:dict:main', '', 'layui-icon layui-icon-face-cry', 1, 2, '/admin/dict/view', NULL, 1, 0, 1, 0, 0, '2022-04-29 17:16:02', 3, '2022-04-29 19:39:43');
 
 -- ----------------------------
 -- Table structure for base
@@ -69,6 +82,65 @@ CREATE TABLE `base`  (
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE
 ) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '小天才基础表-公共字段' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Table structure for dict_data
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_data`;
+CREATE TABLE `dict_data`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
+  `value` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '值',
+  `type_code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '字典类型编码',
+  `is_default` tinyint(3) NOT NULL COMMENT '是否默认',
+  `is_enable` tinyint(3) NOT NULL COMMENT '是否启用',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE,
+  INDEX `idx_type_code`(`type_code`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典数据' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of dict_data
+-- ----------------------------
+INSERT INTO `dict_data` VALUES (1, 'APP', 'app', 'login', 0, 1, NULL, NULL, 0, 0, '2022-04-28 19:18:13', 0, '2022-04-29 15:24:38');
+INSERT INTO `dict_data` VALUES (2, '小程序', 'minapp', 'login', 0, 1, NULL, NULL, 0, 0, '2022-04-28 19:20:38', 0, '2022-04-29 15:24:47');
+
+-- ----------------------------
+-- Table structure for dict_type
+-- ----------------------------
+DROP TABLE IF EXISTS `dict_type`;
+CREATE TABLE `dict_type`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '名称',
+  `code` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '编码',
+  `description` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '描述',
+  `is_enable` tinyint(3) NOT NULL COMMENT '是否启用',
+  `remark` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `params` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '参数',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE,
+  INDEX `idx_code`(`code`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 3 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '字典类型' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of dict_type
+-- ----------------------------
+INSERT INTO `dict_type` VALUES (1, '用户状态', 'user_status', '用户状态', 1, NULL, NULL, 0, 0, '2022-04-28 19:18:13', 0, '2022-04-28 19:18:13');
+INSERT INTO `dict_type` VALUES (2, '登录类型', 'login', '登录类型', 1, NULL, NULL, 0, 0, '2022-04-28 19:20:38', 0, '2022-04-28 19:20:38');
 
 -- ----------------------------
 -- Table structure for house
@@ -3535,6 +3607,74 @@ CREATE TABLE `leaf_alloc`  (
 INSERT INTO `leaf_alloc` VALUES ('leaf-segment-test', 4001, 2000, 'Test leaf Segment Mode Get Id', '2021-08-20 16:46:37');
 
 -- ----------------------------
+-- Table structure for log_record
+-- ----------------------------
+DROP TABLE IF EXISTS `log_record`;
+CREATE TABLE `log_record`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `tenant` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '租户标识',
+  `type` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '保存的操作日志的类型，比如：订单类型、商品类型',
+  `sub_type` varchar(100) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '日志的子类型，比如订单的C端日志，和订单的B端日志，type都是订单类型，但是子类型不一样',
+  `biz_no` varchar(200) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '日志绑定的业务标识',
+  `operator` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '操作人',
+  `action` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '日志内容',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 37 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of log_record
+-- ----------------------------
+INSERT INTO `log_record` VALUES (18, 'com.zhengcheng.mall.admin', '角色模块', '', '2', 'root(root)', '禁用了角色,更新结果:true', 0, 3, '2022-04-30 22:02:20', 3, '2022-04-30 22:02:20');
+INSERT INTO `log_record` VALUES (19, 'com.zhengcheng.mall.admin', '角色模块', '', '2', 'root(root)', '启用了角色,更新结果:true', 0, 3, '2022-04-30 22:02:22', 3, '2022-04-30 22:02:22');
+INSERT INTO `log_record` VALUES (20, 'com.zhengcheng.mall.admin', '角色模块', '', '1', 'root(root)', '禁用了角色,更新结果:true', 0, 3, '2022-04-30 22:02:23', 3, '2022-04-30 22:02:23');
+INSERT INTO `log_record` VALUES (21, 'com.zhengcheng.mall.admin', '角色模块', '', '1', 'root(root)', '启用了角色,更新结果:true', 0, 3, '2022-04-30 22:02:23', 3, '2022-04-30 22:02:23');
+INSERT INTO `log_record` VALUES (22, 'com.zhengcheng.mall.admin', '角色模块', '', '2', '超级管理员(root)', '禁用了角色,更新结果:true', 0, 3, '2022-04-30 22:03:32', 3, '2022-04-30 22:03:32');
+INSERT INTO `log_record` VALUES (23, 'com.zhengcheng.mall.admin', '角色模块', '', '2', '超级管理员(root)', '启用了角色,更新结果:true', 0, 3, '2022-04-30 22:03:34', 3, '2022-04-30 22:03:34');
+INSERT INTO `log_record` VALUES (24, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:09:51', 3, '2022-04-30 22:09:51');
+INSERT INTO `log_record` VALUES (25, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:09:51', 3, '2022-04-30 22:09:51');
+INSERT INTO `log_record` VALUES (26, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:09:58', 3, '2022-04-30 22:09:58');
+INSERT INTO `log_record` VALUES (27, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:10:00', 3, '2022-04-30 22:10:00');
+INSERT INTO `log_record` VALUES (28, 'com.zhengcheng.mall.admin', '字典模块', '', '权限列表', '超级管理员(root)', '查询', 0, 3, '2022-04-30 22:13:46', 3, '2022-04-30 22:13:46');
+INSERT INTO `log_record` VALUES (29, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:13:46', 3, '2022-04-30 22:13:46');
+INSERT INTO `log_record` VALUES (30, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:13:46', 3, '2022-04-30 22:13:46');
+INSERT INTO `log_record` VALUES (31, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:13:58', 3, '2022-04-30 22:13:58');
+INSERT INTO `log_record` VALUES (32, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:13:59', 3, '2022-04-30 22:13:59');
+INSERT INTO `log_record` VALUES (33, 'com.zhengcheng.mall.admin', '字典模块', '', '权限列表', '超级管理员(root)', '查询', 0, 3, '2022-04-30 22:14:00', 3, '2022-04-30 22:14:00');
+INSERT INTO `log_record` VALUES (34, 'com.zhengcheng.mall.admin', '字典模块', '', '字典类型列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:14:41', 3, '2022-04-30 22:14:41');
+INSERT INTO `log_record` VALUES (35, 'com.zhengcheng.mall.admin', '字典模块', '', '字典数据列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:14:44', 3, '2022-04-30 22:14:44');
+INSERT INTO `log_record` VALUES (36, 'com.zhengcheng.mall.admin', '字典模块', '', '字典数据列表', '超级管理员(root)', '分页查询', 0, 3, '2022-04-30 22:14:45', 3, '2022-04-30 22:14:45');
+
+-- ----------------------------
+-- Table structure for message
+-- ----------------------------
+DROP TABLE IF EXISTS `message`;
+CREATE TABLE `message`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `sender_id` bigint(20) NULL DEFAULT NULL COMMENT '发送者ID',
+  `receiver_id` bigint(20) NOT NULL COMMENT '接收者ID',
+  `type` tinyint(3) NOT NULL COMMENT '类型：0-通知，1-消息，2-代办',
+  `status` tinyint(3) NOT NULL COMMENT '状态：0-未读，1-已读',
+  `avatar` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息图标',
+  `title` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '消息标题',
+  `content` varchar(300) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '消息内容',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '个人消息' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -3559,8 +3699,8 @@ CREATE TABLE `role`  (
 -- ----------------------------
 -- Records of role
 -- ----------------------------
-INSERT INTO `role` VALUES (1, '管理员', 'admin', 1, '数据管理员', 1, 0, 0, '2021-08-13 16:13:49', 0, '2022-04-22 15:33:22');
-INSERT INTO `role` VALUES (2, 'string', 'CC', 1, 'string', 1, 0, 0, '2021-08-20 16:58:38', 3, '2022-04-22 17:26:17');
+INSERT INTO `role` VALUES (1, '管理员', 'admin', 1, '数据管理员', 1, 0, 0, '2021-08-13 16:13:49', 3, '2022-04-30 22:02:23');
+INSERT INTO `role` VALUES (2, 'string', 'CC', 1, 'string', 1, 0, 0, '2021-08-20 16:58:38', 3, '2022-04-30 22:03:33');
 
 -- ----------------------------
 -- Table structure for role_authority
@@ -3580,7 +3720,7 @@ CREATE TABLE `role_authority`  (
   INDEX `idx_update_time`(`update_time`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_authority_id`(`authority_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 5 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 26 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_authority
@@ -3589,6 +3729,27 @@ INSERT INTO `role_authority` VALUES (1, 1, 1, 1, 0, '2021-08-13 16:16:39', 0, '2
 INSERT INTO `role_authority` VALUES (2, 1, 1, 0, 0, '2021-08-20 17:44:52', 0, '2021-08-20 17:44:52');
 INSERT INTO `role_authority` VALUES (3, 1, 2, 0, 0, '2021-08-20 17:44:52', 0, '2021-08-20 17:44:52');
 INSERT INTO `role_authority` VALUES (4, 1, 3, 0, 0, '2021-08-20 17:44:52', 0, '2021-08-20 17:44:52');
+INSERT INTO `role_authority` VALUES (5, 1, 4, 0, 0, '2022-04-29 17:48:52', 0, '2022-04-29 17:48:52');
+INSERT INTO `role_authority` VALUES (6, 1, 5, 0, 0, '2022-04-29 17:49:10', 0, '2022-04-29 17:49:10');
+INSERT INTO `role_authority` VALUES (7, 1, 6, 0, 0, '2022-04-29 17:49:17', 0, '2022-04-29 17:49:17');
+INSERT INTO `role_authority` VALUES (8, 1, 7, 0, 0, '2022-04-29 17:49:31', 0, '2022-04-29 17:49:31');
+INSERT INTO `role_authority` VALUES (9, 1, 8, 0, 0, '2022-04-29 17:49:36', 0, '2022-04-29 17:49:36');
+INSERT INTO `role_authority` VALUES (10, 1, 9, 0, 0, '2022-04-29 17:49:43', 0, '2022-04-29 17:49:43');
+INSERT INTO `role_authority` VALUES (11, 1, 10, 0, 0, '2022-04-29 17:49:50', 0, '2022-04-29 17:49:50');
+INSERT INTO `role_authority` VALUES (12, 1, 11, 0, 0, '2022-04-29 17:49:50', 0, '2022-04-29 17:49:50');
+INSERT INTO `role_authority` VALUES (13, 1, 12, 0, 0, '2022-04-29 17:50:04', 0, '2022-04-29 17:50:04');
+INSERT INTO `role_authority` VALUES (14, 1, 13, 0, 0, '2022-04-29 17:50:09', 0, '2022-04-29 17:50:09');
+INSERT INTO `role_authority` VALUES (15, 1, 14, 0, 0, '2022-04-29 17:50:16', 0, '2022-04-29 17:50:16');
+INSERT INTO `role_authority` VALUES (16, 1, 15, 0, 0, '2022-04-29 17:50:22', 0, '2022-04-29 17:50:22');
+INSERT INTO `role_authority` VALUES (17, 1, 16, 0, 0, '2022-04-29 17:50:26', 0, '2022-04-29 17:50:26');
+INSERT INTO `role_authority` VALUES (18, 1, 17, 0, 0, '2022-04-29 17:50:31', 0, '2022-04-29 17:50:31');
+INSERT INTO `role_authority` VALUES (19, 1, 18, 0, 0, '2022-04-29 17:50:37', 0, '2022-04-29 17:50:37');
+INSERT INTO `role_authority` VALUES (20, 1, 19, 0, 0, '2022-04-29 17:50:41', 0, '2022-04-29 17:50:41');
+INSERT INTO `role_authority` VALUES (21, 1, 20, 0, 0, '2022-04-29 17:50:47', 0, '2022-04-29 17:50:47');
+INSERT INTO `role_authority` VALUES (22, 1, 21, 0, 0, '2022-04-29 17:50:52', 0, '2022-04-29 17:50:52');
+INSERT INTO `role_authority` VALUES (23, 1, 22, 0, 0, '2022-04-29 17:50:57', 0, '2022-04-29 17:50:57');
+INSERT INTO `role_authority` VALUES (24, 1, 23, 0, 0, '2022-04-29 17:51:06', 0, '2022-04-29 17:51:06');
+INSERT INTO `role_authority` VALUES (25, 1, 24, 0, 0, '2022-04-29 17:51:10', 0, '2022-04-29 17:51:10');
 
 -- ----------------------------
 -- Table structure for social_user
@@ -3661,7 +3822,7 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'ZC0001', 'zhengcheng', '', '13916500301', '新征程', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2021-11-09 18:38:40', 0, 0, '2021-10-27 17:41:37', 0, '2022-04-28 17:33:07');
-INSERT INTO `user` VALUES (3, 'qbc4v9', 'root', '', '13916500401', 'root', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2022-03-11 14:17:32', 0, 0, '2022-03-11 14:17:32', 0, '2022-04-28 17:34:01');
+INSERT INTO `user` VALUES (3, 'qbc4v9', 'root', '', '13916500401', '超级管理员', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2022-03-11 14:17:32', 0, 0, '2022-03-11 14:17:32', 0, '2022-04-30 22:02:49');
 
 -- ----------------------------
 -- Table structure for user_auth
@@ -3705,7 +3866,7 @@ CREATE TABLE `user_login_log`  (
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 118 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 210 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_login_log
@@ -3817,5 +3978,123 @@ INSERT INTO `user_login_log` VALUES (114, 3, 0, '', 0, '192.168.0.105', '192.168
 INSERT INTO `user_login_log` VALUES (115, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 17:32:08', 0, '2022-04-28 17:32:08');
 INSERT INTO `user_login_log` VALUES (116, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 17:32:13', 0, '2022-04-28 17:32:13');
 INSERT INTO `user_login_log` VALUES (117, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 17:34:49', 0, '2022-04-28 17:34:49');
+INSERT INTO `user_login_log` VALUES (118, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 18:26:55', 0, '2022-04-28 18:26:55');
+INSERT INTO `user_login_log` VALUES (119, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 18:40:19', 0, '2022-04-28 18:40:19');
+INSERT INTO `user_login_log` VALUES (120, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 18:44:39', 0, '2022-04-28 18:44:39');
+INSERT INTO `user_login_log` VALUES (121, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 20:42:12', 0, '2022-04-28 20:42:12');
+INSERT INTO `user_login_log` VALUES (122, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 20:43:39', 0, '2022-04-28 20:43:39');
+INSERT INTO `user_login_log` VALUES (123, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 20:45:56', 0, '2022-04-28 20:45:56');
+INSERT INTO `user_login_log` VALUES (124, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 20:50:19', 0, '2022-04-28 20:50:19');
+INSERT INTO `user_login_log` VALUES (125, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 21:53:09', 0, '2022-04-28 21:53:09');
+INSERT INTO `user_login_log` VALUES (126, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-28 22:24:47', 0, '2022-04-28 22:24:47');
+INSERT INTO `user_login_log` VALUES (127, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 11:13:04', 0, '2022-04-29 11:13:04');
+INSERT INTO `user_login_log` VALUES (128, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 11:15:41', 0, '2022-04-29 11:15:41');
+INSERT INTO `user_login_log` VALUES (129, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 11:17:59', 0, '2022-04-29 11:17:59');
+INSERT INTO `user_login_log` VALUES (130, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 11:18:59', 0, '2022-04-29 11:18:59');
+INSERT INTO `user_login_log` VALUES (131, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 11:20:39', 0, '2022-04-29 11:20:39');
+INSERT INTO `user_login_log` VALUES (132, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:11:59', 0, '2022-04-29 12:11:59');
+INSERT INTO `user_login_log` VALUES (133, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:31:12', 0, '2022-04-29 12:31:12');
+INSERT INTO `user_login_log` VALUES (134, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:32:50', 0, '2022-04-29 12:32:50');
+INSERT INTO `user_login_log` VALUES (135, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:36:12', 0, '2022-04-29 12:36:12');
+INSERT INTO `user_login_log` VALUES (136, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:41:36', 0, '2022-04-29 12:41:36');
+INSERT INTO `user_login_log` VALUES (137, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:55:45', 0, '2022-04-29 12:55:45');
+INSERT INTO `user_login_log` VALUES (138, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 12:55:49', 0, '2022-04-29 12:55:49');
+INSERT INTO `user_login_log` VALUES (139, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 13:32:42', 0, '2022-04-29 13:32:42');
+INSERT INTO `user_login_log` VALUES (140, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 13:32:45', 0, '2022-04-29 13:32:45');
+INSERT INTO `user_login_log` VALUES (141, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:28:38', 0, '2022-04-29 14:28:38');
+INSERT INTO `user_login_log` VALUES (142, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:41:51', 0, '2022-04-29 14:41:51');
+INSERT INTO `user_login_log` VALUES (143, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:41:54', 0, '2022-04-29 14:41:54');
+INSERT INTO `user_login_log` VALUES (144, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:45:04', 0, '2022-04-29 14:45:04');
+INSERT INTO `user_login_log` VALUES (145, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:46:48', 0, '2022-04-29 14:46:48');
+INSERT INTO `user_login_log` VALUES (146, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:49:39', 0, '2022-04-29 14:49:39');
+INSERT INTO `user_login_log` VALUES (147, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 14:50:07', 0, '2022-04-29 14:50:07');
+INSERT INTO `user_login_log` VALUES (148, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:13:29', 0, '2022-04-29 15:13:29');
+INSERT INTO `user_login_log` VALUES (149, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:16:03', 0, '2022-04-29 15:16:03');
+INSERT INTO `user_login_log` VALUES (150, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:17:52', 0, '2022-04-29 15:17:52');
+INSERT INTO `user_login_log` VALUES (151, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:20:13', 0, '2022-04-29 15:20:13');
+INSERT INTO `user_login_log` VALUES (152, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:22:41', 0, '2022-04-29 15:22:41');
+INSERT INTO `user_login_log` VALUES (153, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:27:30', 0, '2022-04-29 15:27:30');
+INSERT INTO `user_login_log` VALUES (154, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:30:14', 0, '2022-04-29 15:30:14');
+INSERT INTO `user_login_log` VALUES (155, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:30:50', 0, '2022-04-29 15:30:50');
+INSERT INTO `user_login_log` VALUES (156, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:39:54', 0, '2022-04-29 15:39:54');
+INSERT INTO `user_login_log` VALUES (157, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:39:57', 0, '2022-04-29 15:39:57');
+INSERT INTO `user_login_log` VALUES (158, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:41:55', 0, '2022-04-29 15:41:55');
+INSERT INTO `user_login_log` VALUES (159, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 15:45:32', 0, '2022-04-29 15:45:32');
+INSERT INTO `user_login_log` VALUES (160, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:01:07', 0, '2022-04-29 16:01:07');
+INSERT INTO `user_login_log` VALUES (161, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:03:42', 0, '2022-04-29 16:03:42');
+INSERT INTO `user_login_log` VALUES (162, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:05:12', 0, '2022-04-29 16:05:12');
+INSERT INTO `user_login_log` VALUES (163, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:08:05', 0, '2022-04-29 16:08:05');
+INSERT INTO `user_login_log` VALUES (164, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:37:48', 0, '2022-04-29 16:37:48');
+INSERT INTO `user_login_log` VALUES (165, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:41:31', 0, '2022-04-29 16:41:31');
+INSERT INTO `user_login_log` VALUES (166, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:44:32', 0, '2022-04-29 16:44:32');
+INSERT INTO `user_login_log` VALUES (167, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:45:41', 0, '2022-04-29 16:45:41');
+INSERT INTO `user_login_log` VALUES (168, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:46:57', 0, '2022-04-29 16:46:57');
+INSERT INTO `user_login_log` VALUES (169, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:52:12', 0, '2022-04-29 16:52:12');
+INSERT INTO `user_login_log` VALUES (170, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:55:16', 0, '2022-04-29 16:55:16');
+INSERT INTO `user_login_log` VALUES (171, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 16:58:59', 0, '2022-04-29 16:58:59');
+INSERT INTO `user_login_log` VALUES (172, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 17:08:21', 0, '2022-04-29 17:08:21');
+INSERT INTO `user_login_log` VALUES (173, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 17:08:24', 0, '2022-04-29 17:08:24');
+INSERT INTO `user_login_log` VALUES (174, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:16:05', 0, '2022-04-29 18:16:05');
+INSERT INTO `user_login_log` VALUES (175, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:16:26', 0, '2022-04-29 18:16:26');
+INSERT INTO `user_login_log` VALUES (176, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:25:27', 0, '2022-04-29 18:25:27');
+INSERT INTO `user_login_log` VALUES (177, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:30:46', 0, '2022-04-29 18:30:46');
+INSERT INTO `user_login_log` VALUES (178, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:50:22', 0, '2022-04-29 18:50:22');
+INSERT INTO `user_login_log` VALUES (179, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 18:51:32', 0, '2022-04-29 18:51:32');
+INSERT INTO `user_login_log` VALUES (180, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:07:42', 0, '2022-04-29 19:07:42');
+INSERT INTO `user_login_log` VALUES (181, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:19:32', 0, '2022-04-29 19:19:32');
+INSERT INTO `user_login_log` VALUES (182, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:30:17', 0, '2022-04-29 19:30:17');
+INSERT INTO `user_login_log` VALUES (183, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:33:41', 0, '2022-04-29 19:33:41');
+INSERT INTO `user_login_log` VALUES (184, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:40:56', 0, '2022-04-29 19:40:56');
+INSERT INTO `user_login_log` VALUES (185, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:40:57', 0, '2022-04-29 19:40:57');
+INSERT INTO `user_login_log` VALUES (186, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-29 19:40:59', 0, '2022-04-29 19:40:59');
+INSERT INTO `user_login_log` VALUES (187, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:11:22', 0, '2022-04-30 19:11:22');
+INSERT INTO `user_login_log` VALUES (188, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:24:45', 0, '2022-04-30 19:24:45');
+INSERT INTO `user_login_log` VALUES (189, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:27:18', 0, '2022-04-30 19:27:18');
+INSERT INTO `user_login_log` VALUES (190, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:37:29', 0, '2022-04-30 19:37:29');
+INSERT INTO `user_login_log` VALUES (191, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:37:30', 0, '2022-04-30 19:37:30');
+INSERT INTO `user_login_log` VALUES (192, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:37:31', 0, '2022-04-30 19:37:31');
+INSERT INTO `user_login_log` VALUES (193, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:42:39', 0, '2022-04-30 19:42:39');
+INSERT INTO `user_login_log` VALUES (194, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:44:27', 0, '2022-04-30 19:44:27');
+INSERT INTO `user_login_log` VALUES (195, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:45:14', 0, '2022-04-30 19:45:14');
+INSERT INTO `user_login_log` VALUES (196, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:52:35', 0, '2022-04-30 19:52:35');
+INSERT INTO `user_login_log` VALUES (197, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:54:40', 0, '2022-04-30 19:54:40');
+INSERT INTO `user_login_log` VALUES (198, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 19:58:03', 0, '2022-04-30 19:58:03');
+INSERT INTO `user_login_log` VALUES (199, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:22:42', 0, '2022-04-30 21:22:42');
+INSERT INTO `user_login_log` VALUES (200, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:27:05', 0, '2022-04-30 21:27:05');
+INSERT INTO `user_login_log` VALUES (201, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:43:06', 0, '2022-04-30 21:43:06');
+INSERT INTO `user_login_log` VALUES (202, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:52:21', 0, '2022-04-30 21:52:21');
+INSERT INTO `user_login_log` VALUES (203, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:58:42', 0, '2022-04-30 21:58:42');
+INSERT INTO `user_login_log` VALUES (204, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:58:44', 0, '2022-04-30 21:58:44');
+INSERT INTO `user_login_log` VALUES (205, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 21:58:45', 0, '2022-04-30 21:58:45');
+INSERT INTO `user_login_log` VALUES (206, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 22:01:51', 0, '2022-04-30 22:01:51');
+INSERT INTO `user_login_log` VALUES (207, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 22:03:00', 0, '2022-04-30 22:03:00');
+INSERT INTO `user_login_log` VALUES (208, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 22:09:47', 0, '2022-04-30 22:09:47');
+INSERT INTO `user_login_log` VALUES (209, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-04-30 22:13:42', 0, '2022-04-30 22:13:42');
+
+-- ----------------------------
+-- Table structure for user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `user_role`;
+CREATE TABLE `user_role`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `user_id` bigint(20) NOT NULL COMMENT '角色ID（role表ID）',
+  `role_id` bigint(20) NOT NULL COMMENT '权限ID（authority表ID）',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE,
+  INDEX `idx_role_id`(`user_id`) USING BTREE,
+  INDEX `idx_authority_id`(`role_id`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 28 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户角色表' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of user_role
+-- ----------------------------
+INSERT INTO `user_role` VALUES (26, 3, 1, 0, 0, '2022-04-29 17:55:20', 0, '2022-04-29 17:55:20');
+INSERT INTO `user_role` VALUES (27, 1, 1, 0, 0, '2022-04-29 17:55:26', 0, '2022-04-29 17:55:26');
 
 SET FOREIGN_KEY_CHECKS = 1;
