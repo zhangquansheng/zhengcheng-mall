@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin;
+package com.zhengcheng.mall;
 
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.boot.builder.SpringApplicationBuilder;
