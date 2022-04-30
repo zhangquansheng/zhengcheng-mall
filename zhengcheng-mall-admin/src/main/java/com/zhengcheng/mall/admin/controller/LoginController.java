@@ -47,7 +47,6 @@ public class LoginController {
         return "login";
     }
 
-    //    @LogRecord(success = "{{#loginSubmitCommand.username}}登录系统,登录结果:{{#_ret}}", type = LogRecordType.USER, bizNo = "{{#loginSubmitCommand.username}}")
     @ApiOperation("登录")
     @PostMapping(value = "/submit")
     public @ResponseBody Result<TokenInfoDTO> submit(@RequestBody LoginSubmitCommand loginSubmitCommand,

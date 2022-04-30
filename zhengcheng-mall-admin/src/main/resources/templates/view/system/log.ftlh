@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>行为日志</title>
-    <link rel="stylesheet" href="../../component/pear/css/pear.css" />
+    <link rel="stylesheet" href="../../component/pear/css/pear.css"/>
 </head>
 <body class="pear-container">
 <div class="layui-card">
@@ -29,10 +29,12 @@
 <script type="text/html" id="log-bar">
     {{#if (d.success == true) { }}
     <button class="pear-btn pear-btn-sm pear-btn-success" lay-event="edit"><i class="layui-icon layui-icon-ok"></i>
-        成功</button>
+        成功
+    </button>
     {{# }else if(d.success == false){ }}
     <button class="pear-btn pear-btn-sm pear-btn-danger" lay-event="error"><i class="layui-icon layui-icon-help"></i>
-        异常</button>
+        异常
+    </button>
     {{# } }}
 </script>
 
@@ -43,7 +45,7 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table','form','jquery','element'],function () {
+    layui.use(['table', 'form', 'jquery', 'element'], function () {
         let table = layui.table;
         let form = layui.form;
         let element = layui.element;
@@ -52,23 +54,22 @@
 
         let cols = [
             [
-                {title: '模块', field: 'title', align:'center'},
-                {title: '请求方式', field: 'requestMethod', align:'center'},
-                {title: '接口', field: 'method', align:'center'},
-                {title: '浏览器', field: 'browser', align:'center'},
-                {title: '操作地址', field: 'operateAddress',align:'center'},
-                {title: '操作系统', field: 'systemOs', align:'center'},
-                {title: '访问时间', field: 'createTime',templet:'#log-createTime', align:'center'},
-                {title: '操作人', field: 'operateName', align:'center'},
-                {title: '访问状态', toolbar: '#log-bar', align:'center', width:150}
+                {title: '类型', field: 'type', align: 'center'},
+                {title: '子类型', field: 'subType', align: 'center'},
+                {title: '业务标识', field: 'bizNo', align: 'center'},
+                {title: '日志内容', field: 'action', align: 'center', width: 300},
+                {title: '访问时间', field: 'createTime', templet: '#log-createTime', align: 'center'},
+                {title: '操作人', field: 'operator', align: 'center'}
             ]
         ]
 
         table.render({
             elem: '#log-operate-table',
-            url: '../../admin/data/operateLog.json',
-            page: true ,
-            cols: cols ,
+            url: '/admin/log/page',
+            method: 'post',
+            contentType: 'application/json',
+            page: true,
+            cols: cols,
             skin: 'line',
             toolbar: false
         });
@@ -76,24 +77,24 @@
         table.render({
             elem: '#log-login-table',
             url: '../../admin/data/loginLog.json',
-            page: true ,
-            cols: cols ,
+            page: true,
+            cols: cols,
             skin: 'line',
             toolbar: false
         });
 
-        form.on('submit(dict-type-query)', function(data){
-            table.reload('dict-type-table',{where:data.field})
+        form.on('submit(dict-type-query)', function (data) {
+            table.reload('dict-type-table', {where: data.field})
             return false;
         });
 
-        window.error = function(obj){
+        window.error = function (obj) {
             layer.open({
                 type: 1,
                 title: '异常信息',
                 shade: 0,
                 area: ['450px', '350px'],
-                content: '<div class="pear-container"><div class="layui-card"><div class="layui-card-body">'+obj.data['error']+'</div></div></div>'
+                content: '<div class="pear-container"><div class="layui-card"><div class="layui-card-body">' + obj.data['error'] + '</div></div></div>'
             });
         }
     })
