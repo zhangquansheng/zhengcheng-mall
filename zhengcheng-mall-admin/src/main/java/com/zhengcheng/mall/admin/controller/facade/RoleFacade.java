@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.admin.controller.facade;
 
+import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
@@ -34,6 +35,7 @@ public interface RoleFacade {
      * 开启/禁用
      * @param enableCommand EnableCommand
      */
+    @LogRecord(type = "CUSTOM_ATTRIBUTE", bizNo = "{{#id}}", success = "{{#enable ? '启用' : '禁用'}}")
     void enable(EnableCommand enableCommand);
 
     /**
