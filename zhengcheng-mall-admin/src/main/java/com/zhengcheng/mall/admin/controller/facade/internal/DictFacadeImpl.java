@@ -5,8 +5,10 @@ import org.springframework.stereotype.Component;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
@@ -37,6 +39,7 @@ public class DictFacadeImpl implements DictFacade {
     @Autowired
     private DictDataAssembler dictDataAssembler;
 
+    @LogRecord(success = "分页查询", type = LogRecordType.DICT, bizNo = "字典类型列表")
     @Override
     public PageInfo<DictTypeDTO> typePage(PageCommand pageCommand) {
         IPage<DictType> page = dictTypeService.page(PageUtil.getPage(pageCommand),
@@ -48,6 +51,7 @@ public class DictFacadeImpl implements DictFacade {
         return pageInfo;
     }
 
+    @LogRecord(success = "分页查询", type = LogRecordType.DICT, bizNo = "字典数据列表")
     @Override
     public PageInfo<DictDataDTO> dataPage(DictDataPageCommand dictDataPageCommand) {
         IPage<DictData> page = dictDataService.page(PageUtil.getPage(dictDataPageCommand),

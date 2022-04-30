@@ -76,7 +76,9 @@
 
         table.render({
             elem: '#log-login-table',
-            url: '../../admin/data/loginLog.json',
+            url: '/admin/log/page',
+            method: 'post',
+            contentType: 'application/json',
             page: true,
             cols: cols,
             skin: 'line',

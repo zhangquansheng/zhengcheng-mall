@@ -7,6 +7,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
+import com.mzt.logapi.starter.annotation.LogRecord;
+import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
@@ -28,6 +30,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     @Autowired
     private AuthorityAssembler authorityAssembler;
 
+    @LogRecord(success = "查询", type = LogRecordType.DICT, bizNo = "权限列表")
     @Override
     public List<AuthorityDTO> findAll() {
         return authorityAssembler.toDTOs(authorityService

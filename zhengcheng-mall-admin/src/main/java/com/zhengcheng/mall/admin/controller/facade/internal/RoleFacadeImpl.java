@@ -64,6 +64,7 @@ public class RoleFacadeImpl implements RoleFacade {
         return roleCommand.getId();
     }
 
+    @LogRecord(success = "分页查询", type = LogRecordType.ROLE, bizNo = "角色列表")
     @Override
     public PageInfo<RoleDTO> page(PageCommand pageCommand) {
         IPage<Role> page = roleService.page(PageUtil.getPage(pageCommand),

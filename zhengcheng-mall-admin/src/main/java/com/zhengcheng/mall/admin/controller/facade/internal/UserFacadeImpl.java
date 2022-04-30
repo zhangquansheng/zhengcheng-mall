@@ -9,7 +9,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
@@ -45,6 +47,7 @@ public class UserFacadeImpl implements UserFacade {
         return userAssembler.toDTO(userService.getById(id));
     }
 
+    @LogRecord(success = "分页查询", type = LogRecordType.USER, bizNo = "用户列表")
     @Override
     public PageInfo<UserDTO> page(UserPageCommand userPageCommand) {
         IPage<User> page = userService.page(PageUtil.getPage(userPageCommand), new LambdaQueryWrapper<User>()
