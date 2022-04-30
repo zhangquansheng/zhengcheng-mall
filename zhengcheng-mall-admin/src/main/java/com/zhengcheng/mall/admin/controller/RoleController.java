@@ -60,11 +60,9 @@ public class RoleController {
     }
 
     @ApiOperation("根据ID启用/禁用")
-    @SaCheckPermission("sys:role:enable")
     @PostMapping("/operate/enable")
-    public @ResponseBody Result<Void> enable(@Valid @RequestBody EnableCommand enableCommand) {
+    public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
-        roleFacade.enable(enableCommand);
-        return Result.success();
+        return Result.successData(roleFacade.enable(enableCommand));
     }
 }

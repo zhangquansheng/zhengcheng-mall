@@ -34,7 +34,7 @@ public interface RoleFacade {
      * 开启/禁用
      * @param enableCommand EnableCommand
      */
-    void enable(EnableCommand enableCommand);
+    boolean enable(EnableCommand enableCommand);
 
     /**
      * 添加单条数据
