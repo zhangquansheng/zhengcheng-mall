@@ -1,6 +1,8 @@
 package com.zhengcheng.mall.domain.mapper;
 
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
+import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengcheng.mall.common.dto.UserLoginLogDTO;
 import com.zhengcheng.mall.domain.entity.UserLoginLog;
 
 /**
@@ -11,4 +13,5 @@ import com.zhengcheng.mall.domain.entity.UserLoginLog;
  */
 public interface UserLoginLogMapper extends BaseMapper<UserLoginLog> {
 
+    IPage<UserLoginLogDTO> selectPageVo(IPage<?> page);
 }

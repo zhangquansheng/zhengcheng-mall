@@ -76,16 +76,16 @@
 
         table.render({
             elem: '#log-login-table',
-            url: '/admin/log/page',
+            url: '/admin/userLoginLog/page',
             method: 'post',
             contentType: 'application/json',
             page: true,
             cols: [[
                 {title: '登录账号', field: 'username', align: 'center'},
                 {title: '姓名', field: 'name', align: 'center'},
-                {title: '操作类型', field: 'type', align: 'center'},
+                {title: '操作类型', field: 'typeDesc', align: 'center'},
                 {title: '服务器地址', field: 'serverIp', align: 'center'},
-                {title: '登录结果', field: 'result', align: 'center'},
+                {title: '登录结果', field: 'resultDesc', align: 'center'},
                 {title: '登录IP地址', field: 'loginIp', align: 'center'},
                 {title: '访问时间', field: 'createTime', templet: '#log-createTime', align: 'center'}
             ]],

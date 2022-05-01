@@ -4,7 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.google.common.collect.Lists;
 import com.mzt.logapi.beans.LogRecord;
@@ -21,7 +21,7 @@ import lombok.extern.slf4j.Slf4j;
  * @since 2022/4/30 19:19
  */
 @Slf4j
-@Component
+@Service
 public class DbLogRecordFacadeImpl implements ILogRecordService {
 
     @Autowired

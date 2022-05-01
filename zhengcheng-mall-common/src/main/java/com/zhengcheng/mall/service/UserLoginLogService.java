@@ -1,6 +1,8 @@
 package com.zhengcheng.mall.service;
 
+import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.service.IService;
+import com.zhengcheng.mall.common.dto.UserLoginLogDTO;
 import com.zhengcheng.mall.domain.entity.UserLoginLog;
 
 /**
@@ -11,4 +13,5 @@ import com.zhengcheng.mall.domain.entity.UserLoginLog;
  */
 public interface UserLoginLogService extends IService<UserLoginLog> {
 
+    IPage<UserLoginLogDTO> selectPageVo(IPage<?> page);
 }

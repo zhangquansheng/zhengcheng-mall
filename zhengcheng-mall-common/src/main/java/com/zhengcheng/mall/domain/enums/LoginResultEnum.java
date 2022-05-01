@@ -18,7 +18,7 @@ public enum LoginResultEnum {
     FAILURE(1, "失败");
 
     @EnumValue
-    private final int value;
+    private final int    value;
 
     private final String desc;
 
@@ -27,4 +27,19 @@ public enum LoginResultEnum {
         this.desc = desc;
     }
 
+    /**
+     * 根据value获取类型
+     *
+     * @param value
+     *            值
+     * @return 枚举
+     */
+    public static LoginResultEnum getByValue(Integer value) {
+        for (LoginResultEnum loginResultEnum : LoginResultEnum.values()) {
+            if (value.equals(loginResultEnum.getValue())) {
+                return loginResultEnum;
+            }
+        }
+        return LoginResultEnum.SUCCESS;
+    }
 }

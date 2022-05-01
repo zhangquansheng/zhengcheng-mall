@@ -18,7 +18,7 @@ public enum LoginTypeEnum {
     LOGOUT(1, "系统登出");
 
     @EnumValue
-    private final int value;
+    private final int    value;
 
     private final String desc;
 
@@ -27,4 +27,19 @@ public enum LoginTypeEnum {
         this.desc = desc;
     }
 
+    /**
+     * 根据value获取类型
+     *
+     * @param value
+     *            值
+     * @return 枚举
+     */
+    public static LoginTypeEnum getByValue(Integer value) {
+        for (LoginTypeEnum loginTypeEnum : LoginTypeEnum.values()) {
+            if (value.equals(loginTypeEnum.getValue())) {
+                return loginTypeEnum;
+            }
+        }
+        return LoginTypeEnum.LOGIN;
+    }
 }

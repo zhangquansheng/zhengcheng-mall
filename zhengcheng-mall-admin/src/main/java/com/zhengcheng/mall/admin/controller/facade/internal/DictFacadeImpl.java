@@ -1,7 +1,7 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -27,7 +27,7 @@ import com.zhengcheng.mybatis.plus.utils.PageUtil;
  * @author quansheng1.zhang
  * @since 2022/4/28 20:34
  */
-@Component
+@Service
 public class DictFacadeImpl implements DictFacade {
 
     @Autowired
