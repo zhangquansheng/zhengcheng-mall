@@ -2,6 +2,7 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import com.zhengcheng.common.web.PageInfo;
@@ -47,5 +48,5 @@ public interface UserFacade {
     /**
      * 用户登录
      */
-    Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session);
+    Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session, HttpServletRequest request);
 }

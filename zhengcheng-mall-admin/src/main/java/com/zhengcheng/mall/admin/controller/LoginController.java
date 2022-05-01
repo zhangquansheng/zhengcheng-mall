@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.admin.controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -50,8 +51,8 @@ public class LoginController {
     @ApiOperation("登录")
     @PostMapping(value = "/submit")
     public @ResponseBody Result<TokenInfoDTO> submit(@RequestBody LoginSubmitCommand loginSubmitCommand,
-                                                     HttpSession session) {
-        return userFacade.login(loginSubmitCommand, session);
+                                                     HttpSession session, HttpServletRequest request) {
+        return userFacade.login(loginSubmitCommand, session, request);
     }
 
 }

@@ -4,6 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,8 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.core.util.IpAddressUtils;
+import com.zhengcheng.mall.admin.common.constants.CommonConstant;
 import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
@@ -33,6 +36,7 @@ import com.zhengcheng.mall.service.UserService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
 import cn.hutool.core.util.StrUtil;
+import cn.hutool.extra.servlet.ServletUtil;
 
 /**
  * 用户(User)外观模式，接口实现
@@ -93,7 +97,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session) {
+    public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session,
+                                      HttpServletRequest request) {
         Result<TokenInfoDTO> result = oauthFeign.postToken(loginSubmitCommand.getUsername(),
                 loginSubmitCommand.getEnPassword());
         if (result.hasData()) {
@@ -106,12 +111,13 @@ public class UserFacadeImpl implements UserFacade {
 
             // 记录登录日志
             com.zhengcheng.mall.domain.entity.LogRecord logRecord = new com.zhengcheng.mall.domain.entity.LogRecord();
-            logRecord.setTenant("com.zhengcheng.mall.admin");
+            logRecord.setTenant(CommonConstant.tenant);
             logRecord.setType(LogRecordType.USER);
             logRecord.setSubType("登录");
             logRecord.setBizNo(userDTO.getUsername());
             logRecord.setOperator(StrUtil.format("{}({})", userDTO.getName(), userDTO.getUsername()));
-            logRecord.setAction("登录成功，127.0.0.1，浏览器");
+            logRecord.setAction(StrUtil.format("登录成功,请求IP:{}, 客户浏览器是否为IE:{}", IpAddressUtils.getIpAddress(request),
+                    ServletUtil.isIE(request)));
             logRecordService.save(logRecord);
         }
         return result;
