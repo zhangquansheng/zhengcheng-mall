@@ -30,7 +30,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     @Autowired
     private AuthorityAssembler authorityAssembler;
 
-    @LogRecord(success = "查询", type = LogRecordType.DICT, bizNo = "权限列表")
+    @LogRecord(success = "查询", type = LogRecordType.AUTHORITY, bizNo = "权限列表")
     @Override
     public List<AuthorityDTO> findAll() {
         return authorityAssembler.toDTOs(authorityService

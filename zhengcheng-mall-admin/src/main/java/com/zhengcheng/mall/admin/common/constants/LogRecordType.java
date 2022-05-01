@@ -14,6 +14,6 @@ public interface LogRecordType {
 
     String DICT      = "字典模块";
 
-    String Authority = "权限模块";
+    String AUTHORITY = "权限模块";
 
 }
