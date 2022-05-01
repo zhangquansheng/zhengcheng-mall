@@ -4,6 +4,8 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -11,16 +13,22 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.common.constants.LogRecordType;
+import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
+import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssembler;
+import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.dto.UserDTO;
+import com.zhengcheng.mall.api.feign.OauthFeignClient;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.enums.AuthorityTypeEnum;
 import com.zhengcheng.mall.service.AuthorityService;
+import com.zhengcheng.mall.service.LogRecordService;
 import com.zhengcheng.mall.service.UserService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
@@ -41,6 +49,10 @@ public class UserFacadeImpl implements UserFacade {
     private AuthorityService authortiyService;
     @Autowired
     private UserAssembler    userAssembler;
+    @Autowired
+    private OauthFeignClient oauthFeign;
+    @Autowired
+    private LogRecordService logRecordService;
 
     @Override
     public UserDTO findById(Long id) {
@@ -78,6 +90,31 @@ public class UserFacadeImpl implements UserFacade {
             menuDTOs.add(menuDTO);
         });
         return menuDTOs;
+    }
+
+    @Override
+    public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session) {
+        Result<TokenInfoDTO> result = oauthFeign.postToken(loginSubmitCommand.getUsername(),
+                loginSubmitCommand.getEnPassword());
+        if (result.hasData()) {
+            // 设置当前登录人的用户名
+            TokenInfoDTO tokenInfoDTO = result.getData();
+            UserDTO userDTO = findById(Long.parseLong(String.valueOf(tokenInfoDTO.getLoginId())));
+            tokenInfoDTO.setCurrentUser(userDTO);
+
+            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, tokenInfoDTO);
+
+            // 记录登录日志
+            com.zhengcheng.mall.domain.entity.LogRecord logRecord = new com.zhengcheng.mall.domain.entity.LogRecord();
+            logRecord.setTenant("com.zhengcheng.mall.admin");
+            logRecord.setType(LogRecordType.USER);
+            logRecord.setSubType("登录");
+            logRecord.setBizNo(userDTO.getUsername());
+            logRecord.setOperator(StrUtil.format("{}({})", userDTO.getName(), userDTO.getUsername()));
+            logRecord.setAction("登录成功，127.0.0.1，浏览器");
+            logRecordService.save(logRecord);
+        }
+        return result;
     }
 
     private MenuDTO toMenuDTO(Authority authority) {

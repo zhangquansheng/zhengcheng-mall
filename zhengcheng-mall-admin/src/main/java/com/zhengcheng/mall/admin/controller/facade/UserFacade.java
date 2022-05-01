@@ -2,9 +2,14 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import java.util.List;
 
+import javax.servlet.http.HttpSession;
+
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
+import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
@@ -38,4 +43,9 @@ public interface UserFacade {
      * @return 菜单
      */
     List<MenuDTO> menu(Long userId);
+
+    /**
+     * 用户登录
+     */
+    Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session);
 }

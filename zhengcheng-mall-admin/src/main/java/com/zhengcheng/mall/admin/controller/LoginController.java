@@ -15,8 +15,6 @@ import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
-import com.zhengcheng.mall.api.dto.UserDTO;
-import com.zhengcheng.mall.api.feign.OauthFeignClient;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
@@ -34,9 +32,7 @@ import io.swagger.annotations.ApiOperation;
 public class LoginController {
 
     @Autowired
-    private OauthFeignClient oauthFeign;
-    @Autowired
-    private UserFacade       userFacade;
+    private UserFacade userFacade;
 
     @ApiOperation("登录页面")
     @RequestMapping
@@ -55,17 +51,7 @@ public class LoginController {
     @PostMapping(value = "/submit")
     public @ResponseBody Result<TokenInfoDTO> submit(@RequestBody LoginSubmitCommand loginSubmitCommand,
                                                      HttpSession session) {
-        Result<TokenInfoDTO> result = oauthFeign.postToken(loginSubmitCommand.getUsername(),
-                loginSubmitCommand.getEnPassword());
-        if (result.hasData()) {
-            // 设置当前登录人的用户名
-            TokenInfoDTO tokenInfoDTO = result.getData();
-            UserDTO userDTO = userFacade.findById(Long.parseLong(String.valueOf(tokenInfoDTO.getLoginId())));
-            tokenInfoDTO.setCurrentUser(userDTO);
-
-            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, tokenInfoDTO);
-        }
-        return result;
+        return userFacade.login(loginSubmitCommand, session);
     }
 
 }
