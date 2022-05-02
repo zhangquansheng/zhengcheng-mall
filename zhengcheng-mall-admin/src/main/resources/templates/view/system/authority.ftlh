@@ -152,7 +152,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'edit.html'
+                content: MODULE_PATH + 'edit?id=' + obj.data['id']
             });
         }
 

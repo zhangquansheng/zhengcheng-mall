@@ -6,6 +6,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.Result;
@@ -39,6 +40,13 @@ public class AuthorityController {
     @GetMapping("/operate/add")
     public String add() {
         return "/view/system/authority/add";
+    }
+
+    @ApiOperation("编辑权限页面")
+    @GetMapping("/operate/edit")
+    public String edit(Long id, Model model) {
+        model.addAttribute("authority", authorityFacade.findById(id));
+        return "/view/system/authority/edit";
     }
 
     @Autowired
