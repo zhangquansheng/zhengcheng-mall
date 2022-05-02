@@ -155,6 +155,7 @@
                 content: MODULE_PATH + 'edit.html'
             });
         }
+
         window.remove = function (obj) {
             layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
