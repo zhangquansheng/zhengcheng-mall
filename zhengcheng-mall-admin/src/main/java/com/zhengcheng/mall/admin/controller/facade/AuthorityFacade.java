@@ -45,6 +45,13 @@ public interface AuthorityFacade {
     Long update(AuthorityCommand authorityCommand);
 
     /**
+     * 根据ID删除
+     * @param id ID
+     * @return 是否成功
+     */
+    boolean deleteById(Long id);
+
+    /**
      * 查询 Treeselect 
      * @return TreeselectDTO
      */

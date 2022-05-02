@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.mzt.logapi.starter.annotation.LogRecord;
+import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
@@ -17,6 +18,8 @@ import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.AuthorityAssembler;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.service.AuthorityService;
+
+import cn.hutool.core.collection.CollectionUtil;
 
 /**
  * 权限表(Authority)外观模式，接口实现
@@ -44,6 +47,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
         return authorityAssembler.toDTO(authorityService.getById(id));
     }
 
+    @LogRecord(success = "新增了权限：{{#authorityCommand.name}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.ADD_SUB_TYPE, bizNo = "{{#authorityCommand.code}}")
     @Override
     public Long add(AuthorityCommand authorityCommand) {
         Authority authority = authorityAssembler.toEntity(authorityCommand);
@@ -61,6 +65,18 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
                 .set(Authority::getType, authorityCommand.getType()).set(Authority::getSort, authorityCommand.getSort())
                 .eq(Authority::getId, authorityCommand.getId()));
         return authority.getId();
+    }
+
+    @LogRecord(success = "删除权限", type = LogRecordType.AUTHORITY, subType = LogRecordType.DELETE_SUB_TYPE, bizNo = "{{#id}}")
+    @Override
+    public boolean deleteById(Long id) {
+        List<Authority> authorityList = authorityService.list(
+                new LambdaQueryWrapper<Authority>().eq(Authority::getPid, id).eq(Authority::getEnable, Boolean.TRUE)
+                        .orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort));
+        if (CollectionUtil.isNotEmpty(authorityList)) {
+            throw new BizException("此权限下存在子权限，无法删除！");
+        }
+        return authorityService.removeById(id);
     }
 
     @Override

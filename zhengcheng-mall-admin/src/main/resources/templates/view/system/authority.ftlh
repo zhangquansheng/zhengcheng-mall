@@ -35,10 +35,6 @@
         <i class="layui-icon layui-icon-add-1"></i>
         新增
     </button>
-    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
-        <i class="layui-icon layui-icon-delete"></i>
-        删除
-    </button>
     <button class="pear-btn pear-btn-success pear-btn-md" lay-event="expandAll">
         <i class="layui-icon layui-icon-spread-left"></i>
         展开
@@ -132,8 +128,6 @@
                 window.add();
             } else if (obj.event === 'refresh') {
                 window.refresh();
-            } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
             } else if (obj.event === 'expandAll') {
                 treetable.expandAll("#power-table");
             } else if (obj.event === 'foldAll') {
@@ -165,61 +159,18 @@
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['powerId'],
+                    url: MODULE_PATH + "remove/" + obj.data['id'],
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
                     dataType: 'json',
                     type: 'delete',
                     success: function (result) {
                         layer.close(loading);
-                        if (result.success) {
-                            layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                        if (result.code == 200) {
+                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
                                 obj.del();
                             });
                         } else {
-                            layer.msg(result.msg, {icon: 2, time: 1000});
-                        }
-                    }
-                })
-            });
-        }
-
-        window.batchRemove = function (obj) {
-            let data = table.checkStatus(obj.config.id).data;
-            if (data.length === 0) {
-                layer.msg("未选中数据", {
-                    icon: 3,
-                    time: 1000
-                });
-                return false;
-            }
-            let ids = "";
-            for (let i = 0; i < data.length; i++) {
-                ids += data[i].powerId + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
-            layer.confirm('确定要删除这些权限', {
-                icon: 3,
-                title: '提示'
-            }, function (index) {
-                layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "batchRemove/" + ids,
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.success) {
-                            layer.msg(result.msg, {
-                                icon: 1,
-                                time: 1000
-                            }, function () {
-                                table.reload('power-table');
-                            });
-                        } else {
-                            layer.msg(result.msg, {
-                                icon: 2,
-                                time: 1000
-                            });
+                            layer.msg(result.message, {icon: 2, time: 1000});
                         }
                     }
                 })

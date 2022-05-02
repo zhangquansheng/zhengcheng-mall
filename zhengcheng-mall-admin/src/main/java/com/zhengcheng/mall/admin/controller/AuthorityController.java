@@ -63,4 +63,10 @@ public class AuthorityController {
         authorityFacade.add(authorityCommand);
         return Result.success();
     }
+
+    @ApiOperation("删除")
+    @DeleteMapping("/operate/remove/{id}")
+    public @ResponseBody Result<Boolean> remove(@PathVariable("id") Long id) {
+        return Result.successData(authorityFacade.deleteById(id));
+    }
 }
