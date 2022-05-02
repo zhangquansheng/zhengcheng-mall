@@ -12,6 +12,7 @@ import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
+import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 
 import io.swagger.annotations.Api;
@@ -47,6 +48,12 @@ public class AuthorityController {
     @GetMapping("/data")
     public @ResponseBody Result<List<AuthorityDTO>> data() {
         return Result.successData(authorityFacade.findAll());
+    }
+
+    @ApiOperation("查询所有 treeselect 权限数据")
+    @GetMapping("/treeselectData")
+    public @ResponseBody List<TreeselectDTO> treeselectData() {
+        return authorityFacade.findTreeselectList();
     }
 
     @ApiOperation("保存")

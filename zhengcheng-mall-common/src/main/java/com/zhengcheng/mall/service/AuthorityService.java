@@ -22,7 +22,7 @@ public interface AuthorityService extends IService<Authority> {
     List<String> getPermissionList(Object loginId, String loginType);
 
     /**
-     * 查询所有权限列表
+     * 查询用户的权限列表
      * @param userId 用户ID
      * @return 权限列表
      */

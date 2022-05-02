@@ -12,7 +12,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">上级</label>
                 <div class="layui-input-block">
-                    <input type="text" name="pid" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="pid" id="pid-tree" lay-filter="pid-tree" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
@@ -78,9 +78,18 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery'], function () {
+    layui.use(['treeSelect', 'form', 'jquery'], function () {
         let form = layui.form;
+        let treeSelect = layui.treeSelect;
         let $ = layui.jquery;
+
+        treeSelect.render({
+            elem: '#pid-tree',
+            data: '/admin/authority/treeselectData',
+            type: 'get',
+            placeholder: '请选择上级',
+            search: true
+        });
 
         form.on('submit(authority-save)', function (data) {
             $.ajax({

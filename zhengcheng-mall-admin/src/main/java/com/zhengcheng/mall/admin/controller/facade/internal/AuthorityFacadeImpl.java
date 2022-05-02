@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,6 +12,7 @@ import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
+import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.AuthorityAssembler;
 import com.zhengcheng.mall.domain.entity.Authority;
@@ -61,4 +63,26 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
         return authority.getId();
     }
 
+    @Override
+    public List<TreeselectDTO> findTreeselectList() {
+        List<Authority> authorityList = authorityService.list(new LambdaQueryWrapper<Authority>()
+                .eq(Authority::getEnable, Boolean.TRUE).orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort));
+        return findChildren(authorityList, 0L);
+    }
+
+    private List<TreeselectDTO> findChildren(List<Authority> authorityList, Long pid) {
+        List<TreeselectDTO> children = new ArrayList<>();
+        authorityList.forEach(authority -> {
+            if (authority.getPid().equals(pid)) {
+                TreeselectDTO treeselectDTO = new TreeselectDTO();
+                treeselectDTO.setId(authority.getId());
+                treeselectDTO.setName(authority.getName());
+                treeselectDTO.setOpen(true);
+                treeselectDTO.setChecked(false);
+                treeselectDTO.setChildren(findChildren(authorityList, authority.getId()));
+                children.add(treeselectDTO);
+            }
+        });
+        return children;
+    }
 }

@@ -4,6 +4,7 @@ import java.util.List;
 
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
+import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 
 /**
  * 权限表(Authority)表Facade接口
@@ -42,5 +43,11 @@ public interface AuthorityFacade {
      *            数据查询对象
      */
     Long update(AuthorityCommand authorityCommand);
+
+    /**
+     * 查询 Treeselect 
+     * @return TreeselectDTO
+     */
+    List<TreeselectDTO> findTreeselectList();
 
 }
