@@ -75,12 +75,15 @@ public class UserFacadeImpl implements UserFacade {
     public List<MenuDTO> menu(Long userId) {
         List<Authority> authorities = authortiyService.getAuthorityList(userId);
         // 查询 pid=0 的目录
-        List<Authority> catalogues = authorities.stream().filter(s -> s.getPid() == 0).collect(Collectors.toList());
+        List<Authority> catalogues = authorities.stream()
+                .filter(s -> (s.getPid() == 0 && AuthorityTypeEnum.CATALOGUE.equals(s.getType())))
+                .collect(Collectors.toList());
         List<MenuDTO> menuDTOs = new ArrayList<>();
         catalogues.forEach(catalogue -> {
             MenuDTO menuDTO = this.toMenuDTO(catalogue);
             // 获取目录下的菜单
-            List<Authority> menus = authorities.stream().filter(s -> s.getPid().equals(catalogue.getId()))
+            List<Authority> menus = authorities.stream()
+                    .filter(s -> (s.getPid().equals(catalogue.getId()) && AuthorityTypeEnum.MENU.equals(s.getType())))
                     .collect(Collectors.toList());
             List<MenuDTO> children = new ArrayList<>();
             menus.forEach(menu -> children.add(this.toMenuDTO(menu)));
