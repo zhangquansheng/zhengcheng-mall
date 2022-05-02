@@ -102,6 +102,7 @@
                     [
                         {type: 'checkbox'},
                         {field: 'name', minWidth: 200, title: '权限名称'},
+                        {field: 'code', minWidth: 200, title: '权限编码'},
                         {field: 'icon', title: '图标', templet: '#icon'},
                         {field: 'type', title: '权限类型', templet: '#power-type'},
                         {field: 'enable', title: '是否可用', templet: '#power-enable'},
