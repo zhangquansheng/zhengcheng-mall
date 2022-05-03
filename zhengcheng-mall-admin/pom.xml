@@ -62,26 +62,6 @@
             <artifactId>wx-java-mp-spring-boot-starter</artifactId>
             <version>4.3.0</version>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.binarywang</groupId>-->
-        <!--            <artifactId>weixin-java-common</artifactId>-->
-        <!--            <version>4.3.0</version>-->
-        <!--        </dependency>-->
-        <!--        &lt;!&ndash;weixin-java-admin&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.binarywang</groupId>-->
-        <!--            <artifactId>weixin-java-mp</artifactId>-->
-        <!--        </dependency>-->
-        <!--        &lt;!&ndash;weixin-java-miniapp&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.binarywang</groupId>-->
-        <!--            <artifactId>weixin-java-miniapp</artifactId>-->
-        <!--        </dependency>-->
-        <!--        &lt;!&ndash;weixin-java-pay&ndash;&gt;-->
-        <!--        <dependency>-->
-        <!--            <groupId>com.github.binarywang</groupId>-->
-        <!--            <artifactId>weixin-java-pay</artifactId>-->
-        <!--        </dependency>-->
     </dependencies>
 
     <build>
