@@ -7,8 +7,10 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
@@ -76,5 +78,13 @@ public class AuthorityController {
     @DeleteMapping("/operate/remove/{id}")
     public @ResponseBody Result<Boolean> remove(@PathVariable("id") Long id) {
         return Result.successData(authorityFacade.deleteById(id));
+    }
+
+    @ApiOperation("更新")
+    @PostMapping("/update")
+    public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody AuthorityCommand authorityCommand) {
+        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityFacade.update(authorityCommand);
+        return Result.success();
     }
 }

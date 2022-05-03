@@ -7,33 +7,50 @@
 </head>
 <body>
 <form class="layui-form" action="">
+    <input type="hidden" name="id" value="${authority.id}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" value="${authority.name}" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" value="${authority.name!}" autocomplete="off" placeholder="请输入名称"
                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">编码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="code" value="${authority.code!}" autocomplete="off" placeholder="请输入编码"
+                           disabled class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">图标</label>
                 <div class="layui-input-block">
-                    <input type="text" name="icon" value="${authority.icon}" autocomplete="off" placeholder="请输入图标"
+                    <input type="text" name="icon" value="${authority.icon!}" autocomplete="off" placeholder="请输入图标"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">URL</label>
                 <div class="layui-input-block">
-                    <input type="text" name="url" value="${authority.url}" autocomplete="off" placeholder="请输入URL"
+                    <input type="text" name="url" value="${authority.url!}" autocomplete="off" placeholder="请输入URL"
                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <input type="radio" name="type" <#if authority.type == 0> checked </#if> value="0" title="目录"
+                           checked>
+                    <input type="radio" name="type" <#if authority.type == 1> checked </#if> value="1" title="菜单">
+                    <input type="radio" name="type" <#if authority.type == 2> checked </#if> value="2" title="按钮">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">排序</label>
                 <div class="layui-input-block">
-                    <input type="text" name="sort" value="${authority.sort}" autocomplete="off" placeholder="请输入排序"
+                    <input type="text" name="sort" value="${authority.sort!}" autocomplete="off" placeholder="请输入排序"
                            class="layui-input">
                 </div>
             </div>
@@ -42,7 +59,7 @@
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="user-save">
+                    lay-filter="authority-update">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -60,25 +77,25 @@
         let form = layui.form;
         let $ = layui.jquery;
 
-        form.on('submit(user-save)', function (data) {
+        form.on('submit(authority-update)', function (data) {
             $.ajax({
-                url: '/system/user/save',
+                url: '/admin/authority/update',
                 data: JSON.stringify(data.field),
                 dataType: 'json',
                 contentType: 'application/json',
                 type: 'post',
                 success: function (result) {
                     if (result.code == 200) {
-                        layer.msg(result.msg, {
+                        layer.msg(result.message, {
                             icon: 1,
                             time: 1000
                         }, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window
                                 .name)); //关闭当前页
-                            parent.layui.table.reload("user-table");
+                            parent.layui.table.reload("power-table");
                         });
                     } else {
-                        layer.msg(result.msg, {
+                        layer.msg(result.message, {
                             icon: 2,
                             time: 1000
                         });

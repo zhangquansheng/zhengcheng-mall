@@ -55,6 +55,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
         return authority.getId();
     }
 
+    @LogRecord(success = "更新了权限{_DIFF{#authorityCommand}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.UPDATE_SUB_TYPE, bizNo = "{{#authorityCommand.id}}")
     @Override
     public Long update(AuthorityCommand authorityCommand) {
         Authority authority = authorityAssembler.toEntity(authorityCommand);
