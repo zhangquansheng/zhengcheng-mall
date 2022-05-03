@@ -61,7 +61,6 @@
             <groupId>com.github.binarywang</groupId>
             <artifactId>wx-java-mp-spring-boot-starter</artifactId>
         </dependency>
-
     </dependencies>
 
     <build>
