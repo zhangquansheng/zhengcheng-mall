@@ -42,8 +42,8 @@ public class WxUserTagsController {
     public @ResponseBody Result<List<WxUserTag>> getWxusertags(String appId) {
         WxMpUserTagService wxMpUserTagService = wxService.getUserTagService();
         try {
-            List<WxUserTag> listWxUserTag = wxMpUserTagService.tagGet();
-            return Result.successData(listWxUserTag);
+            List<WxUserTag> listWxUserTags = wxMpUserTagService.tagGet();
+            return Result.successData(listWxUserTags);
         } catch (WxErrorException e) {
             log.error("获取微信用户标签失败", e);
             return Result.errorMessage(e.getMessage());
