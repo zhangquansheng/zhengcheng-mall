@@ -63,7 +63,8 @@
 </script>
 
 <script type="text/html" id="power-enable">
-    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="user-enable" {{
+    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="power-enable"
+           {{
            d.enable== true ? 'checked' : '' }} />
 </script>
 
@@ -178,6 +179,27 @@
                 })
             });
         }
+
+        form.on('switch(power-enable)', function (obj) {
+            $.ajax({
+                url: MODULE_PATH + "enable",
+                dataType: 'json',
+                type: 'post',
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: this.value,
+                    enable: obj.elem.checked
+                }),
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    }
+                }
+            });
+        });
     })
 </script>
 </body>

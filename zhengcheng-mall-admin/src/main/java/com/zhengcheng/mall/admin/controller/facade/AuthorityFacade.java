@@ -3,6 +3,7 @@ package com.zhengcheng.mall.admin.controller.facade;
 import java.util.List;
 
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 
@@ -43,6 +44,12 @@ public interface AuthorityFacade {
      *            数据查询对象
      */
     Long update(AuthorityCommand authorityCommand);
+
+    /**
+     * 开启/禁用
+     * @param enableCommand EnableCommand
+     */
+    boolean enable(EnableCommand enableCommand);
 
     /**
      * 根据ID删除

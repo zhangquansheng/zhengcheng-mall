@@ -14,6 +14,7 @@ import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
@@ -86,5 +87,12 @@ public class AuthorityController {
         authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
         authorityFacade.update(authorityCommand);
         return Result.success();
+    }
+
+    @ApiOperation("根据ID启用/禁用")
+    @PostMapping("/operate/enable")
+    public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
+        enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        return Result.successData(authorityFacade.enable(enableCommand));
     }
 }

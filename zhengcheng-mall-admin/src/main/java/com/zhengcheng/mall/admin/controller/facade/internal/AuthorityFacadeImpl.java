@@ -12,6 +12,7 @@ import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
@@ -66,6 +67,15 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
                 .set(Authority::getType, authorityCommand.getType()).set(Authority::getSort, authorityCommand.getSort())
                 .eq(Authority::getId, authorityCommand.getId()));
         return authority.getId();
+    }
+
+    @LogRecord(success = "{{#enableCommand.enable ? '启用' : '禁用'}}了权限,更新结果:{{#_ret}}", type = LogRecordType.ROLE, bizNo = "{{#enableCommand.id}}")
+    @Override
+    public boolean enable(EnableCommand enableCommand) {
+        return authorityService
+                .update(new LambdaUpdateWrapper<Authority>().set(Authority::getEnable, enableCommand.isEnable())
+                        .set(Authority::getUpdateUserId, enableCommand.getUpdateUserId())
+                        .eq(Authority::getId, enableCommand.getId()));
     }
 
     @LogRecord(success = "删除权限", type = LogRecordType.AUTHORITY, subType = LogRecordType.DELETE_SUB_TYPE, bizNo = "{{#id}}")
