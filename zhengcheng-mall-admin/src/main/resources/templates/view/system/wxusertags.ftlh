@@ -63,7 +63,7 @@
 
         table.render({
             elem: '#wxusertags-table',
-            url: '/admin/role/page',
+            url: '/admin/wxusertags/list',
             page: true,
             cols: cols,
             skin: 'line',
