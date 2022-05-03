@@ -4,7 +4,7 @@
  * @version: 1.0
  */
 
-package com.zhengcheng.mall.admin.common.enums;
+package com.zhengcheng.mall.common.enums;
 
 import java.text.MessageFormat;
 
@@ -22,13 +22,13 @@ public enum AdminError {
     /**
      * 权限相关错误401*
      */
-    NotPermissionException(40101,"{0}");
+    NotPermissionException(40101, "{0}");
 
     private final Integer code;
 
-    private final String message;
+    private final String  message;
 
-     AdminError(int code, String message) {
+    AdminError(int code, String message) {
         this.code = code;
         this.message = message;
     }

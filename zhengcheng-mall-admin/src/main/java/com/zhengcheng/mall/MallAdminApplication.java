@@ -6,7 +6,7 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.cloud.openfeign.EnableFeignClients;
 
 import com.mzt.logapi.starter.annotation.EnableLogRecord;
-import com.zhengcheng.mall.admin.common.constants.CommonConstant;
+import com.zhengcheng.mall.common.constants.CommonConstant;
 
 /**
  * MallAdminApplication

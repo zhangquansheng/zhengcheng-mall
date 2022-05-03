@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.config;
+package com.zhengcheng.mall.common.config;
 
 import java.util.Optional;
 
@@ -7,7 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.mzt.logapi.beans.Operator;
 import com.mzt.logapi.service.IOperatorGetService;
-import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
+import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import cn.hutool.core.util.StrUtil;
 

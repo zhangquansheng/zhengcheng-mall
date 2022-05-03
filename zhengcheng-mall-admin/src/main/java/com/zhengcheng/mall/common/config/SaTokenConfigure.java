@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.config;
+package com.zhengcheng.mall.common.config;
 
 import org.springframework.context.annotation.Configuration;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;

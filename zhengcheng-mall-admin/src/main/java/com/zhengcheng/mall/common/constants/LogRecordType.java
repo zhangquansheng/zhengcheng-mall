@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.constants;
+package com.zhengcheng.mall.common.constants;
 
 /**
  * LogRecordType

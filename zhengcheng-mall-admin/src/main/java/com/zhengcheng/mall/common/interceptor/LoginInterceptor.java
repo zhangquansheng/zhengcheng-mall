@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.interceptor;
+package com.zhengcheng.mall.common.interceptor;
 
 import java.net.URLEncoder;
 
@@ -8,8 +8,8 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
+import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 /**
  * Interceptor - 用户登录拦截器

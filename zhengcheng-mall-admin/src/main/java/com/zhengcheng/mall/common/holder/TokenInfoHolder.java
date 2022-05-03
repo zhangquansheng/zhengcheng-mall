@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.holder;
+package com.zhengcheng.mall.common.holder;
 
 import org.springframework.lang.Nullable;
 

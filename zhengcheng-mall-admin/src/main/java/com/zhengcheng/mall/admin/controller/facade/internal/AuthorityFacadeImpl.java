@@ -10,13 +10,13 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.mall.admin.common.constants.LogRecordType;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.AuthorityAssembler;
+import com.zhengcheng.mall.common.constants.LogRecordType;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.service.AuthorityService;
 
@@ -104,9 +104,10 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
                 TreeselectDTO treeselectDTO = new TreeselectDTO();
                 treeselectDTO.setId(authority.getId());
                 treeselectDTO.setName(authority.getName());
-                treeselectDTO.setOpen(true);
                 treeselectDTO.setChecked(false);
                 treeselectDTO.setChildren(findChildren(authorityList, authority.getId()));
+                treeselectDTO
+                        .setOpen(CollectionUtil.isEmpty(treeselectDTO.getChildren()) ? Boolean.FALSE : Boolean.TRUE);
                 children.add(treeselectDTO);
             }
         });

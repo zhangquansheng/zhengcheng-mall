@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
+import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;

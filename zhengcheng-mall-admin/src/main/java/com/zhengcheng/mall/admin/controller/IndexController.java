@@ -6,8 +6,8 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
+import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 
 import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;

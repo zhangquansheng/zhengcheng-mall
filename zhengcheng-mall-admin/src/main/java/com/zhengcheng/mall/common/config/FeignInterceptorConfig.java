@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.config;
+package com.zhengcheng.mall.common.config;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -25,11 +25,12 @@ public class FeignInterceptorConfig {
     @Bean
     public RequestInterceptor requestInterceptor() {
         RequestInterceptor requestInterceptor = template -> {
-            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+            ServletRequestAttributes attributes = (ServletRequestAttributes) RequestContextHolder
+                    .getRequestAttributes();
             if (attributes != null) {
                 HttpServletRequest request = attributes.getRequest();
                 String satoken = request.getHeader("satoken");
-                if(StrUtil.isNotBlank(satoken)){
+                if (StrUtil.isNotBlank(satoken)) {
                     template.header("satoken", satoken);
                 }
             }

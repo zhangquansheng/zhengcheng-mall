@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.common.config;
+package com.zhengcheng.mall.common.config;
 
 import javax.annotation.PostConstruct;
 import javax.servlet.ServletContext;
@@ -27,7 +27,7 @@ public class FreemarkerConfiguration {
     @Autowired
     private freemarker.template.Configuration configuration;
     @Autowired
-    private ServletContext servletContext;
+    private ServletContext                    servletContext;
 
     @PostConstruct
     public void setConfigure() throws Exception {

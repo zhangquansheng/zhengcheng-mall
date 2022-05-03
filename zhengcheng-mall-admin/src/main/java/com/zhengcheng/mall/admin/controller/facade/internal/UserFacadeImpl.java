@@ -15,8 +15,6 @@ import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.admin.common.constants.LogRecordType;
-import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
@@ -25,6 +23,8 @@ import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssemb
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.OauthFeignClient;
+import com.zhengcheng.mall.common.constants.LogRecordType;
+import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.enums.AuthorityTypeEnum;

@@ -12,10 +12,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.admin.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
+import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;

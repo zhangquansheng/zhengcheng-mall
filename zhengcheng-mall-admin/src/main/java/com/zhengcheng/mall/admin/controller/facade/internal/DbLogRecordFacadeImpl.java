@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.mzt.logapi.beans.LogRecord;
 import com.mzt.logapi.service.ILogRecordService;
-import com.zhengcheng.mall.admin.common.holder.TokenInfoHolder;
+import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 import com.zhengcheng.mall.service.LogRecordService;
 
 import lombok.extern.slf4j.Slf4j;
