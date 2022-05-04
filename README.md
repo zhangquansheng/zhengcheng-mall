@@ -1,5 +1,9 @@
 # Spring Cloud 大型线上商城项目实战
 
+## 技术选型
+
+- [基于 Layui 的后台管理系统模板](https://gitee.com/pear-admin/Pear-Admin-Layui)
+
 ## Jasypt
 
 增加启动参数：
