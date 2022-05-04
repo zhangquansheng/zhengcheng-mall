@@ -13,7 +13,8 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" value="${authority.name!}" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" value="${authority.name!}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入名称"
                            class="layui-input">
                 </div>
             </div>

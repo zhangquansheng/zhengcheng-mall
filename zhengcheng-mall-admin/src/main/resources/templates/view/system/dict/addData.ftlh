@@ -7,20 +7,30 @@
 </head>
 <body>
 <form class="layui-form" action="">
-    <input type="hidden" name="typeCode" value="${typeCode!}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
+                <label class="layui-form-label">类型</label>
+                <div class="layui-input-block">
+                    <select name="typeCode" lay-verify="required" lay-search>
+                        <option value=""></option>
+                        <#list dictTypes as dictType>
+                            <option value="${dictType.code}">${dictType.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" lay-verify="name" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入名称"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">值</label>
                 <div class="layui-input-block">
-                    <input type="text" name="value" lay-verify="value" autocomplete="off" placeholder="请输入值"
+                    <input type="text" name="value" lay-verify="required" autocomplete="off" placeholder="请输入值"
                            class="layui-input">
                 </div>
             </div>
@@ -49,7 +59,7 @@
 
         form.on('submit(dictData-save)', function (data) {
             $.ajax({
-                url: '/admin/dictData/save',
+                url: '/admin/dict/save/data',
                 data: JSON.stringify(data.field),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -62,7 +72,7 @@
                         }, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window
                                 .name)); //关闭当前页
-                            parent.layui.table.reload("wxusertag-table");
+                            parent.layui.table.reload("dict-data-table");
                         });
                     } else {
                         layer.msg(result.message, {

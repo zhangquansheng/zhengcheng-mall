@@ -7,9 +7,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.DictDataCommand;
 import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
@@ -41,8 +43,8 @@ public class DictController {
 
     @ApiOperation("添加字典数据")
     @GetMapping("/addData")
-    public String addData(String typeCode, Model model) {
-        model.addAttribute("typeCode", typeCode);
+    public String addData(Model model) {
+        model.addAttribute("dictTypes", dictFacade.typeList());
         return "/view/system/dict/addData";
     }
 
@@ -76,5 +78,13 @@ public class DictController {
     @PostMapping("/data/page")
     public @ResponseBody Result<PageInfo<DictDataDTO>> dataPage(@Valid @RequestBody DictDataPageCommand dictDataPageCommand) {
         return Result.successData(dictFacade.dataPage(dictDataPageCommand));
+    }
+
+    @ApiOperation("保存字典数据")
+    @PostMapping("/save/data")
+    public @ResponseBody Result<Void> save(@Valid @RequestBody DictDataCommand dictDataCommand) {
+        dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        dictFacade.addData(dictDataCommand);
+        return Result.success();
     }
 }
