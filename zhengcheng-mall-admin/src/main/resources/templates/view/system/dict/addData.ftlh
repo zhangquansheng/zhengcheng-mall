@@ -7,6 +7,7 @@
 </head>
 <body>
 <form class="layui-form" action="">
+    <input type="hidden" name="typeCode" value="${typeCode!}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
@@ -16,12 +17,19 @@
                            class="layui-input">
                 </div>
             </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">值</label>
+                <div class="layui-input-block">
+                    <input type="text" name="value" lay-verify="value" autocomplete="off" placeholder="请输入值"
+                           class="layui-input">
+                </div>
+            </div>
         </div>
     </div>
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="wxusertag-save">
+                    lay-filter="dictData-save">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -39,9 +47,9 @@
         let form = layui.form;
         let $ = layui.jquery;
 
-        form.on('submit(wxusertag-save)', function (data) {
+        form.on('submit(dictData-save)', function (data) {
             $.ajax({
-                url: '/admin/wxusertag/save',
+                url: '/admin/dictData/save',
                 data: JSON.stringify(data.field),
                 dataType: 'json',
                 contentType: 'application/json',

@@ -128,8 +128,6 @@
         let form = layui.form;
         let $ = layui.jquery;
 
-        let MODULE_PATH = "operate/";
-
         let typeCode;
 
         let cols = [
@@ -266,7 +264,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'addType'
             });
         }
 
@@ -276,7 +274,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'editType'
             });
         }
 
@@ -294,7 +292,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '450px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'addData'
             });
         }
 
@@ -304,7 +302,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '450px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'editData'
             });
         }
 
