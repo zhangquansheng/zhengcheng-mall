@@ -4,10 +4,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
-import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 
 import io.swagger.annotations.Api;

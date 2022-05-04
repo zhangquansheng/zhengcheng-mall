@@ -7,9 +7,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.command.UserCommand;
-import com.zhengcheng.mall.api.dto.UserDTO;
 
 import io.swagger.annotations.ApiOperation;
 
@@ -28,11 +28,11 @@ public interface UserFeignClient {
 
     @ApiOperation("通过token获取用户消息")
     @GetMapping("/user/findByByToken")
-    Result<UserDTO> findByByToken(@RequestParam("accessToken")String accessToken);
+    Result<UserDTO> findByByToken(@RequestParam("accessToken") String accessToken);
 
     @ApiOperation("根据用户名查询用户基本信息")
     @GetMapping("/user/findByUsername")
-    Result<UserDTO> findByUsername(@RequestParam("username")String username);
+    Result<UserDTO> findByUsername(@RequestParam("username") String username);
 
     @ApiOperation("添加用户")
     @PostMapping("/user/add")

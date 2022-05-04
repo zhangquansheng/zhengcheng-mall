@@ -23,6 +23,7 @@ import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssemb
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.OauthFeignClient;
+import com.zhengcheng.mall.api.feign.UserFeignClient;
 import com.zhengcheng.mall.common.constants.LogRecordType;
 import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 import com.zhengcheng.mall.domain.entity.Authority;
@@ -51,6 +52,8 @@ public class UserFacadeImpl implements UserFacade {
     private UserAssembler    userAssembler;
     @Autowired
     private OauthFeignClient oauthFeign;
+    @Autowired
+    private UserFeignClient  userFeignClient;
 
     @Override
     public UserDTO findById(Long id) {
@@ -96,18 +99,15 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session,
                                       HttpServletRequest request) {
-        Result<TokenInfoDTO> result = oauthFeign.postToken(loginSubmitCommand.getUsername(),
+        Result<TokenInfoDTO> tokenResult = oauthFeign.postToken(loginSubmitCommand.getUsername(),
                 loginSubmitCommand.getEnPassword());
-        if (result.hasData()) {
-            // 设置当前登录人的用户名
-            TokenInfoDTO tokenInfoDTO = result.getData();
-            //            UserDTO userDTO = findById(Long.parseLong(String.valueOf(tokenInfoDTO.getLoginId())));
-            //            tokenInfoDTO.setCurrentUser(userDTO);
-
-            // 会话缓存token
-            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, tokenInfoDTO);
+        if (tokenResult.hasData()) {
+            TokenInfoDTO tokenInfoDTO = tokenResult.getData();
+            Result<UserDTO> userResult = userFeignClient.findByByToken(tokenInfoDTO.getTokenValue());
+            // 会话缓存用户信息
+            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
         }
-        return result;
+        return tokenResult;
     }
 
     private MenuDTO toMenuDTO(Authority authority) {

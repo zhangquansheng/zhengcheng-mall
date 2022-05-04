@@ -10,9 +10,10 @@ import javax.servlet.http.HttpSession;
 import org.springframework.lang.Nullable;
 import org.springframework.web.servlet.HandlerInterceptor;
 
-import com.zhengcheng.mall.api.dto.TokenInfoDTO;
+import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.api.dto.UserDTO;
+import com.zhengcheng.mall.api.feign.UserFeignClient;
 import com.zhengcheng.mall.common.constants.CommonConstant;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import cn.hutool.core.util.StrUtil;
 
@@ -27,21 +28,25 @@ public class LoginInterceptor implements HandlerInterceptor {
     /**
      * "重定向URL"参数名称
      */
-    private static final String REDIRECT_URL_PARAMETER_NAME = "redirectUrl";
+    private static final String   REDIRECT_URL_PARAMETER_NAME = "redirectUrl";
 
     /**
      * 默认登录URL
      */
-    private final String        DEFAULT_LOGIN_URL           = "/login";
+    private final String          DEFAULT_LOGIN_URL           = "/login";
 
-    public static final String  PRINCIPAL_ATTRIBUTE_NAME    = "USER.PRINCIPAL";
+    public static final String    PRINCIPAL_ATTRIBUTE_NAME    = "USER.PRINCIPAL";
+
+    private final UserFeignClient userFeignClient;
+
+    public LoginInterceptor(UserFeignClient userFeignClient) {
+        this.userFeignClient = userFeignClient;
+    }
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
-        //        HttpSession session = request.getSession();
-        TokenInfoDTO principal = getTokenInfoDTO(request);
-        //        String satoken = request.getHeader(CommonConstant.TOKEN_NAME);
+        UserDTO principal = getTokenInfoDTO(request);
         if (principal != null) {
             TokenInfoHolder.setTokenInfo(principal);
             return true;
@@ -73,16 +78,19 @@ public class LoginInterceptor implements HandlerInterceptor {
     }
 
     @Nullable
-    private TokenInfoDTO getTokenInfoDTO(HttpServletRequest request) {
+    private UserDTO getTokenInfoDTO(HttpServletRequest request) {
         HttpSession session = request.getSession();
-        TokenInfoDTO principal = (TokenInfoDTO) session.getAttribute(PRINCIPAL_ATTRIBUTE_NAME);
+        UserDTO principal = (UserDTO) session.getAttribute(PRINCIPAL_ATTRIBUTE_NAME);
         if (Objects.nonNull(principal)) {
             return principal;
         }
 
         String satoken = request.getHeader(CommonConstant.TOKEN_NAME);
         if (StrUtil.isNotBlank(satoken)) {
-
+            Result<UserDTO> userResult = userFeignClient.findByByToken(satoken);
+            // 会话缓存用户信息
+            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
+            return userResult.getData();
         }
         return null;
     }

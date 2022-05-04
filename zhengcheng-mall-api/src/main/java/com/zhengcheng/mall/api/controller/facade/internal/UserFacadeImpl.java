@@ -6,19 +6,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
-import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.common.web.PageCommand;
-import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.controller.facade.internal.assembler.UserAssembler;
-import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.service.RoleAuthorityService;
 import com.zhengcheng.mall.service.UserRoleService;
 import com.zhengcheng.mall.service.UserService;
-import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
 import cn.dev33.satoken.stp.StpUtil;
 import cn.hutool.core.util.StrUtil;
@@ -82,15 +78,4 @@ public class UserFacadeImpl implements UserFacade {
         userService.save(user);
         return user.getId();
     }
-
-    @Override
-    public PageInfo<UserDTO> page(PageCommand pageCommand) {
-        IPage<User> page = userService.page(PageUtil.getPage(pageCommand));
-
-        PageInfo<UserDTO> pageInfo = PageInfo.empty(pageCommand);
-        pageInfo.setTotal(page.getTotal());
-        pageInfo.setRecords(userAssembler.toDTOs(page.getRecords()));
-        return pageInfo;
-    }
-
 }
