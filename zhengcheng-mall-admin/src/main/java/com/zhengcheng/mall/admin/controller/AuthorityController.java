@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
@@ -17,7 +18,6 @@ import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
@@ -70,7 +70,7 @@ public class AuthorityController {
     @ApiOperation("保存")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.add(authorityCommand);
         return Result.success();
     }
@@ -84,7 +84,7 @@ public class AuthorityController {
     @ApiOperation("更新")
     @PostMapping("/update")
     public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.update(authorityCommand);
         return Result.success();
     }
@@ -92,7 +92,7 @@ public class AuthorityController {
     @ApiOperation("根据ID启用/禁用")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(authorityFacade.enable(enableCommand));
     }
 }

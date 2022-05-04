@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
@@ -38,8 +39,8 @@ public class LoginController {
     @ApiOperation("登录页面")
     @RequestMapping
     public String login(String redirectUrl, ModelMap model, HttpSession session) {
-        TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
-        if (tokenInfoDTO != null) {
+        UserDTO userInfo = (UserDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
+        if (userInfo != null) {
             return "redirect:/";
         }
         model.addAttribute("redirectUrl", StrUtil.isEmpty(redirectUrl) ? "/" : redirectUrl);

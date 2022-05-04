@@ -28,7 +28,7 @@ public interface UserFeignClient {
 
     @ApiOperation("通过token获取用户消息")
     @GetMapping("/user/findByByToken")
-    Result<UserDTO> findByByToken(@RequestParam("accessToken") String accessToken);
+    Result<UserDTO> findByByToken(@RequestParam("token") String token);
 
     @ApiOperation("根据用户名查询用户基本信息")
     @GetMapping("/user/findByUsername")

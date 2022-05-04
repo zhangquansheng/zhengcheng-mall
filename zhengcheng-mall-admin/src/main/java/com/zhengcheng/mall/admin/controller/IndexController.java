@@ -6,7 +6,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import com.zhengcheng.mall.api.dto.TokenInfoDTO;
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 
 import cn.hutool.json.JSONUtil;
@@ -24,8 +24,8 @@ public class IndexController {
 
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
-        TokenInfoDTO tokenInfoDTO = (TokenInfoDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
-        log.info(JSONUtil.toJsonStr(tokenInfoDTO));
+        UserDTO userInfo = (UserDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
+        log.info(JSONUtil.toJsonStr(userInfo));
         return "index";
     }
 

@@ -13,6 +13,7 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
@@ -21,7 +22,6 @@ import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssembler;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
-import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.OauthFeignClient;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 import com.zhengcheng.mall.common.constants.LogRecordType;
@@ -103,7 +103,12 @@ public class UserFacadeImpl implements UserFacade {
                 loginSubmitCommand.getEnPassword());
         if (tokenResult.hasData()) {
             TokenInfoDTO tokenInfoDTO = tokenResult.getData();
+            // 获取登录的用户信息
             Result<UserDTO> userResult = userFeignClient.findByByToken(tokenInfoDTO.getTokenValue());
+            if (userResult.fail()) {
+                return Result.errorMessage(userResult.getMessage());
+            }
+
             // 会话缓存用户信息
             session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
         }

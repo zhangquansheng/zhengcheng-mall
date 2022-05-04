@@ -6,13 +6,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
@@ -62,7 +62,7 @@ public class RoleController {
     @ApiOperation("根据ID启用/禁用")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.enable(enableCommand));
     }
 }

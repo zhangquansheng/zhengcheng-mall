@@ -28,7 +28,7 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
             }
 
             @Override
-            public Result<UserDTO> findByByToken(String accessToken) {
+            public Result<UserDTO> findByByToken(String token) {
                 log.error("UserFeignClient findByByToken fallback message: {}", throwable.getMessage(), throwable);
                 return Result.fallbackResult();
             }

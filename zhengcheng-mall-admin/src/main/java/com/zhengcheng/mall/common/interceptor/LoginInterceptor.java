@@ -7,11 +7,14 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
+import com.zhengcheng.common.dto.UserDTO;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 import com.zhengcheng.mall.common.constants.CommonConstant;
 
@@ -23,32 +26,30 @@ import cn.hutool.core.util.StrUtil;
  * @author :    zhngquansheng
  * @date :    2019/12/20 15:17
  */
+@Component
 public class LoginInterceptor implements HandlerInterceptor {
 
     /**
      * "重定向URL"参数名称
      */
-    private static final String   REDIRECT_URL_PARAMETER_NAME = "redirectUrl";
+    private static final String REDIRECT_URL_PARAMETER_NAME = "redirectUrl";
 
     /**
      * 默认登录URL
      */
-    private final String          DEFAULT_LOGIN_URL           = "/login";
+    private final String        DEFAULT_LOGIN_URL           = "/login";
 
-    public static final String    PRINCIPAL_ATTRIBUTE_NAME    = "USER.PRINCIPAL";
+    public static final String  PRINCIPAL_ATTRIBUTE_NAME    = "USER.PRINCIPAL";
 
-    private final UserFeignClient userFeignClient;
-
-    public LoginInterceptor(UserFeignClient userFeignClient) {
-        this.userFeignClient = userFeignClient;
-    }
+    @Autowired
+    private UserFeignClient     userFeignClient;
 
     @Override
     public boolean preHandle(HttpServletRequest request, HttpServletResponse response, Object handler)
             throws Exception {
         UserDTO principal = getTokenInfoDTO(request);
         if (principal != null) {
-            TokenInfoHolder.setTokenInfo(principal);
+            ZcUserInfoHolder.setUserInfo(principal);
             return true;
         } else {
             String requestType = request.getHeader("X-Requested-With");
@@ -74,7 +75,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 Exception ex) {
-        TokenInfoHolder.removeTokenInfo();
+        ZcUserInfoHolder.removeUserInfo();
     }
 
     @Nullable

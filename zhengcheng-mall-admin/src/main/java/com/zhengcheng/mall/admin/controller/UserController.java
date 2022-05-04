@@ -8,13 +8,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.dto.UserDTO;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
-import com.zhengcheng.mall.api.dto.UserDTO;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
@@ -50,6 +50,6 @@ public class UserController {
     @ApiOperation("用户后台管理菜单")
     @GetMapping("/menu")
     public @ResponseBody List<MenuDTO> menu() {
-        return userFacade.menu(TokenInfoHolder.getUserId());
+        return userFacade.menu(ZcUserInfoHolder.getUserId());
     }
 }

@@ -5,13 +5,13 @@ import java.util.List;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
-import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
  * 用户(User)表Facade接口
