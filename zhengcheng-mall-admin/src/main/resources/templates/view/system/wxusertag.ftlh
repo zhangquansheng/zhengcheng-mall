@@ -26,11 +26,11 @@
 </div>
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="wxusertags-table" lay-filter="wxusertags-table"></table>
+        <table id="wxusertag-table" lay-filter="wxusertag-table"></table>
     </div>
 </div>
 
-<script type="text/html" id="role-toolbar">
+<script type="text/html" id="wxusertag-toolbar">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
         <i class="layui-icon layui-icon-add-1"></i>
         新增
@@ -62,12 +62,12 @@
         ]
 
         table.render({
-            elem: '#wxusertags-table',
-            url: '/admin/wxusertags/list',
-            page: true,
+            elem: '#wxusertag-table',
+            url: '/admin/wxusertag/list',
+            page: false,
             cols: cols,
             skin: 'line',
-            toolbar: '#role-toolbar',
+            toolbar: '#wxusertag-toolbar',
             method: 'post', //如果无需自定义HTTP类型，可不加该参数
             contentType: 'application/json',
             defaultToolbar: [{
@@ -77,7 +77,7 @@
             }, 'filter', 'print', 'exports']
         });
 
-        table.on('tool(wxusertags-table)', function (obj) {
+        table.on('tool(wxusertag-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
@@ -85,7 +85,7 @@
             }
         });
 
-        table.on('toolbar(wxusertags-table)', function (obj) {
+        table.on('toolbar(wxusertag-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
@@ -94,7 +94,7 @@
         });
 
         form.on('submit(role-query)', function (data) {
-            table.reload('wxusertags-table', {where: data.field})
+            table.reload('wxusertag-table', {where: data.field})
             return false;
         });
 
@@ -109,7 +109,7 @@
         }
 
         window.remove = function (obj) {
-            layer.confirm('确定要删除该角色', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除该用户标签吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
                 $.ajax({
@@ -132,7 +132,7 @@
         }
 
         window.refresh = function () {
-            table.reload('wxusertags-table');
+            table.reload('wxusertag-table');
         }
     })
 </script>

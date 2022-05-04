@@ -8,5 +8,7 @@ package com.zhengcheng.mall.common.constants;
  */
 public interface CommonConstant {
 
-    String tenant = "com.zhengcheng.mall.admin";
+    String tenant     = "com.zhengcheng.mall.admin";
+
+    String TOKEN_NAME = "satoken";
 }

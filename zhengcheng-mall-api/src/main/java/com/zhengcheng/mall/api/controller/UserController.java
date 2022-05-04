@@ -19,7 +19,7 @@ import io.swagger.annotations.ApiOperation;
  * @author quansheng1.zhang
  * @since 2021-07-15 16:31:50
  */
-@Api(tags = {"用户(User)接口"})
+@Api(tags = { "用户(User)接口" })
 @RestController
 @RequestMapping("/user")
 public class UserController implements UserFeignClient {
@@ -30,14 +30,14 @@ public class UserController implements UserFeignClient {
     @ApiOperation("通过token获取用户消息")
     @GetMapping("/findByByToken")
     @Override
-    public Result<UserDTO> findByByToken(@RequestParam("accessToken")String accessToken) {
-        return Result.successData(userFacade.findByByToken(accessToken));
+    public Result<UserDTO> findByByToken(@RequestParam("token") String token) {
+        return Result.successData(userFacade.findByByToken(token));
     }
 
     @ApiOperation("根据用户名查询用户基本信息")
     @GetMapping("/findByUsername")
     @Override
-    public Result<UserDTO> findByUsername(@RequestParam("username")String username) {
+    public Result<UserDTO> findByUsername(@RequestParam("username") String username) {
         return Result.successData(userFacade.findByUsername(username));
     }
 

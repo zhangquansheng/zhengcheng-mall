@@ -7,6 +7,8 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.zhengcheng.mall.common.constants.CommonConstant;
+
 import cn.hutool.core.util.StrUtil;
 import feign.RequestInterceptor;
 
@@ -29,9 +31,9 @@ public class FeignInterceptorConfig {
                     .getRequestAttributes();
             if (attributes != null) {
                 HttpServletRequest request = attributes.getRequest();
-                String satoken = request.getHeader("satoken");
+                String satoken = request.getHeader(CommonConstant.TOKEN_NAME);
                 if (StrUtil.isNotBlank(satoken)) {
-                    template.header("satoken", satoken);
+                    template.header(CommonConstant.TOKEN_NAME, satoken);
                 }
             }
         };

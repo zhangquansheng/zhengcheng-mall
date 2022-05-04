@@ -47,26 +47,26 @@ public class OauthController implements OauthFeignClient {
     public Result<TokenInfoDTO> getToken(@RequestParam("username") String username,
                                          @RequestParam("enPassword") String enPassword) {
         SaTokenInfo saTokenInfo = userFacade.login(username, enPassword, getRequest());
-        return Result.successData(BeanUtil.copyProperties(saTokenInfo,TokenInfoDTO.class));
+        return Result.successData(BeanUtil.copyProperties(saTokenInfo, TokenInfoDTO.class));
     }
 
     @ApiOperation(value = "password获取token")
     @PostMapping("/token")
     @Override
     public Result<TokenInfoDTO> postToken(@RequestParam("username") String username,
-        @RequestParam("password") String password) {
+                                          @RequestParam("password") String password) {
         SaTokenInfo saTokenInfo = userFacade.login(username, password, getRequest());
-        return Result.successData(BeanUtil.copyProperties(saTokenInfo,TokenInfoDTO.class));
+        return Result.successData(BeanUtil.copyProperties(saTokenInfo, TokenInfoDTO.class));
     }
 
     @Nullable
     private HttpServletRequest getRequest() {
         ServletRequestAttributes servletRequestAttributes = getServletRequestAttributes();
-        return Objects.nonNull(servletRequestAttributes)?servletRequestAttributes.getRequest():null;
+        return Objects.nonNull(servletRequestAttributes) ? servletRequestAttributes.getRequest() : null;
     }
 
     @Nullable
     private ServletRequestAttributes getServletRequestAttributes() {
-       return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
+        return (ServletRequestAttributes) RequestContextHolder.getRequestAttributes();
     }
 }

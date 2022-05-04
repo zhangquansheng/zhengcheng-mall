@@ -101,9 +101,10 @@ public class UserFacadeImpl implements UserFacade {
         if (result.hasData()) {
             // 设置当前登录人的用户名
             TokenInfoDTO tokenInfoDTO = result.getData();
-            UserDTO userDTO = findById(Long.parseLong(String.valueOf(tokenInfoDTO.getLoginId())));
-            tokenInfoDTO.setCurrentUser(userDTO);
+            //            UserDTO userDTO = findById(Long.parseLong(String.valueOf(tokenInfoDTO.getLoginId())));
+            //            tokenInfoDTO.setCurrentUser(userDTO);
 
+            // 会话缓存token
             session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, tokenInfoDTO);
         }
         return result;
