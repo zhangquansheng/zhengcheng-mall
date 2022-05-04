@@ -23,8 +23,7 @@ public class LogRecordConfiguration {
     @Bean
     public IOperatorGetService operatorGetService() {
         return () -> Optional.ofNullable(TokenInfoHolder.getTokenInfo())
-                .map(a -> new Operator(
-                        StrUtil.format("{}({})", a.getCurrentUser().getName(), a.getCurrentUser().getUsername())))
+                .map(a -> new Operator(StrUtil.format("{}({})", a.getLoginType(), a.getLoginDevice())))
                 .orElseThrow(() -> new IllegalArgumentException("user is null"));
     }
 

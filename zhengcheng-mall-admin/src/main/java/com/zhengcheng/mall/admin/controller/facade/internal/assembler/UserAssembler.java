@@ -20,7 +20,6 @@ import com.zhengcheng.mall.domain.entity.User;
 public interface UserAssembler {
 
     @Mappings({ @Mapping(target = "lastLogin", dateFormat = "yyyy-MM-dd HH:mm:ss"),
-            @Mapping(target = "createTime", dateFormat = "yyyy-MM-dd HH:mm:ss"),
             @Mapping(target = "mobile", expression = "java(cn.hutool.core.util.DesensitizedUtil.mobilePhone(user.getMobile()))"),
             @Mapping(target = "email", expression = "java(cn.hutool.core.util.DesensitizedUtil.email(user.getEmail()))"), })
     UserDTO toDTO(User user);

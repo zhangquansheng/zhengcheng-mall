@@ -36,8 +36,8 @@ public class OauthController implements OauthFeignClient {
     @ApiOperation(value = "指定token的会话注销登录")
     @GetMapping(value = "/logoutByToken")
     @Override
-    public Result<Void> logoutByToken(@RequestParam("accessToken") String accessToken) {
-        StpUtil.logoutByTokenValue(accessToken);
+    public Result<Void> logoutByToken(@RequestParam("token") String token) {
+        StpUtil.logoutByTokenValue(token);
         return Result.success();
     }
 

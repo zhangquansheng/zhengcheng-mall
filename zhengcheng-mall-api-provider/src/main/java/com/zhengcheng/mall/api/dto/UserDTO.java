@@ -22,6 +22,8 @@ import lombok.NoArgsConstructor;
 public class UserDTO implements Serializable {
     private static final long serialVersionUID = -87464380427076695L;
 
+    @ApiModelProperty("ID")
+    private Long              id;
     @ApiModelProperty("用户号")
     private String            userNo;
     @ApiModelProperty("用户名")
@@ -38,8 +40,6 @@ public class UserDTO implements Serializable {
     private boolean           enable;
     @ApiModelProperty("最后登录时间")
     private String            lastLogin;
-    @ApiModelProperty("注册时间")
-    private String            createTime;
     @ApiModelProperty("角色列表")
     private List<String>      roleCodes;
     @ApiModelProperty("权限列表")

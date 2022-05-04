@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.api.controller.facade.internal;
 
+import java.time.LocalDateTime;
 import java.util.Objects;
 
 import javax.servlet.http.HttpServletRequest;
@@ -60,7 +61,12 @@ public class OauthFacadeImpl implements OauthFacade {
             throw new BizException("用户已被禁用！");
         }
 
+        // sa-token.dev33.cn 登录
         StpUtil.login(user.getId());
+
+        user.setLastLogin(LocalDateTime.now());
+        userService.updateById(user);
+
         userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
                 .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
                 .result(LoginResultEnum.SUCCESS).build());

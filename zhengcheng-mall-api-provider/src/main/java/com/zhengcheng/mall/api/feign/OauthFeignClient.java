@@ -22,7 +22,7 @@ public interface OauthFeignClient {
     String NAME = "zhengcheng-mall";
 
     @GetMapping(value = "/oauth/logoutByToken")
-    Result<Void> logoutByToken(@RequestParam("access_token") String accessToken);
+    Result<Void> logoutByToken(@RequestParam("token") String token);
 
     @GetMapping("/oauth/token")
     Result<TokenInfoDTO> getToken(@RequestParam("username") String username,
