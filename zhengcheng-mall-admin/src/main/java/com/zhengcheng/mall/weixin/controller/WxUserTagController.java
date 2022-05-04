@@ -4,6 +4,7 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.PageInfo;
@@ -41,13 +42,21 @@ public class WxUserTagController {
     @ApiOperation("新增微信用户标签页面")
     @GetMapping("/add")
     public String add() {
-        return "/view/wxusertag/add";
+        return "/view/system/wxusertag/add";
+    }
+
+    @ApiOperation("编辑微信用户标签页面")
+    @GetMapping("/edit/{id}")
+    public String edit(@PathVariable("id") Long id, String name, Model model) {
+        model.addAttribute("id", id);
+        model.addAttribute("name", name);
+        return "/view/system/wxusertag/edit";
     }
 
     @ApiOperation("微信用户标签列表")
     @SaCheckPermission("wxmp:wxusertag:list")
     @PostMapping("/list")
-    public @ResponseBody Result<PageInfo<WxUserTag>> getWxusertags(String appId) {
+    public @ResponseBody Result<PageInfo<WxUserTag>> getWxusertags() {
         WxMpUserTagService wxMpUserTagService = wxService.getUserTagService();
         try {
             List<WxUserTag> listWxUserTags = wxMpUserTagService.tagGet();
@@ -63,7 +72,6 @@ public class WxUserTagController {
     @ApiOperation("新增微信用户标签")
     @PostMapping("/save")
     public @ResponseBody Result<WxUserTag> save(@RequestBody JSONObject data) {
-        String appId = data.getStr("appId");
         String name = data.getStr("name");
         WxMpUserTagService wxMpUserTagService = wxService.getUserTagService();
         try {
@@ -75,9 +83,8 @@ public class WxUserTagController {
     }
 
     @ApiOperation("修改微信用户标签")
-    @PutMapping("/update")
+    @PostMapping("/update")
     public @ResponseBody Result<Boolean> updateById(@RequestBody JSONObject data) {
-        String appId = data.getStr("appId");
         Long id = data.getLong("id");
         String name = data.getStr("name");
         WxMpUserTagService wxMpUserTagService = wxService.getUserTagService();
@@ -91,7 +98,7 @@ public class WxUserTagController {
 
     @ApiOperation("删除微信用户标签")
     @DeleteMapping("/operate/remove/{id}")
-    public @ResponseBody Result<Boolean> removeById(@PathVariable("id") Long id, String appId) {
+    public @ResponseBody Result<Boolean> removeById(@PathVariable("id") Long id) {
         WxMpUserTagService wxMpUserTagService = wxService.getUserTagService();
         try {
             return Result.successData(wxMpUserTagService.tagDelete(id));

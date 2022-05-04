@@ -108,6 +108,16 @@
             });
         }
 
+        window.edit = function (obj) {
+            layer.open({
+                type: 2,
+                title: '修改',
+                shade: 0.1,
+                area: ['450px', '500px'],
+                content: 'edit/' + obj.data['id'] + '?name=' + obj.data['name']
+            });
+        }
+
         window.remove = function (obj) {
             layer.confirm('确定要删除该用户标签吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
