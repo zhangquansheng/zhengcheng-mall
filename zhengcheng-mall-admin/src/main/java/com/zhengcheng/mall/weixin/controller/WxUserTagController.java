@@ -69,6 +69,7 @@ public class WxUserTagController {
         }
     }
 
+    @SaCheckPermission("wxmp:wxusertag:save")
     @ApiOperation("新增微信用户标签")
     @PostMapping("/save")
     public @ResponseBody Result<WxUserTag> save(@RequestBody JSONObject data) {
@@ -82,6 +83,7 @@ public class WxUserTagController {
         }
     }
 
+    @SaCheckPermission("wxmp:wxusertag:update")
     @ApiOperation("修改微信用户标签")
     @PostMapping("/update")
     public @ResponseBody Result<Boolean> updateById(@RequestBody JSONObject data) {
@@ -96,6 +98,7 @@ public class WxUserTagController {
         }
     }
 
+    @SaCheckPermission("wxmp:wxusertag:remove")
     @ApiOperation("删除微信用户标签")
     @DeleteMapping("/operate/remove/{id}")
     public @ResponseBody Result<Boolean> removeById(@PathVariable("id") Long id) {
