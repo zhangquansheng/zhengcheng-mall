@@ -27,3 +27,15 @@ rt-server.redisson.port=6379
 rt-server.redisson.password=123456
 ```
 
+## 内置功能
+
+1. 系统管理
+    - [ ] 用户管理
+    - [ ] 角色管理
+    - [x] 权限管理
+    - [x] 行为日志  [通用操作日志组件](https://github.com/mouzt/mzt-biz-log)
+    - [ ] 数据字典
+2. 公众号管理
+    - [x] 用户标签
+3. 登录注册 [Sa-Token 权限认证](http://sa-token.dev33.cn/)
+
