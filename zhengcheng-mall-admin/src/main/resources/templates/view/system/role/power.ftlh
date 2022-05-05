@@ -54,7 +54,8 @@
         });
 
         form.on('submit(role-power-save)', function (data) {
-
+            var params = dtree.getCheckbarNodesParam("role-power");
+            layer.msg(JSON.stringify(params));
             return false;
         });
     })
