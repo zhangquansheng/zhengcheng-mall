@@ -7,14 +7,34 @@
 </head>
 <body>
 <form class="layui-form" action="">
-    <input type="hidden" name="id" value="${id}"/>
+    <input type="hidden" name="id" value="${dictData.id}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
-                <label class="layui-form-label">账号</label>
+                <label class="layui-form-label">类型</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" value="${name}" lay-verify="name" autocomplete="off"
-                           placeholder="请输入名称" class="layui-input">
+                    <select name="typeCode" lay-verify="required" lay-search>
+                        <option value=""></option>
+                        <#list dictTypes as dictType>
+                            <option value="${dictType.code}" <#if dictType.code == dictData.typeCode> selected </#if> >${dictType.name}</option>
+                        </#list>
+                    </select>
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">名称</label>
+                <div class="layui-input-block">
+                    <input type="text" name="name" value="${dictData.name}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">值</label>
+                <div class="layui-input-block">
+                    <input type="text" name="value" value="${dictData.value}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入值"
+                           class="layui-input">
                 </div>
             </div>
         </div>
@@ -22,7 +42,7 @@
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="wxusertag-update">
+                    lay-filter="dictData-update">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -40,9 +60,9 @@
         let form = layui.form;
         let $ = layui.jquery;
 
-        form.on('submit(wxusertag-update)', function (data) {
+        form.on('submit(dictData-update)', function (data) {
             $.ajax({
-                url: '/admin/wxusertag/update',
+                url: '/admin/dict/update/data',
                 data: JSON.stringify(data.field),
                 dataType: 'json',
                 contentType: 'application/json',
@@ -55,7 +75,7 @@
                         }, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window
                                 .name)); //关闭当前页
-                            parent.layui.table.reload("wxusertag-table");
+                            parent.layui.table.reload("dict-data-table");
                         });
                     } else {
                         layer.msg(result.message, {

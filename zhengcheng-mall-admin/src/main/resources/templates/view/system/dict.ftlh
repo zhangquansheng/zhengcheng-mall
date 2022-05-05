@@ -302,7 +302,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '450px'],
-                content: 'editData'
+                content: 'editData?id=' + obj.data['id']
             });
         }
 

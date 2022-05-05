@@ -87,6 +87,15 @@ public class DictFacadeImpl implements DictFacade {
     }
 
     @Override
+    public boolean updateData(DictDataCommand dictDataCommand) {
+        return dictDataService.update(new LambdaUpdateWrapper<DictData>()
+                .set(DictData::getTypeCode, dictDataCommand.getTypeCode())
+                .set(DictData::getName, dictDataCommand.getName()).set(DictData::getValue, dictDataCommand.getValue())
+                .set(DictData::getUpdateUserId, dictDataCommand.getUpdateUserId())
+                .eq(DictData::getId, dictDataCommand.getId()));
+    }
+
+    @Override
     public boolean removeData(Long id) {
         return dictDataService.removeById(id);
     }
@@ -97,5 +106,11 @@ public class DictFacadeImpl implements DictFacade {
                 .update(new LambdaUpdateWrapper<DictData>().set(DictData::getEnable, enableCommand.isEnable())
                         .set(DictData::getUpdateUserId, enableCommand.getUpdateUserId())
                         .eq(DictData::getId, enableCommand.getId()));
+    }
+
+    @Override
+    public DictDataDTO findDataById(Long id) {
+        DictData dictData = dictDataService.getById(id);
+        return dictDataAssembler.toDTO(dictData);
     }
 }

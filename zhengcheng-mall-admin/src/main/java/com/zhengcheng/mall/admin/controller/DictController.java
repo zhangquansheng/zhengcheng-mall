@@ -5,9 +5,11 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
+import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
@@ -51,7 +53,9 @@ public class DictController {
 
     @ApiOperation("编辑字典数据")
     @GetMapping("/editData")
-    public String editData() {
+    public String editData(Long id, Model model) {
+        model.addAttribute("dictTypes", dictFacade.typeList());
+        model.addAttribute("dictData", dictFacade.findDataById(id));
         return "/view/system/dict/editData";
     }
 
@@ -83,10 +87,16 @@ public class DictController {
 
     @ApiOperation("保存字典数据")
     @PostMapping("/save/data")
-    public @ResponseBody Result<Void> save(@Valid @RequestBody DictDataCommand dictDataCommand) {
+    public @ResponseBody Result<Boolean> save(@Valid @RequestBody DictDataCommand dictDataCommand) {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
-        dictFacade.addData(dictDataCommand);
-        return Result.success();
+        return Result.successData(dictFacade.addData(dictDataCommand));
+    }
+
+    @ApiOperation("更新字典数据")
+    @PostMapping("/update/data")
+    public @ResponseBody Result<Boolean> update(@Validated(Update.class) @RequestBody DictDataCommand dictDataCommand) {
+        dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return Result.successData(dictFacade.updateData(dictDataCommand));
     }
 
     @ApiOperation("删除字典数据")

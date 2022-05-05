@@ -36,9 +36,16 @@ public interface DictFacade {
     /**
      * 新增字典数据
      * @param dictDataCommand DictDataCommand
-     * @return ID
+     * @return 是/否
      */
     boolean addData(DictDataCommand dictDataCommand);
+
+    /**
+     * 更新字典数据
+     * @param dictDataCommand DictDataCommand
+     * @return 是/否
+     */
+    boolean updateData(DictDataCommand dictDataCommand);
 
     /**
      * 删除字典数据
@@ -53,4 +60,11 @@ public interface DictFacade {
      * @return 是/否
      */
     boolean enableData(EnableCommand enableCommand);
+
+    /**
+     * 根据ID查询数据字典
+     * @param id ID
+     * @return DictDataDTO
+     */
+    DictDataDTO findDataById(Long id);
 }
