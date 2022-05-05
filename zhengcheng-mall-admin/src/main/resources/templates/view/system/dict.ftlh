@@ -258,7 +258,7 @@
             common.ajax({
                 id: this.value,
                 enable: obj.elem.checked
-            }, 'enable/type', 'post', 'dict-type-table');
+            }, 'enable/type', 'post', '');
         });
 
         window.addType = function () {
@@ -366,7 +366,7 @@
             common.ajax({
                 id: this.value,
                 enable: obj.elem.checked
-            }, 'enable/data', 'post', 'dict-data-table');
+            }, 'enable/data', 'post', '');
         });
 
         window.refreshData = function () {

@@ -59,7 +59,10 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                     if (result.code == 200) {
                         layer.msg(result.message, {icon: 1, time: 1000}, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            parent.layui.table.reload(table);
+                            if (table != '') {
+                                parent.layui.table.reload(table);
+                            }
+
                         });
                     } else {
                         layer.msg(result.message, {icon: 2, time: 1000});
@@ -87,7 +90,9 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                 success: function (result) {
                     if (result.code == 200) {
                         layer.msg(result.message, {icon: 1, time: 1000});
-                        layui.table.reload(table);
+                        if (table != '') {
+                            layui.table.reload(table);
+                        }
                     } else {
                         layer.msg(result.message, {icon: 2, time: 1000});
                     }
