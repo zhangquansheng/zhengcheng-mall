@@ -12,7 +12,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">上级</label>
                 <div class="layui-input-block">
-                    <input type="text" name="pid" id="pid-tree" lay-filter="pid-tree" autocomplete="off"
+                    <input type="text" name="pid" id="pid-tree" autocomplete="off"
                            class="layui-input">
                 </div>
             </div>
@@ -88,7 +88,15 @@
             data: '/admin/authority/treeselectData',
             type: 'get',
             placeholder: '请选择上级',
-            search: true
+            search: true,
+            style: {
+                folder: { // 父节点图标
+                    enable: true // 是否开启：true/false
+                },
+                line: { // 连接线
+                    enable: true // 是否开启：true/false
+                }
+            }
         });
 
         form.on('submit(authority-save)', function (data) {

@@ -16,7 +16,6 @@ import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
-import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 
 import io.swagger.annotations.Api;
@@ -61,12 +60,6 @@ public class AuthorityController {
         return Result.successData(authorityFacade.findAll());
     }
 
-    @ApiOperation("查询所有 treeselect 权限数据")
-    @GetMapping("/treeselectData")
-    public @ResponseBody List<TreeselectDTO> treeselectData() {
-        return authorityFacade.findTreeselectList();
-    }
-
     @ApiOperation("保存")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
@@ -95,4 +88,11 @@ public class AuthorityController {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(authorityFacade.enable(enableCommand));
     }
+
+    @ApiOperation("根据角色ID查询权限树数据")
+    @GetMapping("/findByRoleId")
+    public @ResponseBody Result<List<AuthorityDTO>> findByRoleId(@RequestParam(value = "roleId", required = false) Long roleId) {
+        return Result.successData(authorityFacade.findByRoleId(roleId));
+    }
+
 }

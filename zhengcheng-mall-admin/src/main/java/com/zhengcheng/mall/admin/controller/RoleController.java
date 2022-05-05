@@ -4,6 +4,7 @@ import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
@@ -42,6 +43,13 @@ public class RoleController {
     @GetMapping("/add")
     public String add() {
         return "/view/system/role/add";
+    }
+
+    @ApiOperation("授权页面")
+    @GetMapping("/operate/power")
+    public String power(Long roleId, Model model) {
+        model.addAttribute("roleId", roleId);
+        return "/view/system/role/power";
     }
 
     @ApiOperation("分页查询")

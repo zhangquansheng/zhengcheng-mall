@@ -156,7 +156,7 @@
                 title: '授权',
                 shade: 0.1,
                 area: ['320px', '400px'],
-                content: MODULE_PATH + 'edit.html'
+                content: MODULE_PATH + 'power?roleId=' + obj.data['id']
             });
         }
 

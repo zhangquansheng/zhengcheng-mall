@@ -45,4 +45,6 @@ public class AuthorityDTO implements Serializable {
     private Integer           sort;
     @ApiModelProperty("是否启用")
     private boolean           enable;
+    @ApiModelProperty("是否选中，0-否，1-是")
+    private String            checkArr;
 }

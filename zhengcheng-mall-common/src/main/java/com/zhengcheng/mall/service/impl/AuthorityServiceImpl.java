@@ -72,4 +72,9 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     public List<Authority> getAuthorityList(Long userId) {
         return authorityMapper.getAuthorityList(userId);
     }
+
+    @Override
+    public List<Authority> getAuthoritiesByRoleId(Long roleId) {
+        return authorityMapper.getAuthoritiesByRoleId(roleId);
+    }
 }
