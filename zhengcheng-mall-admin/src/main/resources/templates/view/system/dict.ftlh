@@ -311,22 +311,9 @@
             layer.confirm('确定要删除该字典吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
-                $.ajax({
-                    url: "remove/data/" + obj.data['id'],
-                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.code == 200) {
-                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2, time: 1000});
-                        }
-                    }
-                })
+                common.ajax({}, "remove/data/" + obj.data['id'], 'delete');
+                layer.close(loading);
+                table.reload('dict-data-table');
             });
         }
 
@@ -360,24 +347,10 @@
         });
 
         form.on('switch(dict-data-enable)', function (obj) {
-            $.ajax({
-                url: "enable/data",
-                dataType: 'json',
-                type: 'post',
-                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    id: this.value,
-                    enable: obj.elem.checked
-                }),
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 1000});
-                    }
-                }
-            });
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, 'enable/data', 'post');
         });
 
         window.refreshData = function () {

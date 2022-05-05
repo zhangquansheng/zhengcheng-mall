@@ -100,6 +100,7 @@ public class DictController {
     }
 
     @ApiOperation("删除字典数据")
+    @SaCheckPermission("sys:dict:del")
     @DeleteMapping("/remove/data/{id}")
     public @ResponseBody Result<Boolean> removeData(@PathVariable("id") Long id) {
         return Result.successData(dictFacade.removeData(id));

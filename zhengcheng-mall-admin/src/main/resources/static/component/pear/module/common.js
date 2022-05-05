@@ -67,6 +67,31 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                 }
             })
         }
+
+        /**
+         * 提交 json 数据
+         * @param data 提交数据
+         * @param href 提交接口
+         * @param type 提交类型
+         *
+         * */
+        this.ajax = function (data, href, type) {
+            $.ajax({
+                url: href,
+                data: JSON.stringify(data),
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                type: type,
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    }
+                }
+            })
+        }
     }
     exports(MOD_NAME, common);
 });
