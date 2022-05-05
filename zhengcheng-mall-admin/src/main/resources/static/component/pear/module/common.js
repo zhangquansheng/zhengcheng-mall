@@ -73,9 +73,10 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
          * @param data 提交数据
          * @param href 提交接口
          * @param type 提交类型
+         * @param table 刷新表
          *
          * */
-        this.ajax = function (data, href, type) {
+        this.ajax = function (data, href, type, table) {
             $.ajax({
                 url: href,
                 data: JSON.stringify(data),
@@ -86,6 +87,7 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                 success: function (result) {
                     if (result.code == 200) {
                         layer.msg(result.message, {icon: 1, time: 1000});
+                        layui.table.reload(table);
                     } else {
                         layer.msg(result.message, {icon: 2, time: 1000});
                     }

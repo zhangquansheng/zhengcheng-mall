@@ -2,11 +2,8 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import java.util.List;
 
-import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.admin.controller.command.DictDataCommand;
-import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
-import com.zhengcheng.mall.admin.controller.command.EnableCommand;
+import com.zhengcheng.mall.admin.controller.command.*;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
 
@@ -21,7 +18,7 @@ public interface DictFacade {
     /**
      * 分页查询字典类型
      */
-    PageInfo<DictTypeDTO> typePage(PageCommand pageCommand);
+    PageInfo<DictTypeDTO> typePage(DictTypePageCommand pageCommand);
 
     /**
      * 分页查询字典
@@ -74,4 +71,46 @@ public interface DictFacade {
      * @return DictDataDTO
      */
     DictDataDTO findDataById(Long id);
+
+    /**
+     * 保存字典类型
+     * @param dictTypeCommand DictTypeCommand
+     * @return 是/否
+     */
+    boolean saveType(DictTypeCommand dictTypeCommand);
+
+    /**
+     * 删除字典类型
+     * @param id ID
+     * @return 是/否
+     */
+    boolean removeType(Long id);
+
+    /**
+     * 根据ID查询数据字典类型
+     * @param id ID
+     * @return DictDataDTO
+     */
+    DictTypeDTO findTypeById(Long id);
+
+    /**
+     * 更新字典数据类型
+     * @param dictTypeCommand DictTypeCommand
+     * @return 是/否
+     */
+    boolean updateType(DictTypeCommand dictTypeCommand);
+
+    /**
+     * 启用/禁用字典数据类型
+     * @param enableCommand EnableCommand
+     * @return 是/否
+     */
+    boolean enableType(EnableCommand enableCommand);
+
+    /**
+     * 批量删除字典数据类型
+     * @param ids ID
+     * @return 是/否
+     */
+    boolean batchRemoveType(List<Long> ids);
 }

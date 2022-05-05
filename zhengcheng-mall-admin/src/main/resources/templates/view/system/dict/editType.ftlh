@@ -7,14 +7,31 @@
 </head>
 <body>
 <form class="layui-form" action="">
-    <input type="hidden" name="id" value="${id}"/>
+    <input type="hidden" name="id" value="${dictType.id}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
-                <label class="layui-form-label">账号</label>
+                <label class="layui-form-label">字典名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" value="${name}" lay-verify="name" autocomplete="off"
-                           placeholder="请输入名称" class="layui-input">
+                    <input type="text" name="name" value="${dictType.name}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入字典名称"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">字典编码</label>
+                <div class="layui-input-block">
+                    <input type="text" name="code" value="${dictType.code}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入字典编码"
+                           class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">描述</label>
+                <div class="layui-input-block">
+                    <input type="text" name="description" value="${dictType.description}" autocomplete="off"
+                           placeholder="请输入描述"
+                           class="layui-input">
                 </div>
             </div>
         </div>
@@ -22,7 +39,7 @@
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="wxusertag-update">
+                    lay-filter="dictType-update">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -36,35 +53,13 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery'], function () {
+    layui.use(['form', 'jquery', 'common'], function () {
         let form = layui.form;
         let $ = layui.jquery;
+        let common = layui.common;
 
-        form.on('submit(wxusertag-update)', function (data) {
-            $.ajax({
-                url: '/admin/wxusertag/update',
-                data: JSON.stringify(data.field),
-                dataType: 'json',
-                contentType: 'application/json',
-                type: 'post',
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {
-                            icon: 1,
-                            time: 1000
-                        }, function () {
-                            parent.layer.close(parent.layer.getFrameIndex(window
-                                .name)); //关闭当前页
-                            parent.layui.table.reload("wxusertag-table");
-                        });
-                    } else {
-                        layer.msg(result.message, {
-                            icon: 2,
-                            time: 1000
-                        });
-                    }
-                }
-            })
+        form.on('submit(dictType-update)', function (data) {
+            common.submit(data.field, '/admin/dict/update/type', 'dict-type-table', null);
             return false;
         });
     })

@@ -12,12 +12,9 @@ import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
-import com.zhengcheng.mall.admin.controller.command.DictDataCommand;
-import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
-import com.zhengcheng.mall.admin.controller.command.EnableCommand;
+import com.zhengcheng.mall.admin.controller.command.*;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
 import com.zhengcheng.mall.admin.controller.facade.DictFacade;
@@ -69,14 +66,15 @@ public class DictController {
 
     @ApiOperation("编辑字典类型")
     @GetMapping("/editType")
-    public String editType() {
+    public String editType(Long id, Model model) {
+        model.addAttribute("dictType", dictFacade.findTypeById(id));
         return "/view/system/dict/editType";
     }
 
     @ApiOperation("分页查询字典类型")
     @SaCheckPermission("sys:dict:main")
     @PostMapping("/type/page")
-    public @ResponseBody Result<PageInfo<DictTypeDTO>> typePage(@Valid @RequestBody PageCommand pageCommand) {
+    public @ResponseBody Result<PageInfo<DictTypeDTO>> typePage(@Valid @RequestBody DictTypePageCommand pageCommand) {
         return Result.successData(dictFacade.typePage(pageCommand));
     }
 
@@ -89,14 +87,14 @@ public class DictController {
 
     @ApiOperation("保存字典数据")
     @PostMapping("/save/data")
-    public @ResponseBody Result<Boolean> save(@Valid @RequestBody DictDataCommand dictDataCommand) {
+    public @ResponseBody Result<Boolean> addData(@Valid @RequestBody DictDataCommand dictDataCommand) {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.addData(dictDataCommand));
     }
 
     @ApiOperation("更新字典数据")
     @PostMapping("/update/data")
-    public @ResponseBody Result<Boolean> update(@Validated(Update.class) @RequestBody DictDataCommand dictDataCommand) {
+    public @ResponseBody Result<Boolean> updateData(@Validated(Update.class) @RequestBody DictDataCommand dictDataCommand) {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.updateData(dictDataCommand));
     }
@@ -117,8 +115,43 @@ public class DictController {
 
     @ApiOperation("根据ID启用/禁用字典数据")
     @PostMapping("/enable/data")
-    public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
+    public @ResponseBody Result<Boolean> enableData(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.enableData(enableCommand));
+    }
+
+    @ApiOperation("保存字典类型")
+    @PostMapping("/save/type")
+    public @ResponseBody Result<Boolean> saveType(@Valid @RequestBody DictTypeCommand dictTypeCommand) {
+        dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return Result.successData(dictFacade.saveType(dictTypeCommand));
+    }
+
+    @ApiOperation("删除字典类型")
+    @SaCheckPermission("sys:dict:del")
+    @DeleteMapping("/remove/type/{id}")
+    public @ResponseBody Result<Boolean> removeType(@PathVariable("id") Long id) {
+        return Result.successData(dictFacade.removeType(id));
+    }
+
+    @ApiOperation("更新字典数据类型")
+    @PostMapping("/update/type")
+    public @ResponseBody Result<Boolean> updateType(@Validated(Update.class) @RequestBody DictTypeCommand dictTypeCommand) {
+        dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return Result.successData(dictFacade.updateType(dictTypeCommand));
+    }
+
+    @ApiOperation("根据ID启用/禁用字典数据类型")
+    @PostMapping("/enable/type")
+    public @ResponseBody Result<Boolean> enableType(@Valid @RequestBody EnableCommand enableCommand) {
+        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return Result.successData(dictFacade.enableType(enableCommand));
+    }
+
+    @ApiOperation("批量删除字典数据类型")
+    @SaCheckPermission("sys:dict:del")
+    @DeleteMapping("/batchRemove/type")
+    public @ResponseBody Result<Boolean> batchRemoveType(@RequestParam("ids") List<Long> ids) {
+        return Result.successData(dictFacade.batchRemoveType(ids));
     }
 }
