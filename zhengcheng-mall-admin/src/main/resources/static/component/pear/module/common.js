@@ -56,13 +56,12 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                 contentType: "application/json; charset=utf-8",
                 type: 'post',
                 success: callback != null ? callback(result) : function (result) {
-                    if (result.code == 200) {
+                    if (result.code === 200) {
                         layer.msg(result.message, {icon: 1, time: 1000}, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            if (table != '') {
+                            if (table !== '') {
                                 parent.layui.table.reload(table);
                             }
-
                         });
                     } else {
                         layer.msg(result.message, {icon: 2, time: 1000});
@@ -88,9 +87,9 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
                 contentType: "application/json; charset=utf-8",
                 type: type,
                 success: function (result) {
-                    if (result.code == 200) {
+                    if (result.code === 200) {
                         layer.msg(result.message, {icon: 1, time: 1000});
-                        if (table != '') {
+                        if (table !== '') {
                             layui.table.reload(table);
                         }
                     } else {
