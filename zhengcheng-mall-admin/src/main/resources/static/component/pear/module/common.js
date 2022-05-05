@@ -45,7 +45,7 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
          * @param data 提交数据
          * @param href 提交接口
          * @param table 刷新父级表
-         *
+         * @param callback 回调函数
          * */
         this.submit = function (data, href, table, callback) {
             $.ajax({
