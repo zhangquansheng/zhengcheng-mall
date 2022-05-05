@@ -360,11 +360,22 @@
         });
 
         form.on('switch(dict-data-enable)', function (obj) {
-            common.submit({id: this.value, enable: obj.elem.checked}, 'enable/data', '', function (res) {
-                if (res.code == 200) {
-                    layer.msg(res.message, {icon: 1, time: 1000});
-                } else {
-                    layer.msg(res.message, {icon: 2, time: 1000});
+            $.ajax({
+                url: "enable/data",
+                dataType: 'json',
+                type: 'post',
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: this.value,
+                    enable: obj.elem.checked
+                }),
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    }
                 }
             });
         });

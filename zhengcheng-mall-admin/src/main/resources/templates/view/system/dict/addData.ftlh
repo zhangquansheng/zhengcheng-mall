@@ -59,7 +59,7 @@
         let common = layui.common;
 
         form.on('submit(dictData-save)', function (data) {
-            common.submit(data, '/admin/dict/save/data', 'dict-data-table', null);
+            common.submit(data.field, '/admin/dict/save/data', 'dict-data-table', null);
             return false;
         });
     })
