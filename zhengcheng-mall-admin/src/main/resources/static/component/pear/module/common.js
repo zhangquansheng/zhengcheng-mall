@@ -51,17 +51,18 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
             $.ajax({
                 url: href,
                 data: JSON.stringify(data),
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
                 dataType: 'json',
-                contentType: 'application/json',
+                contentType: "application/json; charset=utf-8",
                 type: 'post',
                 success: callback != null ? callback(result) : function (result) {
-                    if (result.success) {
-                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000}, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
                             parent.layui.table.reload(table);
                         });
                     } else {
-                        layer.msg(result.msg, {icon: 2, time: 1000});
+                        layer.msg(result.message, {icon: 2, time: 1000});
                     }
                 }
             })
