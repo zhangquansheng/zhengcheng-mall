@@ -47,10 +47,11 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery'], function () {
+    layui.use(['table', 'form', 'jquery', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
+        let common = layui.common;
 
         let MODULE_PATH = "operate/";
 
@@ -122,22 +123,9 @@
             layer.confirm('确定要删除该用户标签吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
                 let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['id'],
-                    dataType: 'json',
-                    type: 'delete',
-                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.code == 200) {
-                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2, time: 1000});
-                        }
-                    }
-                });
+                common.ajax({}, MODULE_PATH + "remove/" + obj.data['id'], 'delete');
+                layer.close(loading);
+                table.reload('wxusertag-table');
             });
         }
 

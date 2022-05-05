@@ -35,35 +35,13 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery'], function () {
+    layui.use(['form', 'jquery', 'common'], function () {
         let form = layui.form;
         let $ = layui.jquery;
+        let common = layui.common;
 
         form.on('submit(wxusertag-save)', function (data) {
-            $.ajax({
-                url: '/admin/wxusertag/save',
-                data: JSON.stringify(data.field),
-                dataType: 'json',
-                contentType: 'application/json',
-                type: 'post',
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {
-                            icon: 1,
-                            time: 1000
-                        }, function () {
-                            parent.layer.close(parent.layer.getFrameIndex(window
-                                .name)); //关闭当前页
-                            parent.layui.table.reload("wxusertag-table");
-                        });
-                    } else {
-                        layer.msg(result.message, {
-                            icon: 2,
-                            time: 1000
-                        });
-                    }
-                }
-            })
+            common.submit(data.field, '/admin/wxusertag/save', 'wxusertag-table', null);
             return false;
         });
     })
