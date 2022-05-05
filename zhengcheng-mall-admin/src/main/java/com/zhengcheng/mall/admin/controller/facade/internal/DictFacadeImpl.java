@@ -7,12 +7,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.DictDataCommand;
 import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
 import com.zhengcheng.mall.admin.controller.facade.DictFacade;
@@ -82,5 +84,18 @@ public class DictFacadeImpl implements DictFacade {
         dictData.setEnable(Boolean.TRUE);
         dictData.setCreateUserId(dictDataCommand.getUpdateUserId());
         return dictDataService.save(dictData);
+    }
+
+    @Override
+    public boolean removeData(Long id) {
+        return dictDataService.removeById(id);
+    }
+
+    @Override
+    public boolean enableData(EnableCommand enableCommand) {
+        return dictDataService
+                .update(new LambdaUpdateWrapper<DictData>().set(DictData::getEnable, enableCommand.isEnable())
+                        .set(DictData::getUpdateUserId, enableCommand.getUpdateUserId())
+                        .eq(DictData::getId, enableCommand.getId()));
     }
 }

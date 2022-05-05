@@ -13,6 +13,7 @@ import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.DictDataCommand;
 import com.zhengcheng.mall.admin.controller.command.DictDataPageCommand;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
 import com.zhengcheng.mall.admin.controller.dto.DictTypeDTO;
 import com.zhengcheng.mall.admin.controller.facade.DictFacade;
@@ -86,5 +87,18 @@ public class DictController {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         dictFacade.addData(dictDataCommand);
         return Result.success();
+    }
+
+    @ApiOperation("删除字典数据")
+    @DeleteMapping("/remove/data/{id}")
+    public @ResponseBody Result<Boolean> removeData(@PathVariable("id") Long id) {
+        return Result.successData(dictFacade.removeData(id));
+    }
+
+    @ApiOperation("根据ID启用/禁用字典数据")
+    @PostMapping("/enable/data")
+    public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
+        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return Result.successData(dictFacade.enableData(enableCommand));
     }
 }

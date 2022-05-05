@@ -64,8 +64,7 @@
 
 <script type="text/html" id="power-enable">
     <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="power-enable"
-           {{
-           d.enable== true ? 'checked' : '' }} />
+           {{ d.enable== true ? 'checked' : '' }} />
 </script>
 
 <script type="text/html" id="icon">

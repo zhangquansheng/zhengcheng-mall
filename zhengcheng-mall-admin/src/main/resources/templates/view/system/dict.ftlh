@@ -117,7 +117,7 @@
 </script>
 
 <script type="text/html" id="dict-data-enable">
-    <input type="checkbox" value="{{d.dataId}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable"
+    <input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable"
            {{d.enable ? 'checked' : '' }}>
 </script>
 <script src="../../component/layui/layui.js"></script>
@@ -307,7 +307,26 @@
         }
 
         window.removeData = function (obj) {
-            layer.msg("删除");
+            layer.confirm('确定要删除该字典吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                let loading = layer.load();
+                $.ajax({
+                    url: "remove/data/" + obj.data['id'],
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                    dataType: 'json',
+                    type: 'delete',
+                    success: function (result) {
+                        layer.close(loading);
+                        if (result.code == 200) {
+                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                                obj.del();
+                            });
+                        } else {
+                            layer.msg(result.message, {icon: 2, time: 1000});
+                        }
+                    }
+                })
+            });
         }
 
         table.on('tool(dict-data-table)', function (obj) {
@@ -339,7 +358,24 @@
         });
 
         form.on('switch(dict-data-enable)', function (obj) {
-            layer.msg("切换状态");
+            $.ajax({
+                url: "enable/data",
+                dataType: 'json',
+                type: 'post',
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                contentType: "application/json; charset=utf-8",
+                data: JSON.stringify({
+                    id: this.value,
+                    enable: obj.elem.checked
+                }),
+                success: function (result) {
+                    if (result.code == 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                    } else {
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    }
+                }
+            });
         });
 
         window.refreshData = function () {
