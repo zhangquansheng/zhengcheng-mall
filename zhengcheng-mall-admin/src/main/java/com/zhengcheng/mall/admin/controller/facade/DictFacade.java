@@ -55,6 +55,13 @@ public interface DictFacade {
     boolean removeData(Long id);
 
     /**
+     * 批量删除字典数据
+     * @param ids ID
+     * @return 是/否
+     */
+    boolean batchRemoveData(List<Long> ids);
+
+    /**
      * 启用/禁用字典数据
      * @param enableCommand EnableCommand
      * @return 是/否

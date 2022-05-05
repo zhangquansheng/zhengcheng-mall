@@ -317,6 +317,16 @@
             });
         }
 
+        window.batchRemoveData = function (checkIds) {
+            layer.confirm('确定要删除这些字典吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                let loading = layer.load();
+                common.ajax({}, "batchRemove/data?ids=" + checkIds, 'delete');
+                layer.close(loading);
+                table.reload('dict-data-table');
+            });
+        }
+
         table.on('tool(dict-data-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.removeData(obj);
@@ -334,7 +344,7 @@
                 window.refreshData();
             } else if (obj.event === 'batchRemove') {
                 var checkIds = common.checkField(obj, 'id');
-                layer.msg("批量删除" + checkIds)
+                window.batchRemoveData(checkIds);
             }
         });
 

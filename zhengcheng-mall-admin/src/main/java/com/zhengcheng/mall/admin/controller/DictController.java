@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.admin.controller;
 
+import java.util.List;
+
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -104,6 +106,13 @@ public class DictController {
     @DeleteMapping("/remove/data/{id}")
     public @ResponseBody Result<Boolean> removeData(@PathVariable("id") Long id) {
         return Result.successData(dictFacade.removeData(id));
+    }
+
+    @ApiOperation("批量删除字典数据")
+    @SaCheckPermission("sys:dict:del")
+    @DeleteMapping("/batchRemove/data")
+    public @ResponseBody Result<Boolean> batchRemoveData(@RequestParam("ids") List<Long> ids) {
+        return Result.successData(dictFacade.batchRemoveData(ids));
     }
 
     @ApiOperation("根据ID启用/禁用字典数据")

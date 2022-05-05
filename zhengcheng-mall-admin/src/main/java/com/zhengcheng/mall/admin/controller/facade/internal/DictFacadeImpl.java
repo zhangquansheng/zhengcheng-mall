@@ -101,6 +101,11 @@ public class DictFacadeImpl implements DictFacade {
     }
 
     @Override
+    public boolean batchRemoveData(List<Long> ids) {
+        return dictDataService.removeBatchByIds(ids);
+    }
+
+    @Override
     public boolean enableData(EnableCommand enableCommand) {
         return dictDataService
                 .update(new LambdaUpdateWrapper<DictData>().set(DictData::getEnable, enableCommand.isEnable())
