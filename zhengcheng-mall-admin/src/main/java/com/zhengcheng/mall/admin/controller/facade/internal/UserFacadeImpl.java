@@ -143,6 +143,7 @@ public class UserFacadeImpl implements UserFacade {
         UserCommand userCommand = new UserCommand();
         userCommand.setId(enableCommand.getId());
         userCommand.setEnable(enableCommand.isEnable());
+        userCommand.setSource(UserCommand.SOURCE_ADMIN);
         return userFeignClient.update(userCommand);
     }
 

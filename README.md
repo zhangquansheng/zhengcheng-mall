@@ -35,7 +35,7 @@ rt-server.redisson.password=123456
 ## 内置功能
 
 1. 系统管理
-    - [ ] 用户管理
+    - [x] 用户管理
     - [x] 角色管理
     - [x] 权限管理
     - [x] 行为日志  [通用操作日志组件](https://github.com/mouzt/mzt-biz-log)

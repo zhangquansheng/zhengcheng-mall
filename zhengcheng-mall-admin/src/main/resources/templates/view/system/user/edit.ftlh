@@ -8,6 +8,7 @@
 <body>
 <form class="layui-form" action="">
     <input type="hidden" name="id" value="${user.id}"/>
+    <input type="hidden" name="source" value="${source}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">

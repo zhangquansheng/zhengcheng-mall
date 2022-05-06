@@ -110,7 +110,7 @@ public class UserFacadeImpl implements UserFacade {
             return userCommand.getPassword();
         }
 
-        if ("admin".equals(userCommand.getSource())) {
+        if (UserCommand.SOURCE_ADMIN.equals(userCommand.getSource())) {
             return userCommand.getPassword();
         } else {
             return userService.rasDecrypt(userCommand.getPassword());

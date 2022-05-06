@@ -44,6 +44,7 @@ public class UserController {
     @ApiOperation("添加页面")
     @GetMapping("/add")
     public String add(Model model) {
+        model.addAttribute("source", UserCommand.SOURCE_ADMIN);
         model.addAttribute("roles", roleFacade.findAll());
         return "/view/system/user/add";
     }
@@ -51,6 +52,7 @@ public class UserController {
     @ApiOperation("编辑页面")
     @GetMapping("/edit")
     public String edit(Long id, Model model) {
+        model.addAttribute("source", UserCommand.SOURCE_ADMIN);
         model.addAttribute("user", userFacade.findById(id));
         model.addAttribute("roles", roleFacade.findAll());
         return "/view/system/user/edit";
@@ -79,7 +81,6 @@ public class UserController {
     @PostMapping("/save")
     public @ResponseBody Result<Long> save(@Valid @RequestBody UserCommand userCommand) {
         userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
-        userCommand.setSource("admin");
         return userFacade.save(userCommand);
     }
 
