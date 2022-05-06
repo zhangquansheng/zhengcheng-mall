@@ -21,6 +21,7 @@ import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.UserAssembler;
+import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 import com.zhengcheng.mall.api.feign.OauthFeignClient;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
@@ -113,6 +114,22 @@ public class UserFacadeImpl implements UserFacade {
             session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
         }
         return tokenResult;
+    }
+
+    @Override
+    public Result<Long> save(UserCommand userCommand) {
+        if (usernameExists(userCommand.getUsername())) {
+            return Result.errorMessage("用户名已存在");
+        }
+
+        userCommand.setEnable(Boolean.TRUE);
+        return userFeignClient.add(userCommand);
+    }
+
+    @Override
+    public boolean usernameExists(String username) {
+        Result<UserDTO> userResult = userFeignClient.findByUsername(username);
+        return userResult.hasData();
     }
 
     private MenuDTO toMenuDTO(Authority authority) {

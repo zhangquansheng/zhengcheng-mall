@@ -11,6 +11,7 @@ import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
+import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
 
 /**
@@ -49,4 +50,16 @@ public interface UserFacade {
      * 用户登录
      */
     Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session, HttpServletRequest request);
+
+    /**
+     * 用户名是否存在
+     * @param username 用户名
+     * @return 是/否
+     */
+    boolean usernameExists(String username);
+
+    /**
+     * 添加用户
+     */
+    Result<Long> save(UserCommand userCommand);
 }

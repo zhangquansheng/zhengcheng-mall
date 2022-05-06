@@ -8,10 +8,9 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.command.UserCommand;
-import com.zhengcheng.mall.api.feign.UserFeignClient;
 
 import cn.hutool.core.util.StrUtil;
 import io.swagger.annotations.Api;
@@ -31,7 +30,7 @@ import io.swagger.annotations.ApiOperation;
 public class RegisterController {
 
     @Autowired
-    private UserFeignClient userFeignClient;
+    private UserFacade userFacade;
 
     @ApiOperation("注册页面")
     @GetMapping
@@ -50,25 +49,17 @@ public class RegisterController {
             return Result.successData(false);
         }
 
-        return Result.successData(!usernameExists(username));
+        return Result.successData(!userFacade.usernameExists(username));
     }
 
     @ApiOperation("注册提交")
     @PostMapping(value = "/submit")
     public @ResponseBody Result<Long> submit(String username, String enPassword, String nickname) {
-        if (usernameExists(username)) {
-            return Result.errorMessage("用户名已存在");
-        }
-
         UserCommand userCommand = new UserCommand();
         userCommand.setUsername(username);
         userCommand.setPassword(enPassword);
         userCommand.setName(nickname);
-        return userFeignClient.add(userCommand);
+        return userFacade.save(userCommand);
     }
 
-    private boolean usernameExists(String username) {
-        Result<UserDTO> userResult = userFeignClient.findByUsername(username);
-        return userResult.hasData();
-    }
 }

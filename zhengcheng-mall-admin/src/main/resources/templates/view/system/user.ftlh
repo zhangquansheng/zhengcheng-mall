@@ -53,30 +53,16 @@
         <i class="layui-icon layui-icon-add-1"></i>
         新增
     </button>
-    <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
-        <i class="layui-icon layui-icon-delete"></i>
-        删除
-    </button>
 </script>
 
 <script type="text/html" id="user-bar">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
-    </button>
-    <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
 </script>
 
 <script type="text/html" id="user-enable">
     <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="user-enable" {{
            d.enable== true ? 'checked' : '' }} />
-</script>
-
-<script type="text/html" id="user-sex">
-    {{#if (d.sex == 1) { }}
-    <span>男</span>
-    {{# }else if(d.sex == 2){ }}
-    <span>女</span>
-    {{# } }}
 </script>
 
 <script src="../../component/layui/layui.js"></script>
@@ -87,8 +73,6 @@
         let form = layui.form;
         let $ = layui.jquery;
         let common = layui.common;
-
-        let MODULE_PATH = "operate/";
 
         let cols = [
             [{
@@ -122,11 +106,6 @@
                     align: 'center'
                 },
                 {
-                    title: '注册时间',
-                    field: 'createTime',
-                    align: 'center'
-                },
-                {
                     title: '操作',
                     toolbar: '#user-bar',
                     align: 'center',
@@ -152,9 +131,7 @@
         });
 
         table.on('tool(user-table)', function (obj) {
-            if (obj.event === 'remove') {
-                window.remove(obj);
-            } else if (obj.event === 'edit') {
+            if (obj.event === 'edit') {
                 window.edit(obj);
             }
         });
@@ -164,8 +141,6 @@
                 window.add();
             } else if (obj.event === 'refresh') {
                 window.refresh();
-            } else if (obj.event === 'batchRemove') {
-                window.batchRemove(obj);
             }
         });
 
@@ -186,7 +161,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: [common.isModile() ? '100%' : '500px', common.isModile() ? '100%' : '400px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'add'
             });
         }
 
@@ -196,80 +171,7 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'edit.html'
-            });
-        }
-
-        window.remove = function (obj) {
-            layer.confirm('确定要删除该用户', {
-                icon: 3,
-                title: '提示'
-            }, function (index) {
-                layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['userId'],
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.success) {
-                            layer.msg(result.msg, {
-                                icon: 1,
-                                time: 1000
-                            }, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.msg, {
-                                icon: 2,
-                                time: 1000
-                            });
-                        }
-                    }
-                })
-            });
-        }
-
-        window.batchRemove = function (obj) {
-
-            var checkIds = common.checkField(obj, 'userId');
-
-            if (checkIds === "") {
-                layer.msg("未选中数据", {
-                    icon: 3,
-                    time: 1000
-                });
-                return false;
-            }
-
-            layer.confirm('确定要删除这些用户', {
-                icon: 3,
-                title: '提示'
-            }, function (index) {
-                layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "batchRemove/" + ids,
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.success) {
-                            layer.msg(result.msg, {
-                                icon: 1,
-                                time: 1000
-                            }, function () {
-                                table.reload('user-table');
-                            });
-                        } else {
-                            layer.msg(result.msg, {
-                                icon: 2,
-                                time: 1000
-                            });
-                        }
-                    }
-                })
+                content: 'edit?id=' + +obj.data['id']
             });
         }
 
