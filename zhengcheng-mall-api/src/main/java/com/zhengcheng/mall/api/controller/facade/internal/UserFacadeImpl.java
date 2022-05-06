@@ -118,6 +118,10 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     private void saveBatchUserRole(Long userId, List<Long> roleIds, Long updateUserId) {
+        if (CollectionUtils.isEmpty(roleIds)) {
+            return;
+        }
+
         List<UserRole> userRoles = new ArrayList<>();
         roleIds.forEach(roleId -> {
             UserRole userRole = new UserRole();
