@@ -7,6 +7,7 @@
 </head>
 <body>
 <form class="layui-form" action="">
+    <input type="hidden" name="roleId" value="${roleId}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="main-container">
@@ -31,10 +32,11 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['dtree', 'form', 'jquery'], function () {
+    layui.use(['dtree', 'form', 'jquery', 'common'], function () {
         let dtree = layui.dtree;
         let form = layui.form;
         let $ = layui.jquery;
+        let common = layui.common;
 
         dtree.render({
             elem: "#role-power",
@@ -54,8 +56,16 @@
         });
 
         form.on('submit(role-power-save)', function (data) {
-            var params = dtree.getCheckbarNodesParam("role-power");
-            layer.msg(JSON.stringify(params));
+            let param = dtree.getCheckbarNodesParam("role-power");
+            let ids = '';
+            for (let i = 0; i < param.length; i++) {
+                let id = param[i].nodeId;
+                ids += id + ',';
+            }
+            ids = ids.substr(0, ids.length - 1);
+            data.field.authorityIds = ids;
+
+            common.submit(data.field, '/admin/role/saveRoleAuthority', '', null);
             return false;
         });
     })

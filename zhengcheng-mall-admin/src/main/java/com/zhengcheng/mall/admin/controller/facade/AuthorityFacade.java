@@ -63,4 +63,5 @@ public interface AuthorityFacade {
      * @return TreeDTO
      */
     List<AuthorityDTO> findByRoleId(Long roleId);
+
 }

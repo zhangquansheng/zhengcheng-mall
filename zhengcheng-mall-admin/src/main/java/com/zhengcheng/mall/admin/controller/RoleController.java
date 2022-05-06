@@ -12,6 +12,7 @@ import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
+import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 
@@ -72,5 +73,13 @@ public class RoleController {
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.enable(enableCommand));
+    }
+
+    @ApiOperation("保存角色权限")
+    @PostMapping("/saveRoleAuthority")
+    public @ResponseBody Result<Void> saveRoleAuthority(@Valid @RequestBody RoleAuthorityCommand roleAuthorityCommand) {
+        roleAuthorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        roleFacade.saveRoleAuthority(roleAuthorityCommand);
+        return Result.success();
     }
 }

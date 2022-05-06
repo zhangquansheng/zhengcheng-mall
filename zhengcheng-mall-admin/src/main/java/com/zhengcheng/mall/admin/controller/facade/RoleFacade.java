@@ -3,6 +3,7 @@ package com.zhengcheng.mall.admin.controller.facade;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
+import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 
@@ -61,4 +62,10 @@ public interface RoleFacade {
      */
     PageInfo<RoleDTO> page(PageCommand pageCommand);
 
+    /**
+     * 保存角色权限
+     * @param roleAuthorityCommand RoleAuthorityCommand
+     * @return 是/否
+     */
+    boolean saveRoleAuthority(RoleAuthorityCommand roleAuthorityCommand);
 }
