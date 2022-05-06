@@ -62,5 +62,8 @@ public class User extends BaseEntity<User> {
      * 最后登录时间
      */
     private LocalDateTime     lastLogin;
-
+    /**
+     * 来源
+     */
+    private String            source;
 }

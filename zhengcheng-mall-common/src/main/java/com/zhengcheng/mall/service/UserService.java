@@ -19,4 +19,11 @@ public interface UserService extends IService<User> {
      * @return 明文
      */
     String rasDecrypt(String enPassword);
+
+    /**
+     * 数据库密码加密
+     * @param password 密码
+     * @return 加密后的密码
+     */
+    String bCryptEncodePassword(String password);
 }

@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.exception.BizException;
@@ -80,21 +81,53 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public Long add(UserCommand userCommand) {
         User user = userAssembler.toEntity(userCommand);
-        user.setPassword(userService.rasDecrypt(user.getPassword()));
+        user.setPassword(this.getPassword(userCommand));
         userService.save(user);
 
+        this.saveBatchUserRole(user.getId(), userCommand.getRoleIds(), userCommand.getUpdateUserId());
+        return user.getId();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    @Override
+    public void update(UserCommand userCommand) {
+        String password = this.getPassword(userCommand);
+
+        userService.update(new LambdaUpdateWrapper<User>()
+                .set(StrUtil.isNotBlank(userCommand.getName()), User::getName, userCommand.getName())
+                .set(StrUtil.isNotBlank(userCommand.getEmail()), User::getEmail, userCommand.getEmail())
+                .set(StrUtil.isNotBlank(userCommand.getMobile()), User::getMobile, userCommand.getMobile())
+                .set(StrUtil.isNotBlank(password), User::getPassword, userService.bCryptEncodePassword(password))
+                .eq(User::getId, userCommand.getId()));
+
+        userRoleService.remove(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, userCommand.getId()));
+        this.saveBatchUserRole(userCommand.getId(), userCommand.getRoleIds(), userCommand.getUpdateUserId());
+    }
+
+    private String getPassword(UserCommand userCommand) {
+        if (StrUtil.isBlank(userCommand.getPassword())) {
+            return userCommand.getPassword();
+        }
+
+        if ("admin".equals(userCommand.getSource())) {
+            return userCommand.getPassword();
+        } else {
+            return userService.rasDecrypt(userCommand.getPassword());
+        }
+    }
+
+    private void saveBatchUserRole(Long userId, List<Long> roleIds, Long updateUserId) {
         List<UserRole> userRoles = new ArrayList<>();
-        userCommand.getRoleIds().forEach(roleId -> {
+        roleIds.forEach(roleId -> {
             UserRole userRole = new UserRole();
-            userRole.setUserId(user.getId());
+            userRole.setUserId(userId);
             userRole.setRoleId(roleId);
-            userRole.setCreateUserId(userCommand.getUpdateUserId());
-            userRole.setUpdateUserId(userCommand.getUpdateUserId());
+            userRole.setCreateUserId(updateUserId);
+            userRole.setUpdateUserId(updateUserId);
             userRoles.add(userRole);
         });
         if (CollectionUtils.isNotEmpty(userRoles)) {
             userRoleService.saveBatch(userRoles);
         }
-        return user.getId();
     }
 }

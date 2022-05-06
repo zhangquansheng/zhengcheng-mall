@@ -38,8 +38,15 @@ public interface UserFacade {
      * 添加单条数据
      *
      * @param userCommand
-     *            数据查询对象
+     *            UserCommand
      */
     Long add(UserCommand userCommand);
 
+    /**
+     * 更新单条数据
+     *
+     * @param userCommand
+     *            UserCommand
+     */
+    void update(UserCommand userCommand);
 }

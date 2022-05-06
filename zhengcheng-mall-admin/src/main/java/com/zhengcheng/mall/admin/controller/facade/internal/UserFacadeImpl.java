@@ -72,7 +72,8 @@ public class UserFacadeImpl implements UserFacade {
         IPage<User> page = userService.page(PageUtil.getPage(userPageCommand), new LambdaQueryWrapper<User>()
                 .eq(StrUtil.isNotBlank(userPageCommand.getUsername()), User::getUsername, userPageCommand.getUsername())
                 .eq(StrUtil.isNotBlank(userPageCommand.getName()), User::getName, userPageCommand.getName())
-                .eq(StrUtil.isNotBlank(userPageCommand.getMobile()), User::getName, userPageCommand.getMobile()));
+                .eq(StrUtil.isNotBlank(userPageCommand.getMobile()), User::getName, userPageCommand.getMobile())
+                .orderByDesc(User::getCreateTime));
 
         PageInfo<UserDTO> pageInfo = PageInfo.empty(userPageCommand);
         pageInfo.setTotal(page.getTotal());
@@ -132,8 +133,8 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
-    public Result<Long> update(UserCommand userCommand) {
-        return null;
+    public Result<Void> update(UserCommand userCommand) {
+        return userFeignClient.update(userCommand);
     }
 
     @Override

@@ -38,6 +38,12 @@ public class UserFeignClientFallbackFactory implements FallbackFactory<UserFeign
                 log.error("UserFeignClient add fallback message: {}", throwable.getMessage(), throwable);
                 return Result.fallbackResult();
             }
+
+            @Override
+            public Result<Void> update(UserCommand userCommand) {
+                log.error("UserFeignClient update fallback message: {}", throwable.getMessage(), throwable);
+                return Result.fallbackResult();
+            }
         };
     }
 }

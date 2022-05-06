@@ -5,6 +5,7 @@ import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.dto.UserDTO;
+import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
@@ -46,5 +47,13 @@ public class UserController implements UserFeignClient {
     @Override
     public Result<Long> add(@Validated @RequestBody UserCommand userCommand) {
         return Result.successData(userFacade.add(userCommand));
+    }
+
+    @ApiOperation("更新用户")
+    @PostMapping("/update")
+    @Override
+    public Result<Void> update(@Validated(value = Update.class) @RequestBody UserCommand userCommand) {
+        userFacade.update(userCommand);
+        return Result.success();
     }
 }

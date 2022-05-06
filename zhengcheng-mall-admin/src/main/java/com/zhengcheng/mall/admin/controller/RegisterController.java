@@ -59,6 +59,7 @@ public class RegisterController {
         userCommand.setUsername(username);
         userCommand.setPassword(enPassword);
         userCommand.setName(nickname);
+        userCommand.setSource("userReg");
         return userFacade.save(userCommand);
     }
 

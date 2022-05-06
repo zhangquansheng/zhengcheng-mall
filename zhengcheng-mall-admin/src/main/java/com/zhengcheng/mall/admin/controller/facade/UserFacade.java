@@ -64,7 +64,7 @@ public interface UserFacade {
     Result<Long> save(UserCommand userCommand);
 
     /**
-     * 编辑用户
+     * 更新用户
      */
-    Result<Long> update(UserCommand userCommand);
+    Result<Void> update(UserCommand userCommand);
 }

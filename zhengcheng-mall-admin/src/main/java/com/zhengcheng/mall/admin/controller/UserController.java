@@ -78,13 +78,14 @@ public class UserController {
     @PostMapping("/save")
     public @ResponseBody Result<Long> save(@Valid @RequestBody UserCommand userCommand) {
         userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        userCommand.setSource("admin");
         return userFacade.save(userCommand);
     }
 
     @ApiOperation("更新用户")
     @SaCheckPermission("sys:user:update")
     @PostMapping("/update")
-    public @ResponseBody Result<Long> update(@Valid @RequestBody UserCommand userCommand) {
+    public @ResponseBody Result<Void> update(@Valid @RequestBody UserCommand userCommand) {
         userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return userFacade.update(userCommand);
     }

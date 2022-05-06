@@ -11,7 +11,6 @@ import com.zhengcheng.mall.domain.mapper.UserMapper;
 import com.zhengcheng.mall.service.UserService;
 
 import cn.hutool.core.codec.Base64;
-import cn.hutool.core.date.LocalDateTimeUtil;
 import cn.hutool.core.util.RandomUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
@@ -39,8 +38,7 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public boolean save(User user) {
         user.setUserNo(RandomUtil.randomString(mallProperties.getUserNoRandomLength()));
-        user.setPassword(bCryptPasswordEncoder.encode(md5(user.getPassword())));
-        user.setLastLogin(LocalDateTimeUtil.now());
+        user.setPassword(this.bCryptEncodePassword(user.getPassword()));
         return userMapper.insert(user) > 0;
     }
 
@@ -52,6 +50,11 @@ public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements Us
     @Override
     public String rasDecrypt(String enPassword) {
         return new String(rsa.decrypt(Base64.decode(enPassword), KeyType.PrivateKey));
+    }
+
+    @Override
+    public String bCryptEncodePassword(String password) {
+        return bCryptPasswordEncoder.encode(md5(password));
     }
 
     private String md5(String password) {

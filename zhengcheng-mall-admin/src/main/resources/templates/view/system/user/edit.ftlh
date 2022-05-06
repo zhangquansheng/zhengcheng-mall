@@ -73,6 +73,12 @@
         let common = layui.common;
 
         form.on('submit(user-update)', function (data) {
+            var roleIds = [];
+            $('input[type=checkbox]:checked').each(function () {
+                roleIds.push($(this).val());
+            })
+            data.field.roleIds = roleIds;
+
             common.submit(data.field, '/admin/user/update', 'user-table', null);
             return false;
         });

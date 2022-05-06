@@ -37,4 +37,8 @@ public interface UserFeignClient {
     @ApiOperation("添加用户")
     @PostMapping("/user/add")
     Result<Long> add(@Validated @RequestBody UserCommand userCommand);
+
+    @ApiOperation("更新用户")
+    @PostMapping("/user/update")
+    Result<Void> update(@RequestBody UserCommand userCommand);
 }
