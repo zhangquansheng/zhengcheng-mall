@@ -86,6 +86,7 @@ public class DictController {
     }
 
     @ApiOperation("保存字典数据")
+    @SaCheckPermission("sys:dict:save")
     @PostMapping("/save/data")
     public @ResponseBody Result<Boolean> addData(@Valid @RequestBody DictDataCommand dictDataCommand) {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -93,6 +94,7 @@ public class DictController {
     }
 
     @ApiOperation("更新字典数据")
+    @SaCheckPermission("sys:dict:update")
     @PostMapping("/update/data")
     public @ResponseBody Result<Boolean> updateData(@Validated(Update.class) @RequestBody DictDataCommand dictDataCommand) {
         dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -114,6 +116,7 @@ public class DictController {
     }
 
     @ApiOperation("根据ID启用/禁用字典数据")
+    @SaCheckPermission("sys:dict:update")
     @PostMapping("/enable/data")
     public @ResponseBody Result<Boolean> enableData(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -121,6 +124,7 @@ public class DictController {
     }
 
     @ApiOperation("保存字典类型")
+    @SaCheckPermission("sys:dict:save")
     @PostMapping("/save/type")
     public @ResponseBody Result<Boolean> saveType(@Valid @RequestBody DictTypeCommand dictTypeCommand) {
         dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -135,6 +139,7 @@ public class DictController {
     }
 
     @ApiOperation("更新字典数据类型")
+    @SaCheckPermission("sys:dict:update")
     @PostMapping("/update/type")
     public @ResponseBody Result<Boolean> updateType(@Validated(Update.class) @RequestBody DictTypeCommand dictTypeCommand) {
         dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -142,6 +147,7 @@ public class DictController {
     }
 
     @ApiOperation("根据ID启用/禁用字典数据类型")
+    @SaCheckPermission("sys:dict:update")
     @PostMapping("/enable/type")
     public @ResponseBody Result<Boolean> enableType(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());

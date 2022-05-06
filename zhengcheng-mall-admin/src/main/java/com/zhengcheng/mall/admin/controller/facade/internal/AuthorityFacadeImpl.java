@@ -22,6 +22,7 @@ import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.service.AuthorityService;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 权限表(Authority)外观模式，接口实现
@@ -52,6 +53,14 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     @LogRecord(success = "新增了权限：{{#authorityCommand.name}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.ADD_SUB_TYPE, bizNo = "{{#authorityCommand.code}}")
     @Override
     public Long add(AuthorityCommand authorityCommand) {
+        // 验证权限编码唯一
+        if (StrUtil.isNotBlank(authorityCommand.getCode())) {
+            Authority sameCode = authorityService
+                    .getOne(new LambdaQueryWrapper<Authority>().eq(Authority::getCode, authorityCommand.getCode()));
+            if (Objects.nonNull(sameCode)) {
+                throw new BizException(StrUtil.format("已存在相同的权限编码,权限名称为:{}", sameCode.getName()));
+            }
+        }
         Authority authority = authorityAssembler.toEntity(authorityCommand);
         authorityService.save(authority);
         return authority.getId();

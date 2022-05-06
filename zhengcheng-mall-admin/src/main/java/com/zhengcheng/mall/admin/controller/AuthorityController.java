@@ -56,14 +56,13 @@ public class AuthorityController {
     private AuthorityFacade authorityFacade;
 
     @ApiOperation("查询所有权限数据")
-    @SaCheckPermission("sys:authority:data")
     @GetMapping("/data")
     public @ResponseBody Result<List<AuthorityDTO>> data() {
         return Result.successData(authorityFacade.findAll());
     }
 
     @ApiOperation("保存")
-    //    @SaCheckPermission("sys:authority:save")
+    @SaCheckPermission("sys:authority:save")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
         authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -88,6 +87,7 @@ public class AuthorityController {
     }
 
     @ApiOperation("根据ID启用/禁用")
+    @SaCheckPermission("sys:authority:update")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
