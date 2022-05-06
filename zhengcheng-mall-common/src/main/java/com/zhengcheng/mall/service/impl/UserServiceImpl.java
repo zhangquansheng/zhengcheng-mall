@@ -3,7 +3,6 @@ package com.zhengcheng.mall.service.impl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
-import org.springframework.transaction.annotation.Transactional;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.mall.common.config.MallProperties;
@@ -29,15 +28,14 @@ import cn.hutool.crypto.asymmetric.RSA;
 public class UserServiceImpl extends ServiceImpl<UserMapper, User> implements UserService {
 
     @Autowired
-    private UserMapper userMapper;
+    private UserMapper            userMapper;
     @Autowired
     private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private MallProperties mallProperties;
+    private MallProperties        mallProperties;
     @Autowired
-    private RSA rsa;
+    private RSA                   rsa;
 
-    @Transactional
     @Override
     public boolean save(User user) {
         user.setUserNo(RandomUtil.randomString(mallProperties.getUserNoRandomLength()));

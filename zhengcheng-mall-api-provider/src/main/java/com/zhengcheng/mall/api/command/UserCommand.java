@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.api.command;
 
+import java.util.List;
+
 import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
@@ -31,4 +33,6 @@ public class UserCommand extends com.zhengcheng.common.web.UserCommand {
     private String            avatar;
     @ApiModelProperty("是否启用")
     private boolean           enable;
+    @ApiModelProperty("角色ID列表")
+    private List<Long>        roleIds;
 }
