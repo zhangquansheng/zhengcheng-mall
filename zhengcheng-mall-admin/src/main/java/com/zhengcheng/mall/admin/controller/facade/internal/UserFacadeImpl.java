@@ -31,6 +31,7 @@ import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.enums.AuthorityTypeEnum;
 import com.zhengcheng.mall.service.AuthorityService;
+import com.zhengcheng.mall.service.RoleService;
 import com.zhengcheng.mall.service.UserService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
@@ -50,6 +51,8 @@ public class UserFacadeImpl implements UserFacade {
     @Autowired
     private AuthorityService authortiyService;
     @Autowired
+    private RoleService      roleService;
+    @Autowired
     private UserAssembler    userAssembler;
     @Autowired
     private OauthFeignClient oauthFeign;
@@ -58,7 +61,9 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public UserDTO findById(Long id) {
-        return userAssembler.toDTO(userService.getById(id));
+        UserDTO userDTO = userAssembler.toDTO(userService.getById(id));
+        userDTO.setRoleCodes(roleService.getRoleList(id, ""));
+        return userDTO;
     }
 
     @LogRecord(success = "分页查询", type = LogRecordType.USER, bizNo = "用户列表")

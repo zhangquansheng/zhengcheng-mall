@@ -26,7 +26,7 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">邮箱</label>
                 <div class="layui-input-block">
-                    <input type="text" name="email" lay-verify="required" autocomplete="off" placeholder="请输入邮箱"
+                    <input type="text" name="email" autocomplete="off" placeholder="请输入邮箱"
                            class="layui-input">
                 </div>
             </div>
@@ -42,6 +42,15 @@
                 <div class="layui-input-block">
                     <input type="text" name="mobile" lay-verify="required" autocomplete="off" placeholder="请输入电话"
                            class="layui-input">
+                </div>
+            </div>
+            <div class="layui-form-item">
+                <label class="layui-form-label">角色</label>
+                <div class="layui-input-block">
+                    <#list roles as role>
+                        <input lay-skin="primary" value="${role.id}" title="${role.name}" name="roleIds"
+                               type="checkbox">
+                    </#list>
                 </div>
             </div>
         </div>

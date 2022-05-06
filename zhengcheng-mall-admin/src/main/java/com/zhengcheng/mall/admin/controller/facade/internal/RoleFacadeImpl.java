@@ -51,6 +51,13 @@ public class RoleFacadeImpl implements RoleFacade {
     }
 
     @Override
+    public List<RoleDTO> findAll() {
+        List<Role> roles = roleService.list(
+                new LambdaQueryWrapper<Role>().eq(Role::getEnable, Boolean.TRUE).orderByDesc(Role::getCreateTime));
+        return roleAssembler.toDTOs(roles);
+    }
+
+    @Override
     public void removeById(Long id) {
         roleService.removeById(id);
     }

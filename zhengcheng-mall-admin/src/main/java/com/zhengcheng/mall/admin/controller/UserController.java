@@ -15,6 +15,7 @@ import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
+import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 import com.zhengcheng.mall.admin.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.command.UserCommand;
 
@@ -41,7 +42,8 @@ public class UserController {
 
     @ApiOperation("添加页面")
     @GetMapping("/add")
-    public String add() {
+    public String add(Model model) {
+        model.addAttribute("roles", roleFacade.findAll());
         return "/view/system/user/add";
     }
 
@@ -49,11 +51,14 @@ public class UserController {
     @GetMapping("/edit")
     public String edit(Long id, Model model) {
         model.addAttribute("user", userFacade.findById(id));
+        model.addAttribute("roles", roleFacade.findAll());
         return "/view/system/user/edit";
     }
 
     @Autowired
     private UserFacade userFacade;
+    @Autowired
+    private RoleFacade roleFacade;
 
     @ApiOperation("分页查询")
     @SaCheckPermission("sys:user:main")

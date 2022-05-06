@@ -27,6 +27,12 @@ public interface RoleFacade {
     RoleDTO findById(Long id);
 
     /**
+     * 查询所有启用角色
+     * @return RoleDTO
+     */
+    List<RoleDTO> findAll();
+
+    /**
      * 通过ID删除单条数据
      * @param id
      *          主键
