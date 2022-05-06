@@ -27,6 +27,8 @@ import com.zhengcheng.mall.service.RoleAuthorityService;
 import com.zhengcheng.mall.service.RoleService;
 import com.zhengcheng.mybatis.plus.utils.PageUtil;
 
+import cn.hutool.core.util.StrUtil;
+
 /**
  * 角色表(Role)外观模式，接口实现
  *
@@ -91,6 +93,9 @@ public class RoleFacadeImpl implements RoleFacade {
     public boolean saveRoleAuthority(RoleAuthorityCommand roleAuthorityCommand) {
         roleAuthorityService.remove(new LambdaUpdateWrapper<RoleAuthority>().eq(RoleAuthority::getRoleId,
                 roleAuthorityCommand.getRoleId()));
+        if (StrUtil.isEmpty(roleAuthorityCommand.getAuthorityIds())) {
+            return true;
+        }
 
         List<String> authorityIds = Arrays.asList(roleAuthorityCommand.getAuthorityIds().split(","));
         List<RoleAuthority> roleAuthorities = new ArrayList<>();

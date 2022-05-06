@@ -40,7 +40,6 @@
         FROM authority
                  LEFT JOIN role_authority ra ON authority.id = authority_id AND ra.is_deleted = 0
         WHERE authority.is_deleted = 0
-          AND authority.is_enable = 1
           AND role_id = #{roleId}
         ORDER BY authority.sort
     </select>
