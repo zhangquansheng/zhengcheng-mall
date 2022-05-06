@@ -152,7 +152,10 @@
         });
 
         form.on('switch(user-enable)', function (obj) {
-            layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, 'enable', 'post', '');
         });
 
         window.add = function () {

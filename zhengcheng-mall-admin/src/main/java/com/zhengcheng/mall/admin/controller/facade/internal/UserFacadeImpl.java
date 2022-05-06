@@ -16,6 +16,7 @@ import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
@@ -134,6 +135,14 @@ public class UserFacadeImpl implements UserFacade {
 
     @Override
     public Result<Void> update(UserCommand userCommand) {
+        return userFeignClient.update(userCommand);
+    }
+
+    @Override
+    public Result<Void> enable(EnableCommand enableCommand) {
+        UserCommand userCommand = new UserCommand();
+        userCommand.setId(enableCommand.getId());
+        userCommand.setEnable(enableCommand.isEnable());
         return userFeignClient.update(userCommand);
     }
 

@@ -8,6 +8,7 @@ import javax.servlet.http.HttpSession;
 import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.LoginSubmitCommand;
 import com.zhengcheng.mall.admin.controller.command.UserPageCommand;
 import com.zhengcheng.mall.admin.controller.dto.MenuDTO;
@@ -67,4 +68,9 @@ public interface UserFacade {
      * 更新用户
      */
     Result<Void> update(UserCommand userCommand);
+
+    /**
+     * 禁用/启用
+     */
+    Result<Void> enable(EnableCommand enableCommand);
 }

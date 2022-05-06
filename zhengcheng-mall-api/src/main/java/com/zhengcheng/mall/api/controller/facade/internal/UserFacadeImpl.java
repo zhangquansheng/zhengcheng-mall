@@ -98,6 +98,7 @@ public class UserFacadeImpl implements UserFacade {
                 .set(StrUtil.isNotBlank(userCommand.getEmail()), User::getEmail, userCommand.getEmail())
                 .set(StrUtil.isNotBlank(userCommand.getMobile()), User::getMobile, userCommand.getMobile())
                 .set(StrUtil.isNotBlank(password), User::getPassword, userService.bCryptEncodePassword(password))
+                .set(Objects.nonNull(userCommand.getEnable()), User::getEnable, userCommand.getEnable())
                 .eq(User::getId, userCommand.getId()));
 
         userRoleService.remove(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, userCommand.getId()));

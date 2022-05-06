@@ -39,7 +39,7 @@ public class UserCommand extends com.zhengcheng.common.web.UserCommand {
     @ApiModelProperty("头像")
     private String            avatar;
     @ApiModelProperty("是否启用")
-    private boolean           enable;
+    private Boolean           enable;
     @ApiModelProperty("来源：admin-管理后台,用户注册-userReg")
     private String            source;
     @ApiModelProperty("角色ID列表")
