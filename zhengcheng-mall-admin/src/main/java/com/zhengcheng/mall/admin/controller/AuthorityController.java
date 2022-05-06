@@ -18,6 +18,7 @@ import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -55,12 +56,14 @@ public class AuthorityController {
     private AuthorityFacade authorityFacade;
 
     @ApiOperation("查询所有权限数据")
+    @SaCheckPermission("sys:authority:data")
     @GetMapping("/data")
     public @ResponseBody Result<List<AuthorityDTO>> data() {
         return Result.successData(authorityFacade.findAll());
     }
 
     @ApiOperation("保存")
+    //    @SaCheckPermission("sys:authority:save")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
         authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
@@ -69,12 +72,14 @@ public class AuthorityController {
     }
 
     @ApiOperation("删除")
+    @SaCheckPermission("sys:authority:del")
     @DeleteMapping("/operate/remove/{id}")
     public @ResponseBody Result<Boolean> remove(@PathVariable("id") Long id) {
         return Result.successData(authorityFacade.deleteById(id));
     }
 
     @ApiOperation("更新")
+    @SaCheckPermission("sys:authority:update")
     @PostMapping("/update")
     public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody AuthorityCommand authorityCommand) {
         authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());

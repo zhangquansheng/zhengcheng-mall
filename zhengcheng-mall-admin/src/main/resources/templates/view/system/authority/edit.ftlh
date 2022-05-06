@@ -19,13 +19,6 @@
                 </div>
             </div>
             <div class="layui-form-item">
-                <label class="layui-form-label">编码</label>
-                <div class="layui-input-block">
-                    <input type="text" name="code" value="${authority.code!}" autocomplete="off" placeholder="请输入编码"
-                           disabled class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">图标</label>
                 <div class="layui-input-block">
                     <input type="text" name="icon" value="${authority.icon!}" autocomplete="off" placeholder="请输入图标"
