@@ -132,6 +132,11 @@ public class UserFacadeImpl implements UserFacade {
     }
 
     @Override
+    public Result<Long> update(UserCommand userCommand) {
+        return null;
+    }
+
+    @Override
     public boolean usernameExists(String username) {
         Result<UserDTO> userResult = userFeignClient.findByUsername(username);
         return userResult.hasData();

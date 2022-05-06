@@ -11,14 +11,6 @@
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
-                <label class="layui-form-label">账号</label>
-                <div class="layui-input-block">
-                    <input type="text" value="${user.username}" name="username" lay-verify="required" autocomplete="off"
-                           placeholder="请输入账号"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
                 <label class="layui-form-label">姓名</label>
                 <div class="layui-input-block">
                     <input type="text" value="${user.name}" name="name" lay-verify="required" autocomplete="off"

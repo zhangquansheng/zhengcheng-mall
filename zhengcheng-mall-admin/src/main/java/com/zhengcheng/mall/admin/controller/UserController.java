@@ -80,4 +80,12 @@ public class UserController {
         userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return userFacade.save(userCommand);
     }
+
+    @ApiOperation("更新用户")
+    @SaCheckPermission("sys:user:update")
+    @PostMapping("/update")
+    public @ResponseBody Result<Long> update(@Valid @RequestBody UserCommand userCommand) {
+        userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        return userFacade.update(userCommand);
+    }
 }
