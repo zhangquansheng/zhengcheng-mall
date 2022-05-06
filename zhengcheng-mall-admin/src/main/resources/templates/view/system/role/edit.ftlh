@@ -2,31 +2,27 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>新增页面</title>
+    <title>编辑页面</title>
     <link rel="stylesheet" href="../../../component/pear/css/pear.css"/>
 </head>
 <body>
 <form class="layui-form" action="">
+    <input type="hidden" name="id" value="${role.id}"/>
     <div class="mainBox">
         <div class="main-container">
             <div class="layui-form-item">
                 <label class="layui-form-label">角色名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入角色名称"
-                           class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">角色编码</label>
-                <div class="layui-input-block">
-                    <input type="text" name="code" lay-verify="required" autocomplete="off" placeholder="请输入角色编码"
+                    <input type="text" name="name" value="${role.name}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入角色名称"
                            class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">描述</label>
                 <div class="layui-input-block">
-                    <input type="text" name="description" autocomplete="off" placeholder="请输入描述"
+                    <input type="text" name="description" value="${role.description}" autocomplete="off"
+                           placeholder="请输入描述"
                            class="layui-input">
                 </div>
             </div>
@@ -35,7 +31,7 @@
     <div class="bottom">
         <div class="button-container">
             <button type="submit" class="pear-btn pear-btn-primary pear-btn-sm" lay-submit=""
-                    lay-filter="role-save">
+                    lay-filter="role-update">
                 <i class="layui-icon layui-icon-ok"></i>
                 提交
             </button>
@@ -54,8 +50,8 @@
         let $ = layui.jquery;
         let common = layui.common;
 
-        form.on('submit(role-save)', function (data) {
-            common.submit(data.field, '/admin/role/save', 'role-table', null);
+        form.on('submit(role-update)', function (data) {
+            common.submit(data.field, '/admin/role/update', 'role-table', null);
             return false;
         });
     })

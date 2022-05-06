@@ -55,6 +55,11 @@ public class RoleFacadeImpl implements RoleFacade {
         roleService.removeById(id);
     }
 
+    @Override
+    public boolean batchRemove(List<Long> ids) {
+        return roleService.removeBatchByIds(ids);
+    }
+
     @LogRecord(success = "{{#enableCommand.enable ? '启用' : '禁用'}}了角色,更新结果:{{#_ret}}", type = LogRecordType.ROLE, bizNo = "{{#enableCommand.id}}")
     @Override
     public boolean enable(EnableCommand enableCommand) {
@@ -65,6 +70,8 @@ public class RoleFacadeImpl implements RoleFacade {
     @Override
     public Long add(RoleCommand roleCommand) {
         Role role = roleAssembler.toEntity(roleCommand);
+        role.setIsSystem(0);
+        role.setEnable(Boolean.TRUE);
         roleService.save(role);
         return role.getId();
     }

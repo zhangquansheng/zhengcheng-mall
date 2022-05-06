@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.admin.controller.facade;
 
+import java.util.List;
+
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
@@ -30,6 +32,13 @@ public interface RoleFacade {
      *          主键
      */
     void removeById(Long id);
+
+    /**
+     * 批量删除
+     * @param ids ID列表
+     * @return 是/否
+     */
+    boolean batchRemove(List<Long> ids);
 
     /**
      * 开启/禁用
