@@ -12,6 +12,7 @@ import com.zhengcheng.leaf.exception.LeafServerException;
 import com.zhengcheng.leaf.exception.NoKeyException;
 import com.zhengcheng.leaf.service.SegmentService;
 import com.zhengcheng.leaf.service.SnowflakeService;
+import com.zhengcheng.mall.api.feign.LeafFeignClient;
 
 import io.swagger.annotations.Api;
 
@@ -24,18 +25,20 @@ import io.swagger.annotations.Api;
 @Api(tags = { "美团分布式ID生成接口" })
 @RestController
 @RequestMapping("/leaf")
-public class LeafController {
+public class LeafController implements LeafFeignClient {
 
     @Autowired
     private SegmentService   segmentService;
     @Autowired
     private SnowflakeService snowflakeService;
 
+    @Override
     @GetMapping(value = "/api/segment/get/{key}")
     public com.zhengcheng.common.web.Result<String> getSegmentId(@PathVariable("key") String key) {
         return com.zhengcheng.common.web.Result.successData(get(key, segmentService.getId(key)));
     }
 
+    @Override
     @GetMapping(value = "/api/snowflake/get/{key}")
     public com.zhengcheng.common.web.Result<String> getSnowflakeId(@PathVariable("key") String key) {
         return com.zhengcheng.common.web.Result.successData(get(key, snowflakeService.getId(key)));
