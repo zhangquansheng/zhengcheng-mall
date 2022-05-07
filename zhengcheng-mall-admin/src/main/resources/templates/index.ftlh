@@ -90,11 +90,12 @@
 <script src="admin/js/moment-2.24.0.min.js"></script>
 <!-- 框 架 初 始 化 -->
 <script>
-    layui.use(['admin', 'jquery', 'popup', 'layer'], function () {
+    layui.use(['toast', 'admin', 'jquery', 'popup', 'layer'], function () {
         var $ = layui.jquery;
         var admin = layui.admin;
         var popup = layui.popup;
         var layer = layui.layer;
+        var toast = layui.toast;
 
         admin.setConfigType("yml");
         admin.setConfigPath("config/pear.config.yml?v=1.1");
@@ -129,6 +130,16 @@
                 , content: data.content
             });
         });
+
+        toast.success({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        toast.info({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        toast.warning({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        toast.error({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        toast.question({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
         // admin.message(function(id, title, context, form) {});
     })
