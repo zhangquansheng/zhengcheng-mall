@@ -58,6 +58,12 @@ public class UserController {
         return "/view/system/user/edit";
     }
 
+    @ApiOperation("基本资料")
+    @GetMapping("/person")
+    public String person() {
+        return "/view/system/person";
+    }
+
     @Autowired
     private UserFacade userFacade;
     @Autowired
