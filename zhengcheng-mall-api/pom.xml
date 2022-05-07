@@ -27,6 +27,11 @@
             <groupId>me.zhyd.oauth</groupId>
             <artifactId>JustAuth</artifactId>
         </dependency>
+        <!-- Leaf：美团分布式ID生成服务 -->
+        <dependency>
+            <groupId>com.zhengcheng</groupId>
+            <artifactId>zc-leaf-spring-boot-starter</artifactId>
+        </dependency>
         <dependency>
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>zhengcheng-mall-common</artifactId>
