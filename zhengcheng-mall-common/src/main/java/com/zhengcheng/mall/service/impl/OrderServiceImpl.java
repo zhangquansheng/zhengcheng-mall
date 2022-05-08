@@ -1,6 +1,5 @@
 package com.zhengcheng.mall.service.impl;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
 
@@ -9,6 +8,9 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.mall.domain.entity.Order;
+import com.zhengcheng.mall.domain.enums.OrderStatusEnum;
+import com.zhengcheng.mall.domain.enums.PaymentStatusEnum;
+import com.zhengcheng.mall.domain.enums.ShippingStatusEnum;
 import com.zhengcheng.mall.domain.mapper.OrderMapper;
 import com.zhengcheng.mall.service.OrderService;
 
@@ -29,21 +31,24 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
     @Override
     public Order create(String orderNo, Long userId, String memo) {
         Order order = new Order();
-        order.setShippingStatus("unshipped");
-        order.setFee(new BigDecimal(0));
-        order.setPromotionDiscount(new BigDecimal(0));
-        order.setCouponDiscount(new BigDecimal(0));
-        order.setOffsetAmount(new BigDecimal(0));
+        order.setCreateUserId(userId);
+        order.setUpdateUserId(userId);
+
+        order.setFee(0L);
+        order.setPromotionDiscount(0L);
+        order.setCouponDiscount(0L);
+        order.setOffsetAmount(0L);
         order.setPoint(0L);
         order.setMemo(memo);
         order.setUserId(userId);
-        order.setFreight(new BigDecimal(0));
+        order.setFreight(0L);
         order.setInvoice(false);
-        order.setTax(new BigDecimal(0));
-        order.setAmountPaid(new BigDecimal(0));
+        order.setTax(0L);
+        order.setAmountPaid(0L);
 
-        order.setOrderStatus("unconfirmed");
-        order.setPaymentStatus("unpaid");
+        order.setOrderStatus(OrderStatusEnum.UNCONFIRMED);
+        order.setPaymentStatus(PaymentStatusEnum.UNPAID);
+        order.setShippingStatus(ShippingStatusEnum.UNSHIPPED);
 
         order.setExpire(LocalDateTimeUtil.offset(LocalDateTime.now(), 60, ChronoUnit.MINUTES));
 

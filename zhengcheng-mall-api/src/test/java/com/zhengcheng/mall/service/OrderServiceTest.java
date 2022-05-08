@@ -14,7 +14,6 @@ import com.zhengcheng.leaf.exception.LeafServerException;
 import com.zhengcheng.leaf.exception.NoKeyException;
 import com.zhengcheng.leaf.service.SegmentService;
 import com.zhengcheng.mall.BaseTest;
-import com.zhengcheng.mall.domain.entity.Order;
 
 import cn.hutool.core.date.DateUtil;
 import cn.hutool.core.util.StrUtil;
@@ -38,13 +37,10 @@ public class OrderServiceTest extends BaseTest {
     public ContiPerfRule   contiPerfRule = new ContiPerfRule();
 
     @Test
-    @PerfTest(threads = 2, invocations = 2000)
+    @PerfTest(threads = 2, invocations = 2)
     public void batchSave() {
         String id = get("leaf-segment-order", segmentService.getId("leaf-segment-order"));
-        Order order = new Order();
-        order.setUserId(3L);
-        order.setOrderNo(StrUtil.format("{}{}{}", DateUtil.format(new Date(), "yyyyMMdd"), id, order.getUserId()));
-        orderService.save(order);
+        orderService.create(StrUtil.format("{}{}{}", DateUtil.format(new Date(), "yyyyMMdd"), id, 3L), 3L, "下单");
     }
 
     private String get(String key, Result id) {

@@ -1,10 +1,12 @@
 package com.zhengcheng.mall.domain.entity;
 
-import java.math.BigDecimal;
 import java.time.LocalDateTime;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import com.zhengcheng.mall.domain.enums.OrderStatusEnum;
+import com.zhengcheng.mall.domain.enums.PaymentStatusEnum;
+import com.zhengcheng.mall.domain.enums.ShippingStatusEnum;
 import com.zhengcheng.mybatis.plus.model.BaseEntity;
 
 import lombok.*;
@@ -25,104 +27,104 @@ import lombok.experimental.Accessors;
 @TableName("t_order")
 public class Order extends BaseEntity<Order> {
 
-    private static final long serialVersionUID = 4645306022711432759L;
+    private static final long  serialVersionUID = 4645306022711432759L;
 
     /** 订单编号 */
-    private String            orderNo;
+    private String             orderNo;
 
     /** 订单状态 */
-    private String            orderStatus;
+    private OrderStatusEnum    orderStatus;
 
     /** 支付状态 */
-    private String            paymentStatus;
+    private PaymentStatusEnum  paymentStatus;
 
     /** 配送状态 */
-    private String            shippingStatus;
+    private ShippingStatusEnum shippingStatus;
 
     /** 支付手续费 */
-    private BigDecimal        fee;
+    private Long               fee;
 
     /** 运费 */
-    private BigDecimal        freight;
+    private Long               freight;
 
     /** 促销折扣 */
-    private BigDecimal        promotionDiscount;
+    private Long               promotionDiscount;
 
     /** 优惠券折扣 */
-    private BigDecimal        couponDiscount;
+    private Long               couponDiscount;
 
     /** 调整金额 */
-    private BigDecimal        offsetAmount;
+    private Long               offsetAmount;
 
     /** 已付金额 */
-    private BigDecimal        amountPaid;
+    private Long               amountPaid;
 
     /** 赠送积分 */
-    private Long              point;
+    private Long               point;
 
     /** 收货人 */
-    private String            consignee;
+    private String             consignee;
 
     /** 地区名称 */
-    private String            areaName;
+    private String             areaName;
 
     /** 地址 */
-    private String            address;
+    private String             address;
 
     /** 邮编 */
-    private String            zipCode;
+    private String             zipCode;
 
     /** 电话 */
-    private String            phone;
+    private String             phone;
 
     /** 是否开据发票 */
     @TableField(value = "is_invoice")
-    private Boolean           invoice;
+    private Boolean            invoice;
 
     /** 发票抬头 */
-    private String            invoiceTitle;
+    private String             invoiceTitle;
 
     /** 税金 */
-    private BigDecimal        tax;
+    private Long               tax;
 
     /** 附言 */
-    private String            memo;
+    private String             memo;
 
     /** 促销 */
-    private String            promotion;
+    private String             promotion;
 
     /** 到期时间 */
-    private LocalDateTime     expire;
+    private LocalDateTime      expire;
 
     /** 锁定到期时间 */
-    private LocalDateTime     lockExpire;
+    private LocalDateTime      lockExpire;
 
     /** 是否已分配库存 */
     @TableField(value = "is_allocated_stock")
-    private Boolean           allocatedStock;
+    private Boolean            allocatedStock;
 
     /** 支付方式名称 */
-    private String            paymentMethodName;
+    private String             paymentMethodName;
 
     /** 配送方式名称 */
-    private String            shippingMethodName;
+    private String             shippingMethodName;
 
     /** 地区 */
-    private Long              areaId;
+    private Long               areaId;
 
     /** 支付方式 */
-    private Long              paymentMethodId;
+    private Long               paymentMethodId;
 
     /** 配送方式 */
-    private Long              shippingMethodId;
+    private Long               shippingMethodId;
 
     /** 操作员 */
-    private Long              operatorId;
+    private Long               operatorId;
 
     /** 会员 */
-    private Long              userId;
+    private Long               userId;
 
     /** 优惠码 */
-    private Long              couponCodeId;
+    private Long               couponCodeId;
 
 }
