@@ -22,8 +22,8 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("message")
-public class Order extends BaseEntity {
+@TableName("t_order")
+public class Order extends BaseEntity<Order> {
 
     private static final long serialVersionUID = 4645306022711432759L;
 
