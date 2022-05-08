@@ -10,4 +10,6 @@ import com.zhengcheng.mall.domain.entity.Order;
  * @since 2022/5/8 12:29
  */
 public interface OrderService extends IService<Order> {
+
+    Order create(String orderNo, Long userId, String memo);
 }
