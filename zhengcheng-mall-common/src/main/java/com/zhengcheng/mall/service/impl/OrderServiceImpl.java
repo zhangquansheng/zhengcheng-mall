@@ -15,4 +15,5 @@ import com.zhengcheng.mall.service.OrderService;
  */
 @Service
 public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements OrderService {
+
 }
