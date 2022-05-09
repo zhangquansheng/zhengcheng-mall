@@ -125,21 +125,18 @@
 
         socket.on('adminImMessageEvent', function (data) {
             console.log(data);
-            layer.open({
-                title: data.title
-                , content: data.content
-            });
+            toast.info({title: data.title, message: data.content, position: 'topRight'});
         });
 
-        toast.success({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+        // toast.success({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
-        toast.info({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+        // toast.info({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
-        toast.warning({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+        // toast.warning({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
-        toast.error({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+        // toast.error({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
-        toast.question({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+        // toast.question({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
         // admin.message(function(id, title, context, form) {});
     })
