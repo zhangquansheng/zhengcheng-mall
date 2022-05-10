@@ -65,18 +65,15 @@
         <dependency>
             <groupId>cn.smallbun.screw</groupId>
             <artifactId>screw-core</artifactId>
-            <version>1.0.5</version>
         </dependency>
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
-            <version>4.13.1</version>
             <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.databene</groupId>
             <artifactId>contiperf</artifactId>
-            <version>2.1.0</version>
             <scope>test</scope>
         </dependency>
     </dependencies>
