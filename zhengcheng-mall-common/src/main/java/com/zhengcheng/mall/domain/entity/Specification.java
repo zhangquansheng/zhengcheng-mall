@@ -23,6 +23,11 @@ public class Specification extends BaseEntity<Specification> {
 
     private static final long serialVersionUID = -3399494417843439107L;
 
+    /**
+     * 商品分类ID
+     */
+    private Long              productCategoryId;
+
     /** 名称 */
     private String            name;
 

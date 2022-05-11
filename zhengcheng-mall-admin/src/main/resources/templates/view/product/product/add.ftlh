@@ -53,9 +53,9 @@
             //获取商品类型下的规格和属性接口
             attrSpecUrl: '/admin/data/sku-table/attrSpecData.json',
             //创建规格接口
-            specCreateUrl: '/admin/data/sku-table//specCreate.json',
+            specCreateUrl: '/admin/specification/save',
             //删除规格接口
-            specDeleteUrl: '/admin/data/sku-table/specDelete.json',
+            specDeleteUrl: '/admin/specification/remove',
             //创建规格值接口
             specValueCreateUrl: '/admin/specificationValue/save',
             //删除规格值接口

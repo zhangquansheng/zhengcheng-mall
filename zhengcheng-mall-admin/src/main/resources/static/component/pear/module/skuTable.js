@@ -318,7 +318,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     that.data.attributeData = [];
                     that.data.specData = [];
                 } else {
-                    Util.request.get({url: that.options.attrSpecUrl, data: {product_type_id: data.value}}, (res) => {
+                    Util.request.get({url: that.options.attrSpecUrl, data: {productCategoryId: data.value}}, (res) => {
                         that.resetRender([that.options.attributeTableElemId, that.options.specTableElemId, that.options.skuTableElemId]);
                         that.data.attributeData = res.data.attribute;
                         that.data.specData = res.data.spec;
@@ -377,7 +377,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     Util.request.post(
                         {
                             url: that.options.specCreateUrl,
-                            data: {title: value, product_type_id: that.data.productTypeId}
+                            data: JSON.stringify({name: value, productCategoryId: that.data.productTypeId})
                         },
                         function (res) {
                             that.data.specData.push({id: res.data.id, title: value, options: [], value: []});
@@ -528,7 +528,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                 if (this.data.productTypeId) {
                     Util.request.get({
                         url: this.options.attrSpecUrl,
-                        data: {product_type_id: this.data.productTypeId}
+                        data: {productCategoryId: this.data.productTypeId}
                     }, (res) => {
                         this.data.attributeData = res.data.attribute;
                         this.data.specData = res.data.spec;
