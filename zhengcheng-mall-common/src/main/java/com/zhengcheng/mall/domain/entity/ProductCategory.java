@@ -26,8 +26,10 @@ public class ProductCategory extends BaseEntity<ProductCategory> {
     /** 名称 */
     private String            name;
 
-    /** 层级 */
-    private Integer           grade;
+    /**
+     * 层级(最多三级1,2,3)
+     */
+    private Integer           level;
 
     /** 上级分类 */
     private Long              pid;
