@@ -8,7 +8,7 @@
 <body>
 <div class="layui-container" id="app">
     <form action="" class="layui-form fairy-form">
-
+        <input type="hidden" name="spuId" value="${spuId}"/>
         <!--商品规格选项-->
         <div id="fairy-is-attribute"></div>
         <!--商品类型选择-->
@@ -47,11 +47,11 @@
             //是否开启sku表行合并
             rowspan: true,
             //图片上传接口
-            uploadUrl: '/admin/data/sku-table//upload.json',
+            uploadUrl: '/admin/data/sku-table/upload.json',
             //获取商品类型接口
             productTypeUrl: '/admin/productCategory/data',
             //获取商品类型下的规格和属性接口
-            attrSpecUrl: '/admin/specification/findAttrSpec',
+            attrSpecUrl: '/admin/specification/findAttrSpec?spuId=${spuId}',
             //创建规格接口
             specCreateUrl: '/admin/specification/save',
             //删除规格接口

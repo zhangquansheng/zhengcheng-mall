@@ -56,6 +56,8 @@
 <script type="text/html" id="user-bar">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
+    <button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="sku"><i class="layui-icon layui-icon-vercode"></i>
+    </button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
 </script>
@@ -130,6 +132,8 @@
                 window.remove(obj);
             } else if (obj.event === 'edit') {
                 window.edit(obj);
+            } else if (obj.event === 'sku') {
+                window.sku(obj);
             }
         });
 
@@ -171,6 +175,16 @@
                 shade: 0.1,
                 area: ['500px', '400px'],
                 content: 'edit'
+            });
+        }
+
+        window.sku = function (obj) {
+            layer.open({
+                type: 2,
+                title: '请设置商品属性规格',
+                shade: 0.1,
+                area: ['100%', '100%'],
+                content: 'add?spuId=' + obj.data['id']
             });
         }
 

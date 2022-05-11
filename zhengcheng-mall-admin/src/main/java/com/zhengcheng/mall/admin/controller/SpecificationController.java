@@ -48,7 +48,8 @@ public class SpecificationController {
 
     @ApiOperation("查询属性规格")
     @GetMapping("/findAttrSpec")
-    public @ResponseBody Result<AttrSpecDTO> findAttrSpec(@RequestParam("productCategoryId") Long productCategoryId) {
-        return Result.successData(specificationFacade.findAttrSpec(productCategoryId));
+    public @ResponseBody Result<AttrSpecDTO> findAttrSpec(@RequestParam("spuId") Long spuId,
+                                                          @RequestParam("productCategoryId") Long productCategoryId) {
+        return Result.successData(specificationFacade.findAttrSpec(spuId, productCategoryId));
     }
 }

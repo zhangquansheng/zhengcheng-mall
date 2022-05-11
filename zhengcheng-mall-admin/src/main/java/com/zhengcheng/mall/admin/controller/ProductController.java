@@ -36,7 +36,8 @@ public class ProductController {
 
     @ApiOperation("添加页面")
     @GetMapping("/add")
-    public String add(Model model) {
+    public String add(Long spuId, Model model) {
+        model.addAttribute("spuId", spuId);
         return "/view/product/product/add";
     }
 

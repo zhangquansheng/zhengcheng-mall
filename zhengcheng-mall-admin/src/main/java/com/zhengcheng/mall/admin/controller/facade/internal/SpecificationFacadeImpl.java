@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
+import com.google.common.collect.Lists;
 import com.zhengcheng.mall.admin.controller.command.SpecificationCommand;
 import com.zhengcheng.mall.admin.controller.dto.AttrSpecDTO;
 import com.zhengcheng.mall.admin.controller.dto.SpecificationDTO;
@@ -50,7 +51,7 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
     }
 
     @Override
-    public AttrSpecDTO findAttrSpec(Long productCategoryId) {
+    public AttrSpecDTO findAttrSpec(Long spuId, Long productCategoryId) {
         List<Specification> specifications = specificationService.list(
                 new LambdaQueryWrapper<Specification>().eq(Specification::getProductCategoryId, productCategoryId));
         List<SpecificationValue> specificationValues = specificationValueService
@@ -65,7 +66,7 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
             spec.setId(StrUtil.toString(specification.getId()));
             spec.setTitle(specification.getName());
             // TODO 设置商品已经选中的规格值
-            spec.setValue(new ArrayList<>());
+            spec.setValue(Lists.newArrayList("5", "6", "9"));
 
             List<SpecificationValue> specificationValueList = specificationValueMap.get(specification.getId());
             List<AttrSpecDTO.Spec.Option> options = new ArrayList<>();

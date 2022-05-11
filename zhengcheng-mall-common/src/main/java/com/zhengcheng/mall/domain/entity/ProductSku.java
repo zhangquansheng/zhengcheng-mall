@@ -24,6 +24,11 @@ public class ProductSku extends BaseEntity<ProductSku> {
 
     private static final long serialVersionUID = 1811688582245337443L;
 
+    /**
+     * SKU编号
+     */
+    private String            skuNo;
+
     /** 全称 */
     private String            fullName;
 

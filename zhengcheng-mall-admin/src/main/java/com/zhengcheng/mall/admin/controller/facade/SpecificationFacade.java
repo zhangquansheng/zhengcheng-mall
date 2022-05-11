@@ -28,7 +28,8 @@ public interface SpecificationFacade {
 
     /**
      * 属性规格
+     * @param spuId spuId
      * @param productCategoryId 商品分类ID
      */
-    AttrSpecDTO findAttrSpec(Long productCategoryId);
+    AttrSpecDTO findAttrSpec(Long spuId, Long productCategoryId);
 }
