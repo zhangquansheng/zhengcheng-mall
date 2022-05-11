@@ -55,11 +55,11 @@
             //创建规格接口
             specCreateUrl: '/admin/data/sku-table//specCreate.json',
             //删除规格接口
-            specDeleteUrl: '/admin/data/sku-table//specDelete.json',
+            specDeleteUrl: '/admin/data/sku-table/specDelete.json',
             //创建规格值接口
-            specValueCreateUrl: '/admin/data/sku-table//specValueCreate.json',
+            specValueCreateUrl: '/admin/specificationValue/save',
             //删除规格值接口
-            specValueDeleteUrl: '/admin/data/sku-table//specValueDelete.json',
+            specValueDeleteUrl: '/admin/specificationValue/remove',
             //单规格SKU表配置
             singleSkuTableConfig: {
                 thead: [

@@ -115,7 +115,8 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                 $.ajax({
                     url: option.url,
                     type: type,
-                    contentType: "application/x-www-form-urlencoded; charset=UTF-8",
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                    contentType: "application/json; charset=utf-8",
                     dataType: "json",
                     data: option.data,
                     timeout: 60000,
@@ -168,7 +169,13 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     {type: 'input', field: 'market_price', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
                     {type: 'input', field: 'cost_price', value: '0', verify: 'required|number', reqtext: '成本价不能为空'},
                     {type: 'input', field: 'stock', value: '0', verify: 'required|number', reqtext: '库存不能为空'},
-                    {type: 'select', field: 'status', option: [{key: '启用', value: '1'}, {key: '禁用', value: '0'}], verify: 'required', reqtext: '状态不能为空'},
+                    {
+                        type: 'select',
+                        field: 'status',
+                        option: [{key: '启用', value: '1'}, {key: '禁用', value: '0'}],
+                        verify: 'required',
+                        reqtext: '状态不能为空'
+                    },
                 ]
             },
             skuNameType: 0,
@@ -368,7 +375,10 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
             $(document).on('click', `#${this.options.specTableElemId} .fairy-spec-create`, function () {
                 layer.prompt({title: '规格'}, function (value, index, elem) {
                     Util.request.post(
-                        {url: that.options.specCreateUrl, data: {title: value, product_type_id: that.data.productTypeId}},
+                        {
+                            url: that.options.specCreateUrl,
+                            data: {title: value, product_type_id: that.data.productTypeId}
+                        },
                         function (res) {
                             that.data.specData.push({id: res.data.id, title: value, options: [], value: []});
                             that.resetRender([that.options.specTableElemId]);
@@ -385,7 +395,10 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                 var specId = $(this).parent('td').prev().data('id');
                 layer.prompt({title: '规格值'}, function (value, index, elem) {
                     Util.request.post(
-                        {url: that.options.specValueCreateUrl, data: {spec_id: specId, title: value}},
+                        {
+                            url: that.options.specValueCreateUrl,
+                            data: JSON.stringify({specificationId: specId, name: value}),
+                        },
                         function (res) {
                             that.data.specData.forEach(function (v, i) {
                                 if (v.id == specId) {
@@ -408,7 +421,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     if (that.options.specDeleteUrl) {
                         Util.request.post({
                             url: that.options.specDeleteUrl,
-                            data: {id: specId}
+                            data: JSON.stringify({id: specId})
                         }, function (res) {
                             that.deleteSpec(specId);
                         });
@@ -420,7 +433,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     if (that.options.specValueDeleteUrl) {
                         Util.request.post({
                             url: that.options.specValueDeleteUrl,
-                            data: {id: specValueId}
+                            data: JSON.stringify({id: specValueId})
                         }, function (res) {
                             that.deleteSpecValue(specValueId);
                         });
@@ -513,7 +526,10 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                 html += '</select>';
                 this.renderFormItem('商品类型', html, this.options.productTypeElemId);
                 if (this.data.productTypeId) {
-                    Util.request.get({url: this.options.attrSpecUrl, data: {product_type_id: this.data.productTypeId}}, (res) => {
+                    Util.request.get({
+                        url: this.options.attrSpecUrl,
+                        data: {product_type_id: this.data.productTypeId}
+                    }, (res) => {
                         this.data.attributeData = res.data.attribute;
                         this.data.specData = res.data.spec;
                         this.renderAttributeTable();
@@ -712,7 +728,10 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                     var tmp = [];
                     prev.forEach(function (a) {
                         cur.forEach(function (b) {
-                            tmp.push({id: a.id + that.options.skuNameDelimiter + b.id, title: a.title + that.options.skuNameDelimiter + b.title});
+                            tmp.push({
+                                id: a.id + that.options.skuNameDelimiter + b.id,
+                                title: a.title + that.options.skuNameDelimiter + b.title
+                            });
                         })
                     });
                     return tmp;
