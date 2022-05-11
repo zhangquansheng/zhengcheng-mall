@@ -47,19 +47,19 @@
             //是否开启sku表行合并
             rowspan: true,
             //图片上传接口
-            uploadUrl: './json/upload.json',
+            uploadUrl: '/admin/data/sku-table//upload.json',
             //获取商品类型接口
             productTypeUrl: '/admin/productCategory/data',
             //获取商品类型下的规格和属性接口
-            attrSpecUrl: './json/attrSpecData.json',
+            attrSpecUrl: '/admin/data/sku-table/attrSpecData.json',
             //创建规格接口
-            specCreateUrl: './json/specCreate.json',
+            specCreateUrl: '/admin/data/sku-table//specCreate.json',
             //删除规格接口
-            specDeleteUrl: './json/specDelete.json',
+            specDeleteUrl: '/admin/data/sku-table//specDelete.json',
             //创建规格值接口
-            specValueCreateUrl: './json/specValueCreate.json',
+            specValueCreateUrl: '/admin/data/sku-table//specValueCreate.json',
             //删除规格值接口
-            specValueDeleteUrl: './json/specValueDelete.json',
+            specValueDeleteUrl: '/admin/data/sku-table//specValueDelete.json',
             //单规格SKU表配置
             singleSkuTableConfig: {
                 thead: [
@@ -114,7 +114,7 @@
             //商品类型id
             productTypeId: 1,
             //sku数据接口
-            skuDataUrl: './json/skuData.json',
+            skuDataUrl: '/admin/data/sku-table/skuData.json',
         });
 
         form.on('submit(submit)', function (data) {
