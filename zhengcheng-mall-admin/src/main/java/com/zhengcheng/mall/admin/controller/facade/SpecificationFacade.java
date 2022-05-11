@@ -1,6 +1,7 @@
 package com.zhengcheng.mall.admin.controller.facade;
 
 import com.zhengcheng.mall.admin.controller.command.SpecificationCommand;
+import com.zhengcheng.mall.admin.controller.dto.AttrSpecDTO;
 import com.zhengcheng.mall.admin.controller.dto.SpecificationDTO;
 
 /**
@@ -24,4 +25,10 @@ public interface SpecificationFacade {
      *            数据查询对象
      */
     SpecificationDTO add(SpecificationCommand specificationCommand);
+
+    /**
+     * 属性规格
+     * @param productCategoryId 商品分类ID
+     */
+    AttrSpecDTO findAttrSpec(Long productCategoryId);
 }

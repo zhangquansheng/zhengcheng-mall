@@ -51,7 +51,7 @@
             //获取商品类型接口
             productTypeUrl: '/admin/productCategory/data',
             //获取商品类型下的规格和属性接口
-            attrSpecUrl: '/admin/data/sku-table/attrSpecData.json',
+            attrSpecUrl: '/admin/specification/findAttrSpec',
             //创建规格接口
             specCreateUrl: '/admin/specification/save',
             //删除规格接口

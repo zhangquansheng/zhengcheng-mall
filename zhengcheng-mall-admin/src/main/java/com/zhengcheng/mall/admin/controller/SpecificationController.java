@@ -5,16 +5,14 @@ import javax.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Insert;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.SpecificationCommand;
 import com.zhengcheng.mall.admin.controller.command.SpecificationRemoveCommand;
+import com.zhengcheng.mall.admin.controller.dto.AttrSpecDTO;
 import com.zhengcheng.mall.admin.controller.dto.SpecificationDTO;
 import com.zhengcheng.mall.admin.controller.facade.SpecificationFacade;
 
@@ -48,4 +46,9 @@ public class SpecificationController {
         return Result.successData(specificationFacade.removeById(specificationRemoveCommand.getId()));
     }
 
+    @ApiOperation("查询属性规格")
+    @GetMapping("/findAttrSpec")
+    public @ResponseBody Result<AttrSpecDTO> findAttrSpec(@RequestParam("productCategoryId") Long productCategoryId) {
+        return Result.successData(specificationFacade.findAttrSpec(productCategoryId));
+    }
 }
