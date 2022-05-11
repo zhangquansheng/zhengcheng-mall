@@ -11,19 +11,13 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">用户名</label>
+                    <label class="layui-form-label">商品分类</label>
                     <div class="layui-input-inline">
                         <input type="text" name="realName" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">性别</label>
-                    <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
-                    </div>
-                </div>
-                <div class="layui-form-item layui-inline">
-                    <label class="layui-form-label">邮箱</label>
+                    <label class="layui-form-label">商品名称</label>
                     <div class="layui-input-inline">
                         <input type="text" name="realName" placeholder="" class="layui-input">
                     </div>
@@ -44,7 +38,7 @@
 </div>
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="user-table" lay-filter="user-table"></table>
+        <table id="product-table" lay-filter="product-table"></table>
     </div>
 </div>
 
@@ -66,29 +60,10 @@
     </button>
 </script>
 
-<script type="text/html" id="user-enable">
-    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="user-enable" {{
-           d.enable== true ? 'checked' : '' }} />
-</script>
-
-<script type="text/html" id="user-sex">
-    {{#if (d.sex == 1) { }}
-    <span>男</span>
-    {{# }else if(d.sex == 2){ }}
-    <span>女</span>
-    {{# } }}
-</script>
-
-<script type="text/html" id="user-login">
-    {{#if (d.login == 0) { }}
-    <span>在线</span>
-    {{# }else if(d.sex == 1){ }}
-    <span>离线</span>
-    {{# } }}
-</script>
-
-<script type="text/html" id="user-createTime">
-    {{layui.util.toDateString(d.createTime, 'yyyy-MM-dd')}}
+<script type="text/html" id="product-marketable">
+    <input type="checkbox" name="marketable" value="{{d.id}}" lay-skin="switch" lay-text="上架|下架"
+           lay-filter="product-marketable" {{
+           d.marketable== true ? 'checked' : '' }} />
 </script>
 
 <script src="../../component/layui/layui.js"></script>
@@ -105,45 +80,25 @@
                 type: 'checkbox'
             },
                 {
-                    title: '账号',
-                    field: 'username',
-                    align: 'center',
-                    width: 100
-                },
-                {
-                    title: '姓名',
-                    field: 'realName',
+                    title: '编码',
+                    field: 'spuNo',
                     align: 'center'
                 },
                 {
-                    title: '性别',
-                    field: 'sex',
-                    align: 'center',
-                    width: 80,
-                    templet: '#user-sex'
-                },
-                {
-                    title: '电话',
-                    field: 'phone',
+                    title: '名称',
+                    field: 'name',
                     align: 'center'
                 },
                 {
-                    title: '启用',
-                    field: 'enable',
-                    align: 'center',
-                    templet: '#user-enable'
+                    title: '商品分类',
+                    field: 'productCategoryName',
+                    align: 'center'
                 },
                 {
-                    title: '登录',
-                    field: 'login',
+                    title: '是否上架',
+                    field: 'marketable',
                     align: 'center',
-                    templet: '#user-login'
-                },
-                {
-                    title: '注册',
-                    field: 'createTime',
-                    align: 'center',
-                    templet: '#user-createTime'
+                    templet: '#product-marketable'
                 },
                 {
                     title: '操作',
@@ -155,12 +110,14 @@
         ]
 
         table.render({
-            elem: '#user-table',
-            url: '../../admin/data/user.json',
+            elem: '#product-table',
+            url: '/admin/product/page',
             page: true,
             cols: cols,
             skin: 'line',
             toolbar: '#user-toolbar',
+            method: 'post', //如果无需自定义HTTP类型，可不加该参数
+            contentType: 'application/json',
             defaultToolbar: [{
                 title: '刷新',
                 layEvent: 'refresh',
@@ -168,7 +125,7 @@
             }, 'filter', 'print', 'exports']
         });
 
-        table.on('tool(user-table)', function (obj) {
+        table.on('tool(product-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
@@ -176,7 +133,7 @@
             }
         });
 
-        table.on('toolbar(user-table)', function (obj) {
+        table.on('toolbar(product-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
@@ -187,13 +144,13 @@
         });
 
         form.on('submit(user-query)', function (data) {
-            table.reload('user-table', {
+            table.reload('product-table', {
                 where: data.field
             })
             return false;
         });
 
-        form.on('switch(user-enable)', function (obj) {
+        form.on('switch(product-marketable)', function (obj) {
             layer.tips(this.value + ' ' + this.name + '：' + obj.elem.checked, obj.othis);
         });
 
@@ -277,7 +234,7 @@
                                 icon: 1,
                                 time: 1000
                             }, function () {
-                                table.reload('user-table');
+                                table.reload('product-table');
                             });
                         } else {
                             layer.msg(result.msg, {
@@ -291,7 +248,7 @@
         }
 
         window.refresh = function (param) {
-            table.reload('user-table');
+            table.reload('product-table');
         }
     })
 </script>

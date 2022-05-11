@@ -56,15 +56,6 @@ public class ProductSpu extends BaseEntity<ProductSpu> {
     /** 搜索关键词 */
     private String            keyword;
 
-    /** 销量 */
-    private Long              sales;
-
-    /** 周销量 */
-    private Long              weekSales;
-
-    /** 月销量 */
-    private Long              monthSales;
-
     /** 商品分类 */
     private Long              productCategoryId;
 

@@ -1,10 +1,19 @@
 package com.zhengcheng.mall.admin.controller;
 
+import javax.validation.Valid;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.web.PageCommand;
+import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.dto.ProductSpuDTO;
+import com.zhengcheng.mall.admin.controller.facade.ProductSpuFacade;
+
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -35,5 +44,15 @@ public class ProductController {
     @GetMapping("/edit")
     public String edit(Model model) {
         return "/view/product/product/edit";
+    }
+
+    @Autowired
+    private ProductSpuFacade productSpuFacade;
+
+    @ApiOperation("分页查询")
+    @SaCheckPermission("sys:product:main")
+    @PostMapping("/page")
+    public @ResponseBody Result<PageInfo<ProductSpuDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
+        return Result.successData(productSpuFacade.page(pageCommand));
     }
 }
