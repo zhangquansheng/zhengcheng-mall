@@ -63,4 +63,11 @@ public class ProductController {
     public @ResponseBody Result<JSONObject> skuData(@RequestParam("spuId") Long spuId) {
         return Result.successData(productSpuFacade.skuData(spuId));
     }
+
+    @ApiOperation("保存sku数据")
+    @PostMapping("/saveSkuData")
+    public @ResponseBody Result<Void> skuData(@RequestBody JSONObject skuData) {
+        productSpuFacade.saveSkuData(skuData);
+        return Result.success();
+    }
 }

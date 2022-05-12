@@ -1,6 +1,8 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -11,12 +13,15 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.mall.admin.controller.command.ProductSkuCommand;
 import com.zhengcheng.mall.admin.controller.dto.ProductSpuDTO;
+import com.zhengcheng.mall.admin.controller.dto.SkuDataDTO;
 import com.zhengcheng.mall.admin.controller.facade.ProductSpuFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.ProductAssembler;
 import com.zhengcheng.mall.domain.entity.ProductSku;
 import com.zhengcheng.mall.domain.entity.ProductSpecificationValue;
 import com.zhengcheng.mall.domain.entity.ProductSpu;
+import com.zhengcheng.mall.domain.mapper.ProductSpecificationValueMapper;
 import com.zhengcheng.mall.service.ProductSkuService;
 import com.zhengcheng.mall.service.ProductSpecificationValueService;
 import com.zhengcheng.mall.service.ProductSpuService;
@@ -26,6 +31,8 @@ import cn.hutool.core.bean.BeanDesc;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.PropDesc;
 import cn.hutool.core.text.StrBuilder;
+import cn.hutool.core.util.StrUtil;
+import cn.hutool.json.JSONUtil;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -94,5 +101,105 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
             }
         });
         return jsonObject;
+    }
+
+    @Override
+    public void saveSkuData(JSONObject sku) {
+        /**
+         * {
+         *     "is_attribute":"1",
+         *     "product_type":"1",
+         *     "attribute_value[1]":"N20R093001",
+         *     "skus[5-9][picture]":"",
+         *     "file":"",
+         *     "skus[5-9][price]":"1000",
+         *     "skus[5-9][marketPrice]":"1000",
+         *     "skus[5-9][cost]":"1000",
+         *     "skus[5-9][stock]":"1",
+         *     "skus[5-9][enable]":"1",
+         *     "skus[6-9][picture]":"",
+         *     "skus[6-9][price]":"1000",
+         *     "skus[6-9][marketPrice]":"1000",
+         *     "skus[6-9][cost]":"1000",
+         *     "skus[6-9][stock]":"10",
+         *     "skus[6-9][enable]":"1"
+         * }
+         */
+        BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
+        //        List<ProductSku> productSkus = new ArrayList<>();
+        //        List<ProductSpecification> productSpecifications = new ArrayList<>();
+        //        List<ProductSpecificationValue> productSpecificationValues = new ArrayList<>();
+
+        List<SkuDataDTO> skuDataDTOList = new ArrayList<>();
+        for (Map.Entry entry : sku.entrySet()) {
+            String key = (String) entry.getKey();
+            if (key.startsWith("skus")) {
+                //                System.out.println(String.valueOf(entry.getKey()));
+                // 截取规格
+                //                System.out.println();
+                //                System.out.println();
+
+                SkuDataDTO skuDataDTO = new SkuDataDTO();
+                skuDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
+                skuDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
+                skuDataDTO.setValue((String) entry.getValue());
+                skuDataDTOList.add(skuDataDTO);
+                /**
+                 * SELECT
+                 * 	product_sku_id 
+                 * FROM
+                 * 	product_specification_value 
+                 * WHERE
+                 * 	specification_value_id IN ( 6, 9 ) 
+                 * GROUP BY
+                 * 	product_sku_id 
+                 * HAVING
+                 * 	COUNT( specification_value_id ) = 2
+                 */
+            }
+        }
+
+        Map<String, List<SkuDataDTO>> groupBy = skuDataDTOList.stream()
+                .collect(Collectors.groupingBy(SkuDataDTO::getKey));
+
+        List<ProductSkuCommand> productSkuCommands = new ArrayList<>();
+        for (Map.Entry entry : groupBy.entrySet()) {
+            String key = (String) entry.getKey();
+            System.out.println(key);
+
+            ProductSkuCommand productSkuCommand = new ProductSkuCommand();
+            productSkuCommand.setSpecificationValueIds(getSpecificationValueIds(key));
+
+            List<SkuDataDTO> skuDatas = (List<SkuDataDTO>) entry.getValue();
+            skuDatas.forEach(skuDataDTO -> {
+                try {
+                    BeanUtil.setFieldValue(productSkuCommand, skuDataDTO.getPropName(), skuDataDTO.getValue());
+                } catch (Exception e) {
+                    log.error(e.getMessage(), e);
+                }
+            });
+
+            productSkuCommands.add(productSkuCommand);
+        }
+
+        productSkuCommands.forEach(productSkuCommand -> {
+            Long skuId = productSpecificationValueMapper.findProductSkuId(productSkuCommand.getSpecificationValueIds(),
+                    productSkuCommand.getSpecificationValueIds().size());
+            productSkuCommand.setId(skuId);
+        });
+
+        System.out.println(JSONUtil.toJsonStr(productSkuCommands));
+    }
+
+    @Autowired
+    private ProductSpecificationValueMapper productSpecificationValueMapper;
+
+    private List<Long> getSpecificationValueIds(String specificationValueIds) {
+        String[] idStrs = specificationValueIds.split("-");
+        List<Long> ids = new ArrayList<>();
+        for (String idStr : idStrs) {
+            ids.add(Long.valueOf(idStr));
+        }
+        return ids;
     }
 }

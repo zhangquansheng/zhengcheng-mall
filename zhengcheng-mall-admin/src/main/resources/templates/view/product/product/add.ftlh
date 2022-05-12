@@ -30,10 +30,11 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery', 'skuTable'], function () {
+    layui.use(['form', 'jquery', 'skuTable', 'common'], function () {
         let form = layui.form;
         let $ = layui.jquery;
         let skuTable = layui.skuTable;
+        let common = layui.common;
 
         var skuTableObj = skuTable.render({
             isAttributeElemId: 'fairy-is-attribute',
@@ -118,21 +119,8 @@
 
         form.on('submit(submit)', function (data) {
             //获取表单数据
-            console.log(data.field);
 
-            if (skuTableObj.getMode() == 0) {
-                //单规格
-                layer.alert(JSON.stringify(data.field), {title: '提交的数据0'});
-            } else {
-                //多规格
-                var state = Object.keys(data.field).some(function (item, index, array) {
-                    return item.startsWith('skus');
-                });
-                state ? layer.alert(JSON.stringify(data.field), {title: '提交的数据1'}) : layer.msg('sku表数据不能为空', {
-                    icon: 5,
-                    anim: 6
-                });
-            }
+            common.submit(data.field, '/admin/product/saveSkuData', '', null);
 
             return false;
         });
