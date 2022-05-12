@@ -7,7 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 规格值
+ * 商品规格值
  *
  * @author quansheng1.zhang
  * @since 2022/5/11 13:30
@@ -18,13 +18,13 @@ import lombok.experimental.Accessors;
 @Data
 @EqualsAndHashCode(callSuper = true)
 @Accessors(chain = true)
-@TableName("specification_value")
-public class SpecificationValue extends BaseEntity<SpecificationValue> {
+@TableName("product_specification_value")
+public class ProductSpecificationValue extends BaseEntity<ProductSpecificationValue> {
     private static final long serialVersionUID = -6670367870719964149L;
 
-    /** 名称 */
-    private String            name;
+    /** 商品ID */
+    private Long              productSkuId;
 
-    /** 规格 */
-    private Long              specificationId;
+    /** 规格值ID */
+    private Long              specificationValueId;
 }

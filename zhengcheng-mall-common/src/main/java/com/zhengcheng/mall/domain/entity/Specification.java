@@ -7,7 +7,7 @@ import lombok.*;
 import lombok.experimental.Accessors;
 
 /**
- * 商品规格
+ * 规格
  *
  * @author quansheng1.zhang
  * @since 2022/5/11 13:29
