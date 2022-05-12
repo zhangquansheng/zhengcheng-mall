@@ -33,4 +33,8 @@ public class Specification extends BaseEntity<Specification> {
 
     /** 备注 */
     private String            memo;
+    /**
+     * 排序值
+     */
+    private Integer           sort;
 }

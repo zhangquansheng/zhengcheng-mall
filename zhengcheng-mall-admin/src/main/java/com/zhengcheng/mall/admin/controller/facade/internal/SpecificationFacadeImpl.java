@@ -52,8 +52,9 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
 
     @Override
     public AttrSpecDTO findAttrSpec(Long spuId, Long productCategoryId) {
-        List<Specification> specifications = specificationService.list(
-                new LambdaQueryWrapper<Specification>().eq(Specification::getProductCategoryId, productCategoryId));
+        List<Specification> specifications = specificationService
+                .list(new LambdaQueryWrapper<Specification>().eq(Specification::getProductCategoryId, productCategoryId)
+                        .orderBy(Boolean.TRUE, Boolean.TRUE, Specification::getSort));
         List<SpecificationValue> specificationValues = specificationValueService
                 .list(new LambdaQueryWrapper<SpecificationValue>().in(SpecificationValue::getSpecificationId,
                         specifications.stream().map(Specification::getId).collect(Collectors.toList())));
