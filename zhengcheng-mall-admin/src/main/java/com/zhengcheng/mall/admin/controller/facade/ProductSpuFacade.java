@@ -38,7 +38,8 @@ public interface ProductSpuFacade {
 
     /**
      * 保存 sku 数据
-     * @param sku sku
+     * @param spuId spuId
+     * @param sku sku相关参数
      */
-    void saveSkuData(JSONObject sku);
+    void saveSkuData(Long spuId, JSONObject sku);
 }

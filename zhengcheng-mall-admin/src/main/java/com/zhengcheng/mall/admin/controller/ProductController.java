@@ -35,11 +35,11 @@ public class ProductController {
         return "/view/product/product";
     }
 
-    @ApiOperation("添加页面")
-    @GetMapping("/add")
+    @ApiOperation("添加sku页面")
+    @GetMapping("/addSku")
     public String add(Long spuId, Model model) {
         model.addAttribute("spu", productSpuFacade.findById(spuId));
-        return "/view/product/product/add";
+        return "/view/product/product/addSku";
     }
 
     @ApiOperation("编辑页面")
@@ -65,9 +65,9 @@ public class ProductController {
     }
 
     @ApiOperation("保存sku数据")
-    @PostMapping("/saveSkuData")
-    public @ResponseBody Result<Void> skuData(@RequestBody JSONObject skuData) {
-        productSpuFacade.saveSkuData(skuData);
+    @PostMapping("/saveSkuData/{spuId}")
+    public @ResponseBody Result<Void> skuData(@PathVariable("spuId") Long spuId, @RequestBody JSONObject skuData) {
+        productSpuFacade.saveSkuData(spuId, skuData);
         return Result.success();
     }
 }

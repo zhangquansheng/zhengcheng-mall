@@ -120,7 +120,7 @@
         form.on('submit(submit)', function (data) {
             //获取表单数据
 
-            common.submit(data.field, '/admin/product/saveSkuData', '', null);
+            common.submit(data.field, '/admin/product/saveSkuData/${spu.id}', '', null);
 
             return false;
         });

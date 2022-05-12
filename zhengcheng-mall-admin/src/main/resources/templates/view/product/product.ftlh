@@ -184,7 +184,7 @@
                 title: '请设置商品属性规格',
                 shade: 0.1,
                 area: ['100%', '100%'],
-                content: 'add?spuId=' + obj.data['id']
+                content: 'addSku?spuId=' + obj.data['id']
             });
         }
 

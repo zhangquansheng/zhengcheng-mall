@@ -104,7 +104,7 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     }
 
     @Override
-    public void saveSkuData(JSONObject sku) {
+    public void saveSkuData(Long spuId, JSONObject sku) {
         /**
          * {
          *     "is_attribute":"1",
@@ -134,28 +134,12 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         for (Map.Entry entry : sku.entrySet()) {
             String key = (String) entry.getKey();
             if (key.startsWith("skus")) {
-                //                System.out.println(String.valueOf(entry.getKey()));
                 // 截取规格
-                //                System.out.println();
-                //                System.out.println();
-
                 SkuDataDTO skuDataDTO = new SkuDataDTO();
                 skuDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
                 skuDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
                 skuDataDTO.setValue((String) entry.getValue());
                 skuDataDTOList.add(skuDataDTO);
-                /**
-                 * SELECT
-                 * 	product_sku_id 
-                 * FROM
-                 * 	product_specification_value 
-                 * WHERE
-                 * 	specification_value_id IN ( 6, 9 ) 
-                 * GROUP BY
-                 * 	product_sku_id 
-                 * HAVING
-                 * 	COUNT( specification_value_id ) = 2
-                 */
             }
         }
 
