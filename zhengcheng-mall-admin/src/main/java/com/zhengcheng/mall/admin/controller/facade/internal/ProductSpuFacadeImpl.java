@@ -75,7 +75,6 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     @Override
     public JSONObject skuData(Long spuId) {
         JSONObject jsonObject = new JSONObject();
-
         BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
 
         List<ProductSku> productSkus = productSkuService
@@ -101,6 +100,7 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
                 jsonObject.put(sb2.toString(), BeanUtil.getFieldValue(productSku, propDesc.getField().getName()) + "");
             }
         });
+        log.info("spuId: {} , skuData: {}", spuId, JSONUtil.toJsonStr(jsonObject));
         return jsonObject;
     }
 

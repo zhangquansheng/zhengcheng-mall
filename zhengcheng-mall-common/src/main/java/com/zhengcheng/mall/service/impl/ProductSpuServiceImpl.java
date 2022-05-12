@@ -21,6 +21,8 @@ import com.zhengcheng.mall.domain.mapper.ProductSpecificationValueMapper;
 import com.zhengcheng.mall.domain.mapper.ProductSpuMapper;
 import com.zhengcheng.mall.service.ProductSpuService;
 
+import cn.hutool.core.bean.BeanUtil;
+
 /**
  * ProductSpuServiceImpl
  *
@@ -61,7 +63,7 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         productSpuCommand.getSkus().forEach(skuDTO -> {
             if (Objects.isNull(skuDTO.getId())) {
                 ProductSku sku = new ProductSku();
-                BeanUtils.copyProperties(skuDTO, sku);
+                BeanUtil.copyProperties(skuDTO, sku);
                 // 暂时去当前时间戳为编号
                 sku.setSkuNo(String.valueOf(System.currentTimeMillis()));
                 sku.setSpuId(spu.getId());
@@ -72,7 +74,7 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
                 skuDTO.setId(sku.getId());
             } else {
                 ProductSku sku = productSkuMapper.selectById(skuDTO.getId());
-                BeanUtils.copyProperties(skuDTO, sku);
+                BeanUtil.copyProperties(skuDTO, sku);
                 productSkuMapper.updateById(sku);
 
                 existsSkuIds.add(sku.getId());
@@ -81,9 +83,9 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         // 删除其他的SKU
         productSkuMapper.delete(new LambdaUpdateWrapper<ProductSku>().notIn(ProductSku::getId, existsSkuIds));
 
-        // 删除所有的规格值
+        // 删除所有SKU的规格值
         productSpecificationValueMapper.delete(new LambdaUpdateWrapper<ProductSpecificationValue>()
-                .notIn(ProductSpecificationValue::getProductSkuId, existsSkuIds));
+                .in(ProductSpecificationValue::getProductSkuId, existsSkuIds));
         // 添加sku对应的规格值
         productSpuCommand.getSkus().forEach(skuDTO -> skuDTO.getSpecificationValueIds().forEach(svId -> {
             ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
