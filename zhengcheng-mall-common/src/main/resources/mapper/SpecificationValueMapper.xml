@@ -13,4 +13,22 @@
           AND sku.is_deleted = 0
     </select>
 
+    <select id="findSpecificationIdsByIds" resultType="java.lang.Long">
+        SELECT
+        specification_id
+        FROM
+        specification_value
+        WHERE
+        is_deleted = 0 AND id IN
+        <foreach collection="ids" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+        ORDER BY
+        FIELD( id,
+        <foreach collection="ids" open="" close="" separator="," item="item">
+            #{item}
+        </foreach>
+        )
+    </select>
+
 </mapper>

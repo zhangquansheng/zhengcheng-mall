@@ -21,4 +21,11 @@ public interface SpecificationValueMapper extends BaseMapper<SpecificationValue>
      * @return 规格值列表
      */
     List<Long> findSpecificationValueBySpuId(@Param("spuId") Long spuId);
+
+    /**
+     * 根据规格值列表查询规格，并按照传入的ids的顺序排序
+     * @param ids
+     * @return 规格
+     */
+    List<Long> findSpecificationIdsByIds(@Param("ids") List<Long> ids);
 }

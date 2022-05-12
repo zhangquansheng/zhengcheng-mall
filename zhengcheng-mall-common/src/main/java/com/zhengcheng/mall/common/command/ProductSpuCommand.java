@@ -33,6 +33,10 @@ public class ProductSpuCommand extends UserCommand {
      */
     private Long                    productCategoryId;
     /**
+     * 所有的规格值
+     */
+    private List<Long>              specificationValueIds;
+    /**
      * SKU 列表
      */
     private List<ProductSkuCommand> skus;

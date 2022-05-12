@@ -10,4 +10,5 @@ import com.zhengcheng.mall.domain.entity.Specification;
  * @since 2022/5/11 13:34
  */
 public interface SpecificationMapper extends BaseMapper<Specification> {
+
 }

@@ -3,6 +3,7 @@ package com.zhengcheng.mall.service.impl;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,9 +17,8 @@ import com.zhengcheng.mall.common.command.ProductSpuCommand;
 import com.zhengcheng.mall.domain.entity.ProductSku;
 import com.zhengcheng.mall.domain.entity.ProductSpecificationValue;
 import com.zhengcheng.mall.domain.entity.ProductSpu;
-import com.zhengcheng.mall.domain.mapper.ProductSkuMapper;
-import com.zhengcheng.mall.domain.mapper.ProductSpecificationValueMapper;
-import com.zhengcheng.mall.domain.mapper.ProductSpuMapper;
+import com.zhengcheng.mall.domain.entity.Specification;
+import com.zhengcheng.mall.domain.mapper.*;
 import com.zhengcheng.mall.service.ProductSpuService;
 
 import cn.hutool.core.bean.BeanUtil;
@@ -38,6 +38,10 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
     private ProductSpuMapper                productSpuMapper;
     @Autowired
     private ProductSkuMapper                productSkuMapper;
+    @Autowired
+    private SpecificationValueMapper        specificationValueMapper;
+    @Autowired
+    private SpecificationMapper             specificationMapper;
 
     @Transactional(rollbackFor = Exception.class)
     @Override
@@ -82,6 +86,17 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         });
         // 删除其他的SKU
         productSkuMapper.delete(new LambdaUpdateWrapper<ProductSku>().notIn(ProductSku::getId, existsSkuIds));
+
+        List<Long> specificationIds = specificationValueMapper
+                .findSpecificationIdsByIds(productSpuCommand.getSpecificationValueIds()).stream().distinct()
+                .collect(Collectors.toList());
+        // 修改 specification 规格表的 sort
+        for (int sort = 0; sort < specificationIds.size(); sort++) {
+            specificationMapper.update(null,
+                    new LambdaUpdateWrapper<Specification>().set(Specification::getSort, sort)
+                            .set(Specification::getUpdateUserId, productSpuCommand.getUpdateUserId())
+                            .eq(Specification::getId, specificationIds.get(sort)));
+        }
 
         // 删除所有SKU的规格值
         productSpecificationValueMapper.delete(new LambdaUpdateWrapper<ProductSpecificationValue>()

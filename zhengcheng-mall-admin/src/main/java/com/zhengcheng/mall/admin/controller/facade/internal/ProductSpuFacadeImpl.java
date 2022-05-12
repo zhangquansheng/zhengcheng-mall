@@ -107,7 +107,7 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     private String getProductSkuFieldValue(ProductSku productSku, PropDesc propDesc) {
         Object value = BeanUtil.getFieldValue(productSku, propDesc.getField().getName());
         if (value instanceof Boolean) {
-            return (Boolean) value ? "1" : "0";
+            return Boolean.TRUE.equals(value) ? "1" : "0";
         }
         return String.valueOf(value);
     }
@@ -151,10 +151,12 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         Map<String, List<SkuTableDataDTO>> groupBy = skuTableDataDTOList.stream()
                 .collect(Collectors.groupingBy(SkuTableDataDTO::getKey));
         List<ProductSkuCommand> productSkus = new ArrayList<>();
+        List<Long> specificationValueIds = new ArrayList<>();
         for (Map.Entry entry : groupBy.entrySet()) {
             String key = (String) entry.getKey();
             ProductSkuCommand productSku = new ProductSkuCommand();
             productSku.setSpecificationValueIds(getSpecificationValueIds(key));
+            specificationValueIds.addAll(productSku.getSpecificationValueIds());
 
             List<SkuTableDataDTO> skuDatas = (List<SkuTableDataDTO>) entry.getValue();
             skuDatas.forEach(skuTableDataDTO -> {
@@ -169,6 +171,8 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
 
         ProductSpuCommand productSpuCommand = new ProductSpuCommand();
         productSpuCommand.setSkus(productSkus);
+        productSpuCommand
+                .setSpecificationValueIds(specificationValueIds.stream().distinct().collect(Collectors.toList()));
         productSpuCommand.setId(spuId);
         productSpuCommand.setProductCategoryId(sku.getLong("product_type"));
         productSpuCommand.setSpecificationMode(sku.getInteger("is_attribute"));
