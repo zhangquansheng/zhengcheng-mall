@@ -55,6 +55,9 @@ public class ProductSpuDTO extends BaseDTO {
     @ApiModelProperty("商品分类")
     private String            productCategoryName;
 
+    @ApiModelProperty("商品规格模式 0单规格 1多规格")
+    private Integer           specificationMode;
+
     @ApiModelProperty("品牌ID")
     private Long              brandId;
 

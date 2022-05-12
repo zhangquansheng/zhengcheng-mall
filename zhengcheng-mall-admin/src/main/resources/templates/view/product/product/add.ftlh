@@ -42,7 +42,7 @@
             specTableElemId: 'fairy-spec-table',
             skuTableElemId: 'fairy-sku-table',
             //商品规格模式 0单规格 1多规格
-            mode: 0,
+            mode: ${spu.specificationMode},
             //是否开启sku表行合并
             rowspan: true,
             //图片上传接口

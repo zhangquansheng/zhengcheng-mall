@@ -56,6 +56,11 @@ public class ProductSpu extends BaseEntity<ProductSpu> {
     /** 搜索关键词 */
     private String            keyword;
 
+    /**
+     * 商品规格模式 0单规格 1多规格
+     */
+    private Integer           specificationMode;
+
     /** 商品分类 */
     private Long              productCategoryId;
 
