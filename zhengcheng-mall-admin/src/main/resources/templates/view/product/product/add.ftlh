@@ -95,12 +95,12 @@
                 tbody: [
                     {type: 'image', field: 'picture', value: '', verify: '', reqtext: ''},
                     {type: 'input', field: 'price', value: '0', verify: 'required|number', reqtext: '销售价不能为空'},
-                    {type: 'input', field: 'market_price', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
-                    {type: 'input', field: 'cost_price', value: '0', verify: 'required|number', reqtext: '成本价不能为空'},
+                    {type: 'input', field: 'marketPrice', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
+                    {type: 'input', field: 'cost', value: '0', verify: 'required|number', reqtext: '成本价不能为空'},
                     {type: 'input', field: 'stock', value: '0', verify: 'required|number', reqtext: '库存不能为空'},
                     {
                         type: 'select',
-                        field: 'status',
+                        field: 'enable',
                         option: [{key: '启用', value: '1'}, {key: '禁用', value: '0'}],
                         verify: '',
                         reqtext: ''
@@ -122,13 +122,13 @@
 
             if (skuTableObj.getMode() == 0) {
                 //单规格
-                layer.alert(JSON.stringify(data.field), {title: '提交的数据'});
+                layer.alert(JSON.stringify(data.field), {title: '提交的数据0'});
             } else {
                 //多规格
                 var state = Object.keys(data.field).some(function (item, index, array) {
                     return item.startsWith('skus');
                 });
-                state ? layer.alert(JSON.stringify(data.field), {title: '提交的数据'}) : layer.msg('sku表数据不能为空', {
+                state ? layer.alert(JSON.stringify(data.field), {title: '提交的数据1'}) : layer.msg('sku表数据不能为空', {
                     icon: 5,
                     anim: 6
                 });

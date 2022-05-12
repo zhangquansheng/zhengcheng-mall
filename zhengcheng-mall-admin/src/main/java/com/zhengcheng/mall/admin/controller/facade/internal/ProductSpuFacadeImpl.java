@@ -90,7 +90,7 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
                 sb2.append("[");
                 sb2.append(propDesc.getField().getName());
                 sb2.append("]");
-                jsonObject.put(sb2.toString(), BeanUtil.getFieldValue(productSku, propDesc.getField().getName()));
+                jsonObject.put(sb2.toString(), BeanUtil.getFieldValue(productSku, propDesc.getField().getName()) + "");
             }
         });
         return jsonObject;
