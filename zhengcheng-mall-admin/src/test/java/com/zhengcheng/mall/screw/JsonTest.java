@@ -3,6 +3,8 @@ package com.zhengcheng.mall.screw;
 import java.util.List;
 import java.util.stream.Collectors;
 
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 
@@ -35,6 +37,9 @@ public class JsonTest extends BaseTest {
 
     @Test
     public void twoAttrToJson() {
+
+        JSONObject jsonObject = new JSONObject();
+
         BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
 
         List<ProductSku> productSkus = productSkuMapper.selectList(null);
@@ -57,7 +62,14 @@ public class JsonTest extends BaseTest {
                 sb2.append(propDesc.getField().getName());
                 sb2.append("]");
                 log.info(sb2 + "-------->" + BeanUtil.getFieldValue(productSku, propDesc.getField().getName()));
+                try {
+                    jsonObject.put(sb2.toString(), BeanUtil.getFieldValue(productSku, propDesc.getField().getName()));
+                } catch (JSONException e) {
+                    e.printStackTrace();
+                }
             }
         });
+
+        log.info(jsonObject.toString());
     }
 }

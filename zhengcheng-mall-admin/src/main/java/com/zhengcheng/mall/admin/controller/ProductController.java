@@ -7,6 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import com.alibaba.fastjson.JSONObject;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
@@ -37,7 +38,7 @@ public class ProductController {
     @ApiOperation("添加页面")
     @GetMapping("/add")
     public String add(Long spuId, Model model) {
-        model.addAttribute("spuId", spuId);
+        model.addAttribute("spu", productSpuFacade.findById(spuId));
         return "/view/product/product/add";
     }
 
@@ -55,5 +56,11 @@ public class ProductController {
     @PostMapping("/page")
     public @ResponseBody Result<PageInfo<ProductSpuDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
         return Result.successData(productSpuFacade.page(pageCommand));
+    }
+
+    @ApiOperation("查询spu的sku数据")
+    @GetMapping("/skuData")
+    public @ResponseBody Result<JSONObject> skuData(@RequestParam("spuId") Long spuId) {
+        return Result.successData(productSpuFacade.skuData(spuId));
     }
 }

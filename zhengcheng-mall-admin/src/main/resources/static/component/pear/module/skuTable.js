@@ -224,7 +224,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
                 this.data.productTypeId = this.options.productTypeId;
             }
             if (this.options.skuDataUrl) {
-                Util.request.get({url: this.options.skuDataUrl, data: {product_id: this.data.productId}}, (res) => {
+                Util.request.get({url: this.options.skuDataUrl, data: {spuId: this.data.productId}}, (res) => {
                     this.data.skuData = res.data;
                 });
             }

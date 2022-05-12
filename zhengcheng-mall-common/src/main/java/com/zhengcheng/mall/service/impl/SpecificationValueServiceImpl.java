@@ -1,5 +1,8 @@
 package com.zhengcheng.mall.service.impl;
 
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
@@ -16,4 +19,12 @@ import com.zhengcheng.mall.service.SpecificationValueService;
 @Service
 public class SpecificationValueServiceImpl extends ServiceImpl<SpecificationValueMapper, SpecificationValue>
         implements SpecificationValueService {
+
+    @Autowired
+    private SpecificationValueMapper specificationValueMapper;
+
+    @Override
+    public List<Long> findSpecificationValueBySpuId(Long spuId) {
+        return specificationValueMapper.findSpecificationValueBySpuId(spuId);
+    }
 }

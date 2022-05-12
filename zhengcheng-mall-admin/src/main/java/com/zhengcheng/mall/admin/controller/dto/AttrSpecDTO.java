@@ -21,9 +21,29 @@ import lombok.NoArgsConstructor;
 public class AttrSpecDTO implements Serializable {
     private static final long serialVersionUID = -2443036451825285373L;
 
-    private List<Object>      attribute;
+    private List<Attr>        attribute;
 
     private List<Spec>        spec;
+
+    @Data
+    @AllArgsConstructor
+    @NoArgsConstructor
+    @Builder
+    public static class Attr implements Serializable {
+        private static final long serialVersionUID = 3230222718772783511L;
+
+        private String            id;
+
+        private String            title;
+
+        private String            value;
+        /**
+         * 1-输入框，2-单选，3-多选
+         */
+        private String            type;
+
+        private List<String>      options;
+    }
 
     @Data
     @AllArgsConstructor

@@ -59,24 +59,30 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
                         specifications.stream().map(Specification::getId).collect(Collectors.toList())));
         Map<Long, List<SpecificationValue>> specificationValueMap = specificationValues.stream()
                 .collect(Collectors.groupingBy(SpecificationValue::getSpecificationId));
+        List<Long> specificationValueIds = specificationValueService.findSpecificationValueBySpuId(spuId);
 
         List<AttrSpecDTO.Spec> specs = new ArrayList<>();
         specifications.forEach(specification -> {
             AttrSpecDTO.Spec spec = new AttrSpecDTO.Spec();
             spec.setId(StrUtil.toString(specification.getId()));
             spec.setTitle(specification.getName());
-            // TODO 设置商品已经选中的规格值
-            spec.setValue(Lists.newArrayList("5", "6", "9"));
-
             List<SpecificationValue> specificationValueList = specificationValueMap.get(specification.getId());
             List<AttrSpecDTO.Spec.Option> options = new ArrayList<>();
             specificationValueList.forEach(specificationValue -> options.add(AttrSpecDTO.Spec.Option.builder()
                     .id(String.valueOf(specificationValue.getId())).title(specificationValue.getName()).build()));
-
             spec.setOptions(options);
+
+            spec.setValue(specificationValueList.stream().map(SpecificationValue::getId)
+                    .filter(specificationValueIds::contains).map(String::valueOf).collect(Collectors.toList()));
 
             specs.add(spec);
         });
-        return AttrSpecDTO.builder().spec(specs).attribute(new ArrayList<>()).build();
+
+        // 商品属性
+        List<AttrSpecDTO.Attr> attrs = new ArrayList<>();
+        attrs.add(AttrSpecDTO.Attr.builder().id("1").title("货号").value("N20R093001").type("1")
+                .options(Lists.newArrayList()).build());
+
+        return AttrSpecDTO.builder().spec(specs).attribute(attrs).build();
     }
 }

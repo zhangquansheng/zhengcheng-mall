@@ -8,7 +8,6 @@
 <body>
 <div class="layui-container" id="app">
     <form action="" class="layui-form fairy-form">
-        <input type="hidden" name="spuId" value="${spuId}"/>
         <!--商品规格选项-->
         <div id="fairy-is-attribute"></div>
         <!--商品类型选择-->
@@ -51,7 +50,7 @@
             //获取商品类型接口
             productTypeUrl: '/admin/productCategory/data',
             //获取商品类型下的规格和属性接口
-            attrSpecUrl: '/admin/specification/findAttrSpec?spuId=${spuId}',
+            attrSpecUrl: '/admin/specification/findAttrSpec?spuId=${spu.id}',
             //创建规格接口
             specCreateUrl: '/admin/specification/save',
             //删除规格接口
@@ -110,11 +109,11 @@
             },
             // ========================================== 回显时相关配置参数 ========================================== //
             //商品id
-            productId: 1,
+            productId: ${spu.id},
             //商品类型id
-            productTypeId: 1,
+            productTypeId: ${spu.productCategoryId},
             //sku数据接口
-            skuDataUrl: '/admin/data/sku-table/skuData.json',
+            skuDataUrl: '/admin/product/skuData'
         });
 
         form.on('submit(submit)', function (data) {
