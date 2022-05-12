@@ -62,6 +62,10 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
             if (Objects.isNull(skuDTO.getId())) {
                 ProductSku sku = new ProductSku();
                 BeanUtils.copyProperties(skuDTO, sku);
+                // 暂时去当前时间戳为编号
+                sku.setSkuNo(String.valueOf(System.currentTimeMillis()));
+                sku.setSpuId(spu.getId());
+                sku.setSpuNo(spu.getSpuNo());
                 productSkuMapper.insert(sku);
 
                 existsSkuIds.add(sku.getId());
@@ -81,15 +85,13 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         productSpecificationValueMapper.delete(new LambdaUpdateWrapper<ProductSpecificationValue>()
                 .notIn(ProductSpecificationValue::getProductSkuId, existsSkuIds));
         // 添加sku对应的规格值
-        productSpuCommand.getSkus().forEach(skuDTO -> {
-            skuDTO.getSpecificationValueIds().forEach(svId -> {
-                ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
-                productSpecificationValue.setProductSkuId(skuDTO.getId());
-                productSpecificationValue.setSpecificationValueId(svId);
-                productSpecificationValue.setCreateUserId(skuDTO.getUpdateUserId());
-                productSpecificationValue.setUpdateUserId(skuDTO.getUpdateUserId());
-                productSpecificationValueMapper.insert(productSpecificationValue);
-            });
-        });
+        productSpuCommand.getSkus().forEach(skuDTO -> skuDTO.getSpecificationValueIds().forEach(svId -> {
+            ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
+            productSpecificationValue.setProductSkuId(skuDTO.getId());
+            productSpecificationValue.setSpecificationValueId(svId);
+            productSpecificationValue.setCreateUserId(skuDTO.getUpdateUserId());
+            productSpecificationValue.setUpdateUserId(skuDTO.getUpdateUserId());
+            productSpecificationValueMapper.insert(productSpecificationValue);
+        }));
     }
 }
