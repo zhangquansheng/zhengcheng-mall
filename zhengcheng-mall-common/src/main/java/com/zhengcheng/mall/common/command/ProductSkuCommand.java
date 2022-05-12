@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.admin.controller.command;
+package com.zhengcheng.mall.common.command;
 
 import java.util.List;
 
@@ -7,7 +7,7 @@ import com.zhengcheng.common.web.UserCommand;
 import lombok.*;
 
 /**
- * 添加/更新商品SKU入参
+ * 添加/更新商品SKU
  *
  * @author quansheng1.zhang
  * @since 2022/5/12 19:10

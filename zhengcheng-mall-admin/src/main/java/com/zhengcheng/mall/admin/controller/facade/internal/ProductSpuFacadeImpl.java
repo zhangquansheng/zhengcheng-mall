@@ -11,17 +11,18 @@ import org.springframework.stereotype.Service;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
-import com.zhengcheng.mall.admin.controller.command.ProductSkuCommand;
 import com.zhengcheng.mall.admin.controller.dto.ProductSpuDTO;
-import com.zhengcheng.mall.admin.controller.dto.SkuDataDTO;
+import com.zhengcheng.mall.admin.controller.dto.SkuTableDataDTO;
 import com.zhengcheng.mall.admin.controller.facade.ProductSpuFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.ProductAssembler;
+import com.zhengcheng.mall.common.command.ProductSkuCommand;
+import com.zhengcheng.mall.common.command.ProductSpuCommand;
 import com.zhengcheng.mall.domain.entity.ProductSku;
 import com.zhengcheng.mall.domain.entity.ProductSpecificationValue;
 import com.zhengcheng.mall.domain.entity.ProductSpu;
-import com.zhengcheng.mall.domain.mapper.ProductSpecificationValueMapper;
 import com.zhengcheng.mall.service.ProductSkuService;
 import com.zhengcheng.mall.service.ProductSpecificationValueService;
 import com.zhengcheng.mall.service.ProductSpuService;
@@ -103,80 +104,70 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         return jsonObject;
     }
 
+    /**
+     * {
+     *     "is_attribute":"1",
+     *     "product_type":"1",
+     *     "attribute_value[1]":"N20R093001",
+     *     "skus[5-9][picture]":"",
+     *     "file":"",
+     *     "skus[5-9][price]":"1000",
+     *     "skus[5-9][marketPrice]":"1000",
+     *     "skus[5-9][cost]":"1000",
+     *     "skus[5-9][stock]":"1",
+     *     "skus[5-9][enable]":"1",
+     *     "skus[6-9][picture]":"",
+     *     "skus[6-9][price]":"1000",
+     *     "skus[6-9][marketPrice]":"1000",
+     *     "skus[6-9][cost]":"1000",
+     *     "skus[6-9][stock]":"10",
+     *     "skus[6-9][enable]":"1"
+     * }
+     */
     @Override
     public void saveSkuData(Long spuId, JSONObject sku) {
-        /**
-         * {
-         *     "is_attribute":"1",
-         *     "product_type":"1",
-         *     "attribute_value[1]":"N20R093001",
-         *     "skus[5-9][picture]":"",
-         *     "file":"",
-         *     "skus[5-9][price]":"1000",
-         *     "skus[5-9][marketPrice]":"1000",
-         *     "skus[5-9][cost]":"1000",
-         *     "skus[5-9][stock]":"1",
-         *     "skus[5-9][enable]":"1",
-         *     "skus[6-9][picture]":"",
-         *     "skus[6-9][price]":"1000",
-         *     "skus[6-9][marketPrice]":"1000",
-         *     "skus[6-9][cost]":"1000",
-         *     "skus[6-9][stock]":"10",
-         *     "skus[6-9][enable]":"1"
-         * }
-         */
-        BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
-        //        List<ProductSku> productSkus = new ArrayList<>();
-        //        List<ProductSpecification> productSpecifications = new ArrayList<>();
-        //        List<ProductSpecificationValue> productSpecificationValues = new ArrayList<>();
-
-        List<SkuDataDTO> skuDataDTOList = new ArrayList<>();
+        List<SkuTableDataDTO> skuTableDataDTOList = new ArrayList<>();
         for (Map.Entry entry : sku.entrySet()) {
             String key = (String) entry.getKey();
             if (key.startsWith("skus")) {
                 // 截取规格
-                SkuDataDTO skuDataDTO = new SkuDataDTO();
-                skuDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
-                skuDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
-                skuDataDTO.setValue((String) entry.getValue());
-                skuDataDTOList.add(skuDataDTO);
+                SkuTableDataDTO skuTableDataDTO = new SkuTableDataDTO();
+                skuTableDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
+                skuTableDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
+                skuTableDataDTO.setValue((String) entry.getValue());
+                skuTableDataDTOList.add(skuTableDataDTO);
             }
         }
+        log.info("skuTableDataDTOList：{}", JSONUtil.toJsonStr(skuTableDataDTOList));
 
-        Map<String, List<SkuDataDTO>> groupBy = skuDataDTOList.stream()
-                .collect(Collectors.groupingBy(SkuDataDTO::getKey));
-
-        List<ProductSkuCommand> productSkuCommands = new ArrayList<>();
+        Map<String, List<SkuTableDataDTO>> groupBy = skuTableDataDTOList.stream()
+                .collect(Collectors.groupingBy(SkuTableDataDTO::getKey));
+        List<ProductSkuCommand> productSkus = new ArrayList<>();
         for (Map.Entry entry : groupBy.entrySet()) {
             String key = (String) entry.getKey();
-            System.out.println(key);
+            ProductSkuCommand productSku = new ProductSkuCommand();
+            productSku.setSpecificationValueIds(getSpecificationValueIds(key));
 
-            ProductSkuCommand productSkuCommand = new ProductSkuCommand();
-            productSkuCommand.setSpecificationValueIds(getSpecificationValueIds(key));
-
-            List<SkuDataDTO> skuDatas = (List<SkuDataDTO>) entry.getValue();
-            skuDatas.forEach(skuDataDTO -> {
+            List<SkuTableDataDTO> skuDatas = (List<SkuTableDataDTO>) entry.getValue();
+            skuDatas.forEach(skuTableDataDTO -> {
                 try {
-                    BeanUtil.setFieldValue(productSkuCommand, skuDataDTO.getPropName(), skuDataDTO.getValue());
+                    BeanUtil.setFieldValue(productSku, skuTableDataDTO.getPropName(), skuTableDataDTO.getValue());
                 } catch (Exception e) {
                     log.error(e.getMessage(), e);
                 }
             });
-
-            productSkuCommands.add(productSkuCommand);
+            productSkus.add(productSku);
         }
 
-        productSkuCommands.forEach(productSkuCommand -> {
-            Long skuId = productSpecificationValueMapper.findProductSkuId(productSkuCommand.getSpecificationValueIds(),
-                    productSkuCommand.getSpecificationValueIds().size());
-            productSkuCommand.setId(skuId);
-        });
-
-        System.out.println(JSONUtil.toJsonStr(productSkuCommands));
+        ProductSpuCommand productSpuCommand = new ProductSpuCommand();
+        productSpuCommand.setSkus(productSkus);
+        productSpuCommand.setId(spuId);
+        productSpuCommand.setProductCategoryId(sku.getLong("product_type"));
+        productSpuCommand.setSpecificationMode(sku.getInteger("is_attribute"));
+        productSpuCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
+        productSpuCommand.setUpdateUserName(ZcUserInfoHolder.getUsername());
+        productSpuService.addSku(productSpuCommand);
     }
-
-    @Autowired
-    private ProductSpecificationValueMapper productSpecificationValueMapper;
 
     private List<Long> getSpecificationValueIds(String specificationValueIds) {
         String[] idStrs = specificationValueIds.split("-");

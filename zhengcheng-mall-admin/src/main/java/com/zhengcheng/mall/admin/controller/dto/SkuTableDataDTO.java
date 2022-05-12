@@ -17,7 +17,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
-public class SkuDataDTO implements Serializable {
+public class SkuTableDataDTO implements Serializable {
 
     private static final long serialVersionUID = -5614609694555731233L;
 
