@@ -83,7 +83,15 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     public JSONObject skuData(Long spuId) {
         JSONObject jsonObject = new JSONObject();
         BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
-
+        // 统一规格
+        //        if (spuId == 1) {
+        //            jsonObject.put("marketPrice", "1000");
+        //            jsonObject.put("cost", "1000");
+        //            jsonObject.put("stock", "1000");
+        //            jsonObject.put("price", "1010");
+        //            return jsonObject;
+        //        }
+        // 多规格
         List<ProductSku> productSkus = productSkuService
                 .list(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId));
         List<ProductSpecificationValue> allProductSpecificationValues = new ArrayList<>();

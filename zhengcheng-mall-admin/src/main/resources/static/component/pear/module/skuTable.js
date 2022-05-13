@@ -642,6 +642,7 @@ layui.define(['jquery', 'form', 'upload', 'layer', 'sortable'], function (export
             table += '<tbody>';
             table += '<tr>';
             that.options.singleSkuTableConfig.tbody.forEach(function (item) {
+                console.log(that.data.skuData);
                 switch (item.type) {
                     case "select":
                         table += '<td>';
