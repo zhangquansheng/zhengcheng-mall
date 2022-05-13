@@ -97,7 +97,8 @@ public class UserFacadeImpl implements UserFacade {
                 .set(StrUtil.isNotBlank(userCommand.getName()), User::getName, userCommand.getName())
                 .set(StrUtil.isNotBlank(userCommand.getEmail()), User::getEmail, userCommand.getEmail())
                 .set(StrUtil.isNotBlank(userCommand.getMobile()), User::getMobile, userCommand.getMobile())
-                .set(StrUtil.isNotBlank(password), User::getPassword, userService.bCryptEncodePassword(password))
+                //                TODO 
+                //                .set(StrUtil.isNotBlank(password), User::getPassword, userService.bCryptEncodePassword(password))
                 .set(Objects.nonNull(userCommand.getEnable()), User::getEnable, userCommand.getEnable())
                 .eq(User::getId, userCommand.getId()));
 
@@ -113,7 +114,9 @@ public class UserFacadeImpl implements UserFacade {
         if (UserCommand.SOURCE_ADMIN.equals(userCommand.getSource())) {
             return userCommand.getPassword();
         } else {
-            return userService.rasDecrypt(userCommand.getPassword());
+            // TODO 
+            return "";
+            //            return userService.rasDecrypt(userCommand.getPassword());
         }
     }
 

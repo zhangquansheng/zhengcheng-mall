@@ -42,7 +42,8 @@ public class OauthFacadeImpl implements OauthFacade {
     @Override
     public SaTokenInfo login(String username, String enPassword, HttpServletRequest request) {
         User user = userService.getOne(new LambdaQueryWrapper<User>().eq(User::getUsername, username));
-        return userLogin(user, userService.rasDecrypt(enPassword), request);
+        //        return userLogin(user, userService.rasDecrypt(enPassword), request);
+        return userLogin(user, "", request);
     }
 
     private SaTokenInfo userLogin(User user, String password, HttpServletRequest request) {
@@ -50,9 +51,9 @@ public class OauthFacadeImpl implements OauthFacade {
             throw new BizException("用户名或密码错误！");
         }
 
-        if (!userService.isSamePassword(password, user.getPassword())) {
-            throw new BizException("用户名或密码错误！");
-        }
+        //        if (!userService.isSamePassword(password, user.getPassword())) {
+        //            throw new BizException("用户名或密码错误！");
+        //        }
 
         if (!user.getEnable()) {
             userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
