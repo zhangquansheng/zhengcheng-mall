@@ -71,12 +71,12 @@
                 ],
                 tbody: [
                     {type: 'input', field: 'price', value: '0', verify: 'required|number', reqtext: '销售价不能为空'},
-                    {type: 'input', field: 'market_price', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
-                    {type: 'input', field: 'cost_price', value: '0', verify: 'required|number', reqtext: '成本价不能为空'},
+                    {type: 'input', field: 'marketPrice', value: '0', verify: 'required|number', reqtext: '市场价不能为空'},
+                    {type: 'input', field: 'cost', value: '0', verify: 'required|number', reqtext: '成本价不能为空'},
                     {type: 'input', field: 'stock', value: '0', verify: 'required|number', reqtext: '库存不能为空'},
                     {
                         type: 'select',
-                        field: 'status',
+                        field: 'enable',
                         option: [{key: '启用', value: '1'}, {key: '禁用', value: '0'}],
                         verify: 'required',
                         reqtext: '状态不能为空'

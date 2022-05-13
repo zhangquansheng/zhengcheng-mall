@@ -168,6 +168,9 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
      *     "skus[6-9][stock]":"10",
      *     "skus[6-9][enable]":"1"
      * }
+     * 
+     * 统一规格
+     * {"is_attribute":"0","price":"12","marketPrice":"12","cost":"12","stock":"1","status":"1"}
      */
     @Override
     public void saveSkuData(Long spuId, JSONObject sku) {
