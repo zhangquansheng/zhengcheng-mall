@@ -10,7 +10,7 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.*;
 
 /**
- * TODO Description
+ * SpecificationValueCommand
  *
  * @author quansheng1.zhang
  * @since 2022/5/11 14:34
