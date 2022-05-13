@@ -18,9 +18,9 @@ import lombok.Data;
 @Data
 public class MallProperties {
 
-    private int userNoRandomLength;
+    private int     userNoRandomLength  = 6;
 
-    private String userPasswordMd5Sign;
+    private String  userPasswordMd5Sign = "zc-mall-user";
 
-    private Integer authorityMaxLevel = 3;
+    private Integer authorityMaxLevel   = 3;
 }

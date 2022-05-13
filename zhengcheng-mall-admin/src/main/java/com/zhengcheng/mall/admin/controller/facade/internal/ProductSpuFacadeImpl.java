@@ -3,14 +3,18 @@ package com.zhengcheng.mall.admin.controller.facade.internal;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.concurrent.TimeUnit;
 import java.util.stream.Collectors;
 
+import org.redisson.api.RLock;
+import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
+import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
@@ -54,6 +58,8 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     private ProductSpecificationValueService productSpecificationValueService;
     @Autowired
     private ProductAssembler                 productAssembler;
+    @Autowired
+    private RedissonClient                   redissonClient;
 
     @Override
     public ProductSpuDTO findById(Long spuId) {
@@ -110,6 +116,32 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
             return Boolean.TRUE.equals(value) ? "1" : "0";
         }
         return String.valueOf(value);
+    }
+
+    @Override
+    public void idempotentSaveSkuData(Long spuId, JSONObject sku) {
+        String lockName = StrUtil.format("zc:mall:save:sku:spu:id:{}", spuId);
+        // 可重入锁（Reentrant Lock）
+        RLock lock = redissonClient.getLock(lockName);
+        try {
+            // 获取锁
+            if (lock.tryLock(1, 5, TimeUnit.SECONDS)) {
+                this.saveSkuData(spuId, sku);
+                return;
+            }
+            throw new BizException("正在更新SKU中...");
+        } catch (InterruptedException e) {
+            log.error(e.getMessage(), e);
+            throw new BizException("正在更新SKU中...");
+        } catch (BizException e) {
+            log.error(e.getMessage(), e);
+            throw e;
+        } finally {
+            // 释放锁
+            if (lock.isLocked() && lock.isHeldByCurrentThread()) {
+                lock.unlock();
+            }
+        }
     }
 
     /**

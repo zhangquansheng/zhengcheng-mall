@@ -67,7 +67,7 @@ public class ProductController {
     @ApiOperation("保存sku数据")
     @PostMapping("/saveSkuData/{spuId}")
     public @ResponseBody Result<Void> skuData(@PathVariable("spuId") Long spuId, @RequestBody JSONObject skuData) {
-        productSpuFacade.saveSkuData(spuId, skuData);
+        productSpuFacade.idempotentSaveSkuData(spuId, skuData);
         return Result.success();
     }
 }

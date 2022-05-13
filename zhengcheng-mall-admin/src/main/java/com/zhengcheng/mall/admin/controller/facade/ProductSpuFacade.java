@@ -37,6 +37,13 @@ public interface ProductSpuFacade {
     JSONObject skuData(Long spuId);
 
     /**
+     * 幂等保存 sku 数据
+     * @param spuId
+     * @param sku
+     */
+    void idempotentSaveSkuData(Long spuId, JSONObject sku);
+
+    /**
      * 保存 sku 数据
      * @param spuId spuId
      * @param sku sku相关参数
