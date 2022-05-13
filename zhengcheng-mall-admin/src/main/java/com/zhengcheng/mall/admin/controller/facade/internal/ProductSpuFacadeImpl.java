@@ -35,6 +35,7 @@ import com.zhengcheng.mybatis.plus.utils.PageUtil;
 import cn.hutool.core.bean.BeanDesc;
 import cn.hutool.core.bean.BeanUtil;
 import cn.hutool.core.bean.PropDesc;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.text.StrBuilder;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.json.JSONUtil;
@@ -85,14 +86,18 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
 
         List<ProductSku> productSkus = productSkuService
                 .list(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId));
-        List<ProductSpecificationValue> allProductSpecificationValues = productSpecificationValueService
-                .list(new LambdaQueryWrapper<ProductSpecificationValue>().in(ProductSpecificationValue::getProductSkuId,
-                        productSkus.stream().map(ProductSku::getId).collect(Collectors.toList())));
+        List<ProductSpecificationValue> allProductSpecificationValues = new ArrayList<>();
+        if (CollectionUtil.isNotEmpty(productSkus)) {
+            allProductSpecificationValues = productSpecificationValueService.list(
+                    new LambdaQueryWrapper<ProductSpecificationValue>().in(ProductSpecificationValue::getProductSkuId,
+                            productSkus.stream().map(ProductSku::getId).collect(Collectors.toList())));
+        }
 
+        List<ProductSpecificationValue> finalAllProductSpecificationValues = allProductSpecificationValues;
         productSkus.forEach(productSku -> {
             StrBuilder sb = new StrBuilder();
             sb.append("skus[");
-            List<ProductSpecificationValue> productSpecificationValues = allProductSpecificationValues.stream()
+            List<ProductSpecificationValue> productSpecificationValues = finalAllProductSpecificationValues.stream()
                     .filter(s -> productSku.getId().equals(s.getProductSkuId())).collect(Collectors.toList());
             sb.append(productSpecificationValues.stream().map(psv -> psv.getSpecificationValueId() + "")
                     .collect(Collectors.joining("-")));
@@ -207,7 +212,9 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
                 .setSpecificationValueIds(specificationValueIds.stream().distinct().collect(Collectors.toList()));
         productSpuCommand.setId(spuId);
         productSpuCommand.setProductCategoryId(sku.getLong("product_type"));
-        productSpuCommand.setSpecificationMode(sku.getInteger("is_attribute"));
+        // 如果没有SKU，则自动设置成单规格模式
+        productSpuCommand
+                .setSpecificationMode(CollectionUtil.isEmpty(productSkus) ? 0 : sku.getInteger("is_attribute"));
         productSpuCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         productSpuCommand.setUpdateUserName(ZcUserInfoHolder.getUsername());
         productSpuService.addSku(productSpuCommand);

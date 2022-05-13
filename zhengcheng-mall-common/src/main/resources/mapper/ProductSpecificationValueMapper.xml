@@ -4,19 +4,21 @@
 
     <select id="findProductSkuId" resultType="java.lang.Long">
         SELECT
-        product_sku_id
+        psv.product_sku_id
         FROM
-        product_specification_value
+        product_specification_value psv
+        LEFT JOIN product_sku sku ON psv.product_sku_id = sku.id
         WHERE
-        specification_value_id IN
+        psv.specification_value_id IN
         <foreach collection="specificationValueIds" open="(" close=")" separator="," item="item">
             #{item}
         </foreach>
-        AND is_deleted = 0
+        AND sku.spu_id = #{spuId}
+        AND psv.is_deleted = 0 and sku.is_deleted = 0
         GROUP BY
-        product_sku_id
+        psv.product_sku_id
         HAVING
-        COUNT( specification_value_id ) = #{specificationValueCount}
+        COUNT( psv.specification_value_id ) = #{specificationValueCount}
         LIMIT 1
     </select>
 

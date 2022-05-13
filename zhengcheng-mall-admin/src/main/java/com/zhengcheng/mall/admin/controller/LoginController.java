@@ -4,6 +4,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -36,6 +37,9 @@ public class LoginController {
     @Autowired
     private UserFacade userFacade;
 
+    @Value("${user.password.public-key}")
+    private String     publicKeyBase64;
+
     @ApiOperation("登录页面")
     @RequestMapping
     public String login(String redirectUrl, ModelMap model, HttpSession session) {
@@ -44,8 +48,7 @@ public class LoginController {
             return "redirect:/";
         }
         model.addAttribute("redirectUrl", StrUtil.isEmpty(redirectUrl) ? "/" : redirectUrl);
-        model.addAttribute("publicKeyStr",
-                "MIGfMA0GCSqGSIb3DQEBAQUAA4GNADCBiQKBgQC2Nq+V4OqVHlIMxj7EVRW3Ofwm7E8sNf8rqmFoTpwvFnFwveKhsowZBjmH4Om9a7aQ6QqaOOMHe2URfhy5HuxhUIyq6Z6y3qF7i31wtbdCIEbmOobuW5oiHNF2AUQXQ752XrasEiuGom4JG1hgVIFAF68YIxeYzNgN8/I8AfxhsQIDAQAB");
+        model.addAttribute("publicKeyStr", publicKeyBase64);
         return "login";
     }
 

@@ -17,9 +17,11 @@ public interface ProductSpecificationValueMapper extends BaseMapper<ProductSpeci
 
     /**
      * 根据规格值查询对应的商品skuId
+     * @param spuId SPU ID
      * @param specificationValueIds 规格值ID
+     * @param specificationValueCount 规格值数量                              
      * @return skuId
      */
-    Long findProductSkuId(@Param("specificationValueIds") List<Long> specificationValueIds,
+    Long findProductSkuId(@Param("spuId") Long spuId, @Param("specificationValueIds") List<Long> specificationValueIds,
                           @Param("specificationValueCount") Integer specificationValueCount);
 }

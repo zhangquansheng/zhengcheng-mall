@@ -44,7 +44,7 @@
 
 <script type="text/html" id="user-toolbar">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
-        <i class="layui-icon layui-icon-add-1"></i>
+        <i class="layui-icon layui-icon-add"></i>
         新增
     </button>
     <button class="pear-btn pear-btn-danger pear-btn-md" lay-event="batchRemove">
@@ -56,7 +56,7 @@
 <script type="text/html" id="user-bar">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
-    <button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="sku"><i class="layui-icon layui-icon-vercode"></i>
+    <button class="pear-btn pear-btn-warming pear-btn-sm" lay-event="sku"><i class="layui-icon layui-icon-list"></i>
     </button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>

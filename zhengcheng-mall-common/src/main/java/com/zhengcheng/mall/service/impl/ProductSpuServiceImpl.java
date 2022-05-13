@@ -22,6 +22,7 @@ import com.zhengcheng.mall.domain.mapper.*;
 import com.zhengcheng.mall.service.ProductSpuService;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.core.collection.CollectionUtil;
 
 /**
  * ProductSpuServiceImpl
@@ -48,8 +49,8 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
     public void addSku(ProductSpuCommand productSpuCommand) {
         // 设置skuId
         productSpuCommand.getSkus().forEach(sku -> {
-            Long skuId = productSpecificationValueMapper.findProductSkuId(sku.getSpecificationValueIds(),
-                    sku.getSpecificationValueIds().size());
+            Long skuId = productSpecificationValueMapper.findProductSkuId(productSpuCommand.getId(),
+                    sku.getSpecificationValueIds(), sku.getSpecificationValueIds().size());
             sku.setId(skuId);
         });
 
@@ -85,11 +86,16 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
             }
         });
         // 删除其他的SKU
-        productSkuMapper.delete(new LambdaUpdateWrapper<ProductSku>().notIn(ProductSku::getId, existsSkuIds));
+        productSkuMapper.delete(new LambdaUpdateWrapper<ProductSku>().eq(ProductSku::getSpuId, spu.getId())
+                .notIn(CollectionUtil.isNotEmpty(existsSkuIds), ProductSku::getId, existsSkuIds));
 
-        List<Long> specificationIds = specificationValueMapper
-                .findSpecificationIdsByIds(productSpuCommand.getSpecificationValueIds()).stream().distinct()
-                .collect(Collectors.toList());
+        // 获取已经选择的规格，按照已选的顺序排序
+        List<Long> specificationIds = new ArrayList<>();
+        if (CollectionUtil.isNotEmpty(productSpuCommand.getSpecificationValueIds())) {
+            specificationIds = specificationValueMapper
+                    .findSpecificationIdsByIds(productSpuCommand.getSpecificationValueIds()).stream().distinct()
+                    .collect(Collectors.toList());
+        }
         // 修改 specification 规格表的 sort
         for (int sort = 0; sort < specificationIds.size(); sort++) {
             specificationMapper.update(null,
@@ -99,8 +105,11 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         }
 
         // 删除所有SKU的规格值
-        productSpecificationValueMapper.delete(new LambdaUpdateWrapper<ProductSpecificationValue>()
-                .in(ProductSpecificationValue::getProductSkuId, existsSkuIds));
+        if (CollectionUtil.isNotEmpty(existsSkuIds)) {
+            productSpecificationValueMapper.delete(new LambdaUpdateWrapper<ProductSpecificationValue>()
+                    .in(ProductSpecificationValue::getProductSkuId, existsSkuIds));
+        }
+
         // 添加sku对应的规格值
         productSpuCommand.getSkus().forEach(skuDTO -> skuDTO.getSpecificationValueIds().forEach(svId -> {
             ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
