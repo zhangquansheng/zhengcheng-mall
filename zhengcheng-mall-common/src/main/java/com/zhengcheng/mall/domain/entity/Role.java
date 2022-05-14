@@ -33,7 +33,8 @@ public class Role extends BaseEntity<Role> {
     /**
      * 是否内置
      */
-    private Integer           isSystem;
+    @TableField(value = "is_system")
+    private Boolean           system;
     /**
      * 描述
      */

@@ -118,10 +118,7 @@
         });
 
         form.on('submit(submit)', function (data) {
-            //获取表单数据
-
-            common.submit(data.field, '/admin/product/saveSkuData/${spu.id}', '', null);
-
+            layui.common.ajax.formSubmit('/admin/product/saveSkuData/${spu.id}', data.field, 'product-table');
             return false;
         });
     })

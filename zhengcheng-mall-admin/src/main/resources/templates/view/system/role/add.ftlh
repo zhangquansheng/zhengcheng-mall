@@ -55,7 +55,7 @@
         let common = layui.common;
 
         form.on('submit(role-save)', function (data) {
-            common.submit(data.field, '/admin/role/save', 'role-table', null);
+            layui.common.ajax.formSubmit('/admin/role/save', data.field, 'role-table');
             return false;
         });
     })

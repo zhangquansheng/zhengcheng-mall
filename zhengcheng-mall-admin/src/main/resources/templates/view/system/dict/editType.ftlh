@@ -59,7 +59,7 @@
         let common = layui.common;
 
         form.on('submit(dictType-update)', function (data) {
-            common.submit(data.field, '/admin/dict/update/type', 'dict-type-table', null);
+            layui.common.ajax.formSubmit('/admin/dict/update/type', data.field, 'dict-type-table');
             return false;
         });
     })

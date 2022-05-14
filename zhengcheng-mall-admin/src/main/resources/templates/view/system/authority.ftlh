@@ -11,13 +11,9 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="power-query">
                         <i class="layui-icon layui-icon-search"></i>
                         查询
-                    </button>
-                    <button type="reset" class="pear-btn pear-btn-md">
-                        <i class="layui-icon layui-icon-refresh"></i>
-                        重置
                     </button>
                 </div>
             </div>
@@ -74,12 +70,13 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'treetable', 'common'], function () {
+    layui.use(['table', 'form', 'jquery', 'treetable', 'common', 'toast'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
         let treetable = layui.treetable;
         let common = layui.common;
+        var toast = layui.toast;
 
         let MODULE_PATH = "operate/";
 
@@ -159,31 +156,15 @@
         window.remove = function (obj) {
             layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['id'],
-                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.code === 200) {
-                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2, time: 1000});
-                        }
-                    }
-                })
+                common.ajax.tableRemove(MODULE_PATH + "remove/" + obj.data['id'], obj);
             });
         }
 
         form.on('switch(power-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit(MODULE_PATH + "enable", 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, MODULE_PATH + "enable", 'post', '');
+            }, 'power-table');
             return false;
         });
     })

@@ -19,13 +19,13 @@ import lombok.*;
 public class RoleDTO extends BaseDTO {
     private static final long serialVersionUID = 949066785534806845L;
     @ApiModelProperty("名称")
-    private String name;
+    private String            name;
     @ApiModelProperty("角色编码")
-    private String code;
+    private String            code;
     @ApiModelProperty("是否内置")
-    private Integer isSystem;
+    private boolean           system;
     @ApiModelProperty("描述")
-    private String description;
+    private String            description;
     @ApiModelProperty("是否启用")
-    private boolean enable;
+    private boolean           enable;
 }

@@ -65,7 +65,7 @@
             ids = ids.substr(0, ids.length - 1);
             data.field.authorityIds = ids;
 
-            common.submit(data.field, '/admin/role/saveRoleAuthority', '', null);
+            layui.common.ajax.formSubmit('/admin/role/saveRoleAuthority', data.field, 'role-table');
             return false;
         });
     })

@@ -3,6 +3,7 @@ package com.zhengcheng.mall.admin.controller.facade.internal;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.Objects;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -12,6 +13,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
+import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
@@ -59,6 +61,10 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @Override
     public void removeById(Long id) {
+        Role role = roleService.getById(id);
+        if (Objects.nonNull(role) && Boolean.TRUE.equals(role.getSystem())) {
+            throw new BizException("系统默认角色，不允许删除！");
+        }
         roleService.removeById(id);
     }
 
@@ -70,6 +76,12 @@ public class RoleFacadeImpl implements RoleFacade {
     @LogRecord(success = "{{#enableCommand.enable ? '启用' : '禁用'}}了角色,更新结果:{{#_ret}}", type = LogRecordType.ROLE, bizNo = "{{#enableCommand.id}}")
     @Override
     public boolean enable(EnableCommand enableCommand) {
+        Role role = roleService.getById(enableCommand.getId());
+        if (Objects.nonNull(role) && Boolean.TRUE.equals(role.getSystem())
+                && Boolean.FALSE.equals(enableCommand.isEnable())) {
+            throw new BizException("系统默认角色，不允许禁用！");
+        }
+
         return roleService.update(new LambdaUpdateWrapper<Role>().set(Role::getEnable, enableCommand.isEnable())
                 .set(Role::getUpdateUserId, enableCommand.getUpdateUserId()).eq(Role::getId, enableCommand.getId()));
     }
@@ -77,7 +89,7 @@ public class RoleFacadeImpl implements RoleFacade {
     @Override
     public Long add(RoleCommand roleCommand) {
         Role role = roleAssembler.toEntity(roleCommand);
-        role.setIsSystem(0);
+        role.setSystem(Boolean.FALSE);
         role.setEnable(Boolean.TRUE);
         roleService.save(role);
         return role.getId();

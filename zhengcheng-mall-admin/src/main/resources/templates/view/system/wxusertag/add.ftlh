@@ -41,7 +41,7 @@
         let common = layui.common;
 
         form.on('submit(wxusertag-save)', function (data) {
-            common.submit(data.field, '/admin/wxusertag/save', 'wxusertag-table', null);
+            layui.common.ajax.formSubmit('/admin/wxusertag/save', data.field, 'wxusertag-table');
             return false;
         });
     })

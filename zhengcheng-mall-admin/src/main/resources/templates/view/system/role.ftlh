@@ -15,10 +15,6 @@
                         <i class="layui-icon layui-icon-search"></i>
                         查询
                     </button>
-                    <button type="reset" class="pear-btn pear-btn-md">
-                        <i class="layui-icon layui-icon-refresh"></i>
-                        重置
-                    </button>
                 </div>
             </div>
         </form>
@@ -119,10 +115,10 @@
         });
 
         form.on('switch(role-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit('enable', 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, "enable", 'post', '');
+            }, 'role-table');
         });
 
         window.add = function () {
@@ -158,7 +154,7 @@
         window.remove = function (obj) {
             layer.confirm('确定要删除该角色', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "remove/" + obj.data['id'], 'delete', 'role-table');
+                common.ajax.tableRemove("remove/" + obj.data['id'], obj);
             });
         }
 
@@ -166,7 +162,7 @@
             var checkIds = common.checkField(obj, 'id');
             layer.confirm('确定要删除这些角色', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "batchRemove?ids=" + checkIds, 'delete', 'role-table');
+                common.ajax.tableBatchRemove("batchRemove?ids=" + checkIds, 'role-table');
             });
         }
 

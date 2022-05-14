@@ -80,7 +80,7 @@
             })
             data.field.roleIds = roleIds;
 
-            common.submit(data.field, '/admin/user/update', 'user-table', null);
+            layui.common.ajax.formSubmit('/admin/user/update', data.field, 'user-table');
             return false;
         });
     })
