@@ -141,10 +141,6 @@
             }]
         });
 
-        function callback(result) {
-            console.log('result' + JSON.stringify(result));
-        }
-
         form.on('submit(formStep)', function (data) {
             layui.common.ajax.post('/payment/submit', data.field, function (result) {
                 if (result.code === 200) {

@@ -1,8 +1,9 @@
 ;
 "use strict";
-layui.define(["layer", "jquery", "table"], function (exports) {
+layui.define(["layer", "jquery", "table", 'toast'], function (exports) {
     var $ = layui.jquery;
     var table = layui.table;
+    var toast = layui.toast;
     var obj = {
         checkField: function (obj, field) {
             let data = table.checkStatus(obj.config.id).data;
@@ -134,6 +135,53 @@ layui.define(["layer", "jquery", "table"], function (exports) {
             });
         },
         ajax: {
+            /**
+             * form 提交json数据并关闭当前页，刷新上一级的 table
+             * @param url 提交接口
+             * @param data 提交数据
+             * @param table 刷新父级表
+             * */
+            formSubmit: function (url, data, table) {
+                $.ajax({
+                    url: url,
+                    data: JSON.stringify(data),
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    type: 'post',
+                    success: function (result) {
+                        if (result.code === 200) {
+                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                                parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                                if (table !== '') {
+                                    parent.layui.table.reload(table);
+                                }
+                            });
+                        } else {
+                            toast.error({message: result.message});
+                        }
+                    }
+                });
+            },
+            /**
+             * 提交表格的switch操作
+             * @param url 提交接口
+             * @param type 接口类型
+             * @param data 提交数据
+             * @param table 提交数据失败后刷新表
+             */
+            switchSubmit: function (url, type, data, table) {
+                obj.ajax.submit(url, type, "json", data, function (result) {
+                    if (result.code === 200) {
+                        toast.info({message: result.message});
+                    } else {
+                        toast.error({message: result.message});
+                        if (table !== '') {
+                            layui.table.reload(table);
+                        }
+                    }
+                });
+            },
             submit: function (url, type, dataType, data, cb) {
                 var config = {
                     url: url,

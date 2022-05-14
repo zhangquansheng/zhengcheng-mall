@@ -73,7 +73,7 @@
         let common = layui.common;
 
         form.on('submit(authority-update)', function (data) {
-            common.submit(data.field, '/admin/authority/update', 'power-table', null);
+            layui.common.ajax.formSubmit('/admin/authority/update', data.field, 'power-table');
             return false;
         });
     })

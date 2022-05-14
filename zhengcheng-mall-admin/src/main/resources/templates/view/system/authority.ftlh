@@ -11,7 +11,7 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="user-query">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="power-query">
                         <i class="layui-icon layui-icon-search"></i>
                         查询
                     </button>
@@ -74,12 +74,13 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'treetable', 'common'], function () {
+    layui.use(['table', 'form', 'jquery', 'treetable', 'common', 'toast'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
         let treetable = layui.treetable;
         let common = layui.common;
+        var toast = layui.toast;
 
         let MODULE_PATH = "operate/";
 
@@ -180,10 +181,10 @@
         }
 
         form.on('switch(power-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit(MODULE_PATH + "enable", 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, MODULE_PATH + "enable", 'post', '');
+            }, 'power-table');
             return false;
         });
     })
