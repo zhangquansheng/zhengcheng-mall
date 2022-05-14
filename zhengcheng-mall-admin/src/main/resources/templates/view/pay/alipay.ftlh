@@ -117,10 +117,11 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'step', 'code', 'element'], function () {
+    layui.use(['form', 'step', 'code', 'element', 'common'], function () {
         var $ = layui.$,
             form = layui.form,
             step = layui.step;
+        let common = layui.common;
 
         layui.code();
 
@@ -140,6 +141,7 @@
         });
 
         form.on('submit(formStep)', function (data) {
+            common.ajax(data.field, '/payment/submit', 'post', '');
             step.next('#stepForm');
             return false;
         });
