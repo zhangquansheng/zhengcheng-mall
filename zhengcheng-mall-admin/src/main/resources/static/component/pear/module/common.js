@@ -182,6 +182,22 @@ layui.define(["layer", "jquery", "table", 'toast'], function (exports) {
                     }
                 });
             },
+            /**
+             * 表格数据删除
+             * @param url 提交接口
+             * @param data 删除的数据对象
+             */
+            tableRemove: function (url, data) {
+                obj.ajax.submit(url, 'delete', "json", {}, function (result) {
+                    if (result.code === 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                            data.del();
+                        });
+                    } else {
+                        toast.error({message: result.message});
+                    }
+                });
+            },
             submit: function (url, type, dataType, data, cb) {
                 var config = {
                     url: url,

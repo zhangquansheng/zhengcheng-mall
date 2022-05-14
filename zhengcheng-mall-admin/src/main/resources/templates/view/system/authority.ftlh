@@ -160,23 +160,7 @@
         window.remove = function (obj) {
             layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['id'],
-                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.code === 200) {
-                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2, time: 1000});
-                        }
-                    }
-                })
+                common.ajax.tableRemove(MODULE_PATH + "remove/" + obj.data['id'], obj);
             });
         }
 

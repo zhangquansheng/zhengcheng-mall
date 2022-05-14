@@ -107,7 +107,7 @@
         form.on('submit(authority-save)', function (data) {
             var param = dtree.selectVal("pid-tree");
             data.field.pid = param.pid;
-            common.submit(data.field, '/admin/authority/save', 'power-table', null);
+            layui.common.ajax.formSubmit('/admin/authority/save', data.field, 'power-table');
             return false;
         });
     })
