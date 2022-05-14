@@ -21,4 +21,9 @@ public class PayController {
         return "/view/pay/wxpay";
     }
 
+    @RequestMapping("/alipay")
+    public String alipay() {
+        return "/view/pay/alipay";
+    }
+
 }
