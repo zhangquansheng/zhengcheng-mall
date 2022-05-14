@@ -87,7 +87,7 @@ public class AuthorityController {
     }
 
     @ApiOperation("根据ID启用/禁用")
-    @SaCheckPermission("sys:authority:enable")
+    @SaCheckPermission("sys:authority:update")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
         enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
