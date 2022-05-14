@@ -1,22 +1,10 @@
-layui.define(['jquery', 'element', 'table'], function (exports) {
-    "use strict";
-
-    /**
-     * 常用封装类
-     * */
-    var MOD_NAME = 'common',
-        $ = layui.jquery,
-        table = layui.table,
-        element = layui.element;
-
-    var common = new function () {
-
-        /**
-         * 获取当前表格选中字段
-         * @param obj 表格回调参数
-         * @param field 要获取的字段
-         * */
-        this.checkField = function (obj, field) {
+;
+"use strict";
+layui.define(["layer", "jquery", "table"], function (exports) {
+    var $ = layui.jquery;
+    var table = layui.table;
+    var obj = {
+        checkField: function (obj, field) {
             let data = table.checkStatus(obj.config.id).data;
             if (data.length === 0) {
                 return "";
@@ -27,77 +15,153 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
             }
             ids = ids.substr(0, ids.length - 1);
             return ids;
+        },
+        resizeTable: function (tableId) {
+            layui.table.resize(tableId);
         }
-
-        /**
-         * 当前是否为与移动端
-         * */
-        this.isModile = function () {
-            if ($(window).width() <= 768) {
+        , sprintf: function (str) {
+            var args = arguments, flag = true, i = 1;
+            str = str.replace(/%s/g, function () {
+                var arg = args[i++];
+                if (typeof arg === 'undefined') {
+                    flag = false;
+                    return '';
+                }
+                return arg;
+            });
+            return flag ? str : '';
+        },
+        equals: function (str, that) {
+            return str == that;
+        },
+        equalsIgnoreCase: function (str, that) {
+            return String(str).toUpperCase() === String(that).toUpperCase();
+        },
+        isEmpty: function (value) {
+            if (typeof (value) === "undefined" || value == null || this.trim(value) == "") {
                 return true;
             }
             return false;
-        }
-
-
-        /**
-         * 提交 json 数据
-         * @param data 提交数据
-         * @param href 提交接口
-         * @param table 刷新父级表
-         * @param callback 回调函数
-         * */
-        this.submit = function (data, href, table, callback) {
-            $.ajax({
-                url: href,
-                data: JSON.stringify(data),
-                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                type: 'post',
-                success: callback != null ? callback(result) : function (result) {
-                    if (result.code === 200) {
-                        layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                            parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            if (table !== '') {
-                                parent.layui.table.reload(table);
-                            }
-                        });
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 1000});
-                    }
+        },
+        formatNullStr: function (o) {
+            if (this.isEmpty(o)) {
+                return "";
+            } else {
+                return o;
+            }
+        },
+        getJsonArrayValue: function (array, key, keyChecked, keyId) {
+            var aa = [];
+            for (var a in array) {
+                var _item = array[a];
+                if (_item[keyChecked]) {
+                    aa.push(_item[keyId]);
                 }
-            })
-        }
-
-        /**
-         * 提交 json 数据
-         * @param data 提交数据
-         * @param href 提交接口
-         * @param type 提交类型
-         * @param table 刷新表
-         *
-         * */
-        this.ajax = function (data, href, type, table) {
-            $.ajax({
-                url: href,
-                data: JSON.stringify(data),
-                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                dataType: 'json',
-                contentType: "application/json; charset=utf-8",
-                type: type,
-                success: function (result) {
-                    if (result.code === 200) {
-                        layer.msg(result.message, {icon: 1, time: 1000});
-                        if (table !== '') {
-                            layui.table.reload(table);
+                if (typeof (_item[key]) != "undefined" && _item[key].length > 0) {
+                    var _aa = this.getJsonArrayValue(_item[key], key, keyChecked, keyId);
+                    if (_aa != null && _aa.length > 0) {
+                        for (var _a in _aa) {
+                            aa.push(_aa[_a]);
                         }
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 1000});
                     }
                 }
-            })
+            }
+            return aa;
+        },
+        trim: function (value) {
+            if (value == null) {
+                return "";
+            }
+            return value.toString().replace(/(^\s*)|(\s*$)|\r|\n/g, "");
+        },
+        random: function (min, max) {
+            return Math.floor((Math.random() * max) + min);
+        },
+        getCheckValues: function (name) {
+            var _items = $('input:checkbox[name*="' + name + '"]:checked');
+            var _itemsStr = "";
+            layui.each(_items, function (i, n) {
+                _itemsStr += "," + $(n).val();
+            });
+            if (_itemsStr.length > 0) {
+                return _itemsStr.substr(1, _itemsStr.length);
+            }
+            return "";
+        },
+        joinArray: function (array, key) {
+            var _itemsStr = "";
+            layui.each(array, function (i, n) {
+                _itemsStr += "," + n[key];
+            });
+            if (_itemsStr.length > 0) {
+                return _itemsStr.substr(1, _itemsStr.length);
+            }
+            return "";
+        },
+        getDictLabel: function (array, value) {
+            var actions = [];
+            layui.each(array, function (i, n) {
+                if (n.dictValue === value) {
+                    actions.push(n.dictLabel);
+                }
+            });
+            return actions.join('');
+        },
+        ajaxRemove: function (removeUrl, id, cb) {
+            if (id == '' || id == undefined) {
+                layui.layer.alert('请选择删除数据！');
+                return;
+            }
+            var url = this.isEmpty(id) ? removeUrl : removeUrl.replace("{id}", id);
+            var msg = (id.length > 0 && id.indexOf(",") > 0) ? "是否确认删除这些项？" : "是否确认删除该项？";
+            layer.confirm(msg, function (index) {
+                $.ajax({
+                    type: "POST",
+                    url: url,
+                    async: true,
+                    cache: false,
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                    dataType: 'json',
+                    contentType: "application/json; charset=utf-8",
+                    data: JSON.stringify({"ids": id}),
+                    success: function (res) {
+                        if (typeof (cb) === "function") {
+                            cb(res);
+                        }
+                        layer.close(index);
+                    }
+                });
+            });
+        },
+        ajax: {
+            submit: function (url, type, dataType, data, cb) {
+                var config = {
+                    url: url,
+                    type: type,
+                    dataType: dataType,
+                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                    data: JSON.stringify(data),
+                    contentType: "application/json; charset=utf-8",
+                    beforeSend: function () {
+                        //layer.loading("正在处理中，请稍后...");
+                        layer.load(2);
+                    },
+                    success: function (result) {
+                        layer.closeAll('loading');
+                        if (typeof (cb) === "function") {
+                            cb(result);
+                        }
+                    }
+                };
+                $.ajax(config)
+            },
+            post: function (url, data, cb) {
+                obj.ajax.submit(url, "post", "json", data, cb);
+            },
+            get: function (url, cb) {
+                obj.ajax.submit(url, "get", "json", "", cb);
+            }
         }
-    }
-    exports(MOD_NAME, common);
+    };
+    exports('common', obj);
 });

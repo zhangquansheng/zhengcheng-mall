@@ -24,7 +24,7 @@ public class PaymentController {
     @ApiOperation("提交")
     @PostMapping("/submit")
     public @ResponseBody Result<Void> submit() {
-        return Result.success();
+        return Result.errorMessage("下单失败，请稍后重试！");
     }
 
 }

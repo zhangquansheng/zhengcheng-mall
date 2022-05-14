@@ -117,11 +117,12 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'step', 'code', 'element', 'common'], function () {
+    layui.use(['form', 'step', 'code', 'element', 'common', 'toast'], function () {
         var $ = layui.$,
             form = layui.form,
             step = layui.step;
         let common = layui.common;
+        var toast = layui.toast;
 
         layui.code();
 
@@ -140,9 +141,18 @@
             }]
         });
 
+        function callback(result) {
+            console.log('result' + JSON.stringify(result));
+        }
+
         form.on('submit(formStep)', function (data) {
-            common.ajax(data.field, '/payment/submit', 'post', '');
-            step.next('#stepForm');
+            layui.common.ajax.post('/payment/submit', data.field, function (result) {
+                if (result.code === 200) {
+                    step.next('#stepForm');
+                } else {
+                    toast.error({message: result.message});
+                }
+            });
             return false;
         });
 
