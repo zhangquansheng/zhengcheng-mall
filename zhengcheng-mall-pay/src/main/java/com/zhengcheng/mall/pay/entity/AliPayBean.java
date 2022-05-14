@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.pay.controller.alipay.entity;
+package com.zhengcheng.mall.pay.entity;
 
 import org.springframework.boot.context.properties.ConfigurationProperties;
 import org.springframework.context.annotation.PropertySource;

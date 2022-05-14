@@ -11,6 +11,7 @@
         <module>zhengcheng-mall-echarts</module>
         <module>zhengcheng-mall-api-provider</module>
         <module>zhengcheng-mall-gw</module>
+        <module>zhengcheng-mall-pay</module>
     </modules>
 
     <parent>

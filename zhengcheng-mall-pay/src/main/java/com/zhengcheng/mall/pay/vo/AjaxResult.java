@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.pay.controller.alipay.vo;
+package com.zhengcheng.mall.pay.vo;
 
 import java.io.Serializable;
 

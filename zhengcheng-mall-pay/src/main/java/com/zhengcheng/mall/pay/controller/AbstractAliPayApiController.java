@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.pay.controller.alipay;
+package com.zhengcheng.mall.pay.controller;
 
 import com.alipay.api.AlipayApiException;
 import com.ijpay.alipay.AliPayApiConfig;

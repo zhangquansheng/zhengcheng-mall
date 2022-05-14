@@ -1,4 +1,4 @@
-package com.zhengcheng.mall.pay.controller.alipay.utils;
+package com.zhengcheng.mall.pay.utils;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
