@@ -15,10 +15,6 @@
                         <i class="layui-icon layui-icon-search"></i>
                         查询
                     </button>
-                    <button type="reset" class="pear-btn pear-btn-md">
-                        <i class="layui-icon layui-icon-refresh"></i>
-                        重置
-                    </button>
                 </div>
             </div>
         </form>

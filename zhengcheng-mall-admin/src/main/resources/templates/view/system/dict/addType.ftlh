@@ -55,7 +55,7 @@
         let common = layui.common;
 
         form.on('submit(dictType-save)', function (data) {
-            common.submit(data.field, '/admin/dict/save/type', 'dict-type-table', null);
+            layui.common.ajax.formSubmit('/admin/dict/save/type', data.field, 'dict-type-table');
             return false;
         });
     })

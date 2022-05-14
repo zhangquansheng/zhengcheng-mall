@@ -255,10 +255,10 @@
         });
 
         form.on('switch(dict-type-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit('enable/type', 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, 'enable/type', 'post', '');
+            }, 'dict-type-enable');
         });
 
         window.addType = function () {
@@ -284,7 +284,7 @@
         window.removeType = function (obj) {
             layer.confirm('确定要删除该字典类型吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "remove/type/" + obj.data['id'], 'delete', 'dict-type-table');
+                common.ajax.tableRemove("remove/type/" + obj.data['id'], obj);
             });
         }
 
@@ -315,21 +315,21 @@
         window.removeData = function (obj) {
             layer.confirm('确定要删除该字典吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "remove/data/" + obj.data['id'], 'delete', 'dict-data-table');
+                common.ajax.tableRemove("remove/data/" + obj.data['id'], obj);
             });
         }
 
         window.batchRemoveData = function (checkIds) {
             layer.confirm('确定要删除这些字典吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "batchRemove/data?ids=" + checkIds, 'delete', 'dict-data-table');
+                common.ajax.tableBatchRemove("batchRemove/data?ids=" + checkIds, 'dict-data-table');
             });
         }
 
         window.batchRemoveType = function (checkIds) {
             layer.confirm('确定要删除这些字典类型吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, "batchRemove/type?ids=" + checkIds, 'delete', 'dict-type-table');
+                common.ajax.tableBatchRemove("batchRemove/type?ids=" + checkIds, 'dict-type-table');
             });
         }
 
@@ -363,10 +363,10 @@
         });
 
         form.on('switch(dict-data-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit('enable/data', 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, 'enable/data', 'post', '');
+            }, 'dict-data-enable');
         });
 
         window.refreshData = function () {

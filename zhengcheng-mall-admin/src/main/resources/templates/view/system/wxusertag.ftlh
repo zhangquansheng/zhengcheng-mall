@@ -122,7 +122,7 @@
         window.remove = function (obj) {
             layer.confirm('确定要删除该用户标签吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax({}, MODULE_PATH + "remove/" + obj.data['id'], 'delete', 'wxusertag-table');
+                common.ajax.tableRemove(MODULE_PATH + "remove/" + obj.data['id'], obj);
             });
         }
 

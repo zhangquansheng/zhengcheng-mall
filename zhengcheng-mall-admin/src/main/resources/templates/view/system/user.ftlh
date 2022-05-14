@@ -152,10 +152,10 @@
         });
 
         form.on('switch(user-enable)', function (obj) {
-            common.ajax({
+            common.ajax.switchSubmit('enable', 'post', {
                 id: this.value,
                 enable: obj.elem.checked
-            }, 'enable', 'post', '');
+            }, 'user-table');
         });
 
         window.add = function () {
@@ -163,7 +163,7 @@
                 type: 2,
                 title: '新增',
                 shade: 0.1,
-                area: [common.isModile() ? '100%' : '500px', common.isModile() ? '100%' : '400px'],
+                area: ['500px', '400px'],
                 content: 'add'
             });
         }

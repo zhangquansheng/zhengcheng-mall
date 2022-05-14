@@ -198,6 +198,22 @@ layui.define(["layer", "jquery", "table", 'toast'], function (exports) {
                     }
                 });
             },
+            /**
+             * 表格数据批量删除
+             * @param url 提交接口
+             * @param table 刷新表
+             */
+            tableBatchRemove: function (url, table) {
+                obj.ajax.submit(url, 'delete', "json", {}, function (result) {
+                    if (result.code === 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                            layui.table.reload(table);
+                        });
+                    } else {
+                        toast.error({message: result.message});
+                    }
+                });
+            },
             submit: function (url, type, dataType, data, cb) {
                 var config = {
                     url: url,
