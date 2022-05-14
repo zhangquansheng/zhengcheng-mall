@@ -57,25 +57,28 @@
             <groupId>de.danielbechler</groupId>
             <artifactId>java-object-diff</artifactId>
         </dependency>
-        <!--weixin-java-common-->
         <dependency>
             <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-common</artifactId>
+            <artifactId>wx-java-mp-spring-boot-starter</artifactId>
         </dependency>
-        <!--weixin-java-admin-->
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-mp</artifactId>
+            <groupId>org.redisson</groupId>
+            <artifactId>redisson</artifactId>
         </dependency>
-        <!--weixin-java-miniapp-->
+        <!-- https://mvnrepository.com/artifact/cn.smallbun.screw/screw-core -->
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-miniapp</artifactId>
+            <groupId>cn.smallbun.screw</groupId>
+            <artifactId>screw-core</artifactId>
         </dependency>
-        <!--weixin-java-pay-->
         <dependency>
-            <groupId>com.github.binarywang</groupId>
-            <artifactId>weixin-java-pay</artifactId>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.databene</groupId>
+            <artifactId>contiperf</artifactId>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 

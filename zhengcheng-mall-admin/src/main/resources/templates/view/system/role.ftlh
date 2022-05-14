@@ -58,12 +58,11 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery'], function () {
+    layui.use(['table', 'form', 'jquery', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
-
-        let MODULE_PATH = "operate/";
+        let common = layui.common;
 
         let cols = [
             [
@@ -120,24 +119,10 @@
         });
 
         form.on('switch(role-enable)', function (obj) {
-            $.ajax({
-                url: MODULE_PATH + "enable",
-                dataType: 'json',
-                type: 'post',
-                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    id: this.value,
-                    enable: obj.elem.checked
-                }),
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 1000});
-                    }
-                }
-            });
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, "enable", 'post', '');
         });
 
         window.add = function () {
@@ -156,7 +141,7 @@
                 title: '授权',
                 shade: 0.1,
                 area: ['320px', '400px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'power?roleId=' + obj.data['id']
             });
         }
 
@@ -166,62 +151,22 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'edit?id=' + obj.data['id']
             });
         }
 
         window.remove = function (obj) {
             layer.confirm('确定要删除该角色', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "remove/" + obj.data['id'],
-                    dataType: 'json',
-                    type: 'delete',
-                    headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.code == 200) {
-                            layer.msg(result.message, {icon: 1, time: 1000}, function () {
-                                obj.del();
-                            });
-                        } else {
-                            layer.msg(result.message, {icon: 2, time: 1000});
-                        }
-                    }
-                });
+                common.ajax({}, "remove/" + obj.data['id'], 'delete', 'role-table');
             });
         }
 
         window.batchRemove = function (obj) {
-            let data = table.checkStatus(obj.config.id).data;
-            if (data.length === 0) {
-                layer.msg("未选中数据", {icon: 3, time: 1000});
-                return false;
-            }
-            let ids = "";
-            for (let i = 0; i < data.length; i++) {
-                ids += data[i].roleId + ",";
-            }
-            ids = ids.substr(0, ids.length - 1);
+            var checkIds = common.checkField(obj, 'id');
             layer.confirm('确定要删除这些角色', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                let loading = layer.load();
-                $.ajax({
-                    url: MODULE_PATH + "batchRemove/" + ids,
-                    dataType: 'json',
-                    type: 'delete',
-                    success: function (result) {
-                        layer.close(loading);
-                        if (result.success) {
-                            layer.msg(result.msg, {icon: 1, time: 1000}, function () {
-                                table.reload('role-table');
-                            });
-                        } else {
-                            layer.msg(result.msg, {icon: 2, time: 1000});
-                        }
-                    }
-                })
+                common.ajax({}, "batchRemove?ids=" + checkIds, 'delete', 'role-table');
             });
         }
 

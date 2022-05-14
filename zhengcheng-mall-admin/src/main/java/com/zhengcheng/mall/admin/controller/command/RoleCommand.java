@@ -25,19 +25,18 @@ public class RoleCommand extends UserCommand {
     private static final long serialVersionUID = 539474977453414089L;
 
     @ApiModelProperty("ID，更新时候必填")
-    @NotNull(message = "ID不能为空", groups = {Update.class})
-    private Long id;
+    @NotNull(message = "ID不能为空", groups = { Update.class })
+    private Long              id;
 
     @ApiModelProperty("名称")
     @NotBlank(message = "名称不能为空")
-    private String name;
+    private String            name;
 
     @ApiModelProperty("角色编码")
-    @NotBlank(message = "角色编码不能为空", groups = {Insert.class})
-    private String code;
+    @NotBlank(message = "角色编码不能为空", groups = { Insert.class })
+    private String            code;
 
     @ApiModelProperty("描述")
-    @NotBlank(message = "描述不能为空")
-    private String description;
+    private String            description;
 
 }

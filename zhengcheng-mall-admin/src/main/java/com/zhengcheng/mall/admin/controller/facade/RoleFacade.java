@@ -1,8 +1,11 @@
 package com.zhengcheng.mall.admin.controller.facade;
 
+import java.util.List;
+
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
+import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 
@@ -24,11 +27,24 @@ public interface RoleFacade {
     RoleDTO findById(Long id);
 
     /**
+     * 查询所有启用角色
+     * @return RoleDTO
+     */
+    List<RoleDTO> findAll();
+
+    /**
      * 通过ID删除单条数据
      * @param id
      *          主键
      */
     void removeById(Long id);
+
+    /**
+     * 批量删除
+     * @param ids ID列表
+     * @return 是/否
+     */
+    boolean batchRemove(List<Long> ids);
 
     /**
      * 开启/禁用
@@ -61,4 +77,10 @@ public interface RoleFacade {
      */
     PageInfo<RoleDTO> page(PageCommand pageCommand);
 
+    /**
+     * 保存角色权限
+     * @param roleAuthorityCommand RoleAuthorityCommand
+     * @return 是/否
+     */
+    boolean saveRoleAuthority(RoleAuthorityCommand roleAuthorityCommand);
 }

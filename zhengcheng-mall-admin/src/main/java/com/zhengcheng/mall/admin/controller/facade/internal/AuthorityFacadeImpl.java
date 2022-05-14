@@ -2,6 +2,8 @@ package com.zhengcheng.mall.admin.controller.facade.internal;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
+import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -13,7 +15,6 @@ import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
-import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.AuthorityAssembler;
 import com.zhengcheng.mall.common.constants.LogRecordType;
@@ -21,6 +22,7 @@ import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.service.AuthorityService;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.core.util.StrUtil;
 
 /**
  * 权限表(Authority)外观模式，接口实现
@@ -51,6 +53,14 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     @LogRecord(success = "新增了权限：{{#authorityCommand.name}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.ADD_SUB_TYPE, bizNo = "{{#authorityCommand.code}}")
     @Override
     public Long add(AuthorityCommand authorityCommand) {
+        // 验证权限编码唯一
+        if (StrUtil.isNotBlank(authorityCommand.getCode())) {
+            Authority sameCode = authorityService
+                    .getOne(new LambdaQueryWrapper<Authority>().eq(Authority::getCode, authorityCommand.getCode()));
+            if (Objects.nonNull(sameCode)) {
+                throw new BizException(StrUtil.format("已存在相同的权限编码,权限名称为:{}", sameCode.getName()));
+            }
+        }
         Authority authority = authorityAssembler.toEntity(authorityCommand);
         authorityService.save(authority);
         return authority.getId();
@@ -91,26 +101,18 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     }
 
     @Override
-    public List<TreeselectDTO> findTreeselectList() {
-        List<Authority> authorityList = authorityService.list(new LambdaQueryWrapper<Authority>()
-                .eq(Authority::getEnable, Boolean.TRUE).orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort));
-        return findChildren(authorityList, 0L);
+    public List<AuthorityDTO> findByRoleId(Long roleId) {
+        List<AuthorityDTO> authorityList = this.findAll();
+
+        List<Long> roleAuthorityIds = new ArrayList<>();
+        if (Objects.nonNull(roleId)) {
+            List<Authority> roleAuthorityList = authorityService.getAuthoritiesByRoleId(roleId);
+            roleAuthorityIds = roleAuthorityList.stream().map(Authority::getId).collect(Collectors.toList());
+        }
+        for (AuthorityDTO authorityDTO : authorityList) {
+            authorityDTO.setCheckArr(roleAuthorityIds.contains(authorityDTO.getId()) ? "1" : "0");
+        }
+        return authorityList;
     }
 
-    private List<TreeselectDTO> findChildren(List<Authority> authorityList, Long pid) {
-        List<TreeselectDTO> children = new ArrayList<>();
-        authorityList.forEach(authority -> {
-            if (authority.getPid().equals(pid)) {
-                TreeselectDTO treeselectDTO = new TreeselectDTO();
-                treeselectDTO.setId(authority.getId());
-                treeselectDTO.setName(authority.getName());
-                treeselectDTO.setChecked(false);
-                treeselectDTO.setChildren(findChildren(authorityList, authority.getId()));
-                treeselectDTO
-                        .setOpen(CollectionUtil.isEmpty(treeselectDTO.getChildren()) ? Boolean.FALSE : Boolean.TRUE);
-                children.add(treeselectDTO);
-            }
-        });
-        return children;
-    }
 }

@@ -21,20 +21,23 @@ public class OauthFeignClientFallbackFactory implements FallbackFactory<OauthFei
     public OauthFeignClient create(Throwable throwable) {
         return new OauthFeignClient() {
             @Override
-            public Result<Void> logoutByToken(String accessToken) {
-                log.error("OauthFeignClient logoutByToken fallback accessToken: {} , message: {}", accessToken, throwable.getMessage(), throwable);
+            public Result<Void> logoutByToken(String token) {
+                log.error("OauthFeignClient logoutByToken fallback token: {} , message: {}", token,
+                        throwable.getMessage(), throwable);
                 return Result.fallbackResult();
             }
 
             @Override
             public Result<TokenInfoDTO> getToken(String username, String enPassword) {
-                log.error("OauthFeignClient getToken fallback username: {} , message: {}", username, throwable.getMessage(), throwable);
+                log.error("OauthFeignClient getToken fallback username: {} , message: {}", username,
+                        throwable.getMessage(), throwable);
                 return Result.fallbackResult();
             }
 
             @Override
             public Result<TokenInfoDTO> postToken(String username, String password) {
-                log.error("OauthFeignClient postToken fallback username: {} , message: {}", username, throwable.getMessage(), throwable);
+                log.error("OauthFeignClient postToken fallback username: {} , message: {}", username,
+                        throwable.getMessage(), throwable);
                 return Result.fallbackResult();
             }
         };

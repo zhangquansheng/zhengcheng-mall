@@ -7,9 +7,7 @@ import org.springframework.context.annotation.Configuration;
 
 import com.mzt.logapi.beans.Operator;
 import com.mzt.logapi.service.IOperatorGetService;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
-
-import cn.hutool.core.util.StrUtil;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 
 /**
  * 通用操作日志组件配置
@@ -22,9 +20,7 @@ public class LogRecordConfiguration {
 
     @Bean
     public IOperatorGetService operatorGetService() {
-        return () -> Optional.ofNullable(TokenInfoHolder.getTokenInfo())
-                .map(a -> new Operator(
-                        StrUtil.format("{}({})", a.getCurrentUser().getName(), a.getCurrentUser().getUsername())))
+        return () -> Optional.ofNullable(ZcUserInfoHolder.getOperator()).map(Operator::new)
                 .orElseThrow(() -> new IllegalArgumentException("user is null"));
     }
 

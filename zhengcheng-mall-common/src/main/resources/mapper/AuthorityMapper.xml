@@ -35,4 +35,13 @@
         ORDER BY authority.sort, authority.create_time
     </select>
 
+    <select id="getAuthoritiesByRoleId" resultType="com.zhengcheng.mall.domain.entity.Authority">
+        SELECT DISTINCT authority.*
+        FROM authority
+                 LEFT JOIN role_authority ra ON authority.id = authority_id AND ra.is_deleted = 0
+        WHERE authority.is_deleted = 0
+          AND role_id = #{roleId}
+        ORDER BY authority.sort
+    </select>
+
 </mapper>

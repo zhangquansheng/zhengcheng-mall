@@ -64,8 +64,7 @@
 
 <script type="text/html" id="power-enable">
     <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="power-enable"
-           {{
-           d.enable== true ? 'checked' : '' }} />
+           {{ d.enable== true ? 'checked' : '' }} />
 </script>
 
 <script type="text/html" id="icon">
@@ -75,11 +74,12 @@
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'treetable'], function () {
+    layui.use(['table', 'form', 'jquery', 'treetable', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
         let treetable = layui.treetable;
+        let common = layui.common;
 
         let MODULE_PATH = "operate/";
 
@@ -90,7 +90,6 @@
                 treeIdName: 'id',
                 treePidName: 'pid',
                 skin: 'line',
-                treeDefaultClose: true,
                 toolbar: '#power-toolbar',
                 elem: '#power-table',
                 url: '/admin/authority/data',
@@ -168,7 +167,7 @@
                     type: 'delete',
                     success: function (result) {
                         layer.close(loading);
-                        if (result.code == 200) {
+                        if (result.code === 200) {
                             layer.msg(result.message, {icon: 1, time: 1000}, function () {
                                 obj.del();
                             });
@@ -181,24 +180,11 @@
         }
 
         form.on('switch(power-enable)', function (obj) {
-            $.ajax({
-                url: MODULE_PATH + "enable",
-                dataType: 'json',
-                type: 'post',
-                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
-                contentType: "application/json; charset=utf-8",
-                data: JSON.stringify({
-                    id: this.value,
-                    enable: obj.elem.checked
-                }),
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {icon: 1, time: 1000});
-                    } else {
-                        layer.msg(result.message, {icon: 2, time: 1000});
-                    }
-                }
-            });
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, MODULE_PATH + "enable", 'post', '');
+            return false;
         });
     })
 </script>

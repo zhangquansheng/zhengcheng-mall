@@ -117,50 +117,47 @@
 </script>
 
 <script type="text/html" id="dict-data-enable">
-    <input type="checkbox" value="{{d.dataId}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable"
+    <input type="checkbox" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="dict-data-enable"
            {{d.enable ? 'checked' : '' }}>
 </script>
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery'], function () {
+    layui.use(['table', 'form', 'jquery', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
-
-        let MODULE_PATH = "operate/";
+        let common = layui.common;
 
         let typeCode;
 
         let cols = [
             [{
                 type: 'checkbox'
-            },
-                {
-                    title: '字典名称',
-                    field: 'name',
-                    align: 'center',
-                    width: 120
-                },
-                {
-                    title: '描述',
-                    field: 'description',
-                    align: 'center'
-                },
-                {
-                    title: '字典状态',
-                    field: 'enable',
-                    align: 'center',
-                    templet: '#dict-type-enable'
-                },
-                {
-                    title: '操作',
-                    toolbar: '#dict-type-bar',
-                    align: 'center',
-                    width: 180
-                }
-            ]
-        ];
+            }, {
+                title: '字典名称',
+                field: 'name',
+                align: 'center',
+                width: 120
+            }, {
+                title: '字典编码',
+                field: 'code',
+                align: 'center'
+            }, {
+                title: '描述',
+                field: 'description',
+                align: 'center'
+            }, {
+                title: '字典状态',
+                field: 'enable',
+                align: 'center',
+                templet: '#dict-type-enable'
+            }, {
+                title: '操作',
+                toolbar: '#dict-type-bar',
+                align: 'center',
+                width: 180
+            }]];
 
         let dataCols = [
             [{
@@ -245,7 +242,8 @@
             } else if (obj.event === 'refresh') {
                 window.refreshType();
             } else if (obj.event === 'batchRemove') {
-                layer.msg("批量删除")
+                var checkIds = common.checkField(obj, 'id');
+                window.batchRemoveType(checkIds);
             }
         });
 
@@ -257,7 +255,10 @@
         });
 
         form.on('switch(dict-type-enable)', function (obj) {
-            layer.msg("切换");
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, 'enable/type', 'post', '');
         });
 
         window.addType = function () {
@@ -266,7 +267,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'addType'
             });
         }
 
@@ -276,12 +277,15 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '400px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'editType?id=' + obj.data['id']
             });
         }
 
         window.removeType = function (obj) {
-            layer.msg("删除");
+            layer.confirm('确定要删除该字典类型吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                common.ajax({}, "remove/type/" + obj.data['id'], 'delete', 'dict-type-table');
+            });
         }
 
         window.refreshType = function () {
@@ -294,7 +298,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['500px', '450px'],
-                content: MODULE_PATH + 'add.html'
+                content: 'addData'
             });
         }
 
@@ -304,12 +308,29 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['500px', '450px'],
-                content: MODULE_PATH + 'edit.html'
+                content: 'editData?id=' + obj.data['id']
             });
         }
 
         window.removeData = function (obj) {
-            layer.msg("删除");
+            layer.confirm('确定要删除该字典吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                common.ajax({}, "remove/data/" + obj.data['id'], 'delete', 'dict-data-table');
+            });
+        }
+
+        window.batchRemoveData = function (checkIds) {
+            layer.confirm('确定要删除这些字典吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                common.ajax({}, "batchRemove/data?ids=" + checkIds, 'delete', 'dict-data-table');
+            });
+        }
+
+        window.batchRemoveType = function (checkIds) {
+            layer.confirm('确定要删除这些字典类型吗？', {icon: 3, title: '提示'}, function (index) {
+                layer.close(index);
+                common.ajax({}, "batchRemove/type?ids=" + checkIds, 'delete', 'dict-type-table');
+            });
         }
 
         table.on('tool(dict-data-table)', function (obj) {
@@ -328,7 +349,8 @@
             } else if (obj.event === 'refresh') {
                 window.refreshData();
             } else if (obj.event === 'batchRemove') {
-                layer.msg("批量删除")
+                var checkIds = common.checkField(obj, 'id');
+                window.batchRemoveData(checkIds);
             }
         });
 
@@ -341,7 +363,10 @@
         });
 
         form.on('switch(dict-data-enable)', function (obj) {
-            layer.msg("切换状态");
+            common.ajax({
+                id: this.value,
+                enable: obj.elem.checked
+            }, 'enable/data', 'post', '');
         });
 
         window.refreshData = function () {

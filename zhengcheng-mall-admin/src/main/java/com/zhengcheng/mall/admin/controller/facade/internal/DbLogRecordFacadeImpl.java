@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import com.google.common.collect.Lists;
 import com.mzt.logapi.beans.LogRecord;
 import com.mzt.logapi.service.ILogRecordService;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.mall.service.LogRecordService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -32,7 +32,7 @@ public class DbLogRecordFacadeImpl implements ILogRecordService {
         log.info("【logRecord】log={}", logRecord);
 
         com.zhengcheng.mall.domain.entity.LogRecord record = new com.zhengcheng.mall.domain.entity.LogRecord();
-        Long userId = TokenInfoHolder.getUserId();
+        Long userId = ZcUserInfoHolder.getUserId();
         record.setCreateUserId(userId);
         record.setUpdateUserId(userId);
         BeanUtils.copyProperties(logRecord, record);

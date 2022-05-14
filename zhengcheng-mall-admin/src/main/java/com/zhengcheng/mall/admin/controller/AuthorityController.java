@@ -10,15 +10,15 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
-import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 import com.zhengcheng.mall.admin.controller.facade.AuthorityFacade;
-import com.zhengcheng.mall.common.holder.TokenInfoHolder;
 
+import cn.dev33.satoken.annotation.SaCheckPermission;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 
@@ -61,38 +61,43 @@ public class AuthorityController {
         return Result.successData(authorityFacade.findAll());
     }
 
-    @ApiOperation("查询所有 treeselect 权限数据")
-    @GetMapping("/treeselectData")
-    public @ResponseBody List<TreeselectDTO> treeselectData() {
-        return authorityFacade.findTreeselectList();
-    }
-
     @ApiOperation("保存")
+    @SaCheckPermission("sys:authority:save")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.add(authorityCommand);
         return Result.success();
     }
 
     @ApiOperation("删除")
+    @SaCheckPermission("sys:authority:del")
     @DeleteMapping("/operate/remove/{id}")
     public @ResponseBody Result<Boolean> remove(@PathVariable("id") Long id) {
         return Result.successData(authorityFacade.deleteById(id));
     }
 
     @ApiOperation("更新")
+    @SaCheckPermission("sys:authority:update")
     @PostMapping("/update")
     public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.update(authorityCommand);
         return Result.success();
     }
 
     @ApiOperation("根据ID启用/禁用")
+    @SaCheckPermission("sys:authority:update")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(TokenInfoHolder.getUserId());
+        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(authorityFacade.enable(enableCommand));
     }
+
+    @ApiOperation("根据角色ID查询权限树数据")
+    @GetMapping("/findByRoleId")
+    public @ResponseBody Result<List<AuthorityDTO>> findByRoleId(@RequestParam(value = "roleId", required = false) Long roleId) {
+        return Result.successData(authorityFacade.findByRoleId(roleId));
+    }
+
 }

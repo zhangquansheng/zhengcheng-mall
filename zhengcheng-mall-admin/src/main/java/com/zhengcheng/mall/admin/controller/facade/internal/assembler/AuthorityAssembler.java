@@ -20,7 +20,8 @@ import com.zhengcheng.mall.domain.entity.Authority;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface AuthorityAssembler {
 
-    @Mappings({ @Mapping(target = "type", source = "type.value"), })
+    @Mappings({ @Mapping(target = "type", source = "type.value"),
+            @Mapping(target = "disabled", expression = "java(!authority.getEnable())"), })
     AuthorityDTO toDTO(Authority authority);
 
     @Mappings({

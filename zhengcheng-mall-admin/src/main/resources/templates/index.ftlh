@@ -43,7 +43,7 @@
                 <a class="layui-icon layui-icon-username" href="javascript:;"></a>
                 <!-- 功 能 菜 单 -->
                 <dl class="layui-nav-child">
-                    <dd><a user-menu-url="view/system/person.html" user-menu-id="5555" user-menu-title="基本资料">基本资料</a>
+                    <dd><a user-menu-url="admin/user/person" user-menu-id="5555" user-menu-title="基本资料">基本资料</a>
                     </dd>
                     <dd><a href="javascript:void(0);" class="logout">注销登录</a></dd>
                 </dl>
@@ -90,11 +90,12 @@
 <script src="admin/js/moment-2.24.0.min.js"></script>
 <!-- 框 架 初 始 化 -->
 <script>
-    layui.use(['admin', 'jquery', 'popup', 'layer'], function () {
+    layui.use(['toast', 'admin', 'jquery', 'popup', 'layer'], function () {
         var $ = layui.jquery;
         var admin = layui.admin;
         var popup = layui.popup;
         var layer = layui.layer;
+        var toast = layui.toast;
 
         admin.setConfigType("yml");
         admin.setConfigPath("config/pear.config.yml?v=1.1");
@@ -124,11 +125,18 @@
 
         socket.on('adminImMessageEvent', function (data) {
             console.log(data);
-            layer.open({
-                title: data.title
-                , content: data.content
-            });
+            toast.info({title: data.title, message: data.content, position: 'topRight'});
         });
+
+        // toast.success({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        // toast.info({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        // toast.warning({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        // toast.error({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
+
+        // toast.question({title: 'Caution', message: 'You forgot important data', position: 'topRight'});
 
         // admin.message(function(id, title, context, form) {});
     })

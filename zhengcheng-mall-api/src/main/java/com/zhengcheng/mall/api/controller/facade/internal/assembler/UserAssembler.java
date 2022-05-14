@@ -7,10 +7,9 @@ import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Mappings;
 
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.mall.api.command.UserCommand;
-import com.zhengcheng.mall.api.dto.UserDTO;
 import com.zhengcheng.mall.domain.entity.User;
-
 
 /**
  * 用户(User)封装类
@@ -21,10 +20,9 @@ import com.zhengcheng.mall.domain.entity.User;
 @Mapper(componentModel = "spring", builder = @Builder(disableBuilder = true))
 public interface UserAssembler {
 
-    @Mappings({@Mapping(target = "lastLogin", dateFormat = "yyyy-MM-dd HH:mm:ss"),
+    @Mappings({ @Mapping(target = "lastLogin", dateFormat = "yyyy-MM-dd HH:mm:ss"),
             @Mapping(target = "mobile", expression = "java(cn.hutool.core.util.DesensitizedUtil.mobilePhone(user.getMobile()))"),
-            @Mapping(target = "email", expression = "java(cn.hutool.core.util.DesensitizedUtil.email(user.getEmail()))"),
-    })
+            @Mapping(target = "email", expression = "java(cn.hutool.core.util.DesensitizedUtil.email(user.getEmail()))"), })
     UserDTO toDTO(User user);
 
     User toEntity(UserCommand userCommand);

@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.zhengcheng.mall.domain.mapper.ProductSpecificationValueMapper">
+
+    <select id="findProductSkuId" resultType="java.lang.Long">
+        SELECT
+        psv.product_sku_id
+        FROM
+        product_specification_value psv
+        LEFT JOIN product_sku sku ON psv.product_sku_id = sku.id
+        WHERE
+        psv.specification_value_id IN
+        <foreach collection="specificationValueIds" open="(" close=")" separator="," item="item">
+            #{item}
+        </foreach>
+        AND sku.spu_id = #{spuId}
+        AND psv.is_deleted = 0 and sku.is_deleted = 0
+        GROUP BY
+        psv.product_sku_id
+        HAVING
+        COUNT( psv.specification_value_id ) = #{specificationValueCount}
+        LIMIT 1
+    </select>
+
+</mapper>

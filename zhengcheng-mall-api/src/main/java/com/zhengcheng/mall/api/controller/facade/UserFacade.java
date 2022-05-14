@@ -1,9 +1,7 @@
 package com.zhengcheng.mall.api.controller.facade;
 
-import com.zhengcheng.common.web.PageCommand;
-import com.zhengcheng.common.web.PageInfo;
+import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.mall.api.command.UserCommand;
-import com.zhengcheng.mall.api.dto.UserDTO;
 
 /**
  * 用户(User)表Facade接口
@@ -40,17 +38,15 @@ public interface UserFacade {
      * 添加单条数据
      *
      * @param userCommand
-     *            数据查询对象
+     *            UserCommand
      */
     Long add(UserCommand userCommand);
 
     /**
-     * 分页查询
+     * 更新单条数据
      *
-     * @param pageCommand
-     *            分页参数
-     * @return 数据查询对象
+     * @param userCommand
+     *            UserCommand
      */
-    PageInfo<UserDTO> page(PageCommand pageCommand);
-
+    void update(UserCommand userCommand);
 }

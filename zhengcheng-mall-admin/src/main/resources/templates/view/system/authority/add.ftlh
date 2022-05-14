@@ -12,14 +12,13 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">上级</label>
                 <div class="layui-input-block">
-                    <input type="text" name="pid" id="pid-tree" lay-filter="pid-tree" autocomplete="off"
-                           class="layui-input">
+                    <ul id="pid-tree" class="dtree" data-id="0"></ul>
                 </div>
             </div>
             <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" lay-verify="required" autocomplete="off" placeholder="请输入名称"
                            class="layui-input">
                 </div>
             </div>
@@ -78,49 +77,40 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['treeSelect', 'form', 'jquery'], function () {
+    layui.use(['dtree', 'form', 'jquery', 'common'], function () {
         let form = layui.form;
-        let treeSelect = layui.treeSelect;
+        let dtree = layui.dtree;
         let $ = layui.jquery;
+        let common = layui.common;
 
-        treeSelect.render({
-            elem: '#pid-tree',
-            data: '/admin/authority/treeselectData',
-            type: 'get',
-            placeholder: '请选择上级',
-            search: true
+        dtree.renderSelect({
+            elem: "#pid-tree",
+            method: "get",
+            url: "/admin/authority/findByRoleId",
+            dataStyle: 'layuiStyle',
+            selectTips: '请选择上级',
+            dataFormat: "list",  //配置data的风格为list
+            response: {
+                statusName: "code",		//返回标识
+                statusCode: 200,		//返回码
+                message: "message",		//返回信息
+                treeId: "id",
+                parentId: "pid",
+                title: "name"
+            },
+            selectInputName: {
+                nodeId: "pid",
+                context: "pname"
+            }
         });
 
         form.on('submit(authority-save)', function (data) {
-            $.ajax({
-                url: '/admin/authority/save',
-                data: JSON.stringify(data.field),
-                dataType: 'json',
-                contentType: 'application/json',
-                type: 'post',
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {
-                            icon: 1,
-                            time: 1000
-                        }, function () {
-                            parent.layer.close(parent.layer.getFrameIndex(window
-                                .name)); //关闭当前页
-                            parent.layui.table.reload("power-table");
-                        });
-                    } else {
-                        layer.msg(result.message, {
-                            icon: 2,
-                            time: 1000
-                        });
-                    }
-                }
-            })
+            var param = dtree.selectVal("pid-tree");
+            data.field.pid = param.pid;
+            common.submit(data.field, '/admin/authority/save', 'power-table', null);
             return false;
         });
     })
-</script>
-<script>
 </script>
 </body>
 </html>

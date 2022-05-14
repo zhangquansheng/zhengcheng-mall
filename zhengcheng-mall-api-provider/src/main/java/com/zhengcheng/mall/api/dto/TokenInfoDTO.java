@@ -26,9 +26,4 @@ public class TokenInfoDTO implements Serializable {
     public long               tokenActivityTimeout;
     public String             loginDevice;
     public String             tag;
-
-    /**
-     * 当前用户
-     */
-    private UserDTO           currentUser;
 }

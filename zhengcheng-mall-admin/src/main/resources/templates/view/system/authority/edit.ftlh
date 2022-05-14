@@ -13,15 +13,9 @@
             <div class="layui-form-item">
                 <label class="layui-form-label">名称</label>
                 <div class="layui-input-block">
-                    <input type="text" name="name" value="${authority.name!}" autocomplete="off" placeholder="请输入名称"
+                    <input type="text" name="name" value="${authority.name!}" lay-verify="required" autocomplete="off"
+                           placeholder="请输入名称"
                            class="layui-input">
-                </div>
-            </div>
-            <div class="layui-form-item">
-                <label class="layui-form-label">编码</label>
-                <div class="layui-input-block">
-                    <input type="text" name="code" value="${authority.code!}" autocomplete="off" placeholder="请输入编码"
-                           disabled class="layui-input">
                 </div>
             </div>
             <div class="layui-form-item">
@@ -73,35 +67,13 @@
 <script src="../../../component/layui/layui.js"></script>
 <script src="../../../component/pear/pear.js"></script>
 <script>
-    layui.use(['form', 'jquery'], function () {
+    layui.use(['form', 'jquery', 'common'], function () {
         let form = layui.form;
         let $ = layui.jquery;
+        let common = layui.common;
 
         form.on('submit(authority-update)', function (data) {
-            $.ajax({
-                url: '/admin/authority/update',
-                data: JSON.stringify(data.field),
-                dataType: 'json',
-                contentType: 'application/json',
-                type: 'post',
-                success: function (result) {
-                    if (result.code == 200) {
-                        layer.msg(result.message, {
-                            icon: 1,
-                            time: 1000
-                        }, function () {
-                            parent.layer.close(parent.layer.getFrameIndex(window
-                                .name)); //关闭当前页
-                            parent.layui.table.reload("power-table");
-                        });
-                    } else {
-                        layer.msg(result.message, {
-                            icon: 2,
-                            time: 1000
-                        });
-                    }
-                }
-            })
+            common.submit(data.field, '/admin/authority/update', 'power-table', null);
             return false;
         });
     })

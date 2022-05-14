@@ -27,4 +27,11 @@ public interface AuthorityService extends IService<Authority> {
      * @return 权限列表
      */
     List<Authority> getAuthorityList(Long userId);
+
+    /**
+     * 查询角色的权限列表
+     * @param roleId 角色ID
+     * @return 权限列表
+     */
+    List<Authority> getAuthoritiesByRoleId(Long roleId);
 }

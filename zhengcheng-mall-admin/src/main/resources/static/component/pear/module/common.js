@@ -45,23 +45,55 @@ layui.define(['jquery', 'element', 'table'], function (exports) {
          * @param data 提交数据
          * @param href 提交接口
          * @param table 刷新父级表
-         *
+         * @param callback 回调函数
          * */
         this.submit = function (data, href, table, callback) {
             $.ajax({
                 url: href,
                 data: JSON.stringify(data),
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
                 dataType: 'json',
-                contentType: 'application/json',
+                contentType: "application/json; charset=utf-8",
                 type: 'post',
                 success: callback != null ? callback(result) : function (result) {
-                    if (result.success) {
-                        layer.msg(result.msg, {icon: 1, time: 1000}, function () {
+                    if (result.code === 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000}, function () {
                             parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
-                            parent.layui.table.reload(table);
+                            if (table !== '') {
+                                parent.layui.table.reload(table);
+                            }
                         });
                     } else {
-                        layer.msg(result.msg, {icon: 2, time: 1000});
+                        layer.msg(result.message, {icon: 2, time: 1000});
+                    }
+                }
+            })
+        }
+
+        /**
+         * 提交 json 数据
+         * @param data 提交数据
+         * @param href 提交接口
+         * @param type 提交类型
+         * @param table 刷新表
+         *
+         * */
+        this.ajax = function (data, href, type, table) {
+            $.ajax({
+                url: href,
+                data: JSON.stringify(data),
+                headers: {'satoken': layui.data('zhengchengMallAdmin').satoken},
+                dataType: 'json',
+                contentType: "application/json; charset=utf-8",
+                type: type,
+                success: function (result) {
+                    if (result.code === 200) {
+                        layer.msg(result.message, {icon: 1, time: 1000});
+                        if (table !== '') {
+                            layui.table.reload(table);
+                        }
+                    } else {
+                        layer.msg(result.message, {icon: 2, time: 1000});
                     }
                 }
             })

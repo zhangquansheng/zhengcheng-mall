@@ -9,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.mall.common.config.MallProperties;
 import com.zhengcheng.mall.domain.entity.Authority;
 import com.zhengcheng.mall.domain.mapper.AuthorityMapper;
 import com.zhengcheng.mall.service.AuthorityService;
@@ -28,8 +27,10 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
 
     @Autowired
     private AuthorityMapper authorityMapper;
-    @Autowired
-    private MallProperties  mallProperties;
+    /**
+     * 权限最大的层级
+     */
+    public final int        AUTHORITY_MAX_LEVEL = 3;
 
     @Override
     public boolean save(Authority authority) {
@@ -52,9 +53,8 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
             if (Objects.isNull(pAuthority)) {
                 throw new BizException(StrUtil.format("不存在 pId:[{}] 对应的权限！", authority.getPid()));
             }
-            if (pAuthority.getLevel() + 1 > mallProperties.getAuthorityMaxLevel()) {
-                throw new BizException(
-                        StrUtil.format("已经超过最大层级， maxLevel：[{}]", mallProperties.getAuthorityMaxLevel()));
+            if (pAuthority.getLevel() + 1 > AUTHORITY_MAX_LEVEL) {
+                throw new BizException(StrUtil.format("已经超过最大层级， maxLevel：[{}]", AUTHORITY_MAX_LEVEL));
             }
 
             authority.setLevel(pAuthority.getLevel() + 1);
@@ -71,5 +71,10 @@ public class AuthorityServiceImpl extends ServiceImpl<AuthorityMapper, Authority
     @Override
     public List<Authority> getAuthorityList(Long userId) {
         return authorityMapper.getAuthorityList(userId);
+    }
+
+    @Override
+    public List<Authority> getAuthoritiesByRoleId(Long roleId) {
+        return authorityMapper.getAuthoritiesByRoleId(roleId);
     }
 }

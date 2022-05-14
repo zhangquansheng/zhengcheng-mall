@@ -5,7 +5,6 @@ import java.util.List;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
-import com.zhengcheng.mall.admin.controller.dto.TreeselectDTO;
 
 /**
  * 权限表(Authority)表Facade接口
@@ -59,9 +58,10 @@ public interface AuthorityFacade {
     boolean deleteById(Long id);
 
     /**
-     * 查询 Treeselect 
-     * @return TreeselectDTO
+     * 根据角色查询权限列表
+     * @param roleId 角色ID
+     * @return TreeDTO
      */
-    List<TreeselectDTO> findTreeselectList();
+    List<AuthorityDTO> findByRoleId(Long roleId);
 
 }
