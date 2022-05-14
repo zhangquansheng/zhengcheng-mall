@@ -98,7 +98,7 @@ public class UserController {
         return userFacade.update(userCommand);
     }
 
-    @ApiOperation("更新用户")
+    @ApiOperation("启用/禁用用户")
     @SaCheckPermission("sys:user:update")
     @PostMapping("/enable")
     public @ResponseBody Result<Void> enable(@Valid @RequestBody EnableCommand enableCommand) {
