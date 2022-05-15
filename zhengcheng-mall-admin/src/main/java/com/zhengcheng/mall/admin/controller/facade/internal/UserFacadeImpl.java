@@ -9,6 +9,7 @@ import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.client.RestTemplate;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
@@ -59,6 +60,8 @@ public class UserFacadeImpl implements UserFacade {
     private OauthFeignClient oauthFeign;
     @Autowired
     private UserFeignClient  userFeignClient;
+    @Autowired
+    private RestTemplate     restTemplate;
 
     @Override
     public UserDTO findById(Long id) {
