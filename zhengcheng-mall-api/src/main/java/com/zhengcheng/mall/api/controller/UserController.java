@@ -8,6 +8,7 @@ import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.command.UserCommand;
+import com.zhengcheng.mall.api.command.UserRechargeCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 
@@ -54,6 +55,12 @@ public class UserController implements UserFeignClient {
     @Override
     public Result<Void> update(@Validated(value = Update.class) @RequestBody UserCommand userCommand) {
         userFacade.update(userCommand);
+        return Result.success();
+    }
+
+    @ApiOperation("会员充值")
+    @PostMapping("/recharge")
+    public Result<Void> recharge(@RequestBody UserRechargeCommand userRechargeCommand) {
         return Result.success();
     }
 }
