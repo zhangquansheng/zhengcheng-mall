@@ -77,6 +77,7 @@
                 page: false,
                 cols: [
                     [
+                        {type: 'checkbox'},
                         {field: 'title', minWidth: 200, title: '名称'},
                         {field: 'sort', title: '排序'},
                         {title: '操作', templet: '#product-category-bar', width: 150, align: 'center'}

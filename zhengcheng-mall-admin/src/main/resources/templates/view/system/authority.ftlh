@@ -97,6 +97,7 @@
                 page: false,
                 cols: [
                     [
+                        {type: 'checkbox'},
                         {field: 'name', minWidth: 200, title: '权限名称'},
                         {field: 'code', minWidth: 200, title: '权限编码'},
                         {field: 'icon', title: '图标', templet: '#icon'},
