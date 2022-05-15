@@ -73,7 +73,16 @@
         let common = layui.common;
 
         form.on('submit(authority-update)', function (data) {
-            layui.common.ajax.formSubmit('/admin/authority/update', data.field, 'power-table');
+            layui.common.ajax.post('/admin/authority/update', data.field, function (result) {
+                if (result.code === 200) {
+                    layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                        window.parent.location.reload();
+                    });
+                } else {
+                    toast.error({message: result.message});
+                }
+            });
             return false;
         });
     })

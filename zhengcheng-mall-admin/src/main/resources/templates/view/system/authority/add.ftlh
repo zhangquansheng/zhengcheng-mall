@@ -107,7 +107,16 @@
         form.on('submit(authority-save)', function (data) {
             var param = dtree.selectVal("pid-tree");
             data.field.pid = param.pid;
-            layui.common.ajax.formSubmit('/admin/authority/save', data.field, 'power-table');
+            layui.common.ajax.post('/admin/authority/save', data.field, function (result) {
+                if (result.code === 200) {
+                    layer.msg(result.message, {icon: 1, time: 1000}, function () {
+                        parent.layer.close(parent.layer.getFrameIndex(window.name));//关闭当前页
+                        window.parent.location.reload();
+                    });
+                } else {
+                    toast.error({message: result.message});
+                }
+            });
             return false;
         });
     })
