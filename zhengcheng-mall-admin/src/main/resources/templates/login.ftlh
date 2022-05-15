@@ -24,6 +24,11 @@
         <input placeholder="密 码 : admin " type="password" name="pass" lay-verify="required" hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
+        <input placeholder="验证码 : " hover lay-verify="required" name="code"
+               class="code layui-input layui-input-inline"/>
+        <img src="/admin/kaptcha/render" id="captchaImage" class="codeImage"/>
+    </div>
+    <div class="layui-form-item">
         <input type="checkbox" name="" title="记住密码" lay-skin="primary" checked>
     </div>
     <div class="layui-form-item">
@@ -43,6 +48,7 @@
         var popup = layui.popup;
         var layer = layui.layer;
         var $ = layui.jquery;
+        let captchaPath = "/admin/kaptcha/render";
 
         // 登 录 提 交
         form.on('submit(login)', function (data) {
@@ -56,7 +62,8 @@
                 dataType: "json",
                 data: JSON.stringify({
                     "username": data.field.username,
-                    "enPassword": enPassword
+                    "enPassword": enPassword,
+                    "code": data.field.code
                 }),
                 dataType: 'json',
                 success: function (res) {
@@ -77,13 +84,27 @@
                             }
                         });
                     } else {
-                        layer.msg('用户名或者密码不正确！');
+                        popup.failure(res.message, function () {
+                            document.getElementById("captchaImage").src = captchaPath + "?" + Math.random();
+                        });
                     }
                 }
             });
             return false;
         });
+
+        $("#captchaImage").click(function () {
+            document.getElementById("captchaImage").src = captchaPath + "?" + Math.random();
+        })
+        setInterval(function () {
+            document.getElementById("captchaImage").src = captchaPath + "?" + Math.random();
+        }, 900 * 1000);
     })
+</script>
+<script>
+    if (window != top) {
+        top.location.href = location.href;
+    }
 </script>
 </body>
 </html>

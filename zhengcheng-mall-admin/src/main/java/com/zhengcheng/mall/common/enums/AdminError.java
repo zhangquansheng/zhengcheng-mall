@@ -22,7 +22,11 @@ public enum AdminError {
     /**
      * 权限相关错误401*
      */
-    NotPermissionException(40101, "{0}");
+    NOT_PERMISSION_EXCEPTION(40101, "{0}"),
+    /**
+     * 验证码相关错误501*
+     */
+    KAPTCHA_EXCEPTION(50101, "{0}");
 
     private final Integer code;
 

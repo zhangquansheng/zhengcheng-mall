@@ -10,6 +10,7 @@ import javax.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.baomidou.kaptcha.Kaptcha;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
@@ -59,6 +60,8 @@ public class UserFacadeImpl implements UserFacade {
     private OauthFeignClient oauthFeign;
     @Autowired
     private UserFeignClient  userFeignClient;
+    @Autowired
+    private Kaptcha          kaptcha;
 
     @Override
     public UserDTO findById(Long id) {
@@ -107,6 +110,9 @@ public class UserFacadeImpl implements UserFacade {
     @Override
     public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session,
                                       HttpServletRequest request) {
+        // 验证验证码
+        kaptcha.validate(loginSubmitCommand.getCode());
+
         Result<TokenInfoDTO> tokenResult = oauthFeign.postToken(loginSubmitCommand.getUsername(),
                 loginSubmitCommand.getEnPassword());
         if (tokenResult.hasData()) {

@@ -21,8 +21,8 @@ public class MallAdminMvcConfiguration implements WebMvcConfigurer {
     @Override
     public void addInterceptors(InterceptorRegistry registry) {
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login", "/login/**",
-                "/reg", "/reg/**", "/oauth/**", "/static/**", "/swagger-ui.html", "/doc.html", "/webjars/**",
-                "/swagger-resources", "/swagger-resources/**", "/v2/api-docs");
+                "/reg", "/reg/**", "/admin/kaptcha/**", "/oauth/**", "/static/**", "/swagger-ui.html", "/doc.html",
+                "/webjars/**", "/swagger-resources", "/swagger-resources/**", "/v2/api-docs");
     }
 
     @Override

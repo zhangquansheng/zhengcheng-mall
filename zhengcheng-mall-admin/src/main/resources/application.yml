@@ -16,3 +16,6 @@ spring:
       - optional:nacos:zhengcheng-mall-admin.properties
 server:
   port: 80
+kaptcha:
+  height: 48
+  width: 130

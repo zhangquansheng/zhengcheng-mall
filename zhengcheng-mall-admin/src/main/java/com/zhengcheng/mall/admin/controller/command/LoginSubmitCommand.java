@@ -15,8 +15,11 @@ import lombok.Data;
 public class LoginSubmitCommand implements Serializable {
 
     private static final long serialVersionUID = -5763931944518625059L;
+
     @ApiModelProperty("用户名")
-    private String username;
+    private String            username;
     @ApiModelProperty("RSA加密密码")
-    private String enPassword;
+    private String            enPassword;
+    @ApiModelProperty("验证码")
+    private String            code;
 }

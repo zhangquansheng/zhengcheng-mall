@@ -36,7 +36,6 @@ public class LoginController {
 
     @Autowired
     private UserFacade userFacade;
-
     @Value("${user.password.public-key}")
     private String     publicKeyBase64;
 
