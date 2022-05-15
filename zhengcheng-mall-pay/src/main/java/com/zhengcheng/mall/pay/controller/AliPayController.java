@@ -1,5 +1,19 @@
 package com.zhengcheng.mall.pay.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
+import javax.annotation.Resource;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+
 import com.alibaba.fastjson.JSONObject;
 import com.alipay.api.AlipayApiException;
 import com.alipay.api.domain.*;
@@ -13,18 +27,6 @@ import com.ijpay.alipay.AliPayApiConfigKit;
 import com.zhengcheng.mall.pay.entity.AliPayBean;
 import com.zhengcheng.mall.pay.utils.StringUtils;
 import com.zhengcheng.mall.pay.vo.AjaxResult;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
-
-import javax.annotation.Resource;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * <p>IJPay 让支付触手可及，封装了微信支付、支付宝支付、银联支付常用的支付方式以及各种常用的接口。</p>
@@ -40,14 +42,14 @@ import java.util.Map;
  * @author Javen
  */
 @Controller
-@RequestMapping("/aliPay")
+@RequestMapping("/test/aliPay")
 public class AliPayController extends AbstractAliPayApiController {
-    private static final Logger log = LoggerFactory.getLogger(AliPayController.class);
+    private static final Logger log        = LoggerFactory.getLogger(AliPayController.class);
 
     @Resource
-    private AliPayBean aliPayBean;
+    private AliPayBean          aliPayBean;
 
-    private final AjaxResult result = new AjaxResult();
+    private final AjaxResult    result     = new AjaxResult();
     // 普通公钥模式
     //     private final static String NOTIFY_URL = "/aliPay/notify_url";
     /**
