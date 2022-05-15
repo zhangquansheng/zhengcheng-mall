@@ -1,12 +1,12 @@
 package com.zhengcheng.im.socketio.controller;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.im.socketio.controller.dto.UserOnlineStatusDTO;
 import com.zhengcheng.im.socketio.handler.AdminImHandler;
 import com.zhengcheng.mall.domain.entity.Message;
 
@@ -31,6 +31,12 @@ public class ImController {
     @PostMapping("/admin/sendMessage")
     public Result<Boolean> sendMessage(@RequestBody Message message) {
         return Result.successData(adminImHandler.sendMessage(message));
+    }
+
+    @ApiOperation("批量查询用户在线状态")
+    @GetMapping("/user/online/status")
+    public Result<List<UserOnlineStatusDTO>> userOnlineStatus(@RequestParam("userIds") List<String> userIds) {
+        return Result.successData(adminImHandler.userOnlineStatus(userIds));
     }
 
 }

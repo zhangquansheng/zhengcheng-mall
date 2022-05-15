@@ -15,6 +15,7 @@ import com.corundumstudio.socketio.SocketIONamespace;
 import com.corundumstudio.socketio.SocketIOServer;
 import com.corundumstudio.socketio.listener.ConnectListener;
 import com.corundumstudio.socketio.listener.DisconnectListener;
+import com.zhengcheng.im.socketio.controller.dto.UserOnlineStatusDTO;
 import com.zhengcheng.mall.domain.entity.Message;
 
 import cn.hutool.core.collection.CollectionUtil;
@@ -48,6 +49,11 @@ public class AdminImHandler {
      */
     private static final String     ADMIN_IM_MESSAGE_EVENT  = "adminImMessageEvent";
 
+    /**
+     * 在线用户集合的缓存KEY
+     */
+    private static final String     ONLINE_USER_CACHE_KEY   = "zc:im:online:user";
+
     private final SocketIONamespace namespace;
 
     @Autowired
@@ -70,6 +76,7 @@ public class AdminImHandler {
                 Long userId = Long.valueOf(id);
                 stringRedisTemplate.opsForSet().add(this.getConnectedSessionCacheKey(userId),
                         client.getSessionId().toString());
+                stringRedisTemplate.opsForSet().add(ONLINE_USER_CACHE_KEY, String.valueOf(userId));
             }
         };
     }
@@ -82,6 +89,7 @@ public class AdminImHandler {
                 Long userId = Long.valueOf(id);
                 stringRedisTemplate.opsForSet().remove(this.getConnectedSessionCacheKey(userId),
                         client.getSessionId().toString());
+                stringRedisTemplate.opsForSet().remove(ONLINE_USER_CACHE_KEY, String.valueOf(userId));
             }
         };
     }
@@ -97,9 +105,11 @@ public class AdminImHandler {
 
     /**
      * 获取会员链接的会话缓存KEY
+     * @param userId 用户ID
+     * @return 用户的缓存的KEY
      */
-    private String getConnectedSessionCacheKey(Long id) {
-        return "zc:im:connected:session:".concat(String.valueOf(id));
+    private String getConnectedSessionCacheKey(Long userId) {
+        return "zc:im:connected:session:".concat(String.valueOf(userId));
     }
 
     /**
@@ -116,6 +126,17 @@ public class AdminImHandler {
             return true;
         }
         return false;
+    }
+
+    public List<UserOnlineStatusDTO> userOnlineStatus(List<String> userIds) {
+        List<UserOnlineStatusDTO> userOnlineStatusDTOS = new ArrayList<>();
+        userIds.forEach(userId -> {
+            UserOnlineStatusDTO userOnlineStatusDTO = new UserOnlineStatusDTO();
+            userOnlineStatusDTO.setUserId(userId);
+            userOnlineStatusDTO.setOnline(stringRedisTemplate.opsForSet().isMember(ONLINE_USER_CACHE_KEY, userId));
+            userOnlineStatusDTOS.add(userOnlineStatusDTO);
+        });
+        return userOnlineStatusDTOS;
     }
 
     /**

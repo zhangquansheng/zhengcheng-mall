@@ -65,6 +65,14 @@
            d.enable== true ? 'checked' : '' }} />
 </script>
 
+<script type="text/html" id="user-login">
+    {{#if (d.loginStatus == 0) { }}
+    <span>在线</span>
+    {{# }else if(d.loginStatus == 1){ }}
+    <span>离线</span>
+    {{# } }}
+</script>
+
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
 <script>
@@ -99,6 +107,11 @@
                     field: 'enable',
                     align: 'center',
                     templet: '#user-enable'
+                },
+                {
+                    title: '登录状态',
+                    field: 'userLogin',
+                    templet: '#user-login'
                 },
                 {
                     title: '最后登录时间',
