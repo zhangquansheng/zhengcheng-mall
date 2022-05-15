@@ -20,6 +20,7 @@ import com.zhengcheng.mall.domain.entity.SpecificationValue;
 import com.zhengcheng.mall.service.SpecificationService;
 import com.zhengcheng.mall.service.SpecificationValueService;
 
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 
 /**
@@ -52,9 +53,21 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
 
     @Override
     public AttrSpecDTO findAttrSpec(Long spuId, Long productCategoryId) {
+        // 商品属性
+        List<AttrSpecDTO.Attr> attrs = new ArrayList<>();
+        attrs.add(AttrSpecDTO.Attr.builder().id("1").title("货号").value("N20R093001").type("1")
+                .options(Lists.newArrayList()).build());
+        return AttrSpecDTO.builder().spec(getSpec(spuId, productCategoryId)).attribute(attrs).build();
+    }
+
+    private List<AttrSpecDTO.Spec> getSpec(Long spuId, Long productCategoryId) {
         List<Specification> specifications = specificationService
                 .list(new LambdaQueryWrapper<Specification>().eq(Specification::getProductCategoryId, productCategoryId)
                         .orderBy(Boolean.TRUE, Boolean.TRUE, Specification::getSort));
+        if (CollectionUtil.isEmpty(specifications)) {
+            return new ArrayList<>();
+        }
+
         List<SpecificationValue> specificationValues = specificationValueService
                 .list(new LambdaQueryWrapper<SpecificationValue>().in(SpecificationValue::getSpecificationId,
                         specifications.stream().map(Specification::getId).collect(Collectors.toList())));
@@ -78,12 +91,6 @@ public class SpecificationFacadeImpl implements SpecificationFacade {
 
             specs.add(spec);
         });
-
-        // 商品属性
-        List<AttrSpecDTO.Attr> attrs = new ArrayList<>();
-        attrs.add(AttrSpecDTO.Attr.builder().id("1").title("货号").value("N20R093001").type("1")
-                .options(Lists.newArrayList()).build());
-
-        return AttrSpecDTO.builder().spec(specs).attribute(attrs).build();
+        return specs;
     }
 }

@@ -66,7 +66,7 @@ public class AuthorityController {
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
         authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
-        authorityFacade.add(authorityCommand);
+        authorityFacade.save(authorityCommand);
         return Result.success();
     }
 

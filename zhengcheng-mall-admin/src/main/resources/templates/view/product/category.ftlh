@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>权限管理</title>
+    <title>商品分类</title>
     <link rel="stylesheet" href="../../component/pear/css/pear.css"/>
 </head>
 <body class="pear-container">
@@ -11,7 +11,8 @@
         <form class="layui-form" action="">
             <div class="layui-form-item">
                 <div class="layui-form-item layui-inline">
-                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit lay-filter="power-query">
+                    <button class="pear-btn pear-btn-md pear-btn-primary" lay-submit
+                            lay-filter="product-category-query">
                         <i class="layui-icon layui-icon-search"></i>
                         查询
                     </button>
@@ -22,11 +23,11 @@
 </div>
 <div class="layui-card">
     <div class="layui-card-body">
-        <table id="power-table" lay-filter="power-table"></table>
+        <table id="product-category-table" lay-filter="product-category-table"></table>
     </div>
 </div>
 
-<script type="text/html" id="power-toolbar">
+<script type="text/html" id="product-category-toolbar">
     <button class="pear-btn pear-btn-primary pear-btn-md" lay-event="add">
         <i class="layui-icon layui-icon-add-1"></i>
         新增
@@ -41,30 +42,11 @@
     </button>
 </script>
 
-<script type="text/html" id="power-bar">
+<script type="text/html" id="product-category-bar">
     <button class="pear-btn pear-btn-primary pear-btn-sm" lay-event="edit"><i class="layui-icon layui-icon-edit"></i>
     </button>
     <button class="pear-btn pear-btn-danger pear-btn-sm" lay-event="remove"><i class="layui-icon layui-icon-delete"></i>
     </button>
-</script>
-
-<script type="text/html" id="power-type">
-    {{#if (d.type == '0') { }}
-    <span>目录</span>
-    {{# }else if(d.type == '1'){ }}
-    <span>菜单</span>
-    {{# }else if(d.type == '2'){ }}
-    <span>按钮</span>
-    {{# } }}
-</script>
-
-<script type="text/html" id="power-enable">
-    <input type="checkbox" name="enable" value="{{d.id}}" lay-skin="switch" lay-text="启用|禁用" lay-filter="power-enable"
-           {{ d.enable== true ? 'checked' : '' }} />
-</script>
-
-<script type="text/html" id="icon">
-    <i class="layui-icon {{d.icon}}"></i>
 </script>
 
 <script src="../../component/layui/layui.js"></script>
@@ -78,8 +60,6 @@
         let common = layui.common;
         var toast = layui.toast;
 
-        let MODULE_PATH = "operate/";
-
         window.render = function () {
             treetable.render({
                 treeColIndex: 1,
@@ -87,9 +67,9 @@
                 treeIdName: 'id',
                 treePidName: 'pid',
                 skin: 'line',
-                toolbar: '#power-toolbar',
-                elem: '#power-table',
-                url: '/admin/authority/data',
+                toolbar: '#product-category-toolbar',
+                elem: '#product-category-table',
+                url: '/admin/productCategory/data',
                 response: {
                     statusCode: 200 //规定成功的状态码，默认：0
                     , msgName: 'message' //规定状态信息的字段名称，默认：msg
@@ -97,13 +77,9 @@
                 page: false,
                 cols: [
                     [
-                        {field: 'name', minWidth: 200, title: '权限名称'},
-                        {field: 'code', minWidth: 200, title: '权限编码'},
-                        {field: 'icon', title: '图标', templet: '#icon'},
-                        {field: 'type', title: '权限类型', templet: '#power-type'},
-                        {field: 'enable', title: '是否可用', templet: '#power-enable'},
+                        {field: 'title', minWidth: 200, title: '名称'},
                         {field: 'sort', title: '排序'},
-                        {title: '操作', templet: '#power-bar', width: 150, align: 'center'}
+                        {title: '操作', templet: '#product-category-bar', width: 150, align: 'center'}
                     ]
                 ]
             });
@@ -111,7 +87,7 @@
 
         render();
 
-        table.on('tool(power-table)', function (obj) {
+        table.on('tool(product-category-table)', function (obj) {
             if (obj.event === 'remove') {
                 window.remove(obj);
             } else if (obj.event === 'edit') {
@@ -120,15 +96,15 @@
         })
 
 
-        table.on('toolbar(power-table)', function (obj) {
+        table.on('toolbar(product-category-table)', function (obj) {
             if (obj.event === 'add') {
                 window.add();
             } else if (obj.event === 'refresh') {
                 window.refresh();
             } else if (obj.event === 'expandAll') {
-                treetable.expandAll("#power-table");
+                treetable.expandAll("#product-category-table");
             } else if (obj.event === 'foldAll') {
-                treetable.foldAll("#power-table");
+                treetable.foldAll("#product-category-table");
             }
         });
 
@@ -138,7 +114,7 @@
                 title: '新增',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'add'
+                content: 'add'
             });
         }
 
@@ -148,24 +124,17 @@
                 title: '修改',
                 shade: 0.1,
                 area: ['450px', '500px'],
-                content: MODULE_PATH + 'edit?id=' + obj.data['id']
+                content: 'edit?id=' + obj.data['id']
             });
         }
 
         window.remove = function (obj) {
-            layer.confirm('确定要删除该权限', {icon: 3, title: '提示'}, function (index) {
+            layer.confirm('确定要删除该分类及其下的所有商品吗？', {icon: 3, title: '提示'}, function (index) {
                 layer.close(index);
-                common.ajax.tableRemove(MODULE_PATH + "remove/" + obj.data['id'], obj);
+                common.ajax.tableRemove("remove/" + obj.data['id'], obj);
             });
         }
 
-        form.on('switch(power-enable)', function (obj) {
-            common.ajax.switchSubmit(MODULE_PATH + "enable", 'post', {
-                id: this.value,
-                enable: obj.elem.checked
-            }, 'power-table');
-            return false;
-        });
     })
 </script>
 </body>

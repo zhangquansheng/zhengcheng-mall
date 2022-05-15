@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.domain.entity;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
 import com.zhengcheng.mybatis.plus.model.BaseEntity;
 
@@ -33,5 +34,13 @@ public class ProductCategory extends BaseEntity<ProductCategory> {
 
     /** 上级分类 */
     private Long              pid;
-
+    /**
+     * 排序
+     */
+    private Integer           sort;
+    /**
+     * 是否启用
+     */
+    @TableField(value = "is_enable")
+    private Boolean           enable;
 }

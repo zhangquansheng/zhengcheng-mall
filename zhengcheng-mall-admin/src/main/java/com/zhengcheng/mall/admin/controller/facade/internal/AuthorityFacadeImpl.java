@@ -52,7 +52,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
 
     @LogRecord(success = "新增了权限：{{#authorityCommand.name}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.ADD_SUB_TYPE, bizNo = "{{#authorityCommand.code}}")
     @Override
-    public Long add(AuthorityCommand authorityCommand) {
+    public Long save(AuthorityCommand authorityCommand) {
         // 验证权限编码唯一
         if (StrUtil.isNotBlank(authorityCommand.getCode())) {
             Authority sameCode = authorityService
@@ -68,15 +68,14 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
 
     @LogRecord(success = "更新了权限{_DIFF{#authorityCommand}}", type = LogRecordType.AUTHORITY, subType = LogRecordType.UPDATE_SUB_TYPE, bizNo = "{{#authorityCommand.id}}")
     @Override
-    public Long update(AuthorityCommand authorityCommand) {
-        Authority authority = authorityAssembler.toEntity(authorityCommand);
-        authorityService.update(new LambdaUpdateWrapper<Authority>().set(Authority::getName, authorityCommand.getName())
+    public boolean update(AuthorityCommand authorityCommand) {
+        return authorityService.update(new LambdaUpdateWrapper<Authority>()
+                .set(Authority::getName, authorityCommand.getName())
                 .set(Authority::getRoute, authorityCommand.getRoute())
                 .set(Authority::getIcon, authorityCommand.getIcon()).set(Authority::getUrl, authorityCommand.getUrl())
                 .set(Authority::getRemark, authorityCommand.getRemark())
                 .set(Authority::getType, authorityCommand.getType()).set(Authority::getSort, authorityCommand.getSort())
                 .eq(Authority::getId, authorityCommand.getId()));
-        return authority.getId();
     }
 
     @LogRecord(success = "{{#enableCommand.enable ? '启用' : '禁用'}}了权限,更新结果:{{#_ret}}", type = LogRecordType.ROLE, bizNo = "{{#enableCommand.id}}")

@@ -34,7 +34,7 @@ public interface AuthorityFacade {
      * @param authorityCommand
      *            数据查询对象
      */
-    Long add(AuthorityCommand authorityCommand);
+    Long save(AuthorityCommand authorityCommand);
 
     /**
      * 更新单条数据
@@ -42,7 +42,7 @@ public interface AuthorityFacade {
      * @param authorityCommand
      *            数据查询对象
      */
-    Long update(AuthorityCommand authorityCommand);
+    boolean update(AuthorityCommand authorityCommand);
 
     /**
      * 开启/禁用
