@@ -46,4 +46,8 @@ rt-server.redisson.password=123456
 2. 公众号管理
     - [x] 用户标签
 3. 登录注册 [Sa-Token 权限认证](http://sa-token.dev33.cn/)
-
+4. 商品管理
+    - [x] SKU管理
+    - [x] 商品分类
+5. 支付服务
+6. IM服务
