@@ -6,7 +6,6 @@ import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
 import org.springframework.web.servlet.config.annotation.ResourceHandlerRegistry;
 import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 
-import com.zhengcheng.mall.common.interceptor.AliPayInterceptor;
 import com.zhengcheng.mall.common.interceptor.LoginInterceptor;
 
 /**
@@ -24,7 +23,6 @@ public class MallAdminMvcConfiguration implements WebMvcConfigurer {
         registry.addInterceptor(loginInterceptor()).addPathPatterns("/**").excludePathPatterns("/login", "/login/**",
                 "/reg", "/reg/**", "/oauth/**", "/static/**", "/swagger-ui.html", "/doc.html", "/webjars/**",
                 "/swagger-resources", "/swagger-resources/**", "/v2/api-docs");
-        registry.addInterceptor(new AliPayInterceptor()).addPathPatterns("/aliPay/**");
     }
 
     @Override
