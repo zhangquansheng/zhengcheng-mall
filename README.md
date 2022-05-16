@@ -6,10 +6,6 @@
 
 ### 系统架构图
 
-![image text](./doc/images/gitee/server.jpg)
-
-> 蘑菇博客系统架构图，使用 [Processon](https://www.processon.com/i/5e380df1e4b05b335ffa81e9) 在线绘制
-
 ### 后端技术
 
 |      技术      |           说明            |                             官网                             |
