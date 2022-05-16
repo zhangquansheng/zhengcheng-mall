@@ -2,11 +2,14 @@
 
 ## 技术选型
 
+- [MyBatis-Plus](https://baomidou.com/)
 - [基于 Layui 的后台管理系统模板](https://gitee.com/pear-admin/Pear-Admin-Layui)
 - [knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案](https://gitee.com/xiaoym/knife4j)
 - [ Leaf——美团点评分布式ID生成系统](https://tech.meituan.com/2017/04/21/mt-leaf.html)
 - [开箱即用的整合第三方登录的开源组件](https://justauth.wiki/)
 - [IJPay 让支付触手可及](https://gitee.com/javen205/IJPay)
+- [Kaptcha](https://gitee.com/baomidou/kaptcha-spring-boot-starter) 基于 SpringBoot 和 Google Kaptcha 的简单验证码组件，简单验证码就选它
+- [Lock4j](https://gitee.com/baomidou/lock4j) 基于 SpringBoot 同时支持 RedisTemplate、Redission、Zookeeper 的分布式锁组件。
 
 ## Jasypt
 
