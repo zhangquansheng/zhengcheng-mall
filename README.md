@@ -10,11 +10,12 @@
 
 |      技术      |           说明            |                             官网                             |
 | :------------: | :-----------------------: | :----------------------------------------------------------: |
-|   SpringBoot   |          MVC框架          | [ https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
+|  SpringBoot    |          MVC框架          | [ https://spring.io/projects/spring-boot](https://spring.io/projects/spring-boot) |
 |  SpringCloud   |        微服务框架         |           https://spring.io/projects/spring-cloud/           |
 |  MyBatis-Plus  |          ORM框架          |                   https://mp.baomidou.com/                   |
-|   knife4j   |       knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案        | [ https://gitee.com/xiaoym/knife4j](https://gitee.com/xiaoym/knife4j) |
-|     Kibana     |     分析和可视化平台      |               https://www.elastic.co/cn/kibana               |
+|  Nacos         |        服务发现&配置管理  |                   https://nacos.io/zh-cn/                   |
+|  knife4j       |       knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案        | [ https://gitee.com/xiaoym/knife4j](https://gitee.com/xiaoym/knife4j) |
+|  Kibana        |     分析和可视化平台      |               https://www.elastic.co/cn/kibana               |
 | Elasticsearch  |         搜索引擎          | [ https://github.com/elastic/elasticsearch](https://github.com/elastic/elasticsearch) |
 |     Redis      |        分布式缓存         |                      https://redis.io/                       |
 |     Docker     |        容器化部署         |      [ https://www.docker.com](https://www.docker.com/)      |
@@ -24,11 +25,11 @@
 |     Hutool     |      Java工具包类库       |                  https://hutool.cn/docs/#/                   |
 | Docker Compose |      Docker容器编排       |               https://docs.docker.com/compose/               |
 |   Portainer    |     Docker可视化管理      |            https://github.com/portainer/portainer            |
-|   Leaf    |   美团点评分布式ID生成系统      |            https://tech.meituan.com/2017/04/21/mt-leaf.html            |
-|   JustAuth    |   开箱即用的整合第三方登录的开源组件      |            https://justauth.wiki/           |
-|   IJPay    |   让支付触手可及      |            https://gitee.com/javen205/IJPay           |
-|   Kaptcha    |   基于 SpringBoot 和 Google Kaptcha 的简单验证码组件，简单验证码就选它      |            https://gitee.com/baomidou/kaptcha-spring-boot-starter           |
-|   Lock4j    |   基于 SpringBoot 同时支持 RedisTemplate、Redission、Zookeeper 的分布式锁组件。      |            https://gitee.com/baomidou/lock4j           |
+|   Leaf         |   美团点评分布式ID生成系统      |            https://tech.meituan.com/2017/04/21/mt-leaf.html            |
+|   JustAuth     |   开箱即用的整合第三方登录的开源组件      |            https://justauth.wiki/           |
+|   IJPay        |   让支付触手可及      |            https://gitee.com/javen205/IJPay           |
+|   Kaptcha      |   基于 SpringBoot 和 Google Kaptcha 的简单验证码组件，简单验证码就选它      |            https://gitee.com/baomidou/kaptcha-spring-boot-starter           |
+|   Lock4j       |   基于 SpringBoot 同时支持 RedisTemplate、Redission、Zookeeper 的分布式锁组件。      |            https://gitee.com/baomidou/lock4j           |
 
 ### 前端技术
 
