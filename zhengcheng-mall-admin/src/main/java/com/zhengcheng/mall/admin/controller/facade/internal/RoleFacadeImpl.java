@@ -70,6 +70,12 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @Override
     public boolean batchRemove(List<Long> ids) {
+        List<Role> roles = roleService.listByIds(ids);
+        for (Role role : roles) {
+            if (Objects.nonNull(role) && Boolean.TRUE.equals(role.getSystem())) {
+                throw new BizException("存在系统默认角色，不允许批量删除！");
+            }
+        }
         return roleService.removeBatchByIds(ids);
     }
 
