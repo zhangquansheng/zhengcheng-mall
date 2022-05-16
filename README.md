@@ -37,6 +37,7 @@
 | :-------------------: | :-------------------------------------: | :----------------------------------------------------------: |
 |        layui         |                前端框架                 |                     https://www.layui.site/                    |
 |      Pear Admin Layui       |       Pear Admin 是 一 款 开 箱 即 用 的 前 端 开 发 模 板                 |                  https://gitee.com/pear-admin/Pear-Admin-Layui                   |
+|      xm-select       |       layui 的一个多选解决方案                 |                  https://maplemei.gitee.io/xm-select                   |
 
 ## 快速启动
 
