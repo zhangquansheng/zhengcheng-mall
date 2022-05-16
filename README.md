@@ -2,9 +2,9 @@
 
 ## 技术选型
 
-## 技术选型
-
 ### 系统架构图
+
+> 系统架构图，使用[Processon](https://www.processon.com/) 在线绘制
 
 ### 后端技术
 
@@ -37,7 +37,9 @@
 |        layui         |                前端框架                 |                     https://www.layui.site/                    |
 |      Pear Admin Layui       |       Pear Admin 是 一 款 开 箱 即 用 的 前 端 开 发 模 板                 |                  https://gitee.com/pear-admin/Pear-Admin-Layui                   |
 
-## Jasypt
+## 快速启动
+
+### Jasypt
 
 增加启动参数：
 
