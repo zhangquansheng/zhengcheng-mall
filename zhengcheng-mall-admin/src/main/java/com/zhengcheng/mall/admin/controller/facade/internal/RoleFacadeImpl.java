@@ -14,11 +14,11 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.command.RolePageCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 import com.zhengcheng.mall.admin.controller.facade.internal.assembler.RoleAssembler;
@@ -104,11 +104,13 @@ public class RoleFacadeImpl implements RoleFacade {
 
     @LogRecord(success = "分页查询", type = LogRecordType.ROLE, bizNo = "角色列表")
     @Override
-    public PageInfo<RoleDTO> page(PageCommand pageCommand) {
-        IPage<Role> page = roleService.page(PageUtil.getPage(pageCommand),
-                new LambdaQueryWrapper<Role>().orderByDesc(Role::getCreateTime));
+    public PageInfo<RoleDTO> page(RolePageCommand rolePageCommand) {
+        IPage<Role> page = roleService.page(PageUtil.getPage(rolePageCommand),
+                new LambdaQueryWrapper<Role>()
+                        .eq(StrUtil.isNotBlank(rolePageCommand.getName()), Role::getName, rolePageCommand.getName())
+                        .orderByDesc(Role::getCreateTime));
 
-        PageInfo<RoleDTO> pageInfo = PageInfo.empty(pageCommand);
+        PageInfo<RoleDTO> pageInfo = PageInfo.empty(rolePageCommand);
         pageInfo.setTotal(page.getTotal());
         pageInfo.setRecords(roleAssembler.toDTOs(page.getRecords()));
         return pageInfo;

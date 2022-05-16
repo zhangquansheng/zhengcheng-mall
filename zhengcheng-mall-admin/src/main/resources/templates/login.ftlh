@@ -101,10 +101,5 @@
         }, 900 * 1000);
     })
 </script>
-<script>
-    if (window != top) {
-        top.location.href = location.href;
-    }
-</script>
 </body>
 </html>

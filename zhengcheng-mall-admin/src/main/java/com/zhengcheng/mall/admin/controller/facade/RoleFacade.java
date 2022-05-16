@@ -2,11 +2,11 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import java.util.List;
 
-import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.command.RolePageCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 
 /**
@@ -75,7 +75,7 @@ public interface RoleFacade {
      *            分页参数
      * @return 数据查询对象
      */
-    PageInfo<RoleDTO> page(PageCommand pageCommand);
+    PageInfo<RoleDTO> page(RolePageCommand rolePageCommand);
 
     /**
      * 保存角色权限

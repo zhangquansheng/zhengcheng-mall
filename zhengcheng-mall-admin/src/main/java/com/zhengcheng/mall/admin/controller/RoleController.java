@@ -12,12 +12,12 @@ import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleCommand;
+import com.zhengcheng.mall.admin.controller.command.RolePageCommand;
 import com.zhengcheng.mall.admin.controller.dto.RoleDTO;
 import com.zhengcheng.mall.admin.controller.facade.RoleFacade;
 
@@ -68,8 +68,8 @@ public class RoleController {
     @ApiOperation("分页查询")
     @SaCheckPermission("sys:role:main")
     @PostMapping("/page")
-    public @ResponseBody Result<PageInfo<RoleDTO>> page(@Valid @RequestBody PageCommand pageCommand) {
-        return Result.successData(roleFacade.page(pageCommand));
+    public @ResponseBody Result<PageInfo<RoleDTO>> page(@Valid @RequestBody RolePageCommand rolePageCommand) {
+        return Result.successData(roleFacade.page(rolePageCommand));
     }
 
     @ApiOperation("根据ID删除")
