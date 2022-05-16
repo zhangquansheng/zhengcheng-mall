@@ -59,13 +59,14 @@ public class RoleFacadeImpl implements RoleFacade {
         return roleAssembler.toDTOs(roles);
     }
 
+    @LogRecord(success = "删除角色,结果:{{#_ret}}", type = LogRecordType.ROLE, bizNo = "{{#id}}")
     @Override
-    public void removeById(Long id) {
+    public boolean removeById(Long id) {
         Role role = roleService.getById(id);
         if (Objects.nonNull(role) && Boolean.TRUE.equals(role.getSystem())) {
             throw new BizException("系统默认角色，不允许删除！");
         }
-        roleService.removeById(id);
+        return roleService.removeById(id);
     }
 
     @Override

@@ -37,7 +37,7 @@ public interface RoleFacade {
      * @param id
      *          主键
      */
-    void removeById(Long id);
+    boolean removeById(Long id);
 
     /**
      * 批量删除

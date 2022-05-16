@@ -13,13 +13,13 @@
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label">商品分类</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
+                        <div id="productCategory"></div>
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
                     <label class="layui-form-label">商品名称</label>
                     <div class="layui-input-inline">
-                        <input type="text" name="realName" placeholder="" class="layui-input">
+                        <input type="text" name="name" placeholder="" class="layui-input">
                     </div>
                 </div>
                 <div class="layui-form-item layui-inline">
@@ -70,12 +70,48 @@
 
 <script src="../../component/layui/layui.js"></script>
 <script src="../../component/pear/pear.js"></script>
+<script src="../../component/pear/xm-select.js"></script>
 <script>
     layui.use(['table', 'form', 'jquery', 'common'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
         let common = layui.common;
+
+        xmSelect.render({
+            el: '#productCategory',
+            autoRow: true,
+            cascader: {
+                show: true,
+                indent: 200,
+            },
+            height: '200px',
+            data() {
+                return [
+                    {
+                        name: '销售员', value: -1, disabled: true, children: [
+                            {name: '张三1', value: 1, selected: true, children: []},
+                            {name: '李四1', value: 2, selected: true},
+                            {name: '王五1', value: 3, disabled: true},
+                        ]
+                    },
+                    {
+                        name: '奖品', value: -2, children: [
+                            {
+                                name: '奖品3', value: -3, children: [
+                                    {name: '苹果3', value: 14, selected: true},
+                                    {name: '香蕉3', value: 15},
+                                    {name: '葡萄3', value: 16},
+                                ]
+                            },
+                            {name: '苹果2', value: 4, selected: true, disabled: true},
+                            {name: '香蕉2', value: 5},
+                            {name: '葡萄2', value: 6},
+                        ]
+                    },
+                ]
+            }
+        });
 
         let cols = [
             [{
@@ -264,7 +300,8 @@
         window.refresh = function (param) {
             table.reload('product-table');
         }
-    })
+
+    });
 </script>
 </body>
 </html>
