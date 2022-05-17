@@ -57,8 +57,8 @@ public class AuthorityController {
 
     @ApiOperation("查询所有权限数据")
     @GetMapping("/data")
-    public @ResponseBody Result<List<AuthorityDTO>> data() {
-        return Result.successData(authorityFacade.findAll());
+    public @ResponseBody Result<List<AuthorityDTO>> data(@RequestParam(value = "pid", required = false) Long pid) {
+        return Result.successData(authorityFacade.findByPid(pid));
     }
 
     @ApiOperation("保存")

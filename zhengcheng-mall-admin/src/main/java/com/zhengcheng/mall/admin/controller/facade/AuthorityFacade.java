@@ -2,6 +2,8 @@ package com.zhengcheng.mall.admin.controller.facade;
 
 import java.util.List;
 
+import org.springframework.lang.Nullable;
+
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
@@ -18,6 +20,13 @@ public interface AuthorityFacade {
      * 查询所有权限
      */
     List<AuthorityDTO> findAll();
+
+    /**
+     * 根据上级ID查询权限列表
+     * @param pid
+     *            上级ID
+     */
+    List<AuthorityDTO> findByPid(@Nullable Long pid);
 
     /**
      * 通过ID查询单条数据

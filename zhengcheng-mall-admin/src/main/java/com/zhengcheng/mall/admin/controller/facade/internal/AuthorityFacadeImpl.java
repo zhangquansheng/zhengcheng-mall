@@ -38,11 +38,17 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     @Autowired
     private AuthorityAssembler authorityAssembler;
 
-    @LogRecord(success = "查询", type = LogRecordType.AUTHORITY, bizNo = "权限列表")
     @Override
     public List<AuthorityDTO> findAll() {
+        return findByPid(null);
+    }
+
+    @LogRecord(success = "查询", type = LogRecordType.AUTHORITY, bizNo = "权限列表")
+    @Override
+    public List<AuthorityDTO> findByPid(Long pid) {
         return authorityAssembler.toDTOs(authorityService
-                .list(new LambdaQueryWrapper<Authority>().orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort)));
+                .list(new LambdaQueryWrapper<Authority>().eq(Objects.nonNull(pid), Authority::getPid, pid)
+                        .orderBy(Boolean.TRUE, Boolean.TRUE, Authority::getSort)));
     }
 
     @Override
