@@ -21,5 +21,5 @@ public class LoginSubmitCommand implements Serializable {
     @ApiModelProperty("RSA加密密码")
     private String            enPassword;
     @ApiModelProperty("验证码")
-    private String            code;
+    private String            captcha;
 }

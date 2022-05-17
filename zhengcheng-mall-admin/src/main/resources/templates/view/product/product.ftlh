@@ -4,6 +4,7 @@
     <meta charset="utf-8">
     <title>商品管理</title>
     <link rel="stylesheet" href="../../component/pear/css/pear.css"/>
+    <link rel="stylesheet" href="../../component/pear/css/soulTable.css" media="all"/>
 </head>
 <body class="pear-container">
 <div class="layui-card">
@@ -72,11 +73,12 @@
 <script src="../../component/pear/pear.js"></script>
 <script src="../../component/pear/xm-select.js"></script>
 <script>
-    layui.use(['table', 'form', 'jquery', 'common'], function () {
+    layui.use(['table', 'form', 'jquery', 'common', 'soulTable'], function () {
         let table = layui.table;
         let form = layui.form;
         let $ = layui.jquery;
         let common = layui.common;
+        let soulTable = layui.soulTable;
 
         xmSelect.render({
             el: '#productCategory',
@@ -115,8 +117,41 @@
 
         let cols = [
             [{
-                type: 'checkbox'
+                title: '#', width: 50, children: function (row) {
+                    console.log(row)
+                    return [
+                        {
+                            title: 'SKU'
+                            , url: '/admin/product/sku/page'
+                            , height: 300
+                            , method: 'post' //如果无需自定义HTTP类型，可不加该参数
+                            , contentType: 'application/json'
+                            , where: {
+                                spuId: row.id
+                            }
+                            , page: true
+                            , cols: [[
+                                {type: 'checkbox', fixed: 'left'},
+                                {field: 'skuNo', title: 'SKU编号'},
+                                {field: 'fullName', title: '全称'},
+                                {field: 'price', title: '销售价(元)'},
+                                {field: 'cost', title: '成本价(元)'},
+                                {field: 'marketPrice', title: '市场价(元)'},
+                                {field: 'stock', title: '库存'},
+                                {field: 'allocatedStock', title: '已分配库存'},
+                                {field: 'stockMemo', title: '库存备注'},
+                                {field: 'enable', title: '是否启用'}
+                            ]]
+                            , done: function () {
+                                soulTable.render(this);
+                            }
+                        }
+                    ]
+                }
             },
+                {
+                    type: 'checkbox'
+                },
                 {
                     title: '编码',
                     field: 'spuNo',
@@ -160,7 +195,10 @@
                 title: '刷新',
                 layEvent: 'refresh',
                 icon: 'layui-icon-refresh',
-            }, 'filter', 'print', 'exports']
+            }, 'filter', 'print', 'exports'],
+            done: function () {
+                soulTable.render(this);
+            }
         });
 
         table.on('tool(product-table)', function (obj) {

@@ -11,7 +11,10 @@ import com.alibaba.fastjson.JSONObject;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.admin.controller.command.ProductSkuPageCommand;
+import com.zhengcheng.mall.admin.controller.dto.ProductSkuDTO;
 import com.zhengcheng.mall.admin.controller.dto.ProductSpuDTO;
+import com.zhengcheng.mall.admin.controller.facade.ProductSkuFacade;
 import com.zhengcheng.mall.admin.controller.facade.ProductSpuFacade;
 
 import cn.dev33.satoken.annotation.SaCheckPermission;
@@ -50,6 +53,14 @@ public class ProductController {
 
     @Autowired
     private ProductSpuFacade productSpuFacade;
+    @Autowired
+    private ProductSkuFacade productSkuFacade;
+
+    @ApiOperation("sku分页查询")
+    @PostMapping("/sku/page")
+    public @ResponseBody Result<PageInfo<ProductSkuDTO>> skuPage(@Valid @RequestBody ProductSkuPageCommand productSkuPageCommand) {
+        return Result.successData(productSkuFacade.page(productSkuPageCommand));
+    }
 
     @ApiOperation("分页查询")
     @SaCheckPermission("sys:product:main")

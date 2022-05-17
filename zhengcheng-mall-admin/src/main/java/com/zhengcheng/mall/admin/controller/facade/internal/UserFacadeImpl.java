@@ -111,7 +111,7 @@ public class UserFacadeImpl implements UserFacade {
     public Result<TokenInfoDTO> login(LoginSubmitCommand loginSubmitCommand, HttpSession session,
                                       HttpServletRequest request) {
         // 验证验证码
-        kaptcha.validate(loginSubmitCommand.getCode());
+        kaptcha.validate(loginSubmitCommand.getCaptcha());
 
         Result<TokenInfoDTO> tokenResult = oauthFeign.postToken(loginSubmitCommand.getUsername(),
                 loginSubmitCommand.getEnPassword());

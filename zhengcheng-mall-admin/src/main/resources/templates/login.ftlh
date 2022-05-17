@@ -24,7 +24,7 @@
         <input placeholder="密 码 : admin " type="password" name="pass" lay-verify="required" hover class="layui-input"/>
     </div>
     <div class="layui-form-item">
-        <input placeholder="验证码 : " hover lay-verify="required" name="code"
+        <input placeholder="验证码 : " hover lay-verify="required" name="captcha"
                class="code layui-input layui-input-inline"/>
         <img src="/admin/kaptcha/render" id="captchaImage" class="codeImage"/>
     </div>
@@ -63,7 +63,7 @@
                 data: JSON.stringify({
                     "username": data.field.username,
                     "enPassword": enPassword,
-                    "code": data.field.code
+                    "captcha": data.field.captcha
                 }),
                 dataType: 'json',
                 success: function (res) {
