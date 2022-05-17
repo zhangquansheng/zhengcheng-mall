@@ -134,9 +134,21 @@
                                 {type: 'checkbox', fixed: 'left'},
                                 {field: 'skuNo', title: 'SKU编号'},
                                 {field: 'fullName', title: '全称'},
-                                {field: 'price', title: '销售价(元)'},
-                                {field: 'cost', title: '成本价(元)'},
-                                {field: 'marketPrice', title: '市场价(元)'},
+                                {
+                                    field: 'price', title: '销售价(元)', templet: function (d) {
+                                        return '￥' + d.price / 100;
+                                    }
+                                },
+                                {
+                                    field: 'cost', title: '成本价(元)', templet: function (d) {
+                                        return '￥' + d.cost / 100;
+                                    }
+                                },
+                                {
+                                    field: 'marketPrice', title: '市场价(元)', templet: function (d) {
+                                        return '￥' + d.marketPrice / 100;
+                                    }
+                                },
                                 {field: 'stock', title: '库存'},
                                 {field: 'allocatedStock', title: '已分配库存'},
                                 {field: 'stockMemo', title: '库存备注'},

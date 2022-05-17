@@ -1,7 +1,5 @@
 package com.zhengcheng.mall.admin.controller.facade.internal;
 
-import java.util.List;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -39,14 +37,8 @@ public class ProductSkuFacadeImpl implements ProductSkuFacade {
                 new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, productSkuPageCommand.getSpuId()));
 
         PageInfo<ProductSkuDTO> pageInfo = PageInfo.empty(productSkuPageCommand);
-        List<ProductSkuDTO> productSkus = productAssembler.toSkuDTOs(page.getRecords());
-        productSkus.forEach(productSkuDTO -> {
-            //            productSkuDTO.setPrice(productSkuDTO.getPrice() / 100L);
-            //            productSkuDTO.setMarketPrice(productSkuDTO.getMarketPrice() / 100L);
-            //            productSkuDTO.setCost(productSkuDTO.getCost() / 100L);
-        });
         pageInfo.setTotal(page.getTotal());
-        pageInfo.setRecords(productSkus);
+        pageInfo.setRecords(productAssembler.toSkuDTOs(page.getRecords()));
         return pageInfo;
     }
 }
