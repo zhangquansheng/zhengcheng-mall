@@ -25,6 +25,7 @@ import com.zhengcheng.mall.service.UserRoleService;
 import com.zhengcheng.mall.service.UserService;
 
 import cn.dev33.satoken.stp.StpUtil;
+import cn.hutool.core.collection.CollectionUtil;
 import cn.hutool.core.util.StrUtil;
 import cn.hutool.crypto.SecureUtil;
 
@@ -109,6 +110,12 @@ public class UserFacadeImpl implements UserFacade {
                 .set(Objects.nonNull(userCommand.getEnable()), User::getEnable, userCommand.getEnable())
                 .eq(User::getId, userCommand.getId()));
 
+        // 启用/禁用用户，则不需要更新用户的角色
+        if (Objects.nonNull(userCommand.getEnable()) && CollectionUtil.isEmpty(userCommand.getRoleIds())) {
+            return;
+        }
+
+        // 更新用户的角色
         userRoleService.remove(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, userCommand.getId()));
         this.saveBatchUserRole(userCommand.getId(), userCommand.getRoleIds(), userCommand.getUpdateUserId());
     }
