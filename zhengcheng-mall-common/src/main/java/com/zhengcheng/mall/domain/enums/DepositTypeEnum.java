@@ -47,12 +47,12 @@ public enum DepositTypeEnum {
      *            值
      * @return 枚举
      */
-    public static DepositTypeEnum getByValue(Integer value) {
+    public static DepositTypeEnum getByValue(String value) {
         for (DepositTypeEnum depositTypeEnum : DepositTypeEnum.values()) {
             if (value.equals(depositTypeEnum.getValue())) {
                 return depositTypeEnum;
             }
         }
-        return DepositTypeEnum.memberRecharge;
+        return DepositTypeEnum.MEMBER_RECHARGE;
     }
 }

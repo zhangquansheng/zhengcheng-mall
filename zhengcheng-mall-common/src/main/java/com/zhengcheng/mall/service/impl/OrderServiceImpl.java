@@ -8,8 +8,8 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.mall.domain.entity.Order;
+import com.zhengcheng.mall.domain.enums.OrderPaymentStatusEnum;
 import com.zhengcheng.mall.domain.enums.OrderStatusEnum;
-import com.zhengcheng.mall.domain.enums.PaymentStatusEnum;
 import com.zhengcheng.mall.domain.enums.ShippingStatusEnum;
 import com.zhengcheng.mall.domain.mapper.OrderMapper;
 import com.zhengcheng.mall.service.OrderService;
@@ -47,7 +47,7 @@ public class OrderServiceImpl extends ServiceImpl<OrderMapper, Order> implements
         order.setAmountPaid(0L);
 
         order.setOrderStatus(OrderStatusEnum.UNCONFIRMED);
-        order.setPaymentStatus(PaymentStatusEnum.UNPAID);
+        order.setPaymentStatus(OrderPaymentStatusEnum.UNPAID);
         order.setShippingStatus(ShippingStatusEnum.UNSHIPPED);
 
         order.setExpire(LocalDateTimeUtil.offset(LocalDateTime.now(), 60, ChronoUnit.MINUTES));

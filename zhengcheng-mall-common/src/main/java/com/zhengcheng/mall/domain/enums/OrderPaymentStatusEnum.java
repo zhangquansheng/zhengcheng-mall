@@ -5,13 +5,13 @@ import com.baomidou.mybatisplus.annotation.EnumValue;
 import lombok.Getter;
 
 /**
- * 支付状态
+ * 订单支付状态
  *
  * @author quansheng1.zhang
  * @since 2022/5/8 17:53
  */
 @Getter
-public enum PaymentStatusEnum {
+public enum OrderPaymentStatusEnum {
 
     UNPAID("未支付", "unpaid"),
 
@@ -28,7 +28,7 @@ public enum PaymentStatusEnum {
     @EnumValue
     private final String value;
 
-    PaymentStatusEnum(final String name, final String value) {
+    OrderPaymentStatusEnum(final String name, final String value) {
         this.name = name;
         this.value = value;
     }
