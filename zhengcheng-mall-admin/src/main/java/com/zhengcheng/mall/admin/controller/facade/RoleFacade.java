@@ -71,7 +71,7 @@ public interface RoleFacade {
     /**
      * 分页查询
      *
-     * @param pageCommand
+     * @param rolePageCommand
      *            分页参数
      * @return 数据查询对象
      */

@@ -97,10 +97,9 @@ public class RoleController {
     @ApiOperation("角色授权")
     @SaCheckPermission("sys:role:authority")
     @PostMapping("/saveRoleAuthority")
-    public @ResponseBody Result<Void> saveRoleAuthority(@Valid @RequestBody RoleAuthorityCommand roleAuthorityCommand) {
+    public @ResponseBody Result<Boolean> saveRoleAuthority(@Valid @RequestBody RoleAuthorityCommand roleAuthorityCommand) {
         roleAuthorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
-        roleFacade.saveRoleAuthority(roleAuthorityCommand);
-        return Result.success();
+        return Result.successData(roleFacade.saveRoleAuthority(roleAuthorityCommand));
     }
 
     @ApiOperation("保存角色")
