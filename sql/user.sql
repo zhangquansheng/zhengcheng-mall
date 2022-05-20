@@ -11,7 +11,7 @@
  Target Server Version : 50735
  File Encoding         : 65001
 
- Date: 17/05/2022 20:05:31
+ Date: 20/05/2022 17:14:23
 */
 
 SET NAMES utf8mb4;
@@ -3859,12 +3859,12 @@ CREATE TABLE `authority`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 62 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 84 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of authority
 -- ----------------------------
-INSERT INTO `authority` VALUES (1, '系统管理', '', '', 'layui-icon layui-icon-set-fill', 0, 1, '', '', 0, 5, 1, 0, 0, '2021-08-13 16:15:55', 0, '2022-05-03 17:29:28');
+INSERT INTO `authority` VALUES (1, '系统管理', '', NULL, 'layui-icon layui-icon-set-fill', 0, 1, '', NULL, 0, 6, 1, 0, 0, '2021-08-13 16:15:55', 0, '2022-05-20 10:51:41');
 INSERT INTO `authority` VALUES (2, '用户管理', 'sys:user:main', '', 'layui-icon layui-icon-face-smile', 1, 2, '/admin/user/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:20:33', 0, '2022-05-03 17:30:11');
 INSERT INTO `authority` VALUES (3, '角色管理', 'sys:role:main', '', 'layui-icon layui-icon-face-cry', 1, 2, '/admin/role/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:36:42', 0, '2022-05-03 17:29:55');
 INSERT INTO `authority` VALUES (4, '权限管理', 'sys:authority:data', '', 'layui-icon layui-icon-vercode', 1, 2, '/admin/authority/view', '', 1, 0, 1, 0, 0, '2022-04-21 10:37:37', 3, '2022-05-06 12:13:47');
@@ -3889,12 +3889,12 @@ INSERT INTO `authority` VALUES (24, '水电费213', '水电费12', '', '', 8, 2,
 INSERT INTO `authority` VALUES (25, '释放掉', '水电费', '', '是的房', 8, 2, '水电费', NULL, 2, 1, 1, 1, 3, '2022-05-02 17:53:08', 3, '2022-05-02 17:53:25');
 INSERT INTO `authority` VALUES (26, '公众号管理', '', '', 'layui-icon layui-icon-login-wechat', 0, 1, '', NULL, 0, 9, 1, 0, 3, '2022-05-03 17:14:43', 3, '2022-05-03 17:26:06');
 INSERT INTO `authority` VALUES (27, '用户标签', 'wxmp:wxusertag:list', '', '', 26, 2, '/admin/wxusertag/view', NULL, 1, 1, 1, 0, 3, '2022-05-03 17:15:15', 3, '2022-05-04 12:57:54');
-INSERT INTO `authority` VALUES (28, '公众号用户', '', '', '', 26, 2, '', NULL, 1, 2, 1, 0, 3, '2022-05-03 17:15:31', 3, '2022-05-03 17:15:31');
-INSERT INTO `authority` VALUES (29, '用户消息', '', '', '', 26, 2, '', NULL, 1, 3, 1, 0, 3, '2022-05-03 17:15:52', 3, '2022-05-03 17:15:52');
-INSERT INTO `authority` VALUES (30, '素材管理', '', '', '', 26, 2, '', NULL, 1, 4, 1, 0, 3, '2022-05-03 17:16:25', 3, '2022-05-03 17:16:25');
-INSERT INTO `authority` VALUES (31, '自定义菜单', '', '', '', 26, 2, '', NULL, 1, 5, 1, 0, 3, '2022-05-03 17:16:46', 3, '2022-05-04 17:25:04');
-INSERT INTO `authority` VALUES (32, '消息自动回复', '', '', '', 26, 2, '', NULL, 1, 6, 1, 0, 3, '2022-05-03 17:17:50', 3, '2022-05-03 17:17:50');
-INSERT INTO `authority` VALUES (33, '数据统计', '', '', '', 26, 2, '', NULL, 1, 7, 1, 0, 3, '2022-05-03 17:18:06', 3, '2022-05-03 17:18:06');
+INSERT INTO `authority` VALUES (28, '公众号用户', '', NULL, '', 26, 2, '/space', NULL, 1, 2, 1, 0, 3, '2022-05-03 17:15:31', 3, '2022-05-20 17:12:28');
+INSERT INTO `authority` VALUES (29, '用户消息', '', NULL, '', 26, 2, '/space', NULL, 1, 3, 1, 0, 3, '2022-05-03 17:15:52', 3, '2022-05-20 17:12:36');
+INSERT INTO `authority` VALUES (30, '素材管理', '', NULL, '', 26, 2, '/space', NULL, 1, 4, 1, 0, 3, '2022-05-03 17:16:25', 3, '2022-05-20 17:12:42');
+INSERT INTO `authority` VALUES (31, '自定义菜单', '', NULL, '', 26, 2, '/space', NULL, 1, 5, 1, 0, 3, '2022-05-03 17:16:46', 3, '2022-05-20 17:12:56');
+INSERT INTO `authority` VALUES (32, '消息自动回复', '', NULL, '', 26, 2, '/space', NULL, 1, 6, 1, 0, 3, '2022-05-03 17:17:50', 3, '2022-05-20 17:13:02');
+INSERT INTO `authority` VALUES (33, '数据统计', '', NULL, '', 26, 2, '/space', NULL, 1, 7, 1, 0, 3, '2022-05-03 17:18:06', 3, '2022-05-20 17:13:08');
 INSERT INTO `authority` VALUES (34, '新增标签', 'wxmp:wxusertag:save', '', 'layui-icon layui-icon-add-1', 27, 3, '/admin/wxusertag/save', NULL, 2, 1, 1, 0, 3, '2022-05-04 20:48:03', 3, '2022-05-04 20:48:03');
 INSERT INTO `authority` VALUES (35, '更新标签', 'wxmp:wxusertag:update', NULL, 'layui-icon layui-icon-edit', 27, 3, '/admin/wxusertag/update', NULL, 2, 2, 1, 0, 3, '2022-05-04 20:49:21', 3, '2022-05-04 20:50:54');
 INSERT INTO `authority` VALUES (36, '删除标签', 'wxmp:wxusertag:remove', NULL, 'layui-icon layui-icon-delete', 27, 3, '/admin/wxusertag/operate/remove/{id}', NULL, 2, 3, 1, 0, 3, '2022-05-04 20:50:16', 3, '2022-05-04 20:50:41');
@@ -3913,13 +3913,35 @@ INSERT INTO `authority` VALUES (51, '更新用户', 'sys:user:update', '', '', 2
 INSERT INTO `authority` VALUES (52, '删除用户', 'sys:user:del', '', '', 2, 3, '', NULL, 2, 3, 1, 0, 3, '2022-05-06 12:34:47', 3, '2022-05-06 12:34:47');
 INSERT INTO `authority` VALUES (53, '微信H5支付', 'wxh5pay', NULL, '', 9, 2, '/admin/pay/wxpay', NULL, 1, 1, 1, 1, 3, '2022-05-10 12:53:41', 3, '2022-05-10 13:21:13');
 INSERT INTO `authority` VALUES (54, '微信支付', 'wxpay', '', '', 9, 2, '/admin/pay/wxpay', NULL, 1, 1, 1, 0, 3, '2022-05-10 13:22:01', 3, '2022-05-10 13:22:01');
-INSERT INTO `authority` VALUES (55, '商品管理', '', '', 'layui-icon layui-icon-tabs', 0, 1, '', NULL, 0, 4, 1, 0, 3, '2022-05-11 10:50:26', 3, '2022-05-11 10:59:32');
-INSERT INTO `authority` VALUES (56, '商品管理', 'sys:product:main', '', '', 55, 2, '/admin/product/view', NULL, 1, 1, 1, 0, 3, '2022-05-11 10:51:49', 3, '2022-05-11 11:21:19');
+INSERT INTO `authority` VALUES (55, '商品', '', NULL, 'layui-icon layui-icon-tabs', 0, 1, '', NULL, 0, 4, 1, 0, 3, '2022-05-11 10:50:26', 3, '2022-05-20 10:46:33');
+INSERT INTO `authority` VALUES (56, '商品列表', 'sys:product:main', NULL, '', 55, 2, '/admin/product/view', NULL, 1, 1, 1, 0, 3, '2022-05-11 10:51:49', 3, '2022-05-20 10:46:51');
 INSERT INTO `authority` VALUES (57, '商品分类', 'sys:productCategory:main', '', '', 55, 2, '/admin/productCategory/view', NULL, 1, 2, 1, 0, 3, '2022-05-11 11:00:35', 3, '2022-05-11 18:53:11');
 INSERT INTO `authority` VALUES (58, '支付宝支付', '', '', '', 9, 2, '/admin/pay/alipay', NULL, 1, 2, 1, 0, 3, '2022-05-14 11:10:45', 3, '2022-05-14 11:10:45');
 INSERT INTO `authority` VALUES (59, '启用/禁用角色', 'sys:authority:enable', '', '', 3, 3, '', NULL, 2, 6, 1, 1, 3, '2022-05-14 20:38:29', 3, '2022-05-14 21:26:33');
 INSERT INTO `authority` VALUES (60, '商品属性', 'sys:attribute:main', '', '', 55, 2, '/admin/attribute/view', NULL, 1, 3, 1, 0, 3, '2022-05-14 21:44:21', 3, '2022-05-14 21:44:21');
 INSERT INTO `authority` VALUES (61, '12', '12', '', '', 0, 1, '', NULL, 0, 1, 1, 1, 3, '2022-05-15 18:33:22', 3, '2022-05-15 18:33:49');
+INSERT INTO `authority` VALUES (62, '会员', '', '', 'layui-icon layui-icon-user', 0, 1, '', NULL, 0, 1, 1, 0, 3, '2022-05-20 10:39:49', 3, '2022-05-20 10:39:49');
+INSERT INTO `authority` VALUES (63, '会员列表', '', '', '', 62, 2, '/space', NULL, 1, 1, 1, 0, 3, '2022-05-20 10:40:15', 3, '2022-05-20 17:07:44');
+INSERT INTO `authority` VALUES (64, '评价列表', '', NULL, '', 62, 2, '/space', NULL, 1, 2, 1, 0, 3, '2022-05-20 10:40:43', 3, '2022-05-20 17:08:48');
+INSERT INTO `authority` VALUES (65, '积分历史', '', NULL, '', 62, 2, '/space', NULL, 1, 3, 1, 0, 3, '2022-05-20 10:41:05', 3, '2022-05-20 17:09:01');
+INSERT INTO `authority` VALUES (66, '充值记录', '', NULL, '', 62, 2, '/space', NULL, 1, 4, 1, 0, 3, '2022-05-20 10:42:13', 3, '2022-05-20 17:09:08');
+INSERT INTO `authority` VALUES (67, '订单', '', '', 'layui-icon layui-icon-form', 0, 1, '', NULL, 0, 2, 1, 0, 3, '2022-05-20 10:43:47', 3, '2022-05-20 10:43:47');
+INSERT INTO `authority` VALUES (68, '商品订单', '', NULL, '', 67, 2, '/space', NULL, 1, 1, 1, 0, 3, '2022-05-20 10:44:29', 3, '2022-05-20 17:09:16');
+INSERT INTO `authority` VALUES (69, '订单售后', '', NULL, '', 67, 2, '/space', NULL, 1, 2, 1, 0, 3, '2022-05-20 10:44:50', 3, '2022-05-20 17:09:25');
+INSERT INTO `authority` VALUES (70, '交易投诉', '', NULL, '', 67, 2, '/space', NULL, 1, 3, 1, 0, 3, '2022-05-20 10:45:09', 3, '2022-05-20 17:09:33');
+INSERT INTO `authority` VALUES (71, '售后原因', '', NULL, '', 67, 2, '/space', NULL, 1, 4, 1, 0, 3, '2022-05-20 10:45:28', 3, '2022-05-20 17:09:40');
+INSERT INTO `authority` VALUES (72, '收款流水', '', '', '', 67, 2, '/admin/payment/view', NULL, 1, 5, 1, 0, 3, '2022-05-20 10:45:54', 3, '2022-05-20 11:38:51');
+INSERT INTO `authority` VALUES (73, '退款流水', '', NULL, '', 67, 2, '/space', NULL, 1, 6, 1, 0, 3, '2022-05-20 10:46:10', 3, '2022-05-20 17:09:51');
+INSERT INTO `authority` VALUES (74, '商品审核', '', NULL, '', 55, 2, '/space', NULL, 1, 4, 1, 0, 3, '2022-05-20 10:47:29', 3, '2022-05-20 17:10:07');
+INSERT INTO `authority` VALUES (75, '商品品牌', '', NULL, '', 55, 2, '/space', NULL, 1, 5, 1, 0, 3, '2022-05-20 10:47:45', 3, '2022-05-20 17:10:13');
+INSERT INTO `authority` VALUES (76, '促销', '', NULL, 'layui-icon layui-icon-rmb', 0, 1, '', NULL, 0, 5, 1, 0, 3, '2022-05-20 10:48:35', 3, '2022-05-20 10:53:31');
+INSERT INTO `authority` VALUES (77, '优惠券', '', '', '', 76, 2, '/space', NULL, 1, 1, 1, 0, 3, '2022-05-20 10:54:13', 3, '2022-05-20 17:11:21');
+INSERT INTO `authority` VALUES (78, '秒杀活动', '', '', '', 76, 2, '/space', NULL, 1, 2, 1, 0, 3, '2022-05-20 10:54:27', 3, '2022-05-20 17:11:22');
+INSERT INTO `authority` VALUES (79, '拼团活动', '', NULL, '', 76, 2, '/space', NULL, 1, 3, 1, 0, 3, '2022-05-20 10:55:19', 3, '2022-05-20 17:10:55');
+INSERT INTO `authority` VALUES (80, '积分商品', '', NULL, '', 76, 2, '/space', NULL, 1, 4, 1, 0, 3, '2022-05-20 10:55:40', 3, '2022-05-20 17:10:39');
+INSERT INTO `authority` VALUES (81, '社群拼团', '', NULL, 'layui-icon layui-icon-gift', 0, 1, '', NULL, 0, 5, 1, 0, 3, '2022-05-20 16:57:39', 3, '2022-05-20 16:57:50');
+INSERT INTO `authority` VALUES (82, '拼团活动', '', NULL, '', 81, 2, '/space', NULL, 1, 1, 1, 0, 3, '2022-05-20 16:58:42', 3, '2022-05-20 17:10:22');
+INSERT INTO `authority` VALUES (83, '团长管理', '', NULL, '', 81, 2, '/space', NULL, 1, 2, 1, 0, 3, '2022-05-20 16:59:07', 3, '2022-05-20 17:10:28');
 
 -- ----------------------------
 -- Table structure for base
@@ -7529,7 +7551,7 @@ CREATE TABLE `log_record`  (
   PRIMARY KEY (`id`) USING BTREE,
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1457 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 1580 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '操作日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of log_record
@@ -8973,6 +8995,129 @@ INSERT INTO `log_record` VALUES (1453, 'com.zhengcheng.mall.admin', '权限模�
 INSERT INTO `log_record` VALUES (1454, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-17 14:37:32', 3, '2022-05-17 14:37:32');
 INSERT INTO `log_record` VALUES (1455, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-17 14:37:34', 3, '2022-05-17 14:37:34');
 INSERT INTO `log_record` VALUES (1456, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-17 14:38:58', 3, '2022-05-17 14:38:58');
+INSERT INTO `log_record` VALUES (1457, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:30:02', 3, '2022-05-20 10:30:02');
+INSERT INTO `log_record` VALUES (1458, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:38:43', 3, '2022-05-20 10:38:43');
+INSERT INTO `log_record` VALUES (1459, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:38:43', 3, '2022-05-20 10:38:43');
+INSERT INTO `log_record` VALUES (1460, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:38:46', 3, '2022-05-20 10:38:46');
+INSERT INTO `log_record` VALUES (1461, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:38:48', 3, '2022-05-20 10:38:48');
+INSERT INTO `log_record` VALUES (1462, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:38:51', 3, '2022-05-20 10:38:51');
+INSERT INTO `log_record` VALUES (1463, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：会员', 0, 3, '2022-05-20 10:39:49', 3, '2022-05-20 10:39:49');
+INSERT INTO `log_record` VALUES (1464, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:39:50', 3, '2022-05-20 10:39:50');
+INSERT INTO `log_record` VALUES (1465, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：会员列表', 0, 3, '2022-05-20 10:40:15', 3, '2022-05-20 10:40:15');
+INSERT INTO `log_record` VALUES (1466, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:40:16', 3, '2022-05-20 10:40:16');
+INSERT INTO `log_record` VALUES (1467, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：评价列表', 0, 3, '2022-05-20 10:40:43', 3, '2022-05-20 10:40:43');
+INSERT INTO `log_record` VALUES (1468, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:40:44', 3, '2022-05-20 10:40:44');
+INSERT INTO `log_record` VALUES (1469, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：积分历史', 0, 3, '2022-05-20 10:41:05', 3, '2022-05-20 10:41:05');
+INSERT INTO `log_record` VALUES (1470, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:41:06', 3, '2022-05-20 10:41:06');
+INSERT INTO `log_record` VALUES (1471, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：充值记录', 0, 3, '2022-05-20 10:42:13', 3, '2022-05-20 10:42:13');
+INSERT INTO `log_record` VALUES (1472, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:42:14', 3, '2022-05-20 10:42:14');
+INSERT INTO `log_record` VALUES (1473, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:42:22', 3, '2022-05-20 10:42:22');
+INSERT INTO `log_record` VALUES (1474, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：订单', 0, 3, '2022-05-20 10:43:47', 3, '2022-05-20 10:43:47');
+INSERT INTO `log_record` VALUES (1475, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:43:48', 3, '2022-05-20 10:43:48');
+INSERT INTO `log_record` VALUES (1476, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：商品订单', 0, 3, '2022-05-20 10:44:29', 3, '2022-05-20 10:44:29');
+INSERT INTO `log_record` VALUES (1477, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:44:31', 3, '2022-05-20 10:44:31');
+INSERT INTO `log_record` VALUES (1478, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：订单售后', 0, 3, '2022-05-20 10:44:50', 3, '2022-05-20 10:44:50');
+INSERT INTO `log_record` VALUES (1479, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:44:52', 3, '2022-05-20 10:44:52');
+INSERT INTO `log_record` VALUES (1480, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：交易投诉', 0, 3, '2022-05-20 10:45:09', 3, '2022-05-20 10:45:09');
+INSERT INTO `log_record` VALUES (1481, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:45:10', 3, '2022-05-20 10:45:10');
+INSERT INTO `log_record` VALUES (1482, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：售后原因', 0, 3, '2022-05-20 10:45:28', 3, '2022-05-20 10:45:28');
+INSERT INTO `log_record` VALUES (1483, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:45:29', 3, '2022-05-20 10:45:29');
+INSERT INTO `log_record` VALUES (1484, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：收款流水', 0, 3, '2022-05-20 10:45:54', 3, '2022-05-20 10:45:54');
+INSERT INTO `log_record` VALUES (1485, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:45:55', 3, '2022-05-20 10:45:55');
+INSERT INTO `log_record` VALUES (1486, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：退款流水', 0, 3, '2022-05-20 10:46:10', 3, '2022-05-20 10:46:10');
+INSERT INTO `log_record` VALUES (1487, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:46:11', 3, '2022-05-20 10:46:11');
+INSERT INTO `log_record` VALUES (1488, 'com.zhengcheng.mall.admin', '权限模块', '更新', '55', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 10:46:33', 3, '2022-05-20 10:46:33');
+INSERT INTO `log_record` VALUES (1489, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:46:35', 3, '2022-05-20 10:46:35');
+INSERT INTO `log_record` VALUES (1490, 'com.zhengcheng.mall.admin', '权限模块', '更新', '56', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 10:46:51', 3, '2022-05-20 10:46:51');
+INSERT INTO `log_record` VALUES (1491, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:46:54', 3, '2022-05-20 10:46:54');
+INSERT INTO `log_record` VALUES (1492, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：商品审核', 0, 3, '2022-05-20 10:47:29', 3, '2022-05-20 10:47:29');
+INSERT INTO `log_record` VALUES (1493, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:47:30', 3, '2022-05-20 10:47:30');
+INSERT INTO `log_record` VALUES (1494, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：商品品牌', 0, 3, '2022-05-20 10:47:45', 3, '2022-05-20 10:47:45');
+INSERT INTO `log_record` VALUES (1495, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:47:49', 3, '2022-05-20 10:47:49');
+INSERT INTO `log_record` VALUES (1496, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:47:51', 3, '2022-05-20 10:47:51');
+INSERT INTO `log_record` VALUES (1497, 'com.zhengcheng.mall.admin', '权限模块', '新增', 'layui-icon ayui-icon-rmb', 'root(qbc4v9)', '新增了权限：促销', 0, 3, '2022-05-20 10:48:35', 3, '2022-05-20 10:48:35');
+INSERT INTO `log_record` VALUES (1498, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:48:36', 3, '2022-05-20 10:48:36');
+INSERT INTO `log_record` VALUES (1499, 'com.zhengcheng.mall.admin', '权限模块', '更新', '1', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 10:51:42', 3, '2022-05-20 10:51:42');
+INSERT INTO `log_record` VALUES (1500, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:51:43', 3, '2022-05-20 10:51:43');
+INSERT INTO `log_record` VALUES (1501, 'com.zhengcheng.mall.admin', '权限模块', '更新', '76', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 10:52:11', 3, '2022-05-20 10:52:11');
+INSERT INTO `log_record` VALUES (1502, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:52:12', 3, '2022-05-20 10:52:12');
+INSERT INTO `log_record` VALUES (1503, 'com.zhengcheng.mall.admin', '权限模块', '更新', '76', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 10:52:33', 3, '2022-05-20 10:52:33');
+INSERT INTO `log_record` VALUES (1504, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:52:35', 3, '2022-05-20 10:52:35');
+INSERT INTO `log_record` VALUES (1505, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:53:43', 3, '2022-05-20 10:53:43');
+INSERT INTO `log_record` VALUES (1506, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：优惠券', 0, 3, '2022-05-20 10:54:13', 3, '2022-05-20 10:54:13');
+INSERT INTO `log_record` VALUES (1507, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:54:14', 3, '2022-05-20 10:54:14');
+INSERT INTO `log_record` VALUES (1508, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：订单售后', 0, 3, '2022-05-20 10:54:27', 3, '2022-05-20 10:54:27');
+INSERT INTO `log_record` VALUES (1509, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:54:29', 3, '2022-05-20 10:54:29');
+INSERT INTO `log_record` VALUES (1510, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：拼团活动', 0, 3, '2022-05-20 10:55:19', 3, '2022-05-20 10:55:19');
+INSERT INTO `log_record` VALUES (1511, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:55:20', 3, '2022-05-20 10:55:20');
+INSERT INTO `log_record` VALUES (1512, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：积分商品', 0, 3, '2022-05-20 10:55:40', 3, '2022-05-20 10:55:40');
+INSERT INTO `log_record` VALUES (1513, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:55:42', 3, '2022-05-20 10:55:42');
+INSERT INTO `log_record` VALUES (1514, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:55:43', 3, '2022-05-20 10:55:43');
+INSERT INTO `log_record` VALUES (1515, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:56:35', 3, '2022-05-20 10:56:35');
+INSERT INTO `log_record` VALUES (1516, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 10:56:39', 3, '2022-05-20 10:56:39');
+INSERT INTO `log_record` VALUES (1517, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 10:56:59', 3, '2022-05-20 10:56:59');
+INSERT INTO `log_record` VALUES (1518, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 10:57:03', 3, '2022-05-20 10:57:03');
+INSERT INTO `log_record` VALUES (1519, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 10:57:08', 3, '2022-05-20 10:57:08');
+INSERT INTO `log_record` VALUES (1520, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 16:56:53', 3, '2022-05-20 16:56:53');
+INSERT INTO `log_record` VALUES (1521, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:56:58', 3, '2022-05-20 16:56:58');
+INSERT INTO `log_record` VALUES (1522, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：社群拼团', 0, 3, '2022-05-20 16:57:39', 3, '2022-05-20 16:57:39');
+INSERT INTO `log_record` VALUES (1523, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:57:40', 3, '2022-05-20 16:57:40');
+INSERT INTO `log_record` VALUES (1524, 'com.zhengcheng.mall.admin', '权限模块', '更新', '81', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 16:57:51', 3, '2022-05-20 16:57:51');
+INSERT INTO `log_record` VALUES (1525, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:57:52', 3, '2022-05-20 16:57:52');
+INSERT INTO `log_record` VALUES (1526, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：拼团活动', 0, 3, '2022-05-20 16:58:42', 3, '2022-05-20 16:58:42');
+INSERT INTO `log_record` VALUES (1527, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:58:44', 3, '2022-05-20 16:58:44');
+INSERT INTO `log_record` VALUES (1528, 'com.zhengcheng.mall.admin', '权限模块', '新增', '', 'root(qbc4v9)', '新增了权限：团长管理', 0, 3, '2022-05-20 16:59:07', 3, '2022-05-20 16:59:07');
+INSERT INTO `log_record` VALUES (1529, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:59:08', 3, '2022-05-20 16:59:08');
+INSERT INTO `log_record` VALUES (1530, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 16:59:15', 3, '2022-05-20 16:59:15');
+INSERT INTO `log_record` VALUES (1531, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 16:59:52', 3, '2022-05-20 16:59:52');
+INSERT INTO `log_record` VALUES (1532, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 17:00:04', 3, '2022-05-20 17:00:04');
+INSERT INTO `log_record` VALUES (1533, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:00:06', 3, '2022-05-20 17:00:06');
+INSERT INTO `log_record` VALUES (1534, 'com.zhengcheng.mall.admin', '角色模块', '', '角色列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 17:00:06', 3, '2022-05-20 17:00:06');
+INSERT INTO `log_record` VALUES (1535, 'com.zhengcheng.mall.admin', '用户模块', '', '用户列表', 'root(qbc4v9)', '分页查询', 0, 3, '2022-05-20 17:00:06', 3, '2022-05-20 17:00:06');
+INSERT INTO `log_record` VALUES (1536, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:08:39', 3, '2022-05-20 17:08:39');
+INSERT INTO `log_record` VALUES (1537, 'com.zhengcheng.mall.admin', '权限模块', '更新', '64', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:08:49', 3, '2022-05-20 17:08:49');
+INSERT INTO `log_record` VALUES (1538, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:08:50', 3, '2022-05-20 17:08:50');
+INSERT INTO `log_record` VALUES (1539, 'com.zhengcheng.mall.admin', '权限模块', '更新', '65', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:02', 3, '2022-05-20 17:09:02');
+INSERT INTO `log_record` VALUES (1540, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:03', 3, '2022-05-20 17:09:03');
+INSERT INTO `log_record` VALUES (1541, 'com.zhengcheng.mall.admin', '权限模块', '更新', '66', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:08', 3, '2022-05-20 17:09:08');
+INSERT INTO `log_record` VALUES (1542, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:09', 3, '2022-05-20 17:09:09');
+INSERT INTO `log_record` VALUES (1543, 'com.zhengcheng.mall.admin', '权限模块', '更新', '68', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:17', 3, '2022-05-20 17:09:17');
+INSERT INTO `log_record` VALUES (1544, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:18', 3, '2022-05-20 17:09:18');
+INSERT INTO `log_record` VALUES (1545, 'com.zhengcheng.mall.admin', '权限模块', '更新', '69', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:26', 3, '2022-05-20 17:09:26');
+INSERT INTO `log_record` VALUES (1546, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:27', 3, '2022-05-20 17:09:27');
+INSERT INTO `log_record` VALUES (1547, 'com.zhengcheng.mall.admin', '权限模块', '更新', '70', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:34', 3, '2022-05-20 17:09:34');
+INSERT INTO `log_record` VALUES (1548, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:35', 3, '2022-05-20 17:09:35');
+INSERT INTO `log_record` VALUES (1549, 'com.zhengcheng.mall.admin', '权限模块', '更新', '71', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:41', 3, '2022-05-20 17:09:41');
+INSERT INTO `log_record` VALUES (1550, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:42', 3, '2022-05-20 17:09:42');
+INSERT INTO `log_record` VALUES (1551, 'com.zhengcheng.mall.admin', '权限模块', '更新', '73', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:09:51', 3, '2022-05-20 17:09:51');
+INSERT INTO `log_record` VALUES (1552, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:09:52', 3, '2022-05-20 17:09:52');
+INSERT INTO `log_record` VALUES (1553, 'com.zhengcheng.mall.admin', '权限模块', '更新', '74', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:08', 3, '2022-05-20 17:10:08');
+INSERT INTO `log_record` VALUES (1554, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:09', 3, '2022-05-20 17:10:09');
+INSERT INTO `log_record` VALUES (1555, 'com.zhengcheng.mall.admin', '权限模块', '更新', '75', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:13', 3, '2022-05-20 17:10:13');
+INSERT INTO `log_record` VALUES (1556, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:15', 3, '2022-05-20 17:10:15');
+INSERT INTO `log_record` VALUES (1557, 'com.zhengcheng.mall.admin', '权限模块', '更新', '82', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:22', 3, '2022-05-20 17:10:22');
+INSERT INTO `log_record` VALUES (1558, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:24', 3, '2022-05-20 17:10:24');
+INSERT INTO `log_record` VALUES (1559, 'com.zhengcheng.mall.admin', '权限模块', '更新', '83', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:28', 3, '2022-05-20 17:10:28');
+INSERT INTO `log_record` VALUES (1560, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:30', 3, '2022-05-20 17:10:30');
+INSERT INTO `log_record` VALUES (1561, 'com.zhengcheng.mall.admin', '权限模块', '更新', '80', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:40', 3, '2022-05-20 17:10:40');
+INSERT INTO `log_record` VALUES (1562, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:41', 3, '2022-05-20 17:10:41');
+INSERT INTO `log_record` VALUES (1563, 'com.zhengcheng.mall.admin', '权限模块', '更新', '79', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:10:55', 3, '2022-05-20 17:10:55');
+INSERT INTO `log_record` VALUES (1564, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:10:57', 3, '2022-05-20 17:10:57');
+INSERT INTO `log_record` VALUES (1565, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:11:00', 3, '2022-05-20 17:11:00');
+INSERT INTO `log_record` VALUES (1566, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:11:30', 3, '2022-05-20 17:11:30');
+INSERT INTO `log_record` VALUES (1567, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:12:17', 3, '2022-05-20 17:12:17');
+INSERT INTO `log_record` VALUES (1568, 'com.zhengcheng.mall.admin', '权限模块', '更新', '28', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:12:29', 3, '2022-05-20 17:12:29');
+INSERT INTO `log_record` VALUES (1569, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:12:30', 3, '2022-05-20 17:12:30');
+INSERT INTO `log_record` VALUES (1570, 'com.zhengcheng.mall.admin', '权限模块', '更新', '29', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:12:36', 3, '2022-05-20 17:12:36');
+INSERT INTO `log_record` VALUES (1571, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:12:37', 3, '2022-05-20 17:12:37');
+INSERT INTO `log_record` VALUES (1572, 'com.zhengcheng.mall.admin', '权限模块', '更新', '30', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:12:42', 3, '2022-05-20 17:12:42');
+INSERT INTO `log_record` VALUES (1573, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:12:44', 3, '2022-05-20 17:12:44');
+INSERT INTO `log_record` VALUES (1574, 'com.zhengcheng.mall.admin', '权限模块', '更新', '31', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:12:56', 3, '2022-05-20 17:12:56');
+INSERT INTO `log_record` VALUES (1575, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:12:58', 3, '2022-05-20 17:12:58');
+INSERT INTO `log_record` VALUES (1576, 'com.zhengcheng.mall.admin', '权限模块', '更新', '32', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:13:02', 3, '2022-05-20 17:13:02');
+INSERT INTO `log_record` VALUES (1577, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:13:03', 3, '2022-05-20 17:13:03');
+INSERT INTO `log_record` VALUES (1578, 'com.zhengcheng.mall.admin', '权限模块', '更新', '33', 'root(qbc4v9)', '更新了权限', 0, 3, '2022-05-20 17:13:08', 3, '2022-05-20 17:13:08');
+INSERT INTO `log_record` VALUES (1579, 'com.zhengcheng.mall.admin', '权限模块', '', '权限列表', 'root(qbc4v9)', '查询', 0, 3, '2022-05-20 17:13:09', 3, '2022-05-20 17:13:09');
 
 -- ----------------------------
 -- Table structure for message
@@ -9004,16 +9149,18 @@ DROP TABLE IF EXISTS `payment`;
 CREATE TABLE `payment`  (
   `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
   `trade_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易订单号',
-  `type` tinyint(3) NOT NULL COMMENT '交易类型：1-订单支付，2-预存款充值',
+  `type` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易类型：1-订单支付，2-预存款充值',
   `method` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易方式：online-在线支付，offline-线下支付，deposit-预存款支付',
-  `status` tinyint(3) NOT NULL COMMENT '支付状态: 0-订单生成, 1-支付中, 2-支付成功, 3-支付失败, 4-已撤销, 5-已退款, 6-订单关闭',
+  `status` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '支付状态: 0-订单生成, 1-支付中, 2-支付成功, 3-支付失败, 4-已撤销, 5-已退款, 6-订单关闭',
   `payment_method` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付方式',
   `amount` int(10) NOT NULL COMMENT '付款金额,单位分',
   `payer` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '付款人',
   `success_time` datetime(0) NULL DEFAULT NULL COMMENT '支付成功时间',
   `expired_time` datetime(0) NULL DEFAULT NULL COMMENT '到期时间',
   `memo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `deposit_id` bigint(20) NULL DEFAULT NULL COMMENT '预存款ID',
   `user_id` bigint(20) NOT NULL COMMENT '用户ID',
+  `order_id` bigint(20) NULL DEFAULT NULL COMMENT '订单ID',
   `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
   `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
   `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
@@ -9023,7 +9170,12 @@ CREATE TABLE `payment`  (
   UNIQUE INDEX `unique_trade_no`(`trade_no`) USING BTREE,
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 1 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '收款单' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '收款单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of payment
+-- ----------------------------
+INSERT INTO `payment` VALUES (1, '1', 'payment', 'online', 'wait', '微信小程序支付', 1, NULL, '2022-05-20 11:46:03', NULL, NULL, NULL, 3, 1, 0, 0, '2022-05-20 11:46:15', 0, '2022-05-20 12:21:32');
 
 -- ----------------------------
 -- Table structure for product_attribute
@@ -9336,6 +9488,34 @@ INSERT INTO `product_spu` VALUES (1, '2022051101', '小米手机', NULL, NULL, N
 INSERT INTO `product_spu` VALUES (2, '12323213', '华为手机', NULL, NULL, NULL, 0, 0, NULL, NULL, NULL, 1, 1, 1, 0, 0, '2022-05-13 21:25:27', 3, '2022-05-13 21:26:19');
 
 -- ----------------------------
+-- Table structure for refund
+-- ----------------------------
+DROP TABLE IF EXISTS `refund`;
+CREATE TABLE `refund`  (
+  `id` bigint(20) UNSIGNED NOT NULL AUTO_INCREMENT COMMENT 'ID',
+  `refund_no` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '退款流水号',
+  `method` varchar(32) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NOT NULL COMMENT '交易方式：online-在线支付，offline-线下支付，deposit-预存款支付',
+  `payment_method` varchar(128) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '支付方式',
+  `amount` int(10) NOT NULL COMMENT '付款金额,单位分',
+  `memo` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_general_ci NULL DEFAULT NULL COMMENT '备注',
+  `order_id` bigint(20) NULL DEFAULT NULL COMMENT '订单ID',
+  `is_deleted` tinyint(3) UNSIGNED NOT NULL DEFAULT 0 COMMENT '是否删除',
+  `create_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '创建人',
+  `create_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '记录创建时间，默认当前时间',
+  `update_user_id` int(10) UNSIGNED NOT NULL DEFAULT 0 COMMENT '更新人',
+  `update_time` timestamp(0) NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP(0) COMMENT '记录更新时间，默认当前时间',
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `unique_trade_no`(`refund_no`) USING BTREE,
+  INDEX `idx_create_time`(`create_time`) USING BTREE,
+  INDEX `idx_update_time`(`update_time`) USING BTREE
+) ENGINE = InnoDB AUTO_INCREMENT = 2 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '退款单' ROW_FORMAT = Dynamic;
+
+-- ----------------------------
+-- Records of refund
+-- ----------------------------
+INSERT INTO `refund` VALUES (1, '1', 'online', '微信小程序支付', 1, NULL, 1, 0, 0, '2022-05-20 11:46:15', 0, '2022-05-20 12:21:32');
+
+-- ----------------------------
 -- Table structure for role
 -- ----------------------------
 DROP TABLE IF EXISTS `role`;
@@ -9384,7 +9564,7 @@ CREATE TABLE `role_authority`  (
   INDEX `idx_update_time`(`update_time`) USING BTREE,
   INDEX `idx_role_id`(`role_id`) USING BTREE,
   INDEX `idx_authority_id`(`authority_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 842 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 955 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '角色权限表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of role_authority
@@ -10194,42 +10374,155 @@ INSERT INTO `role_authority` VALUES (802, 1, 30, 1, 3, '2022-05-14 21:48:56', 3,
 INSERT INTO `role_authority` VALUES (803, 1, 31, 1, 3, '2022-05-14 21:48:56', 3, '2022-05-15 18:39:19');
 INSERT INTO `role_authority` VALUES (804, 1, 32, 1, 3, '2022-05-14 21:48:56', 3, '2022-05-15 18:39:19');
 INSERT INTO `role_authority` VALUES (805, 1, 33, 1, 3, '2022-05-14 21:48:56', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (806, 1, 55, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (807, 1, 56, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (808, 1, 57, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (809, 1, 60, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (810, 1, 1, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (811, 1, 2, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (812, 1, 50, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (813, 1, 51, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (814, 1, 52, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (815, 1, 3, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (816, 1, 41, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (817, 1, 42, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (818, 1, 43, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (819, 1, 47, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (820, 1, 4, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (821, 1, 44, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (822, 1, 45, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (823, 1, 46, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (824, 1, 20, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (825, 1, 21, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (826, 1, 48, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (827, 1, 49, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (828, 1, 37, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (829, 1, 14, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (830, 1, 18, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (831, 1, 26, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (832, 1, 27, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (833, 1, 34, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (834, 1, 35, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (835, 1, 36, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (836, 1, 28, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (837, 1, 29, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (838, 1, 30, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (839, 1, 31, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (840, 1, 32, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
-INSERT INTO `role_authority` VALUES (841, 1, 33, 0, 3, '2022-05-15 18:39:19', 3, '2022-05-15 18:39:19');
+INSERT INTO `role_authority` VALUES (806, 1, 55, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (807, 1, 56, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (808, 1, 57, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (809, 1, 60, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (810, 1, 1, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (811, 1, 2, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (812, 1, 50, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (813, 1, 51, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (814, 1, 52, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (815, 1, 3, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (816, 1, 41, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (817, 1, 42, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (818, 1, 43, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (819, 1, 47, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (820, 1, 4, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (821, 1, 44, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (822, 1, 45, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (823, 1, 46, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (824, 1, 20, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (825, 1, 21, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (826, 1, 48, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (827, 1, 49, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (828, 1, 37, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (829, 1, 14, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (830, 1, 18, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (831, 1, 26, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (832, 1, 27, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (833, 1, 34, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (834, 1, 35, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (835, 1, 36, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (836, 1, 28, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (837, 1, 29, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (838, 1, 30, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (839, 1, 31, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (840, 1, 32, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (841, 1, 33, 1, 3, '2022-05-15 18:39:19', 3, '2022-05-20 10:56:57');
+INSERT INTO `role_authority` VALUES (842, 1, 62, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (843, 1, 63, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (844, 1, 64, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (845, 1, 65, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (846, 1, 66, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (847, 1, 67, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (848, 1, 68, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (849, 1, 69, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (850, 1, 70, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (851, 1, 71, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (852, 1, 72, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (853, 1, 73, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (854, 1, 55, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (855, 1, 56, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (856, 1, 57, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (857, 1, 60, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (858, 1, 74, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (859, 1, 75, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (860, 1, 76, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (861, 1, 77, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (862, 1, 78, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (863, 1, 79, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (864, 1, 80, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (865, 1, 1, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (866, 1, 2, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (867, 1, 50, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (868, 1, 51, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (869, 1, 52, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (870, 1, 3, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (871, 1, 41, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (872, 1, 42, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (873, 1, 43, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (874, 1, 47, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (875, 1, 4, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (876, 1, 44, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (877, 1, 45, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (878, 1, 46, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (879, 1, 20, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (880, 1, 21, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (881, 1, 48, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (882, 1, 49, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (883, 1, 37, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (884, 1, 14, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (885, 1, 18, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (886, 1, 26, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (887, 1, 27, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (888, 1, 34, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (889, 1, 35, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (890, 1, 36, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (891, 1, 28, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (892, 1, 29, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (893, 1, 30, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (894, 1, 31, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (895, 1, 32, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (896, 1, 33, 1, 3, '2022-05-20 10:56:57', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (897, 1, 62, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (898, 1, 63, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (899, 1, 64, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (900, 1, 65, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (901, 1, 66, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (902, 1, 67, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (903, 1, 68, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (904, 1, 69, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (905, 1, 70, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (906, 1, 71, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (907, 1, 72, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (908, 1, 73, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (909, 1, 55, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (910, 1, 56, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (911, 1, 57, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (912, 1, 60, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (913, 1, 74, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (914, 1, 75, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (915, 1, 76, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (916, 1, 77, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (917, 1, 78, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (918, 1, 79, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (919, 1, 80, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (920, 1, 81, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (921, 1, 82, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (922, 1, 83, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (923, 1, 1, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (924, 1, 2, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (925, 1, 50, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (926, 1, 51, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (927, 1, 52, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (928, 1, 3, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (929, 1, 41, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (930, 1, 42, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (931, 1, 43, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (932, 1, 47, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (933, 1, 4, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (934, 1, 44, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (935, 1, 45, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (936, 1, 46, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (937, 1, 20, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (938, 1, 21, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (939, 1, 48, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (940, 1, 49, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (941, 1, 37, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (942, 1, 14, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (943, 1, 18, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (944, 1, 26, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (945, 1, 27, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (946, 1, 34, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (947, 1, 35, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (948, 1, 36, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (949, 1, 28, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (950, 1, 29, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (951, 1, 30, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (952, 1, 31, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (953, 1, 32, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
+INSERT INTO `role_authority` VALUES (954, 1, 33, 0, 3, '2022-05-20 17:00:02', 3, '2022-05-20 17:00:02');
 
 -- ----------------------------
 -- Table structure for social_user
@@ -10439,7 +10732,7 @@ CREATE TABLE `user`  (
 -- Records of user
 -- ----------------------------
 INSERT INTO `user` VALUES (1, 'ZC0001', 'zhengcheng', '', '13916500301', '新征程', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2021-11-09 18:38:40', '', 0, 0, '2021-10-27 17:41:37', 0, '2022-05-06 22:01:57');
-INSERT INTO `user` VALUES (3, 'qbc4v9', 'root', '', '13916500401', '超级管理员', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2022-05-17 14:35:21', '', 0, 0, '2022-03-11 14:17:32', 0, '2022-05-17 14:35:21');
+INSERT INTO `user` VALUES (3, 'qbc4v9', 'root', '', '13916500401', '超级管理员', '$2a$10$TwAHvsNd7ZSzyoHU6oXSPuH/HofxhlwAvfpkXqTo4McDnjH9a6Fmu', '', 1, '2022-05-20 17:07:57', '', 0, 0, '2022-03-11 14:17:32', 0, '2022-05-20 17:07:57');
 INSERT INTO `user` VALUES (4, 'wvzzwf', '12', '12', '13916500301', '12', '$2a$10$2oNhMiHgZJb5mtore7ICEOPV2uzRwi5PJq3P7ZVdCVlIU4YSRs6Qe', '', 1, '2022-05-06 21:14:51', 'admin', 0, 0, '2022-05-06 21:14:57', 3, '2022-05-14 20:45:27');
 INSERT INTO `user` VALUES (5, 'fuxxqy', '2323', '23323', '2323', '2332', '$2a$10$Z9T7MqRku1t/9232MgxDmOOGhzxvnn0vHZTY6Zzit4LlGwtPHhUlW', '', 1, '2022-05-06 21:16:08', 'admin', 0, 0, '2022-05-06 21:16:08', 3, '2022-05-17 14:31:08');
 INSERT INTO `user` VALUES (7, '37jqww', '23', '2313456', '231', '231', '$2a$10$Ni15R5hxXNTCf2VQOyOgEuJmWVFCsCCjdjzA7jqr1DvdI54N/LVxu', '', 0, NULL, 'admin', 0, 0, '2022-05-06 21:23:46', 3, '2022-05-17 14:36:36');
@@ -10487,7 +10780,7 @@ CREATE TABLE `user_login_log`  (
   INDEX `idx_create_time`(`create_time`) USING BTREE,
   INDEX `idx_update_time`(`update_time`) USING BTREE,
   INDEX `idx_user_id`(`user_id`) USING BTREE
-) ENGINE = InnoDB AUTO_INCREMENT = 704 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户日志表' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB AUTO_INCREMENT = 715 CHARACTER SET = utf8mb4 COLLATE = utf8mb4_general_ci COMMENT = '用户日志表' ROW_FORMAT = Dynamic;
 
 -- ----------------------------
 -- Records of user_login_log
@@ -11185,6 +11478,17 @@ INSERT INTO `user_login_log` VALUES (700, 3, 0, '', 0, '192.168.0.105', '192.168
 INSERT INTO `user_login_log` VALUES (701, 3, 0, '用户已被禁用！', 1, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-17 14:27:36', 0, '2022-05-17 14:27:36');
 INSERT INTO `user_login_log` VALUES (702, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-17 14:28:12', 0, '2022-05-17 14:28:12');
 INSERT INTO `user_login_log` VALUES (703, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-17 14:35:22', 0, '2022-05-17 14:35:22');
+INSERT INTO `user_login_log` VALUES (704, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 10:29:51', 0, '2022-05-20 10:29:51');
+INSERT INTO `user_login_log` VALUES (705, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 11:39:19', 0, '2022-05-20 11:39:19');
+INSERT INTO `user_login_log` VALUES (706, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:00:16', 0, '2022-05-20 12:00:16');
+INSERT INTO `user_login_log` VALUES (707, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:13:02', 0, '2022-05-20 12:13:02');
+INSERT INTO `user_login_log` VALUES (708, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:17:08', 0, '2022-05-20 12:17:08');
+INSERT INTO `user_login_log` VALUES (709, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:20:21', 0, '2022-05-20 12:20:21');
+INSERT INTO `user_login_log` VALUES (710, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:23:29', 0, '2022-05-20 12:23:29');
+INSERT INTO `user_login_log` VALUES (711, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 12:26:20', 0, '2022-05-20 12:26:20');
+INSERT INTO `user_login_log` VALUES (712, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 16:29:57', 0, '2022-05-20 16:29:57');
+INSERT INTO `user_login_log` VALUES (713, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 16:56:27', 0, '2022-05-20 16:56:27');
+INSERT INTO `user_login_log` VALUES (714, 3, 0, '', 0, '192.168.0.105', '192.168.0.105', 0, 0, '2022-05-20 17:07:57', 0, '2022-05-20 17:07:57');
 
 -- ----------------------------
 -- Table structure for user_role
