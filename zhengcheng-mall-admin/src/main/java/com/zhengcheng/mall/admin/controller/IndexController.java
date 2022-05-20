@@ -22,6 +22,11 @@ import lombok.extern.slf4j.Slf4j;
 @Controller
 public class IndexController {
 
+    @RequestMapping("/space")
+    public String space() {
+        return "/view/system/space";
+    }
+
     @RequestMapping("/")
     public String index(Model model, HttpSession session) {
         UserDTO userInfo = (UserDTO) session.getAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME);
