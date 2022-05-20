@@ -13,8 +13,8 @@ import lombok.Getter;
 @Getter
 public enum PaymentMethodEnum {
 
-    /** 订单支付 */
-    ONLINE("online", "订单支付"),
+    /** 在线支付 */
+    ONLINE("online", "在线支付"),
 
     /** 线下支付 */
     OFFLINE("offline", "线下支付"),

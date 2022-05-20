@@ -25,19 +25,19 @@ public class PaymentDTO extends BaseDTO {
     /** 类型 */
     private String            type;
 
-    /** 类型 */
+    /** 类型名称 */
     private String            typeName;
 
     /** 方式 */
     private String            method;
 
-    /** 方式 */
+    /** 方式名称 */
     private String            methodName;
 
     /** 状态 */
     private String            status;
 
-    /** 状态 */
+    /** 状态名称 */
     private String            statusName;
 
     /** 支付方式 */
