@@ -42,27 +42,10 @@
 </script>
 
 <script type="text/html" id="expandAll">
-    <div class="layui-form">
-        <div class="layui-form-item">
-            <label class="layui-form-label">支付成功时间:</label>
-            <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">
-                    <span style="font-size: 18px;color: #333;">{{d.successTime||""}}</span>
-                </div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">到期时间:</label>
-            <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">{{d.expiredTime||""}}</div>
-            </div>
-        </div>
-        <div class="layui-form-item">
-            <label class="layui-form-label">备注说明:</label>
-            <div class="layui-input-block">
-                <div class="layui-form-mid layui-word-aux">{{d.memo||""}}</div>
-            </div>
-        </div>
+    <div>
+        支付成功时间:{{d.successTime||""}}
+        到期时间:{{d.expiredTime||""}}
+        备注说明:{{d.memo||""}}
     </div>
 </script>
 
