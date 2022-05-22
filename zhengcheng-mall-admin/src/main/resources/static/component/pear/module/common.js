@@ -149,6 +149,9 @@ layui.define(["layer", "jquery", "table", 'toast'], function (exports) {
                     dataType: 'json',
                     contentType: "application/json; charset=utf-8",
                     type: 'post',
+                    beforeSend: function () {
+                        layer.load(2);
+                    },
                     success: function (result) {
                         if (result.code === 200) {
                             layer.msg(result.message, {icon: 1, time: 1000}, function () {

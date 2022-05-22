@@ -131,28 +131,31 @@
                             }
                             , page: true
                             , cols: [[
-                                {type: 'checkbox', fixed: 'left'},
-                                {field: 'skuNo', title: 'SKU编号'},
-                                {field: 'fullName', title: '全称'},
+                                {field: 'skuNo', title: 'SKU编号', width: 130},
+                                {field: 'fullName', title: '全称', width: 220},
                                 {
-                                    field: 'price', title: '销售价(元)', templet: function (d) {
+                                    field: 'price', title: '销售价(元)', width: 80, templet: function (d) {
                                         return '￥' + d.price / 100;
                                     }
                                 },
                                 {
-                                    field: 'cost', title: '成本价(元)', templet: function (d) {
+                                    field: 'cost', title: '成本价(元)', width: 80, templet: function (d) {
                                         return '￥' + d.cost / 100;
                                     }
                                 },
                                 {
-                                    field: 'marketPrice', title: '市场价(元)', templet: function (d) {
+                                    field: 'marketPrice', title: '市场价(元)', width: 80, templet: function (d) {
                                         return '￥' + d.marketPrice / 100;
                                     }
                                 },
-                                {field: 'stock', title: '库存'},
-                                {field: 'allocatedStock', title: '已分配库存'},
+                                {field: 'stock', width: 80, title: '库存'},
+                                {field: 'allocatedStock', width: 80, title: '已分配库存'},
                                 {field: 'stockMemo', title: '库存备注'},
-                                {field: 'enable', title: '是否启用'}
+                                {
+                                    field: 'enable', width: 80, title: '是否启用', templet: function (d) {
+                                        return d.enable ? '是' : '否';
+                                    }
+                                }
                             ]]
                             , done: function () {
                                 soulTable.render(this);

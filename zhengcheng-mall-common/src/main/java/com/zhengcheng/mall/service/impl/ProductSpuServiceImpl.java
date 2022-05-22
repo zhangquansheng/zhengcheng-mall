@@ -14,10 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.common.exception.BizException;
 import com.zhengcheng.mall.common.command.ProductSpuCommand;
-import com.zhengcheng.mall.domain.entity.ProductSku;
-import com.zhengcheng.mall.domain.entity.ProductSpecificationValue;
-import com.zhengcheng.mall.domain.entity.ProductSpu;
-import com.zhengcheng.mall.domain.entity.Specification;
+import com.zhengcheng.mall.domain.entity.*;
 import com.zhengcheng.mall.domain.mapper.*;
 import com.zhengcheng.mall.service.ProductSpuService;
 
@@ -111,13 +108,27 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         }
 
         // 添加sku对应的规格值
-        productSpuCommand.getSkus().forEach(skuDTO -> skuDTO.getSpecificationValueIds().forEach(svId -> {
-            ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
-            productSpecificationValue.setProductSkuId(skuDTO.getId());
-            productSpecificationValue.setSpecificationValueId(svId);
-            productSpecificationValue.setCreateUserId(skuDTO.getUpdateUserId());
-            productSpecificationValue.setUpdateUserId(skuDTO.getUpdateUserId());
-            productSpecificationValueMapper.insert(productSpecificationValue);
-        }));
+        productSpuCommand.getSkus().forEach(skuDTO -> {
+            if (CollectionUtil.isNotEmpty(productSpuCommand.getSkus())) {
+                // 更新fullName
+                List<SpecificationValue> specificationValues = specificationValueMapper
+                        .selectBatchIds(skuDTO.getSpecificationValueIds());
+                productSkuMapper.update(null,
+                        new LambdaUpdateWrapper<ProductSku>()
+                                .set(ProductSku::getFullName,
+                                        specificationValues.stream().map(SpecificationValue::getName)
+                                                .collect(Collectors.joining(",")))
+                                .eq(ProductSku::getId, skuDTO.getId()));
+
+                skuDTO.getSpecificationValueIds().forEach(svId -> {
+                    ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
+                    productSpecificationValue.setProductSkuId(skuDTO.getId());
+                    productSpecificationValue.setSpecificationValueId(svId);
+                    productSpecificationValue.setCreateUserId(skuDTO.getUpdateUserId());
+                    productSpecificationValue.setUpdateUserId(skuDTO.getUpdateUserId());
+                    productSpecificationValueMapper.insert(productSpecificationValue);
+                });
+            }
+        });
     }
 }
