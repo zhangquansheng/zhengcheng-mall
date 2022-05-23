@@ -46,9 +46,11 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
     public void addSku(ProductSpuCommand productSpuCommand) {
         // 设置skuId
         productSpuCommand.getSkus().forEach(sku -> {
-            Long skuId = productSpecificationValueMapper.findProductSkuId(productSpuCommand.getId(),
-                    sku.getSpecificationValueIds(), sku.getSpecificationValueIds().size());
-            sku.setId(skuId);
+            if (CollectionUtil.isNotEmpty(sku.getSpecificationValueIds())) {
+                Long skuId = productSpecificationValueMapper.findProductSkuId(productSpuCommand.getId(),
+                        sku.getSpecificationValueIds(), sku.getSpecificationValueIds().size());
+                sku.setId(skuId);
+            }
         });
 
         // 更新spu
@@ -109,7 +111,7 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
 
         // 添加sku对应的规格值
         productSpuCommand.getSkus().forEach(skuDTO -> {
-            if (CollectionUtil.isNotEmpty(productSpuCommand.getSkus())) {
+            if (CollectionUtil.isNotEmpty(skuDTO.getSpecificationValueIds())) {
                 // 更新fullName
                 List<SpecificationValue> specificationValues = specificationValueMapper
                         .selectBatchIds(skuDTO.getSpecificationValueIds());

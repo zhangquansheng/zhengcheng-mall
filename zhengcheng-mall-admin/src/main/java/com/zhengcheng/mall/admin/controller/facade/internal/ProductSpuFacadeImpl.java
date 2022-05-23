@@ -83,14 +83,18 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     public JSONObject skuData(Long spuId) {
         JSONObject jsonObject = new JSONObject();
         BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
+        ProductSpu productSpu = productSpuService.getById(spuId);
         // 统一规格
-        //        if (spuId == 1) {
-        //            jsonObject.put("marketPrice", "1000");
-        //            jsonObject.put("cost", "1000");
-        //            jsonObject.put("stock", "1000");
-        //            jsonObject.put("price", "1010");
-        //            return jsonObject;
-        //        }
+        if (productSpu.getSpecificationMode().equals(0)) {
+            ProductSku productSku = productSkuService
+                    .getOne(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId).last("limit 1"));
+            jsonObject.put("marketPrice", productSku.getMarketPrice());
+            jsonObject.put("cost", productSku.getCost());
+            jsonObject.put("stock", productSku.getStock());
+            jsonObject.put("price", productSku.getPrice());
+            return jsonObject;
+        }
+
         // 多规格
         List<ProductSku> productSkus = productSkuService
                 .list(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId));
@@ -178,43 +182,56 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
      * }
      * 
      * 统一规格
-     * {"is_attribute":"0","price":"12","marketPrice":"12","cost":"12","stock":"1","status":"1"}
      */
     @Override
     public void saveSkuData(Long spuId, JSONObject sku) {
-        List<SkuTableDataDTO> skuTableDataDTOList = new ArrayList<>();
-        for (Map.Entry entry : sku.entrySet()) {
-            String key = (String) entry.getKey();
-            if (key.startsWith("skus")) {
-                // 截取规格
-                SkuTableDataDTO skuTableDataDTO = new SkuTableDataDTO();
-                skuTableDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
-                skuTableDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
-                skuTableDataDTO.setValue((String) entry.getValue());
-                skuTableDataDTOList.add(skuTableDataDTO);
-            }
-        }
-        log.info("skuTableDataDTOList：{}", JSONUtil.toJsonStr(skuTableDataDTOList));
-
-        Map<String, List<SkuTableDataDTO>> groupBy = skuTableDataDTOList.stream()
-                .collect(Collectors.groupingBy(SkuTableDataDTO::getKey));
+        // 统一规格 {"is_attribute":"0","price":"1010","marketPrice":"1000","cost":"1000","stock":"1000","enable":"1"}
         List<ProductSkuCommand> productSkus = new ArrayList<>();
         List<Long> specificationValueIds = new ArrayList<>();
-        for (Map.Entry entry : groupBy.entrySet()) {
-            String key = (String) entry.getKey();
-            ProductSkuCommand productSku = new ProductSkuCommand();
-            productSku.setSpecificationValueIds(getSpecificationValueIds(key));
-            specificationValueIds.addAll(productSku.getSpecificationValueIds());
-
-            List<SkuTableDataDTO> skuDatas = (List<SkuTableDataDTO>) entry.getValue();
-            skuDatas.forEach(skuTableDataDTO -> {
-                try {
-                    BeanUtil.setFieldValue(productSku, skuTableDataDTO.getPropName(), skuTableDataDTO.getValue());
-                } catch (Exception e) {
-                    log.error(e.getMessage(), e);
+        Integer specificationMode = sku.getInteger("is_attribute");
+        if (specificationMode == 0) {
+            ProductSkuCommand productSkuCommand = new ProductSkuCommand();
+            productSkuCommand.setPrice(sku.getLong("price"));
+            productSkuCommand.setCost(sku.getLong("cost"));
+            productSkuCommand.setMarketPrice(sku.getLong("marketPrice"));
+            productSkuCommand.setStock(sku.getInteger("stock"));
+            productSkuCommand.setPicture("");
+            productSkuCommand.setEnable(sku.getString("enable").equals("1") ? Boolean.TRUE : Boolean.FALSE);
+            productSkuCommand.setSpuId(spuId);
+            productSkus.add(productSkuCommand);
+        } else {
+            List<SkuTableDataDTO> skuTableDataDTOList = new ArrayList<>();
+            for (Map.Entry entry : sku.entrySet()) {
+                String key = (String) entry.getKey();
+                if (key.startsWith("skus")) {
+                    // 截取规格
+                    SkuTableDataDTO skuTableDataDTO = new SkuTableDataDTO();
+                    skuTableDataDTO.setKey(StrUtil.subBefore(key, "]", false).replace("skus[", ""));
+                    skuTableDataDTO.setPropName(StrUtil.subAfter(key, "[", true).replace("]", ""));
+                    skuTableDataDTO.setValue((String) entry.getValue());
+                    skuTableDataDTOList.add(skuTableDataDTO);
                 }
-            });
-            productSkus.add(productSku);
+            }
+            log.info("skuTableDataDTOList：{}", JSONUtil.toJsonStr(skuTableDataDTOList));
+
+            Map<String, List<SkuTableDataDTO>> groupBy = skuTableDataDTOList.stream()
+                    .collect(Collectors.groupingBy(SkuTableDataDTO::getKey));
+            for (Map.Entry entry : groupBy.entrySet()) {
+                String key = (String) entry.getKey();
+                ProductSkuCommand productSku = new ProductSkuCommand();
+                productSku.setSpecificationValueIds(getSpecificationValueIds(key));
+                specificationValueIds.addAll(productSku.getSpecificationValueIds());
+
+                List<SkuTableDataDTO> skuDatas = (List<SkuTableDataDTO>) entry.getValue();
+                skuDatas.forEach(skuTableDataDTO -> {
+                    try {
+                        BeanUtil.setFieldValue(productSku, skuTableDataDTO.getPropName(), skuTableDataDTO.getValue());
+                    } catch (Exception e) {
+                        log.error(e.getMessage(), e);
+                    }
+                });
+                productSkus.add(productSku);
+            }
         }
 
         ProductSpuCommand productSpuCommand = new ProductSpuCommand();
@@ -223,9 +240,7 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
                 .setSpecificationValueIds(specificationValueIds.stream().distinct().collect(Collectors.toList()));
         productSpuCommand.setId(spuId);
         productSpuCommand.setProductCategoryId(sku.getLong("product_type"));
-        // 如果没有SKU，则自动设置成单规格模式
-        productSpuCommand
-                .setSpecificationMode(CollectionUtil.isEmpty(productSkus) ? 0 : sku.getInteger("is_attribute"));
+        productSpuCommand.setSpecificationMode(specificationMode);
         productSpuCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         productSpuCommand.setUpdateUserName(ZcUserInfoHolder.getUsername());
         productSpuService.addSku(productSpuCommand);
