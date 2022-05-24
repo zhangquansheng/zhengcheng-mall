@@ -179,44 +179,54 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
     }
 
     /**
-     * {
-     *     "is_attribute":"1",
-     *     "product_type":"1",
-     *     "attribute_value[1]":"N20R093001",
-     *     "skus[5-9][picture]":"",
-     *     "file":"",
-     *     "skus[5-9][price]":"1000",
-     *     "skus[5-9][marketPrice]":"1000",
-     *     "skus[5-9][cost]":"1000",
-     *     "skus[5-9][stock]":"1",
-     *     "skus[5-9][enable]":"1",
-     *     "skus[6-9][picture]":"",
-     *     "skus[6-9][price]":"1000",
-     *     "skus[6-9][marketPrice]":"1000",
-     *     "skus[6-9][cost]":"1000",
-     *     "skus[6-9][stock]":"10",
-     *     "skus[6-9][enable]":"1"
-     * }
-     * 
-     * 统一规格
+     * 获取统一规格SKU入参
+     * @param spuId SPU ID
+     * @param sku SKU
+     * @return 入参
      */
+    private List<ProductSkuCommand> getUnifiedAttributeProductSkus(Long spuId, JSONObject sku) {
+        //{"is_attribute":"0","price":"1010","marketPrice":"1000","cost":"1000","stock":"1000","enable":"1"}
+        List<ProductSkuCommand> productSkus = new ArrayList<>();
+        ProductSkuCommand productSkuCommand = new ProductSkuCommand();
+        productSkuCommand.setPrice(sku.getLong("price"));
+        productSkuCommand.setCost(sku.getLong("cost"));
+        productSkuCommand.setMarketPrice(sku.getLong("marketPrice"));
+        productSkuCommand.setStock(sku.getInteger("stock"));
+        productSkuCommand.setPicture("");
+        productSkuCommand.setEnable(sku.getString("enable").equals("1") ? Boolean.TRUE : Boolean.FALSE);
+        productSkuCommand.setSpuId(spuId);
+        productSkus.add(productSkuCommand);
+        return productSkus;
+    }
+
     @Override
     public void saveSkuData(Long spuId, JSONObject sku) {
-        // 统一规格 {"is_attribute":"0","price":"1010","marketPrice":"1000","cost":"1000","stock":"1000","enable":"1"}
         List<ProductSkuCommand> productSkus = new ArrayList<>();
         List<Long> specificationValueIds = new ArrayList<>();
         Integer specificationMode = sku.getInteger("is_attribute");
         if (specificationMode == 0) {
-            ProductSkuCommand productSkuCommand = new ProductSkuCommand();
-            productSkuCommand.setPrice(sku.getLong("price"));
-            productSkuCommand.setCost(sku.getLong("cost"));
-            productSkuCommand.setMarketPrice(sku.getLong("marketPrice"));
-            productSkuCommand.setStock(sku.getInteger("stock"));
-            productSkuCommand.setPicture("");
-            productSkuCommand.setEnable(sku.getString("enable").equals("1") ? Boolean.TRUE : Boolean.FALSE);
-            productSkuCommand.setSpuId(spuId);
-            productSkus.add(productSkuCommand);
+            productSkus = getUnifiedAttributeProductSkus(spuId, sku);
         } else {
+            /**
+             * {
+             *     "is_attribute":"1",
+             *     "product_type":"1",
+             *     "attribute_value[1]":"N20R093001",
+             *     "skus[5-9][picture]":"",
+             *     "file":"",
+             *     "skus[5-9][price]":"1000",
+             *     "skus[5-9][marketPrice]":"1000",
+             *     "skus[5-9][cost]":"1000",
+             *     "skus[5-9][stock]":"1",
+             *     "skus[5-9][enable]":"1",
+             *     "skus[6-9][picture]":"",
+             *     "skus[6-9][price]":"1000",
+             *     "skus[6-9][marketPrice]":"1000",
+             *     "skus[6-9][cost]":"1000",
+             *     "skus[6-9][stock]":"10",
+             *     "skus[6-9][enable]":"1"
+             * }
+             */
             List<SkuTableDataDTO> skuTableDataDTOList = new ArrayList<>();
             for (Map.Entry entry : sku.entrySet()) {
                 String key = (String) entry.getKey();
