@@ -79,22 +79,28 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         return pageInfo;
     }
 
-    @Override
-    public JSONObject skuData(Long spuId) {
+    /**
+     * 获取统一属性的SKU
+     * @return SKU
+     */
+    private JSONObject getUnifiedAttributeProductSku(Long spuId) {
         JSONObject jsonObject = new JSONObject();
-        BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
-        ProductSpu productSpu = productSpuService.getById(spuId);
-        // 统一规格
-        if (productSpu.getSpecificationMode().equals(0)) {
-            ProductSku productSku = productSkuService
-                    .getOne(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId).last("limit 1"));
-            jsonObject.put("marketPrice", productSku.getMarketPrice());
-            jsonObject.put("cost", productSku.getCost());
-            jsonObject.put("stock", productSku.getStock());
-            jsonObject.put("price", productSku.getPrice());
-            return jsonObject;
-        }
+        ProductSku productSku = productSkuService
+                .getOne(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId).last("limit 1"));
+        jsonObject.put("marketPrice", productSku.getMarketPrice());
+        jsonObject.put("cost", productSku.getCost());
+        jsonObject.put("stock", productSku.getStock());
+        jsonObject.put("price", productSku.getPrice());
+        return jsonObject;
+    }
 
+    /**
+     * 获取多属性的SKU列表
+     * @return SKU列表
+     */
+    private JSONObject getMultiAttributeProductSku(Long spuId) {
+        BeanDesc desc = BeanUtil.getBeanDesc(ProductSku.class);
+        JSONObject jsonObject = new JSONObject();
         // 多规格
         List<ProductSku> productSkus = productSkuService
                 .list(new LambdaQueryWrapper<ProductSku>().eq(ProductSku::getSpuId, spuId));
@@ -125,6 +131,17 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         });
         log.info("spuId: {} , skuData: {}", spuId, JSONUtil.toJsonStr(jsonObject));
         return jsonObject;
+    }
+
+    @Override
+    public JSONObject skuData(Long spuId) {
+        ProductSpu productSpu = productSpuService.getById(spuId);
+        // 统一规格
+        if (productSpu.getSpecificationMode().equals(0)) {
+            return getUnifiedAttributeProductSku(spuId);
+        }
+        // 多规格
+        return getMultiAttributeProductSku(spuId);
     }
 
     private String getProductSkuFieldValue(ProductSku productSku, PropDesc propDesc) {
