@@ -19,3 +19,21 @@ server:
 kaptcha:
   height: 48
   width: 130
+
+justauth:
+  enabled: true
+  type:
+    BAIDU:
+      client-id: 0leFuGU33rGqsmmk78KDxVFz
+      client-secret: 9C21rDgPgr93SRm0AAhIhTZvajKuV2F1
+      redirect-uri: http://localhost/oauth/baidu/callback # redirect-uri 必须使用外网地址
+    GITEE:
+      client-id: c6a975f21c7bfbb69f7ddf3f2e20f39af589f4ac4f478add68324b5d181c53bf
+      client-secret: 39201c32929a280c2922dbc2a6f6d83d50255e9df465bd2bc988fe02163a7a4e
+      redirect-uri: http://localhost/oauth/gitee/callback
+  http-config:
+    timeout: 30000
+  cache:
+    type: default
+    prefix: 'zc:mall:'
+    timeout: 1h
