@@ -2,7 +2,7 @@
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Login Page</title>
+    <title>登录</title>
     <!-- 样 式 文 件 -->
     <link rel="stylesheet" href="${base}/static/component/pear/css/pear.css"/>
     <link rel="stylesheet" href="${base}/static/admin/css/other/login.css"/>
@@ -35,6 +35,9 @@
         <button type="button" class="pear-btn pear-btn-success login" lay-submit lay-filter="login">
             登 入
         </button>
+    </div>
+    <div class="layui-form-item">
+        <a href="/oauth/login/baidu" class="layui-btn icon-baidu"></a>
     </div>
 </form>
 <!-- 资 源 引 入 -->
