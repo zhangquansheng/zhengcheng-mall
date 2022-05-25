@@ -95,3 +95,15 @@ body {
 .icon-baidu {
     background: url("../../images/baidu.png") center no-repeat;
 }
+
+.icon-gitee {
+    background: url("../../images/gitee.png") center no-repeat;
+}
+
+.icon-github {
+    background: url("../../images/github.png") center no-repeat;
+}
+
+.icon-qq {
+    background: url("../../images/qq.png") center no-repeat;
+}

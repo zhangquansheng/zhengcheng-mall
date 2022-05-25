@@ -38,6 +38,9 @@
     </div>
     <div class="layui-form-item">
         <a href="/oauth/login/baidu" class="layui-btn icon-baidu"></a>
+        <a href="/oauth/login/qq" class="layui-btn icon-qq"></a>
+        <a href="/oauth/login/gitee" class="layui-btn icon-gitee"></a>
+        <a href="/oauth/login/github" class="layui-btn icon-github"></a>
     </div>
 </form>
 <!-- 资 源 引 入 -->
