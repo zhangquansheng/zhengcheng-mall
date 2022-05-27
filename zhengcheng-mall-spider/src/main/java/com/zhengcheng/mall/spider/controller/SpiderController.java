@@ -1,5 +1,20 @@
 package com.zhengcheng.mall.spider.controller;
 
+import java.util.ArrayList;
+import java.util.List;
+
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
+
+import com.zhengcheng.common.web.Result;
+import com.zhengcheng.mall.spider.dto.House;
+import com.zhengcheng.mall.spider.processor.HefeiFangjiaDefaultListPageProcessor;
+
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+import us.codecraft.webmagic.Spider;
+
 /**
  * SpiderController
  *
@@ -13,8 +28,15 @@ public class SpiderController {
 
     @ApiOperation("抓取")
     @PostMapping("/run")
-    public Result<Void> run() {
-        return Result.success();
+    public Result<List<House>> run() {
+        List<House> houses = new ArrayList<>();
+        Spider.create(new HefeiFangjiaDefaultListPageProcessor(houses))
+                .addUrl("http://220.178.124.94:8010/fangjia/ws/DefaultList.aspx")
+                // 开启5个线程抓取
+                .thread(1)
+                // 启动爬虫
+                .run();
+        return Result.successData(houses);
     }
 
 }
