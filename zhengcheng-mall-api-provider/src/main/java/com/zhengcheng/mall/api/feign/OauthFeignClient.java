@@ -19,7 +19,7 @@ public interface OauthFeignClient {
     /**
      * Nacos 对服务名大小写敏感
      */
-    String NAME = "zhengcheng-mall";
+    String NAME = "zhengcheng-mall-api";
 
     @GetMapping(value = "/oauth/logoutByToken")
     Result<Void> logoutByToken(@RequestParam("token") String token);

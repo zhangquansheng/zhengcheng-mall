@@ -24,7 +24,7 @@ public interface UserFeignClient {
     /**
      * Nacos 对服务名大小写敏感
      */
-    String NAME = "zhengcheng-mall";
+    String NAME = "zhengcheng-mall-api";
 
     @ApiOperation("通过token获取用户消息")
     @GetMapping("/user/findByByToken")

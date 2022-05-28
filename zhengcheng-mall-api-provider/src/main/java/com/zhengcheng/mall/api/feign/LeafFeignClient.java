@@ -17,7 +17,7 @@ public interface LeafFeignClient {
     /**
      * Nacos 对服务名大小写敏感
      */
-    String NAME = "zhengcheng-mall";
+    String NAME = "zhengcheng-mall-api";
 
     @GetMapping(value = "/leaf/api/segment/get/{key}")
     Result<String> getSegmentId(@PathVariable("key") String key);
