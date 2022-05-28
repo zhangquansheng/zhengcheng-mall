@@ -20,4 +20,33 @@
    ），在高并发和后端服务响应慢的场景下比`zuul`的表现要好
 4. `zuul`基于`servlet2.x`构建，使用阻塞的`API`，没有内置限流过滤器，不支持长连接
 
+## 概念解释
+
+- `Route`（路由）：路由是网关的基本单元，由`ID`、`URI`、一组`Predicate`、一组`Filter`组成，根据`Predicate`进行匹配转发。
+- `Predicate`（谓语、断言）：路由转发的判断条件，目前`SpringCloud Gateway`支持多种方式，常见如：`Path`、`Query`、`Method`、`Header`等。
+- `Filter`（过滤器）：过滤器是路由转发请求时所经过的过滤逻辑，可用于修改请求、响应内容。
+
 ## Spring Cloud Gateway 结合 Nacos 实现微服务动态路由
+
+### Path 方式匹配转发
+
+```properties
+spring.cloud.gateway.routes[0].id=zhengcheng-mall-api
+spring.cloud.gateway.routes[0].uri=lb://zhengcheng-mall-api
+spring.cloud.gateway.routes[0].predicates[0]=Path=/mall-api/**
+spring.cloud.gateway.routes[0].filters[0]=SwaggerHeaderFilter
+spring.cloud.gateway.routes[0].filters[1]=StripPrefix=1
+spring.cloud.gateway.routes[1].id=zhengcheng-mall-admin
+spring.cloud.gateway.routes[1].uri=lb://zhengcheng-mall-admin
+spring.cloud.gateway.routes[1].predicates[0]=Path=/mall-admin/**
+spring.cloud.gateway.routes[1].filters[0]=SwaggerHeaderFilter
+spring.cloud.gateway.routes[1].filters[1]=StripPrefix=1
+spring.cloud.gateway.routes[2].id=zhengcheng-mall-spider
+spring.cloud.gateway.routes[2].uri=lb://zhengcheng-mall-spider
+spring.cloud.gateway.routes[2].predicates[0]=Path=/mall-spider/**
+spring.cloud.gateway.routes[2].filters[0]=SwaggerHeaderFilter
+spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
+```
+
+## 限流
+
