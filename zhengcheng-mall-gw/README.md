@@ -56,7 +56,8 @@ spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 
 ### afterScript
 
-`/oauth/token` 获取`token`后，设置全局`Header`参数`satoken`
+`/oauth/token` 获取`token`后，设置全局`Header`参数`satoken`。
+
 请求参数:
 
 ```json
