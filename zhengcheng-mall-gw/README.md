@@ -57,13 +57,23 @@ spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 ### afterScript
 
 `/oauth/token` 获取`token`后，设置全局`Header`参数`satoken`
+请求参数:
 
+```json
+{
+  "username": "root",
+  "enPassword": "m20ukfuyjQw+MN33ZusmpOzjDq59U5nW4OvdtXU4kW7V7ooXgz057JAox0CYEF4Pd++BEifRTcnIPvgIucTSxSnuqtCocs5fnFcovNsz40YDZNF7YNVSOgYlc+ixRaA9Ff+eRUXUQf32vyeF27jkJmhUTvevF185FdfQZvlNIP0="
+}
 ```
+
+`AfterScript` 如下：
+
+```javascript
 var code = ke.response.data.code;
-if(code==200){
+if (code == 200) {
     //获取token
-    var token=ke.response.data.data.tokenValue;
+    var token = ke.response.data.data.tokenValue;
     //1、如何参数是Header，则设置当前逻辑分组下的全局Header
-    ke.global.setHeader("satoken",token);
+    ke.global.setHeader("satoken", token);
 }
 ```
