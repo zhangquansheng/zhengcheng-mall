@@ -1,36 +1,16 @@
 spring:
-  jmx:
-    enabled: false
+  application:
+    name: zhengcheng-mall-gw
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
   cloud:
-    gateway:
-      default-filters:
-        - PrefixPath=/httpbin
-        - AddResponseHeader=X-Response-Default-Foo, Default-Bar
-
-      routes:
-        # =====================================
-        # to run server
-        # $ wscat --listen 9000
-        # to run client
-        # $ wscat --connect ws://localhost:8080/echo
-        - id: websocket_test
-          uri: ws://localhost:9000
-          order: 9000
-          predicates:
-            - Path=/echo
-        # =====================================
-        - id: default_path_to_httpbin
-          uri: ${test.uri}
-          order: 10000
-          predicates:
-            - Path=/**
-
-logging:
-  level:
-    org.springframework.cloud.gateway: TRACE
-    org.springframework.http.server.reactive: DEBUG
-    org.springframework.web.reactive: DEBUG
-    reactor.ipc.netty: DEBUG
-    reactor.netty: DEBUG
-
-management.endpoints.web.exposure.include: '*'
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 127.0.0.1:8848
+  config:
+    import:
+      - optional:nacos:zhengcheng-mall-gw.properties
