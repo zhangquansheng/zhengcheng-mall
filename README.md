@@ -14,7 +14,7 @@
 |  SpringCloud   |        微服务框架         |           https://spring.io/projects/spring-cloud/           |
 |  MyBatis-Plus  |          ORM框架          |                   https://mp.baomidou.com/                   |
 |  Nacos         |        服务发现&配置管理  |                   https://nacos.io/zh-cn/                   |
-|  knife4j       |       knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案        | [ https://gitee.com/xiaoym/knife4j](https://gitee.com/xiaoym/knife4j) |
+|  knife4j       |       knife4j是为Java MVC框架集成Swagger生成Api文档的增强解决方案        | [https://gitee.com/xiaoym/knife4j](https://gitee.com/xiaoym/knife4j) |
 |  Kibana        |     分析和可视化平台      |               https://www.elastic.co/cn/kibana               |
 | Elasticsearch  |         搜索引擎          | [ https://github.com/elastic/elasticsearch](https://github.com/elastic/elasticsearch) |
 |     Redis      |        分布式缓存         |                      https://redis.io/                       |

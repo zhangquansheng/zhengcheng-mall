@@ -1,6 +1,6 @@
 spring:
   application:
-    name: zhengcheng-mall
+    name: zhengcheng-mall-api
   mvc:
     pathmatch:
       matching-strategy: ant_path_matcher
@@ -13,4 +13,4 @@ spring:
         server-addr: 127.0.0.1:8848
   config:
     import:
-      - optional:nacos:zhengcheng-mall.properties
+      - optional:nacos:zhengcheng-mall-api.properties
