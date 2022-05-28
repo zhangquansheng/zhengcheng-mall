@@ -18,3 +18,5 @@
 3. `springcloud gateway` 基于`spring 5`、`projec` `treactor`、`springboot 2`，使用非阻塞式的`API`，内置限流过滤器，支持长连接（比如`websockets`
    ），在高并发和后端服务响应慢的场景下比`zuul`的表现要好
 4. `zuul`基于`servlet2.x`构建，使用阻塞的`API`，没有内置限流过滤器，不支持长连接
+
+## Spring Cloud Gateway 结合 Nacos 实现微服务动态路由
