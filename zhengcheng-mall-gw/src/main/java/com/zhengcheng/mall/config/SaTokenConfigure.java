@@ -3,10 +3,13 @@ package com.zhengcheng.mall.config;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
+import com.zhengcheng.common.web.Result;
+
+import cn.dev33.satoken.context.SaHolder;
 import cn.dev33.satoken.reactor.filter.SaReactorFilter;
 import cn.dev33.satoken.router.SaRouter;
 import cn.dev33.satoken.stp.StpUtil;
-import cn.dev33.satoken.util.SaResult;
+import cn.hutool.json.JSONUtil;
 
 /**
  * [Sa-Token 权限认证] 配置类 
@@ -30,6 +33,10 @@ public class SaTokenConfigure {
                     SaRouter.match("/**", "/oauth/token", r -> StpUtil.checkLogin());
                 })
                 // 异常处理方法：每次setAuth函数出现异常时进入 
-                .setError(e -> SaResult.error(e.getMessage()));
+                .setError(e -> {
+                    // https://toscode.gitee.com/dromara/sa-token/issues/I46ZZF
+                    SaHolder.getResponse().setHeader("Content-Type", "application/json");
+                    return JSONUtil.parse(Result.errorMessage(e.getMessage()));
+                });
     }
 }

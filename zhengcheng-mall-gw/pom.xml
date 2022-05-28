@@ -15,6 +15,10 @@
     <dependencies>
         <dependency>
             <groupId>com.zhengcheng</groupId>
+            <artifactId>zc-common-spring-boot-starter</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.zhengcheng</groupId>
             <artifactId>zc-gateway-spring-boot-starter</artifactId>
         </dependency>
         <!-- Sa-Token 权限认证（Reactor响应式集成）, 在线文档：http://sa-token.dev33.cn/ -->
