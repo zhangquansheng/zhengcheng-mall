@@ -10,10 +10,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
  * @since 2022/3/24 22:23
  */
 @SpringBootApplication
-public class GatewayApplication {
+public class MallGatewayApplication {
 
     public static void main(String[] args) {
-        SpringApplication.run(GatewayApplication.class, args);
+        SpringApplication.run(MallGatewayApplication.class, args);
     }
 
 }

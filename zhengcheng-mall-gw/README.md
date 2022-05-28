@@ -15,7 +15,8 @@
 1. `gateway`是`springcloud`微服务平台的一个子项目，属于`spring`开源社区，依赖名叫：`spring-cloud-starter-gateway`
 2. `zuul`是`Netflix`公司的开源项目，`springcloud`在`netflix`项目中也已经集成了`zuul`，依赖名叫：`spring-cloud-starter-netflix-zuul`
    。[官网文档](https://github.com/Netflix/zuul)
-3. `springcloud gateway` 基于`spring 5`、`projec` `treactor`、`springboot 2`，使用非阻塞式的`API`，内置限流过滤器，支持长连接（比如`websockets`
+3. `springcloud gateway` 基于`Spring Framework 5`、`Project Reactor`、`Spring Boot 2.0`，使用非阻塞式的`API`
+   ，内置限流过滤器，支持长连接（比如`websockets`
    ），在高并发和后端服务响应慢的场景下比`zuul`的表现要好
 4. `zuul`基于`servlet2.x`构建，使用阻塞的`API`，没有内置限流过滤器，不支持长连接
 
