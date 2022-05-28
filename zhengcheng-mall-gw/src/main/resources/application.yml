@@ -15,4 +15,4 @@ spring:
     import:
       - optional:nacos:zhengcheng-mall-gw.properties
 server:
-  port: 8084
+  port: 80
