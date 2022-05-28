@@ -74,7 +74,7 @@ var code = ke.response.data.code;
 if (code == 200) {
     //获取token
     var token = ke.response.data.data.tokenValue;
-    //1、如何参数是Header，则设置当前逻辑分组下的全局Header
+    //1、如果参数是Header，则设置当前逻辑分组下的全局Header
     ke.global.setHeader("satoken", token);
 }
 ```
