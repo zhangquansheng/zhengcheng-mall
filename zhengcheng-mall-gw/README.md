@@ -48,3 +48,7 @@ spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 
 ## 限流
 
+## 微服务 - 网关统一鉴权
+
+[Sa-Token](https://sa-token.dev33.cn/doc/index.html#/micro/gateway-auth)
+
