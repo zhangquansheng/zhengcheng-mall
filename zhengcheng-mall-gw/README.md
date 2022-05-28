@@ -28,8 +28,6 @@
 
 ## Spring Cloud Gateway 结合 Nacos 实现微服务动态路由
 
-### Path 方式匹配转发
-
 ```properties
 spring.cloud.gateway.routes[0].id=zhengcheng-mall-api
 spring.cloud.gateway.routes[0].uri=lb://zhengcheng-mall-api
