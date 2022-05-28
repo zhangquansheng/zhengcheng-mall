@@ -52,6 +52,35 @@ spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 
 [Sa-Token](https://sa-token.dev33.cn/doc/index.html#/micro/gateway-auth)
 
+```java
+/**
+ * [Sa-Token 权限认证] 配置类 
+ */
+@Configuration
+public class SaTokenConfigure {
+    // 注册 Sa-Token全局过滤器 
+    @Bean
+    public SaReactorFilter getSaReactorFilter() {
+        return new SaReactorFilter()
+                // 拦截地址 
+                .addInclude("/**")
+                // 开放地址 
+                .addExclude("/favicon.ico")
+                // 鉴权方法：每次访问进入 
+                .setAuth(obj -> {
+                    // 登录校验 -- 拦截所有路由，并排除 /oauth/token 用于开放登录 
+                    SaRouter.match("/**", "/oauth/token", r -> StpUtil.checkLogin());
+                })
+                // 异常处理方法：每次setAuth函数出现异常时进入 
+                .setError(e -> {
+                    // https://toscode.gitee.com/dromara/sa-token/issues/I46ZZF
+                    SaHolder.getResponse().setHeader("Content-Type", "application/json");
+                    return JSONUtil.parse(Result.errorMessage(e.getMessage()));
+                });
+    }
+}
+```
+
 ## knife4j Api文档
 
 ### afterScript
