@@ -9,3 +9,6 @@
 - **动态路由**：动态的将请求路由到不同的后端集群中
 
 ![springcloud](/img/springcloud.png)
+
+## Gateway 与 Zuul 比较
+
