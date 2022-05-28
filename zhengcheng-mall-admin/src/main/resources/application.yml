@@ -14,8 +14,3 @@ spring:
   config:
     import:
       - optional:nacos:zhengcheng-mall-admin.properties
-server:
-  port: 8084
-kaptcha:
-  height: 48
-  width: 130
