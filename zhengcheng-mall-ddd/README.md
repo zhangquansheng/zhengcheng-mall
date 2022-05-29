@@ -8,3 +8,4 @@
 - [ddd-framework](https://github.com/lml200701158/ddd-framework)
 - [DDDSample](https://github.com/citerus/dddsample-core)
 - [Halo](https://xujin.org/projects/halo/overview/)
+- [领域驱动设计在互联网业务开发中的实践](https://tech.meituan.com/2017/12/22/ddd-in-practice.html)
