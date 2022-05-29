@@ -13,6 +13,7 @@
         <module>zhengcheng-mall-gw</module>
         <module>zhengcheng-mall-pay</module>
         <module>zhengcheng-mall-spider</module>
+        <module>zhengcheng-mall-ddd</module>
     </modules>
 
     <parent>
