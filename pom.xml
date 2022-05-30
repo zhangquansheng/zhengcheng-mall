@@ -8,7 +8,6 @@
         <module>zhengcheng-mall-im</module>
         <module>zhengcheng-mall-common</module>
         <module>zhengcheng-mall-api</module>
-        <module>zhengcheng-mall-echarts</module>
         <module>zhengcheng-mall-api-provider</module>
         <module>zhengcheng-mall-gw</module>
         <module>zhengcheng-mall-pay</module>
