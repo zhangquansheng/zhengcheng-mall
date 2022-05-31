@@ -1,17 +1,14 @@
 package com.zhengcheng.mall.bbs.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
@@ -22,15 +19,11 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.zhengcheng.mall.bbs.common.constant.BBSContant;
 import com.zhengcheng.mall.bbs.domain.dao.MemberDao;
 import com.zhengcheng.mall.bbs.domain.dao.MessageDao;
-import com.zhengcheng.mall.bbs.domain.entity.BbsMessage;
 import com.zhengcheng.mall.bbs.domain.entity.Member;
-import com.zhengcheng.mall.bbs.domain.enums.Gender;
 import com.zhengcheng.mall.bbs.service.MemberService;
 
 import cn.hutool.core.date.DateUtil;
@@ -88,87 +81,6 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     }
 
     @Override
-    public Member findByNickname(String nickname) {
-        return memberDao.findByNickname(nickname);
-    }
-
-    /**
-     * 获取当前登陆信息
-     *
-     * @return
-     */
-    private Principal getCurrentPrincipal() {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        if (requestAttributes != null) {
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            Principal principal = (Principal) request.getSession().getAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
-            return principal;
-        }
-        return null;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public boolean isAuthenticated() {
-        Principal principal = getCurrentPrincipal();
-        if (principal != null) {
-            return true;
-        }
-        return false;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Member getCurrent() {
-        Principal principal = getCurrentPrincipal();
-        if (principal != null) {
-            return super.find(principal.getId());
-        }
-        return null;
-    }
-
-    @Transactional(readOnly = true)
-    @Override
-    public Long getCurrentID() {
-        Principal principal = getCurrentPrincipal();
-        if (principal != null) {
-            return principal.getId();
-        }
-        return null;
-    }
-
-    @Transactional
-    @Override
-    public Member register(String username, String nickname, String password) {
-
-        Member member = new Member();
-        member.setUsername(username.toLowerCase());
-        member.setNickname(nickname);
-        member.setPassword(DigestUtils.md5Hex(password));
-        member.setEnable(true);
-        member.setAdmin(false);
-        member.setLight(false);
-        member.setJieAuth(true);
-        member.setReplyAuth(true);
-        member.setGender(Gender.male);
-        member.setCertified("社区羊");
-        member.setKiss(0L);
-        member.setReplies(0L);
-        member.setWeekReplies(0L);
-        member.setSignLastKiss(0L);
-        member.setSignNonstopCount(0L);
-        member.setSignTotalCount(0L);
-        memberDao.save(member);
-
-        BbsMessage bbsMessage = new BbsMessage();
-        bbsMessage.setContent("系统消息：欢迎使用 " + BBSContant.SITE_NAME);
-        bbsMessage.setMember(member);
-        bbsMessage.setReceiverRead(false);
-        messageDao.save(bbsMessage);
-        return member;
-    }
-
-    @Override
     public Page<Member> findPage(Long weekReplies, Boolean enable, Pageable pageable) {
         Page<Member> page = memberDao.findAll(new Specification<Member>() {
             @Override
@@ -192,17 +104,12 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         Page<Member> page = memberDao.findAll(new Specification<Member>() {
             @Override
             public Predicate toPredicate(Root<Member> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
-                try {
-                    List<Predicate> list = new ArrayList<>();
-                    Predicate[] p = new Predicate[list.size()];
-                    Date beginTime = DateUtils.parse(DateUtils.format(new Date(), "yyyy-MM-dd") + " 00:00:00",
-                            "yyyy-MM-dd HH:mm:ss");
-                    list.add(criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("signLastTime"), beginTime));
-                    return criteriaBuilder.and(list.toArray(p));
-                } catch (ParseException e) {
-                    e.printStackTrace();
-                    return null;
-                }
+                List<Predicate> list = new ArrayList<>();
+                Predicate[] p = new Predicate[list.size()];
+                Date beginTime = DateUtil.parse(DateUtil.format(new Date(), "yyyy-MM-dd") + " 00:00:00",
+                        "yyyy-MM-dd HH:mm:ss");
+                list.add(criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("signLastTime"), beginTime));
+                return criteriaBuilder.and(list.toArray(p));
             }
         }, pageable);
         return page;
@@ -225,18 +132,17 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     @Override
     public Boolean isSign(Member member) {
         Date nowDate = new Date();
-        try {
-            Date beginTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 00:00:00",
-                    "yyyy-MM-dd HH:mm:ss");
-            Date endTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 23:59:59", "yyyy-MM-dd HH:mm:ss");
-            if (DateUtil.between(member.getSignLastTime(), beginTime, endTime)) {
-                return true;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
-        }
-        return false;
+        //        try {
+        Date beginTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
+        Date endTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 23:59:59", "yyyy-MM-dd HH:mm:ss");
+        //            if (DateUtil.between(member.getSignLastTime(), beginTime, endTime)) {
+        return true;
+        //            }
+        //        } catch (ParseException e) {
+        //            e.printStackTrace();
+        //            return false;
+        //        }
+        //        return false;
     }
 
     @CacheEvict(key = "#p0.id")
@@ -244,7 +150,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     @Override
     public Map<String, Object> sign(Member member) {
         Long days = member.getSignTotalCount() + 1L;
-        Long kiss = BbsUtils.getKiss(days);
+        Long kiss = getKiss(days);
         member.setSignLastKiss(kiss);
         member.setSignTotalCount(member.getSignTotalCount() + 1);
         member.setSignNonstopCount(days);
@@ -257,6 +163,24 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         data.put("experience", kiss);
         data.put("days", days);
         return data;
+    }
+
+    /**
+     * “签到”获得社区飞吻的规则
+     *
+     * @param signcount 连续签到天数
+     * @return 每天可获飞吻
+     */
+    private Long getKiss(Long signcount) {
+        if (signcount >= 0 && signcount < 5) {
+            return 5L;
+        } else if (signcount >= 5 && signcount < 10) {
+            return 10L;
+        } else if (signcount >= 15 && signcount < 30) {
+            return 15L;
+        } else {
+            return 20L;
+        }
     }
 
     @CacheEvict(key = "#p0.id")
