@@ -11,7 +11,7 @@ import com.zhengcheng.mall.bbs.domain.enums.Gender;
 /**
  * Copyright © 2018 zskj Info. Tech Ltd. All rights reserved.
  * <p>
- * 功能描述：会员
+ * 功能描述：BBS会员
  *
  * @author 绽曙科技-zqs
  * @date: 2018/1/23
