@@ -99,6 +99,14 @@
         setInterval(function () {
             document.getElementById("captchaImage").src = captchaPath + "?" + Math.random();
         }, 900 * 1000);
+
+        $('input').on('keydown', function (event) {
+            if (event.keyCode == 13) {
+                $(".login").trigger("click");
+                return false
+            }
+        });
+
     })
 </script>
 </body>
