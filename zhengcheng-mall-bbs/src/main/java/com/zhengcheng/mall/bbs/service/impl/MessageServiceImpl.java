@@ -25,7 +25,7 @@ import com.zhengcheng.mall.bbs.service.MessageService;
  * @author zqs
  * @version 3.0
  */
-@Service
+@Service("bbsMessageServiceImpl")
 public class MessageServiceImpl extends BaseServiceImpl<BbsMessage, Long> implements MessageService {
 
     @Autowired

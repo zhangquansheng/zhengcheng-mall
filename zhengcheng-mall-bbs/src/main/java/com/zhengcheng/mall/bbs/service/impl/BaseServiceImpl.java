@@ -37,7 +37,7 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
 
     @Transactional(readOnly = true)
     public T find(ID id) {
-        return baseDao.findOne(id);
+        return baseDao.getById(id);
     }
 
     @Transactional
@@ -52,14 +52,14 @@ public class BaseServiceImpl<T, ID extends Serializable> implements BaseService<
 
     @Transactional
     public void delete(ID id) {
-        baseDao.delete(id);
+        baseDao.deleteById(id);
     }
 
     @Transactional
     public void delete(ID... ids) {
         if (ids != null) {
             for (ID id : ids) {
-                baseDao.delete(id);
+                baseDao.deleteById(id);
             }
         }
     }
