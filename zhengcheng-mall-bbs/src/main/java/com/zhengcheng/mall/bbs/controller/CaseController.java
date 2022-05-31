@@ -25,6 +25,6 @@ public class CaseController extends BaseController {
      */
     @RequestMapping("list")
     public String list(ModelMap model) {
-        return "case/list";
+        return "/case/list";
     }
 }
