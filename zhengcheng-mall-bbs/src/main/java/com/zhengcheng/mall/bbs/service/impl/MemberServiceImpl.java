@@ -1,14 +1,12 @@
 package com.zhengcheng.mall.bbs.service.impl;
 
 import java.lang.reflect.InvocationTargetException;
-import java.text.ParseException;
 import java.util.*;
 
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
-import javax.servlet.http.HttpServletRequest;
 
 import org.apache.commons.beanutils.PropertyUtils;
 import org.apache.commons.codec.digest.DigestUtils;
@@ -22,10 +20,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import org.springframework.web.context.request.RequestAttributes;
-import org.springframework.web.context.request.RequestContextHolder;
-import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.zhengcheng.common.dto.UserDTO;
+import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.mall.bbs.common.constant.BBSContant;
 import com.zhengcheng.mall.bbs.domain.dao.MemberDao;
 import com.zhengcheng.mall.bbs.domain.dao.MessageDao;
@@ -93,25 +90,10 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
         return memberDao.findByNickname(nickname);
     }
 
-    /**
-     * 获取当前登陆信息
-     *
-     * @return
-     */
-    private Principal getCurrentPrincipal() {
-        RequestAttributes requestAttributes = RequestContextHolder.currentRequestAttributes();
-        if (requestAttributes != null) {
-            HttpServletRequest request = ((ServletRequestAttributes) requestAttributes).getRequest();
-            Principal principal = (Principal) request.getSession().getAttribute(Member.PRINCIPAL_ATTRIBUTE_NAME);
-            return principal;
-        }
-        return null;
-    }
-
     @Transactional(readOnly = true)
     @Override
     public boolean isAuthenticated() {
-        Principal principal = getCurrentPrincipal();
+        UserDTO principal = ZcUserInfoHolder.getUserInfo();
         if (principal != null) {
             return true;
         }
@@ -121,8 +103,9 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     @Transactional(readOnly = true)
     @Override
     public Member getCurrent() {
-        Principal principal = getCurrentPrincipal();
+        UserDTO principal = ZcUserInfoHolder.getUserInfo();
         if (principal != null) {
+            // TODO findByUserId
             return super.find(principal.getId());
         }
         return null;
@@ -131,7 +114,7 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     @Transactional(readOnly = true)
     @Override
     public Long getCurrentID() {
-        Principal principal = getCurrentPrincipal();
+        UserDTO principal = ZcUserInfoHolder.getUserInfo();
         if (principal != null) {
             return principal.getId();
         }
@@ -221,18 +204,35 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     @Override
     public Boolean isSign(Member member) {
         Date nowDate = new Date();
-        try {
-            Date beginTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 00:00:00",
-                    "yyyy-MM-dd HH:mm:ss");
-            Date endTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 23:59:59", "yyyy-MM-dd HH:mm:ss");
-            if (DateUtils.belongCalendar(member.getSignLastTime(), beginTime, endTime)) {
-                return true;
-            }
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return false;
+        Date beginTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 00:00:00", "yyyy-MM-dd HH:mm:ss");
+        Date endTime = DateUtil.parse(DateUtil.format(nowDate, "yyyy-MM-dd") + " 23:59:59", "yyyy-MM-dd HH:mm:ss");
+        if (belongCalendar(member.getSignLastTime(), beginTime, endTime)) {
+            return true;
         }
         return false;
+    }
+
+    /**
+     * 判断时间是否在时间段内
+     */
+    boolean belongCalendar(Date nowTime, Date beginTime, Date endTime) {
+        if (nowTime == null || beginTime == null || endTime == null) {
+            return false;
+        }
+        Calendar date = Calendar.getInstance();
+        date.setTime(nowTime);
+
+        Calendar begin = Calendar.getInstance();
+        begin.setTime(beginTime);
+
+        Calendar end = Calendar.getInstance();
+        end.setTime(endTime);
+
+        if (date.after(begin) && date.before(end)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     @CacheEvict(key = "#p0.id")

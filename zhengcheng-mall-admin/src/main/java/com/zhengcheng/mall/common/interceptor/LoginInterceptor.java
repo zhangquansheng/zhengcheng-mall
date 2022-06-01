@@ -90,7 +90,7 @@ public class LoginInterceptor implements HandlerInterceptor {
         if (StrUtil.isNotBlank(satoken)) {
             Result<UserDTO> userResult = userFeignClient.findByByToken(satoken);
             // 会话缓存用户信息
-            session.setAttribute(LoginInterceptor.PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
+            session.setAttribute(PRINCIPAL_ATTRIBUTE_NAME, userResult.getData());
             return userResult.getData();
         }
         return null;
