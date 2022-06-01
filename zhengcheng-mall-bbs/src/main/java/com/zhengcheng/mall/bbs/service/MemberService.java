@@ -48,6 +48,44 @@ public interface MemberService extends BaseService<Member, Long> {
     Member findByUsername(String username);
 
     /**
+     * 根据昵称查询会员
+     *
+     * @param nickname 昵称
+     * @return 会员
+     */
+    Member findByNickname(String nickname);
+
+    /**
+     * 判断会员是否登录
+     *
+     * @return 会员是否登录
+     */
+    boolean isAuthenticated();
+
+    /**
+     * 获取当前登录会员
+     *
+     * @return 当前登录会员，若不存在则返回null
+     */
+    Member getCurrent();
+
+    /**
+     * 获取当前登录用户ID
+     *
+     * @return 当前登录用户ID，若不存在则返回null
+     */
+    Long getCurrentID();
+
+    /**
+     * 注册会员
+     *
+     * @param username 用户名
+     * @param nickname 昵称
+     * @param password 密码
+     */
+    Member register(String username, String nickname, String password);
+
+    /**
      * 回贴周榜
      *
      * @param weekReplies 周回帖
