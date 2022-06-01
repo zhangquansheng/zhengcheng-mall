@@ -25,6 +25,10 @@ public class CaseController extends BaseController {
      */
     @RequestMapping("list")
     public String list(ModelMap model) {
-        return "/case/list";
+        Boolean isAuthenticated = memberService.isAuthenticated();
+        if (isAuthenticated) {
+            model.addAttribute("member", memberService.getCurrent());
+        }
+        return "case/list";
     }
 }

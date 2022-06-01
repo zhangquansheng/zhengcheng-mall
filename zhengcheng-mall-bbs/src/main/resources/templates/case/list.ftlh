@@ -19,6 +19,7 @@
 </head>
 <body class="fly-full">
 
+<#include "${base}/include/header.ftlh"/>
 
 <div class="fly-main" style="overflow: hidden;">
     <ul class="fly-case-list">
@@ -26,8 +27,26 @@
             <h2><a href="http://developer.baidu.com/vcast/" target="_blank">百度语音</a></h2>
             <p class="fly-case-desc">在线文字转语音|免费生成语音-百度广播开放平台。</p>
         </li>
+        <li data-id="2">
+            <h2><a href="${base}/test/basics" target="_blank">JAVA基础</a></h2>
+            <p class="fly-case-desc">Java中==号与equals()方法的区别。</p>
+        </li>
     </ul>
 </div>
 
+<#include "${base}/include/footer.ftlh"/>
+
+<script src="${base}/res/layui/layui.js"></script>
+<script>
+
+    <#include "${base}/include/auth_cache_user.ftlh"/>
+
+    layui.config({
+        version: "3.0.0"
+        , base: '${base}/res/mods/' //这里实际使用时，建议改成绝对路径
+    }).extend({
+        fly: 'index'
+    }).use('fly');
+</script>
 </body>
 </html>
