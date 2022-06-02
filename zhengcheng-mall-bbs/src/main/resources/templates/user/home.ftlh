@@ -13,18 +13,18 @@
 
 <div class="fly-home fly-panel" style="background-image: url();">
     <#if user.avatar??>
-    <img src="${user.avatar}" alt="${user.nickname}">
+        <img src="${user.avatar}" alt="${user.nickname}">
     </#if>
     <#if user.renzheng??>
-    <i class="iconfont icon-renzheng" title="${siteName}认证"></i>
+        <i class="iconfont icon-renzheng" title="${siteName}认证"></i>
     </#if>
     <h1>
-    ${user.nickname}
+        ${user.nickname}
         <#if user.gender??>
             <#if user.gender == 'male'>
-                 <i class="iconfont icon-nan"></i>
+                <i class="iconfont icon-nan"></i>
             <#elseif user.gender == 'female'>
-                 <i class="iconfont icon-nv"></i>
+                <i class="iconfont icon-nv"></i>
             </#if>
         </#if>
         <#if user.vip??>
@@ -33,16 +33,16 @@
         <#if user.admin>
             <span style="color:#c00;">（管理员）</span>
         </#if>
-         <#if user.light>
+        <#if user.light>
             <span style="color:#5FB878;">（社区之光）</span>
-         </#if>
+        </#if>
         <#if !user.enable>
-             <span>（该号已被封）</span>
+            <span>（该号已被封）</span>
         </#if>
     </h1>
-     <#if user.renzheng??>
+    <#if user.renzheng??>
         <p style="padding: 10px 0; color: #5FB878;">认证信息：${user.renzheng}</p>
-     </#if>
+    </#if>
     <p class="fly-home-info">
         <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${user.kiss} 飞吻</span>
         <i class="iconfont icon-shijian"></i><span>${user.createDate?string("yyyy-MM-dd")} 加入</span>
@@ -61,14 +61,14 @@
                 <ul class="jie-row">
                     <#if jiePage.content?has_content>
                         <#list jiePage.content as jie>
-                              <li>
-                                  <#if jie.good>
-                                  <span class="fly-jing">精</span>
-                                  </#if>
-                                  <a href="${base}/jie/detail/${jie.id}" class="jie-title">${jie.title}</a>
-                                  <i>${jie.createDate?string("yyyy/MM/dd HH:mm")}</i>
-                                  <em class="layui-hide-xs">${jie.hits}阅/${jie.commentNums}答</em>
-                              </li>
+                            <li>
+                                <#if jie.good>
+                                    <span class="fly-jing">精</span>
+                                </#if>
+                                <a href="${base}/jie/detail/${jie.id}" class="jie-title">${jie.title}</a>
+                                <i>${jie.createTime?string("yyyy/MM/dd HH:mm")}</i>
+                                <em class="layui-hide-xs">${jie.hits}阅/${jie.commentNums}答</em>
+                            </li>
                         </#list>
                     <#else >
                         <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;">
@@ -85,15 +85,15 @@
                 <ul class="home-jieda">
                     <#if jiedaPage.content?has_content>
                         <#list jiedaPage.content as jieda>
-                           <li>
-                               <p>
-                                   <span>${jieda.createDate?string("yyyy/MM/dd HH:mm")}</span>
-                                   在<a href="${base}/jie/detail/${jieda.jie.id}" target="_blank">${jieda.jie.title}</a>中回答：
-                               </p>
-                               <div class="home-dacontent">
-                                   ${jieda.content}
-                               </div>
-                           </li>
+                            <li>
+                                <p>
+                                    <span>${jieda.createDate?string("yyyy/MM/dd HH:mm")}</span>
+                                    在<a href="${base}/jie/detail/${jieda.jie.id}" target="_blank">${jieda.jie.title}</a>中回答：
+                                </p>
+                                <div class="home-dacontent">
+                                    ${jieda.content}
+                                </div>
+                            </li>
                         </#list>
                     <#else>
                         <div class="fly-none" style="min-height: 50px; padding:30px 0; height:auto;">

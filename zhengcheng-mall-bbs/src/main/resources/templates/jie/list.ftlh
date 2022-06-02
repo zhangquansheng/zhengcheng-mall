@@ -44,7 +44,7 @@
                                             <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
                                         </#if>
                                     </a>
-                                    <span>${jie.createDate}</span>
+                                    <span>${jie.createTime}</span>
 
                                     <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
                                                 class="iconfont icon-kiss"></i> ${jie.experience}</span>

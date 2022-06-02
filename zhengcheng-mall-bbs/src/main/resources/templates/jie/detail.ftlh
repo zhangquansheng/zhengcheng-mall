@@ -9,10 +9,10 @@
 </head>
 <body>
 
-<#include "${base}/include/header.ftl"/>
+<#include "${base}/include/header.ftlh"/>
 
 <div class="layui-hide-xs">
-    <#include "${base}/include/header_category.ftl"/>
+    <#include "${base}/include/header_category.ftlh"/>
 </div>
 
 <div class="layui-container">
@@ -39,28 +39,28 @@
                         <span class="layui-badge layui-bg-red">精帖</span>
                     </#if>
                     <#if isAuthenticated>
-                            <div class="fly-admin-box" data-id="${jie.id}">
-                                <#if member.admin>
-                                    <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
-                                    <#if jie.top>
-                                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="top"
-                                              rank="0"
-                                              style="background-color:#ccc;">取消置顶</span>
-                                    <#else>
-                                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="top"
-                                              rank="1">置顶</span>
-                                    </#if>
-
-                                    <#if jie.good>
-                                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="good"
-                                              rank="0"
-                                              style="background-color:#ccc;">取消加精</span>
-                                    <#else>
-                                        <span class="layui-btn layui-btn-xs jie-admin" type="set" field="good"
-                                              rank="1">加精</span>
-                                    </#if>
+                        <div class="fly-admin-box" data-id="${jie.id}">
+                            <#if member.admin>
+                                <span class="layui-btn layui-btn-xs jie-admin" type="del">删除</span>
+                                <#if jie.top>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="top"
+                                          rank="0"
+                                          style="background-color:#ccc;">取消置顶</span>
+                                <#else>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="top"
+                                          rank="1">置顶</span>
                                 </#if>
-                            </div>
+
+                                <#if jie.good>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="good"
+                                          rank="0"
+                                          style="background-color:#ccc;">取消加精</span>
+                                <#else>
+                                    <span class="layui-btn layui-btn-xs jie-admin" type="set" field="good"
+                                          rank="1">加精</span>
+                                </#if>
+                            </#if>
+                        </div>
                     </#if>
                     <span class="fly-list-nums">
                         <a href="#comment"><i class="iconfont" title="回答">&#xe60c;</i> ${jie.commentNums}</a>
@@ -85,7 +85,7 @@
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${jie.experience}飞吻</span>
                         <#if isAuthenticated>
                             <#if member.equals(jie.member)>
-                             <span class="layui-btn layui-btn-xs jie-admin" type="edit">
+                                <span class="layui-btn layui-btn-xs jie-admin" type="edit">
                                 <a href="${base}/member/jie/edit/${jie.id}">编辑此贴</a>
                              </span>
                             </#if>
@@ -93,7 +93,7 @@
                     </div>
                 </div>
                 <div class="detail-body photos">
-                ${jie.content}
+                    ${jie.content}
                 </div>
             </div>
 
@@ -105,68 +105,69 @@
                 <ul class="jieda" id="jieda">
                     <#if jie.jiedas?has_content>
                         <#list jie.jiedas as jieda>
-                        <li data-id="${jieda.id}" class="jieda-daan">
-                            <a name="item-${jieda.id}"></a>
-                            <div class="detail-about detail-about-reply">
-                                <a class="fly-avatar" href="${base}/user/jump?nickname=${jieda.member.nickname}">
-                                    <img src="${jieda.member.avatar}" alt="${jieda.member.nickname}">
-                                </a>
-                                <div class="fly-detail-user">
-                                    <a href="${base}/user/jump?nickname=${jieda.member.nickname}" class="fly-link">
-                                        <cite>${jieda.member.nickname}</cite>
-                                        <i class="iconfont icon-renzheng" title="认证信息：${jieda.member.certified}"></i>
-                                        <#if jieda.member.vip??>
-                                        <i class="layui-badge fly-badge-vip">${jieda.member.vip}</i>
-                                        </#if>
+                            <li data-id="${jieda.id}" class="jieda-daan">
+                                <a name="item-${jieda.id}"></a>
+                                <div class="detail-about detail-about-reply">
+                                    <a class="fly-avatar" href="${base}/user/jump?nickname=${jieda.member.nickname}">
+                                        <img src="${jieda.member.avatar}" alt="${jieda.member.nickname}">
                                     </a>
-                                    <#if jieda.member.equals(jie.member)>
-                                    <span>(楼主)</span>
-                                    </#if>
-                                    <#if jieda.member.admin>
-                                    <span style="color:#5FB878">(管理员)</span>
-                                    </#if>
-                                    <#if jieda.member.light>
-                                    <span style="color:#FF9E3F">（社区之光）</span>
-                                    </#if>
-                                    <#if !jieda.member.enable>
-                                    <span style="color:#999">（该号已被封）</span>
-                                    </#if>
-                                </div>
+                                    <div class="fly-detail-user">
+                                        <a href="${base}/user/jump?nickname=${jieda.member.nickname}" class="fly-link">
+                                            <cite>${jieda.member.nickname}</cite>
+                                            <i class="iconfont icon-renzheng"
+                                               title="认证信息：${jieda.member.certified}"></i>
+                                            <#if jieda.member.vip??>
+                                                <i class="layui-badge fly-badge-vip">${jieda.member.vip}</i>
+                                            </#if>
+                                        </a>
+                                        <#if jieda.member.equals(jie.member)>
+                                            <span>(楼主)</span>
+                                        </#if>
+                                        <#if jieda.member.admin>
+                                            <span style="color:#5FB878">(管理员)</span>
+                                        </#if>
+                                        <#if jieda.member.light>
+                                            <span style="color:#FF9E3F">（社区之光）</span>
+                                        </#if>
+                                        <#if !jieda.member.enable>
+                                            <span style="color:#999">（该号已被封）</span>
+                                        </#if>
+                                    </div>
 
-                                <div class="detail-hits">
-                                    <span>${jieda.createDate?string('yyyy-MM-dd')}</span>
+                                    <div class="detail-hits">
+                                        <span>${jieda.createDate?string('yyyy-MM-dd')}</span>
+                                    </div>
+                                    <#if jieda.caina>
+                                        <i class="iconfont icon-caina" title="最佳答案"></i>
+                                    </#if>
                                 </div>
-                                <#if jieda.caina>
-                                <i class="iconfont icon-caina" title="最佳答案"></i>
-                                </#if>
-                            </div>
-                            <div class="detail-body jieda-body photos">
-                                ${jieda.content}
-                            </div>
-                            <div class="jieda-reply">
+                                <div class="detail-body jieda-body photos">
+                                    ${jieda.content}
+                                </div>
+                                <div class="jieda-reply">
                                 <span class="jieda-zan <#if isAuthenticated && jieda.zanMembers?seq_contains(member)>zanok</#if>"
                                       type="zan">
                                     <i class="iconfont icon-zan"></i>
                                     <em>${jieda.zan}</em>
                                 </span>
-                                <span type="reply">
+                                    <span type="reply">
                                     <i class="iconfont icon-svgmoban53"></i>回复
                                 </span>
-                                <div class="jieda-admin">
-                                    <#if isAuthenticated>
-                                        <#if member.getAdmin()>
-                                    <span type="edit">编辑</span>
-                                    <span type="del">删除</span>
+                                    <div class="jieda-admin">
+                                        <#if isAuthenticated>
+                                            <#if member.getAdmin()>
+                                                <span type="edit">编辑</span>
+                                                <span type="del">删除</span>
+                                            </#if>
                                         </#if>
-                                    </#if>
-                                    <#if isAuthenticated>
-                                        <#if !jieda.member.equals(jie.member) && !jie.finished && !jieda.caina && member.equals(jie.member)>
-                                            <span class="jieda-accept" type="accept">采纳</span>
+                                        <#if isAuthenticated>
+                                            <#if !jieda.member.equals(jie.member) && !jie.finished && !jieda.caina && member.equals(jie.member)>
+                                                <span class="jieda-accept" type="accept">采纳</span>
+                                            </#if>
                                         </#if>
-                                    </#if>
+                                    </div>
                                 </div>
-                            </div>
-                        </li>
+                            </li>
                         </#list>
                     <#else >
                         <li class="fly-none">消灭零回复</li>
@@ -197,10 +198,10 @@
                 <dt class="fly-panel-title">社区热议</dt>
                 <#if weekHotPage.content?has_content>
                     <#list weekHotPage.content as jie>
-                     <dd>
-                         <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
-                         <span><i class="iconfont icon-pinglun1"></i> ${jie.commentNums}</span>
-                     </dd>
+                        <dd>
+                            <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
+                            <span><i class="iconfont icon-pinglun1"></i> ${jie.commentNums}</span>
+                        </dd>
                     </#list>
                 <#else>
                     <div class="fly-none">没有相关数据</div>
@@ -212,26 +213,26 @@
                     钻级赞助商
                 </div>
                 <div class="fly-panel-main">
-                   <#if ads?has_content>
+                    <#if ads?has_content>
                         <#list ads as ad>
-                        <a href="${ad.url}" target="_blank" class="fly-zanzhu"
-                           time-limit="${ad.beginDate?string('yyyy.MM.dd')}-${ad.endDate?string('yyyy.MM.dd')}"
-                           style="background-color: #5FB878;">${ad.title}</a>
+                            <a href="${ad.url}" target="_blank" class="fly-zanzhu"
+                               time-limit="${ad.beginDate?string('yyyy.MM.dd')}-${ad.endDate?string('yyyy.MM.dd')}"
+                               style="background-color: #5FB878;">${ad.title}</a>
                         </#list>
-                   </#if>
+                    </#if>
                 </div>
             </div>
         </div>
     </div>
 </div>
 
-<#include "${base}/include/footer.ftl"/>
+<#include "${base}/include/footer.ftlh"/>
 
 <script src="${base}/res/layui/layui.js"></script>
 <script>
     layui.cache.page = 'jie';
 
-    <#include "${base}/include/auth_cache_user.ftl"/>
+    <#include "${base}/include/auth_cache_user.ftlh"/>
 
     layui.config({
         version: "3.0.0"
@@ -240,7 +241,7 @@
         fly: 'index'
     }).use(['fly', 'face'], function () {
         var $ = layui.$
-                , fly = layui.fly;
+            , fly = layui.fly;
 
         $('.detail-body').each(function () {
             var othis = $(this), html = othis.html();
