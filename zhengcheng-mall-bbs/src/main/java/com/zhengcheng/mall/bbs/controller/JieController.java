@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.common.collect.Lists;
 import com.zhengcheng.mall.bbs.common.apiresult.ApiResult;
 import com.zhengcheng.mall.bbs.common.constant.BBSContant;
 import com.zhengcheng.mall.bbs.domain.entity.Ad;
@@ -106,7 +107,7 @@ public class JieController extends BaseController {
          */
         model.addAttribute("ads", ads);
 
-        //        model.addAttribute("newsList", newsService.findList());
+        model.addAttribute("newsList", Lists.newArrayList());
 
         model.addAttribute("textFriendLinks", textFriendLinks);
         model.addAttribute("listStaticFriendLinks", listStaticFriendLinks);

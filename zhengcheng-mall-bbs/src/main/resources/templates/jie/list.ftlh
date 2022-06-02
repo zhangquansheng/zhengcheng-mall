@@ -9,61 +9,61 @@
 </head>
 <body>
 
-<#include "${base}/include/header.ftl"/>
+<#include "${base}/include/header.ftlh"/>
 
-<#include "${base}/include/header_category.ftl"/>
+<#include "${base}/include/header_category.ftlh"/>
 
 <div class="layui-container">
     <div class="layui-row layui-col-space15">
         <div class="layui-col-md8">
             <#if categoryId == 0>
-            <div class="fly-panel">
-                <div class="fly-panel-title fly-filter">
-                    <a>置顶</a>
-                    <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin"
-                       style="color: #FF5722;">去签到</a>
-                </div>
-                <ul class="fly-list">
-                  <#list topJieList as jie>
-                      <li>
-                          <a href="${base}/user/jump?nickname=${jie.member.nickname}" class="fly-avatar">
-                              <img src="${jie.member.avatar}"
-                                   alt="${jie.member.nickname}">
-                          </a>
-                          <h2>
-                              <a class="layui-badge">${jie.category.name}</a>
-                              <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
-                          </h2>
-                          <div class="fly-list-info">
-                              <a href="${base}/user/jump?nickname=${jie.member.nickname}" link>
-                                  <cite>${jie.member.nickname}</cite>
-                                  <#if jie.member.renzheng??>
-                                  <i class="iconfont icon-renzheng" title="认证信息：${jie.member.renzheng}"></i>
-                                  </#if>
-                                  <#if jie.member.vip??>
-                                  <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
-                                  </#if>
-                              </a>
-                              <span>${jie.createDate}</span>
+                <div class="fly-panel">
+                    <div class="fly-panel-title fly-filter">
+                        <a>置顶</a>
+                        <a href="#signin" class="layui-hide-sm layui-show-xs-block fly-right" id="LAY_goSignin"
+                           style="color: #FF5722;">去签到</a>
+                    </div>
+                    <ul class="fly-list">
+                        <#list topJieList as jie>
+                            <li>
+                                <a href="${base}/user/jump?nickname=${jie.member.nickname}" class="fly-avatar">
+                                    <img src="${jie.member.avatar}"
+                                         alt="${jie.member.nickname}">
+                                </a>
+                                <h2>
+                                    <a class="layui-badge">${jie.category.name}</a>
+                                    <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
+                                </h2>
+                                <div class="fly-list-info">
+                                    <a href="${base}/user/jump?nickname=${jie.member.nickname}" link>
+                                        <cite>${jie.member.nickname}</cite>
+                                        <#if jie.member.renzheng??>
+                                            <i class="iconfont icon-renzheng" title="认证信息：${jie.member.renzheng}"></i>
+                                        </#if>
+                                        <#if jie.member.vip??>
+                                            <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
+                                        </#if>
+                                    </a>
+                                    <span>${jie.createDate}</span>
 
-                              <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
-                                      class="iconfont icon-kiss"></i> ${jie.experience}</span>
-                              <#if jie.finished>
-                              <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-                              </#if>
-                              <span class="fly-list-nums">
+                                    <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
+                                                class="iconfont icon-kiss"></i> ${jie.experience}</span>
+                                    <#if jie.finished>
+                                        <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                                    </#if>
+                                    <span class="fly-list-nums">
                                 <i class="iconfont icon-pinglun1" title="回答"></i> ${jie.commentNums}
                               </span>
-                          </div>
-                          <div class="fly-list-badge">
-                              <#if jie.good>
-                                  <span class="layui-badge layui-bg-red">精贴</span>
-                              </#if>
-                          </div>
-                      </li>
-                  </#list>
-                </ul>
-            </div>
+                                </div>
+                                <div class="fly-list-badge">
+                                    <#if jie.good>
+                                        <span class="layui-badge layui-bg-red">精贴</span>
+                                    </#if>
+                                </div>
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
             </#if>
 
             <div class="fly-panel" style="margin-bottom: 0;">
@@ -90,73 +90,73 @@
                 </div>
 
                 <ul class="fly-list">
-                   <#list page.content as jie>
-                       <li>
-                           <a href="${base}/user/jump?nickname=${jie.member.nickname}" class="fly-avatar">
-                               <img src="${jie.member.avatar}"
-                                    alt="${jie.member.nickname}">
-                           </a>
-                           <h2>
-                               <#if categoryId == allJieCategoryId>
-                               <a class="layui-badge">${jie.category.name}</a>
-                               </#if>
-                               <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
-                           </h2>
-                           <div class="fly-list-info">
-                               <a href="${base}/user/jump?nickname=${jie.member.nickname}" link>
-                                   <cite>${jie.member.nickname}</cite>
-                                   <#if jie.member.renzheng??>
-                                   <i class="iconfont icon-renzheng" title="认证信息：${jie.member.renzheng}"></i>
-                                   </#if>
-                                   <#if jie.member.vip??>
-                                   <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
-                                   </#if>
-                               </a>
-                               <span>${jie.createDate}</span>
+                    <#list page.content as jie>
+                        <li>
+                            <a href="${base}/user/jump?nickname=${jie.member.nickname}" class="fly-avatar">
+                                <img src="${jie.member.avatar}"
+                                     alt="${jie.member.nickname}">
+                            </a>
+                            <h2>
+                                <#if categoryId == allJieCategoryId>
+                                    <a class="layui-badge">${jie.category.name}</a>
+                                </#if>
+                                <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
+                            </h2>
+                            <div class="fly-list-info">
+                                <a href="${base}/user/jump?nickname=${jie.member.nickname}" link>
+                                    <cite>${jie.member.nickname}</cite>
+                                    <#if jie.member.renzheng??>
+                                        <i class="iconfont icon-renzheng" title="认证信息：${jie.member.renzheng}"></i>
+                                    </#if>
+                                    <#if jie.member.vip??>
+                                        <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
+                                    </#if>
+                                </a>
+                                <span>${jie.createDate}</span>
 
-                               <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
-                                       class="iconfont icon-kiss"></i> ${jie.experience}</span>
-                               <#if jie.finished>
-                               <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
-                               </#if>
-                               <span class="fly-list-nums">
+                                <span class="fly-list-kiss layui-hide-xs" title="悬赏飞吻"><i
+                                            class="iconfont icon-kiss"></i> ${jie.experience}</span>
+                                <#if jie.finished>
+                                    <span class="layui-badge fly-badge-accept layui-hide-xs">已结</span>
+                                </#if>
+                                <span class="fly-list-nums">
                                 <i class="iconfont icon-pinglun1" title="回答"></i> ${jie.commentNums}
                               </span>
-                           </div>
-                           <div class="fly-list-badge">
+                            </div>
+                            <div class="fly-list-badge">
                                 <#if jie.good>
                                     <span class="layui-badge layui-bg-red">精帖</span>
                                 </#if>
-                           </div>
-                       </li>
-                   </#list>
+                            </div>
+                        </li>
+                    </#list>
                 </ul>
 
                 <div style="text-align: center">
-                   <#if hasNext && (pageNum == 1) >
-                       <div class="laypage-main">
-                           <a href="${base}/jie/${categoryId}/${jieType}/${jieOrderAttr}?pageNum=2"
-                              class="laypage-next">更多求解</a>
-                       </div>
-                   <#elseif (pageNum > 1)>
+                    <#if hasNext && (pageNum == 1) >
+                        <div class="laypage-main">
+                            <a href="${base}/jie/${categoryId}/${jieType}/${jieOrderAttr}?pageNum=2"
+                               class="laypage-next">更多求解</a>
+                        </div>
+                    <#elseif (pageNum > 1)>
                         <div id="L-page"></div>
-                   </#if>
+                    </#if>
                 </div>
 
             </div>
         </div>
         <div class="layui-col-md4">
             <#if listStaticFriendLinks?has_content>
-            <div class="fly-panel">
-                <h3 class="fly-panel-title">温馨通道</h3>
-                <ul class="fly-panel-main fly-list-static">
-                    <#list listStaticFriendLinks as friendLink>
-                        <li>
-                            <a href="${friendLink.url}" target="_blank">${friendLink.name}</a>
-                        </li>
-                    </#list>
-                </ul>
-            </div>
+                <div class="fly-panel">
+                    <h3 class="fly-panel-title">温馨通道</h3>
+                    <ul class="fly-panel-main fly-list-static">
+                        <#list listStaticFriendLinks as friendLink>
+                            <li>
+                                <a href="${friendLink.url}" target="_blank">${friendLink.name}</a>
+                            </li>
+                        </#list>
+                    </ul>
+                </div>
             </#if>
 
             <div class="fly-panel fly-signin">
@@ -167,7 +167,7 @@
                     <i class="fly-mid"></i>
                     <a href="javascript:;" class="fly-link" id="LAY_signinTop">活跃榜<span class="layui-badge-dot"></span></a>
                     <#if isAuthenticated && (member.signNonstopCount >0) >
-                    <span class="fly-signin-days">已连续签到<cite>${member.signNonstopCount}</cite>天</span>
+                        <span class="fly-signin-days">已连续签到<cite>${member.signNonstopCount}</cite>天</span>
                     </#if>
                 </div>
                 <div class="fly-panel-main fly-signin-main">
@@ -178,7 +178,7 @@
                     <#else>
                         <button class="layui-btn layui-btn-danger" id="LAY_signin">今日签到</button>
                         <#if isAuthenticated>
-                        <span>可获得<cite>${kiss}</cite>飞吻</span>
+                            <span>可获得<cite>${kiss}</cite>飞吻</span>
                         </#if>
                     </#if>
                 </div>
@@ -192,10 +192,10 @@
                 <dt class="fly-panel-title">社区热议</dt>
                 <#if weekHotPage.content?has_content>
                     <#list weekHotPage.content as jie>
-                     <dd>
-                         <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
-                         <span><i class="iconfont icon-pinglun1"></i> ${jie.commentNums}</span>
-                     </dd>
+                        <dd>
+                            <a href="${base}/jie/detail/${jie.id}">${jie.title}</a>
+                            <span><i class="iconfont icon-pinglun1"></i> ${jie.commentNums}</span>
+                        </dd>
                     </#list>
                 <#else>
                     <div class="fly-none">没有相关数据</div>
@@ -205,9 +205,9 @@
             <dl class="fly-panel fly-list-one">
                 <dt class="fly-panel-title">最热新闻</dt>
                 <#list newsList as news>
-                <dd>
-                    <a href="${news.url}">${news.title}</a>
-                </dd>
+                    <dd>
+                        <a href="${news.url}">${news.title}</a>
+                    </dd>
                 </#list>
             </dl>
 
@@ -218,36 +218,36 @@
                 <div class="fly-panel-main">
                     <#if ads?has_content>
                         <#list ads as ad>
-                        <a href="${ad.url}" target="_blank" class="fly-zanzhu"
-                           time-limit="${ad.beginDate?string('yyyy.MM.dd')}-${ad.endDate?string('yyyy.MM.dd')}"
-                           style="background-color: #5FB878;">${ad.title}</a>
+                            <a href="${ad.url}" target="_blank" class="fly-zanzhu"
+                               time-limit="${ad.beginDate?string('yyyy.MM.dd')}-${ad.endDate?string('yyyy.MM.dd')}"
+                               style="background-color: #5FB878;">${ad.title}</a>
                         </#list>
                     </#if>
                 </div>
             </div>
 
             <#if textFriendLinks?has_content>
-            <div class="fly-panel fly-link">
-                <h3 class="fly-panel-title">友情链接</h3>
-                <dl class="fly-panel-main">
-                    <#list textFriendLinks as friendLink>
-                    <dd><a href="${friendLink.url}" target="_blank">${friendLink.name}</a>
-                    <dd>
-                    </#list>
-                </dl>
-            </div>
+                <div class="fly-panel fly-link">
+                    <h3 class="fly-panel-title">友情链接</h3>
+                    <dl class="fly-panel-main">
+                        <#list textFriendLinks as friendLink>
+                        <dd><a href="${friendLink.url}" target="_blank">${friendLink.name}</a>
+                        <dd>
+                            </#list>
+                    </dl>
+                </div>
             </#if>
         </div>
     </div>
 </div>
 
-<#include "${base}/include/footer.ftl"/>
+<#include "${base}/include/footer.ftlh"/>
 
 <script src="${base}/res/layui/layui.js"></script>
 <script>
     layui.cache.page = '';
 
-    <#include "${base}/include/auth_cache_user.ftl"/>
+    <#include "${base}/include/auth_cache_user.ftlh"/>
 
     layui.config({
         version: "3.0.0"
@@ -256,7 +256,7 @@
         fly: 'index'
     }).use(['fly', 'laypage', 'layer'], function () {
         var laypage = layui.laypage
-                , layer = layui.layer;
+            , layer = layui.layer;
         var pageNum = ${pageNum};
         if (pageNum > 1) {
             laypage.render({

@@ -6,6 +6,8 @@ import javax.servlet.ServletContext;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Configuration;
 
+import com.zhengcheng.mall.bbs.common.constant.BBSContant;
+
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -33,5 +35,6 @@ public class FreemarkerConfiguration {
     public void setConfigure() throws Exception {
         configuration.setSharedVariable("base", servletContext.getContextPath());
         configuration.setSharedVariable("isAuthenticated", Boolean.FALSE);
+        configuration.setSharedVariable("allJieCategoryId", BBSContant.ALL_JIE_CATEGORY_ID);
     }
 }

@@ -9,7 +9,6 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
@@ -34,7 +33,7 @@ public class FriendLinkServiceImpl extends BaseServiceImpl<FriendLink, Long> imp
         super.setBaseDao(friendLinkDao);
     }
 
-    @Cacheable(value = "bbs:friendLink", key = "#position")
+    //    @Cacheable(value = "bbs:friendLink", key = "#position")
     @Override
     public List<FriendLink> findList(FriendLink.Type type, FriendLink.Position position) {
         return friendLinkDao.findAll(new Specification<FriendLink>() {
