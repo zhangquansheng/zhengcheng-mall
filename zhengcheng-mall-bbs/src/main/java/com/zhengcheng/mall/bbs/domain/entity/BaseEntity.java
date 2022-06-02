@@ -60,12 +60,12 @@ public class BaseEntity implements Serializable {
     /**
      * 创建日期
      */
-    private Date createDate;
+    private Date createTime;
 
     /**
      * 修改日期
      */
-    private Date modifyDate;
+    private Date updateTime;
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -78,25 +78,23 @@ public class BaseEntity implements Serializable {
     }
 
     @Column(nullable = false, updatable = false)
-    public Date getCreateDate() {
-        return createDate;
+    public Date getCreateTime() {
+        return createTime;
     }
 
-    public void setCreateDate(Date createDate) {
-        this.createDate = createDate;
+    public void setCreateTime(Date createTime) {
+        this.createTime = createTime;
     }
 
     /**
      * 新版的修改时间可以为NULL
-     *
-     * @return
      */
-    public Date getModifyDate() {
-        return modifyDate;
+    public Date getUpdateTime() {
+        return updateTime;
     }
 
-    public void setModifyDate(Date modifyDate) {
-        this.modifyDate = modifyDate;
+    public void setUpdateTime(Date updateTime) {
+        this.updateTime = updateTime;
     }
 
     /**

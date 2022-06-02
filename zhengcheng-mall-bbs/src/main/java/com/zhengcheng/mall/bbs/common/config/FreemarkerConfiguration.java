@@ -32,5 +32,6 @@ public class FreemarkerConfiguration {
     @PostConstruct
     public void setConfigure() throws Exception {
         configuration.setSharedVariable("base", servletContext.getContextPath());
+        configuration.setSharedVariable("isAuthenticated", Boolean.FALSE);
     }
 }

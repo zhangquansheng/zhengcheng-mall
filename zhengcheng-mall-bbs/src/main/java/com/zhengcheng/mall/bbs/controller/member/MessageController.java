@@ -8,6 +8,10 @@ import java.util.Map;
 import javax.annotation.Resource;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.zhengcheng.mall.bbs.common.apiresult.ApiResult;
+import com.zhengcheng.mall.bbs.common.constant.BBSContant;
 import com.zhengcheng.mall.bbs.controller.BaseController;
 import com.zhengcheng.mall.bbs.domain.entity.BbsMessage;
 import com.zhengcheng.mall.bbs.domain.entity.Member;
@@ -45,11 +50,11 @@ public class MessageController extends BaseController {
     @GetMapping("/list")
     public String list(ModelMap model) {
         Member member = memberService.getCurrent();
-        //        Pageable pageable = new PageRequest(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate");
-        //        Page<BbsMessage> page = messageService.findPage(member, pageable);
+        Pageable pageable = PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate");
+        Page<BbsMessage> page = messageService.findPage(member, pageable);
         model.addAttribute("nav", "message");
         model.addAttribute("member", member);
-        //        model.addAttribute("page", page);
+        model.addAttribute("page", page);
         return "member/message/list";
     }
 
@@ -65,7 +70,7 @@ public class MessageController extends BaseController {
             Map<String, Object> row = new HashMap<>();
             row.put("id", bbsMessage.getId());
             row.put("content", bbsMessage.getContent());
-            row.put("time", DateUtil.format(bbsMessage.getCreateDate(), "yyyy/MM/dd ahh:mm"));
+            row.put("time", DateUtil.format(bbsMessage.getCreateTime(), "yyyy/MM/dd ahh:mm"));
             rows.add(row);
         }
         return ApiResult.SUCCESS.getMap().add("rows", rows);
