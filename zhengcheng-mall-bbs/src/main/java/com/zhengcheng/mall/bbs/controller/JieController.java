@@ -63,7 +63,7 @@ public class JieController extends BaseController {
         }
         Pageable pageable = PageRequest.of(pageNum, BBSContant.PAGE_SIZE);
         if (jieOrderAttr.equals(JieOrderAttr.newest)) {
-            pageable = PageRequest.of(pageNum, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate");
+            pageable = PageRequest.of(pageNum, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createTime");
         } else if (jieOrderAttr.equals(JieOrderAttr.commentmost)) {
             pageable = PageRequest.of(pageNum, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "commentNums");
         }
@@ -87,7 +87,7 @@ public class JieController extends BaseController {
             model.addAttribute("topJieList",
                     jieService
                             .findPage(true, null, null, AuditStatus.adopt, null, null, null,
-                                    PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate"))
+                                    PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createTime"))
                             .getContent());
         }
 

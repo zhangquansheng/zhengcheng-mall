@@ -3,8 +3,6 @@ package com.zhengcheng.mall.bbs.service.impl;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
-import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
 import com.zhengcheng.mall.bbs.domain.dao.JieCategoryDao;
@@ -18,7 +16,7 @@ import com.zhengcheng.mall.bbs.service.JieCategoryService;
  * @version 3.0
  */
 @Service
-@CacheConfig(cacheNames = "bbs:jieCategories:")
+//@CacheConfig(cacheNames = "bbs:jieCategories:")
 public class JieCategoryServiceImpl extends BaseServiceImpl<JieCategory, Long> implements JieCategoryService {
 
     @Autowired
@@ -26,13 +24,13 @@ public class JieCategoryServiceImpl extends BaseServiceImpl<JieCategory, Long> i
         super.setBaseDao(jieCategoryDao);
     }
 
-    @Cacheable(key = "#p0")
+    //    @Cacheable(key = "#p0")
     @Override
     public JieCategory find(Long id) {
         return super.find(id);
     }
 
-    @Cacheable
+    //    @Cacheable
     @Override
     public List<JieCategory> findAll() {
         return super.findAll();

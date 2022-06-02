@@ -50,7 +50,7 @@ public class MessageController extends BaseController {
     @GetMapping("/list")
     public String list(ModelMap model) {
         Member member = memberService.getCurrent();
-        Pageable pageable = PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate");
+        Pageable pageable = PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createTime");
         Page<BbsMessage> page = messageService.findPage(member, pageable);
         model.addAttribute("nav", "message");
         model.addAttribute("member", member);

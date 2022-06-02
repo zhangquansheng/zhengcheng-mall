@@ -62,7 +62,7 @@ public class MessageServiceImpl extends BaseServiceImpl<BbsMessage, Long> implem
                 if (null != member) {
                     list.add(criteriaBuilder.equal(root.get("member"), member));
                 }
-                query.orderBy(criteriaBuilder.desc(root.get("createDate")));
+                query.orderBy(criteriaBuilder.desc(root.get("createTime")));
                 Predicate[] p = new Predicate[list.size()];
                 return criteriaBuilder.and(list.toArray(p));
             }

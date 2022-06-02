@@ -90,7 +90,7 @@ public class JieServiceImpl extends BaseServiceImpl<Jie, Long> implements JieSer
             public Predicate toPredicate(Root<Jie> root, CriteriaQuery<?> query, CriteriaBuilder criteriaBuilder) {
                 List<Predicate> list = new ArrayList<Predicate>();
                 if (null != beginDate) {
-                    list.add(criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("createDate"), beginDate));
+                    list.add(criteriaBuilder.greaterThanOrEqualTo(root.<Date> get("createTime"), beginDate));
                 }
                 if (null != commentNums) {
                     list.add(criteriaBuilder.gt(root.<Long> get("commentNums"), commentNums));

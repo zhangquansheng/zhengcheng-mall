@@ -60,9 +60,9 @@ public class MemberController extends BaseController {
     public String index(ModelMap model) {
         Member member = memberService.getCurrent();
         Page<Jie> page = jieService.findPage(null, null, null, null, null, member, null,
-                PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate"));
+                PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createTime"));
         Page<Jie> favoritePage = jieService.findPage(null, null, null, null, null, null, member,
-                PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createDate"));
+                PageRequest.of(0, BBSContant.PAGE_SIZE, Sort.Direction.DESC, "createTime"));
         model.addAttribute("nav", "index");
         model.addAttribute("member", member);
         model.addAttribute("pageSize", BBSContant.PAGE_SIZE);
@@ -151,7 +151,7 @@ public class MemberController extends BaseController {
     @GetMapping(value = "/list")
     public @ResponseBody Map<String, Object> list(Integer page, Integer limit) {
         Page<Member> memberPage = memberService
-                .findPage(PageRequest.of(page - 1, limit, Sort.Direction.DESC, "createDate"));
+                .findPage(PageRequest.of(page - 1, limit, Sort.Direction.DESC, "createTime"));
         return ApiResult.SUCCESS.getMap().add("count", memberPage.getTotalElements()).add("data",
                 memberPage.getContent());
     }
