@@ -9,7 +9,7 @@
 </head>
 <body style="margin-top: 65px;">
 
-<#include "${base}/include/header.ftl"/>
+<#include "${base}/include/header.ftlh"/>
 
 <div class="fly-home fly-panel" style="background-image: url();">
     <#if user.avatar??>
@@ -45,7 +45,7 @@
     </#if>
     <p class="fly-home-info">
         <i class="iconfont icon-kiss" title="飞吻"></i><span style="color: #FF7200;">${user.kiss} 飞吻</span>
-        <i class="iconfont icon-shijian"></i><span>${user.createDate?string("yyyy-MM-dd")} 加入</span>
+        <i class="iconfont icon-shijian"></i><span>${user.createTime?string("yyyy-MM-dd")} 加入</span>
         <i class="iconfont icon-chengshi"></i><span>来自${(user.city)!}</span>
     </p>
 
@@ -87,7 +87,7 @@
                         <#list jiedaPage.content as jieda>
                             <li>
                                 <p>
-                                    <span>${jieda.createDate?string("yyyy/MM/dd HH:mm")}</span>
+                                    <span>${jieda.createTime?string("yyyy/MM/dd HH:mm")}</span>
                                     在<a href="${base}/jie/detail/${jieda.jie.id}" target="_blank">${jieda.jie.title}</a>中回答：
                                 </p>
                                 <div class="home-dacontent">
@@ -106,13 +106,13 @@
     </div>
 </div>
 
-<#include "${base}/include/footer.ftl"/>
+<#include "${base}/include/footer.ftlh"/>
 
 <script src="${base}/res/layui/layui.js"></script>
 <script>
     layui.cache.page = 'user';
 
-    <#include "${base}/include/auth_cache_user.ftl"/>
+    <#include "${base}/include/auth_cache_user.ftlh"/>
 
     layui.config({
         version: "3.0.0"

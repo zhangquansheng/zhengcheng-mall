@@ -306,7 +306,7 @@ public class Jie extends BaseEntity {
      */
     @JSONField(serialize = false)
     @OneToMany(mappedBy = "jie", fetch = FetchType.LAZY, cascade = CascadeType.REMOVE)
-    @OrderBy("createDate desc")
+    @OrderBy("createTime desc")
     public Set<Jieda> getJiedas() {
         return jiedas;
     }

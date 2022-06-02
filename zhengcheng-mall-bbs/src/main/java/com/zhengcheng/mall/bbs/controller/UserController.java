@@ -63,9 +63,9 @@ public class UserController extends BaseController {
         model.addAttribute("isAuthenticated", isAuthenticated);
         model.addAttribute("user", member); //为了区分登录的会员和查询的会员
         model.addAttribute("jiePage", jieService.findPage(null, null, null, AuditStatus.adopt, null, member, null,
-                PageRequest.of(0, PAGE_SIZE, Sort.Direction.DESC, "createDate")));
+                PageRequest.of(0, PAGE_SIZE, Sort.Direction.DESC, "createTime")));
         model.addAttribute("jiedaPage",
-                jiedaService.findPage(member, PageRequest.of(0, PAGE_SIZE, Sort.Direction.DESC, "createDate")));
+                jiedaService.findPage(member, PageRequest.of(0, PAGE_SIZE, Sort.Direction.DESC, "createTime")));
         return "/user/home";
     }
 

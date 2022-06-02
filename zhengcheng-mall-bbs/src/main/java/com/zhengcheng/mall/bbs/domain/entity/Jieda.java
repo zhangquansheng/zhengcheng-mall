@@ -173,8 +173,8 @@ public class Jieda extends BaseEntity {
      * @return 艾特的会员
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "xx_jieda_ait_member")
-    @OrderBy("createDate desc")
+    @JoinTable(name = "jieda_ait_member")
+    @OrderBy("createTime desc")
     public Set<Member> getAitMembers() {
         return aitMembers;
     }

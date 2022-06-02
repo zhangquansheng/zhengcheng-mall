@@ -118,7 +118,7 @@
                     , title: '发表时间'
                     , sort: true
                     , width: 160
-                    , templet: '<div>{{ layui.util.timeAgo(d.createDate) }}</div>'
+                    , templet: '<div>{{ layui.util.timeAgo(d.createTime) }}</div>'
                 }
                 , {title: '数据', templet: '<div>{{d.commentNums}}答/{{d.hits}}阅</div>'}
                 , {

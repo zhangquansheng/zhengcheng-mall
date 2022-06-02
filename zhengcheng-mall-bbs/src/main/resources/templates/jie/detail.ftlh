@@ -79,7 +79,7 @@
                                 <i class="layui-badge fly-badge-vip">${jie.member.vip}</i>
                             </#if>
                         </a>
-                        <span>${jie.member.createDate?string("yyyy-MM-dd")}</span>
+                        <span>${jie.member.createTime?string("yyyy-MM-dd")}</span>
                     </div>
                     <div class="detail-hits" id="LAY_jieAdmin" data-id="${jie.id}">
                         <span style="padding-right: 10px; color: #FF7200">悬赏：${jie.experience}飞吻</span>
@@ -135,7 +135,7 @@
                                     </div>
 
                                     <div class="detail-hits">
-                                        <span>${jieda.createDate?string('yyyy-MM-dd')}</span>
+                                        <span>${jieda.createTime?string('yyyy-MM-dd')}</span>
                                     </div>
                                     <#if jieda.caina>
                                         <i class="iconfont icon-caina" title="最佳答案"></i>
