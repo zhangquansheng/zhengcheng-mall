@@ -11,7 +11,7 @@ import com.zhengcheng.mall.bbs.domain.enums.Gender;
 /**
  * Copyright © 2018 zskj Info. Tech Ltd. All rights reserved.
  * <p>
- * 功能描述：BBS会员
+ * 功能描述：会员
  *
  * @author 绽曙科技-zqs
  * @date: 2018/1/23
@@ -21,6 +21,17 @@ import com.zhengcheng.mall.bbs.domain.enums.Gender;
 public class Member extends BaseEntity {
 
     private static final long serialVersionUID = 3621646795317079653L;
+
+    /**
+     * 用户名
+     */
+    private String            username;
+
+    /**
+     * 密码
+     */
+    private String            password;
+
     /**
      * 昵称
      */
@@ -163,6 +174,44 @@ public class Member extends BaseEntity {
      * 收藏帖子
      */
     private Set<Jie>          favoriteJies     = new HashSet<>();
+
+    /**
+     * 获取用户名
+     *
+     * @return 用户名
+     */
+    @Column(nullable = false, updatable = false, unique = true, length = 50)
+    public String getUsername() {
+        return username;
+    }
+
+    /**
+     * 设置用户名
+     *
+     * @param username 用户名
+     */
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    /**
+     * 获取密码
+     *
+     * @return 密码
+     */
+    @Column(nullable = false)
+    public String getPassword() {
+        return password;
+    }
+
+    /**
+     * 设置密码
+     *
+     * @param password 密码
+     */
+    public void setPassword(String password) {
+        this.password = password;
+    }
 
     /**
      * 获取昵称
