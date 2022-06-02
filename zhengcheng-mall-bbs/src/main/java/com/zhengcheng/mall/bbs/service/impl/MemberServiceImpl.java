@@ -9,10 +9,8 @@ import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
 
 import org.apache.commons.beanutils.PropertyUtils;
-import org.apache.commons.codec.digest.DigestUtils;
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
@@ -39,7 +37,7 @@ import cn.hutool.core.date.DateUtil;
  * @author zqs
  * @version 3.0
  */
-@CacheConfig(cacheNames = "bbs:member:")
+//@CacheConfig(cacheNames = "bbs:member:")
 @Service
 public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements MemberService {
 
@@ -126,9 +124,9 @@ public class MemberServiceImpl extends BaseServiceImpl<Member, Long> implements 
     public Member register(String username, String nickname, String password) {
 
         Member member = new Member();
-        member.setUsername(username.toLowerCase());
+        //        member.setUsername(username.toLowerCase());
         member.setNickname(nickname);
-        member.setPassword(DigestUtils.md5Hex(password));
+        //        member.setPassword(DigestUtils.md5Hex(password));
         member.setEnable(true);
         member.setAdmin(false);
         member.setLight(false);

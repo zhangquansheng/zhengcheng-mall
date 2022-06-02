@@ -21,17 +21,6 @@ import com.zhengcheng.mall.bbs.domain.enums.Gender;
 public class Member extends BaseEntity {
 
     private static final long serialVersionUID = 3621646795317079653L;
-
-    /**
-     * 用户名
-     */
-    private String            username;
-
-    /**
-     * 密码
-     */
-    private String            password;
-
     /**
      * 昵称
      */
@@ -174,44 +163,6 @@ public class Member extends BaseEntity {
      * 收藏帖子
      */
     private Set<Jie>          favoriteJies     = new HashSet<>();
-
-    /**
-     * 获取用户名
-     *
-     * @return 用户名
-     */
-    @Column(nullable = false, updatable = false, unique = true, length = 50)
-    public String getUsername() {
-        return username;
-    }
-
-    /**
-     * 设置用户名
-     *
-     * @param username 用户名
-     */
-    public void setUsername(String username) {
-        this.username = username;
-    }
-
-    /**
-     * 获取密码
-     *
-     * @return 密码
-     */
-    @Column(nullable = false)
-    public String getPassword() {
-        return password;
-    }
-
-    /**
-     * 设置密码
-     *
-     * @param password 密码
-     */
-    public void setPassword(String password) {
-        this.password = password;
-    }
 
     /**
      * 获取昵称
@@ -692,8 +643,8 @@ public class Member extends BaseEntity {
      * @return 赞的回帖
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "xx_member_zan_jieda")
-    @OrderBy("createDate desc")
+    @JoinTable(name = "member_zan_jieda")
+    @OrderBy("createTime desc")
     public Set<Jieda> getZanJiedas() {
         return zanJiedas;
     }
@@ -732,8 +683,8 @@ public class Member extends BaseEntity {
      * @return 我收藏的帖子
      */
     @ManyToMany(fetch = FetchType.LAZY)
-    @JoinTable(name = "xx_member_favorite_jie")
-    @OrderBy("createDate desc")
+    @JoinTable(name = "member_favorite_jie")
+    @OrderBy("createTime desc")
     public Set<Jie> getFavoriteJies() {
         return favoriteJies;
     }
