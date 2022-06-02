@@ -1,0 +1,23 @@
+spring:
+  application:
+    name: zhengcheng-mall-api
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 127.0.0.1:8848
+  config:
+    import:
+      - optional:nacos:zhengcheng-mall-api.properties
+elasticsearch:
+  connect_timeout_millis: 2000
+  connection_request_timeout_millis: 2000
+  host: 127.0.0.1:9200
+  max_connect_per_route: 10
+  max_connect_total: 30
+  socket_timeout_millis: 30000
