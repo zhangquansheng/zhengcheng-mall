@@ -69,7 +69,7 @@ public class ScrewApplicationTests {
                 //根据名称指定表生成
                 .designatedTableName(new ArrayList<>())
                 //根据表前缀生成
-                .designatedTablePrefix(new ArrayList<>())
+                .designatedTablePrefix(Arrays.asList("pbm_bbs_"))
                 //根据表后缀生成
                 .designatedTableSuffix(new ArrayList<>())
                 //忽略表名

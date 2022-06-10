@@ -11,6 +11,7 @@ spring:
       config:
         group: DEFAULT_GROUP
         server-addr: 127.0.0.1:8848
+        refresh-enabled: true
   config:
     import:
       - optional:nacos:zhengcheng-mall-api.properties
