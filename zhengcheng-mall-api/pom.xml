@@ -32,11 +32,6 @@
             <groupId>com.zhengcheng</groupId>
             <artifactId>zc-leaf-spring-boot-starter</artifactId>
         </dependency>
-        <!-- 美团动态线程池 -->
-        <dependency>
-            <groupId>io.github.lyh200</groupId>
-            <artifactId>dynamic-tp-spring-cloud-starter-nacos</artifactId>
-        </dependency>
         <dependency>
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>zhengcheng-mall-common</artifactId>

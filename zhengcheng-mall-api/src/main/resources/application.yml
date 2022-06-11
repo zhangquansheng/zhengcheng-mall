@@ -15,3 +15,7 @@ spring:
   config:
     import:
       - optional:nacos:zhengcheng-mall-api.properties
+  dynamic:
+    tp:
+      enabled: true
+      configType: properties
