@@ -31,6 +31,7 @@
 |   Kaptcha      |   基于 SpringBoot 和 Google Kaptcha 的简单验证码组件，简单验证码就选它      |            https://gitee.com/baomidou/kaptcha-spring-boot-starter           |
 |   Lock4j       |   基于 SpringBoot 同时支持 RedisTemplate、Redission、Zookeeper 的分布式锁组件。      |            https://gitee.com/baomidou/lock4j           |
 |   DDD       |   This is the new home of the original DDD Sample app hosted at SourceForge.      |            https://github.com/citerus/dddsample-core           |
+|   Spring Boot Admin       |     Spring Boot Admin 用于监控基于 Spring Boot 的应用，它是在 Spring Boot Actuator 的基础上提供简洁的可视化 WEB UI。  |            https://codecentric.github.io/spring-boot-admin           |
 
 ### 前端技术
 
