@@ -1,0 +1,20 @@
+spring:
+  application:
+    name: zhengcheng-mall-monitor
+  security: # 配置登录用户名和密码
+    user:
+      name: root
+      password: root
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+  boot: # 不显示admin-server的监控信息
+    admin:
+      discovery:
+        ignored-services: ${spring.application.name}
+server:
+  port: 8101
