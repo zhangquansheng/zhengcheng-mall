@@ -4,4 +4,9 @@
 
 ### 安全漏洞
 
-访问`http://xxxxxx/actuator/env`或者`http://xxxxxx/actuator/trace`等地址，泄漏了内部机器ip、端口、访问路径、系统环境变量的配置等信息
+访问`http://xxxxxx/actuator/env`或者`http://xxxxxx/actuator/trace`等地址，泄漏了内部机器ip、端口、访问路径、系统环境变量的配置等信息.
+
+## 参考文档
+
+- [actuator-api](https://docs.spring.io/spring-boot/docs/2.6.3/actuator-api/htmlsingle/)
+- [Production-ready Features](https://docs.spring.io/spring-boot/docs/2.6.3/reference/html/actuator.html#actuator)
