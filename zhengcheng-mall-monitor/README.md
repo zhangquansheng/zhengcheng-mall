@@ -8,6 +8,8 @@
 
 ### Springboot2.6.3不兼容swagger3.0.0问题
 
+> 参考： http://doc.jeecg.com/2653460#6Knife4j_77
+
 ```java
 // https://github.com/springfox/springfox/issues/3462
 @Bean
