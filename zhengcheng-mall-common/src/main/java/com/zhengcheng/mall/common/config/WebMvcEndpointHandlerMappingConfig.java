@@ -35,6 +35,7 @@ public class WebMvcEndpointHandlerMappingConfig {
                                                                          CorsEndpointProperties corsProperties,
                                                                          WebEndpointProperties webEndpointProperties,
                                                                          Environment environment) {
+        // 暴露了所有端点，不安全
         List<ExposableEndpoint<?>> allEndpoints = new ArrayList<>();
         Collection<ExposableWebEndpoint> webEndpoints = webEndpointsSupplier.getEndpoints();
         allEndpoints.addAll(webEndpoints);
