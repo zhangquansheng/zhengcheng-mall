@@ -15,6 +15,7 @@
         <module>zhengcheng-mall-ddd</module>
         <module>zhengcheng-mall-bbs</module>
         <module>zhengcheng-mall-es</module>
+        <module>zhengcheng-mall-monitor</module>
     </modules>
 
     <parent>
