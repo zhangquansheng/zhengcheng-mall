@@ -16,6 +16,7 @@
         <module>zhengcheng-mall-bbs</module>
         <module>zhengcheng-mall-es</module>
         <module>zhengcheng-mall-monitor</module>
+        <module>zhengcheng-mall-xxl-job</module>
     </modules>
 
     <parent>
