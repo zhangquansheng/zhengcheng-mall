@@ -46,7 +46,7 @@ public class ScrewApplicationTests {
                 .produceType(EngineTemplateType.freemarker).build();
 
         // 生成文档配置（包含以下自定义版本号、描述等配置连接）
-        Configuration config = Configuration.builder().version("1.0.3").description("生成文档信息描述")
+        Configuration config = Configuration.builder().version("1.0.4").description("生成文档信息描述")
                 .dataSource(dataSourceMysql).engineConfig(engineConfig).produceConfig(getProcessConfig()).build();
 
         // 执行生成
@@ -69,7 +69,7 @@ public class ScrewApplicationTests {
                 //根据名称指定表生成
                 .designatedTableName(new ArrayList<>())
                 //根据表前缀生成
-                .designatedTablePrefix(Arrays.asList("pbm_bbs_"))
+                .designatedTablePrefix(Arrays.asList("bbs_"))
                 //根据表后缀生成
                 .designatedTableSuffix(new ArrayList<>())
                 //忽略表名

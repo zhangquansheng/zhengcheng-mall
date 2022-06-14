@@ -46,7 +46,7 @@ spring.cloud.gateway.routes[2].filters[0]=SwaggerHeaderFilter
 spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 ```
 
-## 限流
+## 整合 sentinel + nacos 实现网关限流
 
 ## 微服务 - 网关统一鉴权
 
