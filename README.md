@@ -36,6 +36,7 @@
 |   Portainer              | 可视化Docker容器管理 | https://github.com/portainer/portainer               |
 |   Jenkins                | 自动化部署工具       | https://github.com/jenkinsci/jenkins                 |
 |   Kubernetes             | 应用容器管理平台     | https://kubernetes.io/
+|   dynamic-tp             | 基于配置中心的轻量级动态线程池     | https://dynamictp.cn/
 
 ### 前端技术
 
