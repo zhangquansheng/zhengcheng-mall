@@ -18,4 +18,3 @@ spring:
   dynamic:
     tp:
       enabled: true
-      collectorType: endpoint # https://dynamictp.cn/guide/monitor/way.html
