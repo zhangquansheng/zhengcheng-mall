@@ -6,12 +6,15 @@ import org.springframework.cloud.client.discovery.EnableDiscoveryClient;
 import org.springframework.context.annotation.Bean;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 
+import com.dtp.core.spring.EnableDynamicTp;
+
 /**
  * MallApiApplication
  *
  * @author quansheng1.zhang
  * @since 2022/3/8 17:36
  */
+@EnableDynamicTp
 @EnableDiscoveryClient
 @SpringBootApplication
 public class MallApiApplication {
