@@ -12,11 +12,11 @@
         <module>zhengcheng-mall-gw</module>
         <module>zhengcheng-mall-pay</module>
         <module>zhengcheng-mall-spider</module>
-        <module>zhengcheng-mall-ddd</module>
         <module>zhengcheng-mall-bbs</module>
         <module>zhengcheng-mall-es</module>
         <module>zhengcheng-mall-monitor</module>
         <module>zhengcheng-mall-xxl-job</module>
+        <module>zhengcheng-mall-ddd</module>
         <module>zhengcheng-mall-ddd-cola</module>
     </modules>
 
