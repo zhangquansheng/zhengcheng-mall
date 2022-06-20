@@ -10,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.connection.RedisStringCommands;
+import org.springframework.data.redis.core.RedisCallback;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -22,7 +24,6 @@ import com.zhengcheng.mall.domain.entity.User;
 import com.zhengcheng.mall.domain.entity.UserLoginLog;
 import com.zhengcheng.mall.domain.enums.LoginResultEnum;
 import com.zhengcheng.mall.domain.enums.LoginTypeEnum;
-import com.zhengcheng.mall.service.UserActivityStatisticsService;
 import com.zhengcheng.mall.service.UserLoginLogService;
 import com.zhengcheng.mall.service.UserService;
 
@@ -45,15 +46,15 @@ import lombok.extern.slf4j.Slf4j;
 public class OauthFacadeImpl implements OauthFacade {
 
     @Autowired
-    private UserService                   userService;
+    private UserService           userService;
     @Autowired
-    private UserActivityStatisticsService userActivityStatisticsService;
+    private StringRedisTemplate   stringRedisTemplate;
     @Autowired
-    private UserLoginLogService           userLoginLogService;
+    private UserLoginLogService   userLoginLogService;
     @Autowired
-    private BCryptPasswordEncoder         bCryptPasswordEncoder;
+    private BCryptPasswordEncoder bCryptPasswordEncoder;
     @Autowired
-    private PasswordRsaUtil               passwordRsaUtil;
+    private PasswordRsaUtil       passwordRsaUtil;
 
     @Override
     public SaTokenInfo login(String username, String enPassword, HttpServletRequest request) {
@@ -80,27 +81,28 @@ public class OauthFacadeImpl implements OauthFacade {
         user.setLastLogin(LocalDateTime.now());
         userService.updateById(user);
 
-        String key = StrUtil.format("zc:user:act:bm:{}", DateUtil.format(new Date(), PURE_DATE_FORMAT));
-        userActivityStatisticsService.setBit(key, user.getId(), Boolean.TRUE);
+        String userActivityKeyPrefix = "zc:user:act:bm:";
+        String dayKey = StrUtil.format("{}{}", userActivityKeyPrefix, DateUtil.format(new Date(), PURE_DATE_FORMAT));
+        // 每天按日期生成一个位图
+        stringRedisTemplate.opsForValue().setBit(dayKey, user.getId(), Boolean.TRUE);
 
         // 日活
-        long dayActivityNum = userActivityStatisticsService.bitCount(key);
+        Long dayActivityNum = stringRedisTemplate.execute((RedisCallback<Long>) con -> con.bitCount(dayKey.getBytes()));
         log.info("用户日活: {}", dayActivityNum);
 
         // 月活
-        String[] keys = new String[30];
-        for (int offset = 0; offset < 30; offset++) {
-            keys[offset] = StrUtil.format("zc:user:act:bm:{}",
-                    DateUtil.format(DateUtil.offsetDay(new Date(), -offset), PURE_DATE_FORMAT));
+        int maxDayNum = 30;
+        byte[][] bytes = new byte[maxDayNum][];
+        for (int offset = 0; offset < maxDayNum; offset++) {
+            bytes[offset] = StrUtil.format("{}{}", userActivityKeyPrefix,
+                    DateUtil.format(DateUtil.offsetDay(new Date(), -offset), PURE_DATE_FORMAT)).getBytes();
         }
-        log.info("用户月活：{}", userActivityStatisticsService.bitOpResult(RedisStringCommands.BitOperation.OR,
-                StrUtil.format("zc:user:act:bm:last:30"), keys));
-
-        // 留存率
-        String yesterdayKey = StrUtil.format("zc:user:act:bm:{}",
-                DateUtil.format(DateUtil.offsetDay(new Date(), -1), PURE_DATE_FORMAT));
-        log.info("用户留存率：{}%", userActivityStatisticsService.bitOpResult(RedisStringCommands.BitOperation.AND,
-                StrUtil.format("zc:user:act:bm:cn:2"), yesterdayKey, key) * 100 / dayActivityNum);
+        String monthKey = StrUtil.format("{}{}", userActivityKeyPrefix, 30);
+        stringRedisTemplate.execute((RedisCallback<Long>) con -> con.bitOp(RedisStringCommands.BitOperation.OR,
+                monthKey.getBytes(), bytes));
+        Long monthActivityNum = stringRedisTemplate
+                .execute((RedisCallback<Long>) con -> con.bitCount(monthKey.getBytes()));
+        log.info("用户月活：{}", monthActivityNum);
 
         userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
                 .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
