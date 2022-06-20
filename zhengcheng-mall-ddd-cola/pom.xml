@@ -15,6 +15,10 @@
 
     <packaging>pom</packaging>
 
+    <properties>
+        <cola.components.version>4.0.0</cola.components.version>
+    </properties>
+
     <modules>
         <module>ddd-cola-adapter</module>
         <module>ddd-cola-app</module>
@@ -22,5 +26,32 @@
         <module>ddd-cola-domain</module>
         <module>ddd-cola-infrastructure</module>
     </modules>
+
+    <dependencyManagement>
+        <dependencies>
+            <!--COLA Components-->
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-domain-starter</artifactId>
+                <version>${cola.components.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-exception</artifactId>
+                <version>${cola.components.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-dto</artifactId>
+                <version>${cola.components.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.alibaba.cola</groupId>
+                <artifactId>cola-component-catchlog-starter</artifactId>
+                <version>${cola.components.version}</version>
+            </dependency>
+            <!--COLA Components End-->
+        </dependencies>
+    </dependencyManagement>
 
 </project>
