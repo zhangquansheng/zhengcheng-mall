@@ -18,12 +18,6 @@
         <module>zhengcheng-mall-monitor</module>
         <module>zhengcheng-mall-xxl-job</module>
         <module>zhengcheng-mall-ddd-cola</module>
-        <module>ddd-cola-adapter</module>
-        <module>ddd-cola-app</module>
-        <module>ddd-cola-client</module>
-        <module>ddd-cola-domain</module>
-        <module>ddd-cola-infrastructure</module>
-        <module>start</module>
     </modules>
 
     <parent>
