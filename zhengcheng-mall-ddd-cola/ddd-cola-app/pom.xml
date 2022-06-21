@@ -15,16 +15,16 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.alibaba.cola</groupId>
+            <artifactId>cola-component-catchlog-starter</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>ddd-cola-client</artifactId>
         </dependency>
         <dependency>
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>ddd-cola-infrastructure</artifactId>
-        </dependency>
-        <dependency>
-            <groupId>com.alibaba.cola</groupId>
-            <artifactId>cola-component-catchlog-starter</artifactId>
         </dependency>
     </dependencies>
 
