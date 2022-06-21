@@ -22,6 +22,7 @@
         <module>ddd-cola-client</module>
         <module>ddd-cola-domain</module>
         <module>ddd-cola-infrastructure</module>
+        <module>ddd-cola-app</module>
         <module>start</module>
     </modules>
 
