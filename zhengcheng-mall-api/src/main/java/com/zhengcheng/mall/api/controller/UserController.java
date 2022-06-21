@@ -30,7 +30,7 @@ public class UserController implements UserFeignClient {
     private UserFacade userFacade;
 
     @ApiOperation("通过token获取用户消息")
-    @GetMapping("/findByByToken")
+    @GetMapping("/findByToken")
     @Override
     public Result<UserDTO> findByByToken(@RequestParam("token") String token) {
         return Result.successData(userFacade.findByByToken(token));

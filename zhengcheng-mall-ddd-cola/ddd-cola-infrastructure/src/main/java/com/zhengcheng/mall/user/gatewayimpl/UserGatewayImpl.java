@@ -3,6 +3,7 @@ package com.zhengcheng.mall.user.gatewayimpl;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zhengcheng.mall.user.gateway.UserGateway;
 import com.zhengcheng.mall.user.mapper.UserMapper;
 import com.zhengcheng.mall.user.model.User;
@@ -21,6 +22,6 @@ public class UserGatewayImpl implements UserGateway {
 
     @Override
     public User getByUserNo(String userNo) {
-        return userMapper.;
+        return userMapper.selectOne(new LambdaQueryWrapper<User>().eq(User::getUserNo, userNo));
     }
 }

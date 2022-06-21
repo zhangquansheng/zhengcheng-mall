@@ -27,7 +27,7 @@ public interface UserFeignClient {
     String NAME = "zhengcheng-mall-api";
 
     @ApiOperation("通过token获取用户消息")
-    @GetMapping("/user/findByByToken")
+    @GetMapping("/user/findByToken")
     Result<UserDTO> findByByToken(@RequestParam("token") String token);
 
     @ApiOperation("根据用户名查询用户基本信息")
