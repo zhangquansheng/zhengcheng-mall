@@ -11,6 +11,8 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ddd-cola-client</artifactId>
+    <packaging>jar</packaging>
+    <name>zhengcheng-mall-ddd-cola-client</name>
 
     <dependencies>
         <dependency>
