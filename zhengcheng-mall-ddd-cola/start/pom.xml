@@ -10,7 +10,13 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>start</artifactId>
-    <packaging>jar</packaging>
     <name>zhengcheng-mall-ddd-cola-start</name>
+
+    <dependencies>
+        <dependency>
+            <groupId>com.zhengcheng.mall</groupId>
+            <artifactId>ddd-cola-adapter</artifactId>
+        </dependency>
+    </dependencies>
 
 </project>

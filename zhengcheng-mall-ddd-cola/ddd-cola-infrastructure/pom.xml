@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>ddd-cola-infrastructure</artifactId>
-    <packaging>jar</packaging>
     <name>zhengcheng-mall-ddd-cola-infrastructure</name>
 
     <dependencies>
