@@ -12,5 +12,16 @@
 
     <artifactId>ddd-cola-app</artifactId>
 
+    <dependencies>
+        <dependency>
+            <groupId>com.zhengcheng.mall.ddd</groupId>
+            <artifactId>ddd-cola-client</artifactId>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cola</groupId>
+            <artifactId>cola-component-catchlog-starter</artifactId>
+        </dependency>
+    </dependencies>
+
 
 </project>
