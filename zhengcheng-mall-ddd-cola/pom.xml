@@ -20,7 +20,6 @@
     <modules>
         <module>ddd-cola-adapter</module>
         <module>ddd-cola-client</module>
-        <module>ddd-cola-app</module>
         <module>ddd-cola-domain</module>
         <module>ddd-cola-infrastructure</module>
         <module>start</module>
