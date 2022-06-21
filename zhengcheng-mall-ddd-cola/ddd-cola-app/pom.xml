@@ -13,10 +13,6 @@
 
     <dependencies>
         <dependency>
-            <groupId>com.alibaba.cola</groupId>
-            <artifactId>cola-component-catchlog-starter</artifactId>
-        </dependency>
-        <dependency>
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>ddd-cola-client</artifactId>
             <version>1.0-SNAPSHOT</version>
@@ -25,6 +21,10 @@
             <groupId>com.zhengcheng.mall</groupId>
             <artifactId>ddd-cola-infrastructure</artifactId>
             <version>1.0-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>com.alibaba.cola</groupId>
+            <artifactId>cola-component-catchlog-starter</artifactId>
         </dependency>
     </dependencies>
 
