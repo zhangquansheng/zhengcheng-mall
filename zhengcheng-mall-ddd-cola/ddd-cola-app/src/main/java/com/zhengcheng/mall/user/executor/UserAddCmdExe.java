@@ -1,5 +1,7 @@
 package com.zhengcheng.mall.user.executor;
 
+import org.springframework.stereotype.Component;
+
 import com.zhengcheng.mall.dto.UserAddCmd;
 
 /**

@@ -1,5 +1,8 @@
 package com.zhengcheng.mall.user;
 
+import org.springframework.stereotype.Service;
+
+import com.alibaba.cola.catchlog.CatchAndLog;
 import com.zhengcheng.mall.api.UserService;
 import com.zhengcheng.mall.dto.UserAddCmd;
 
