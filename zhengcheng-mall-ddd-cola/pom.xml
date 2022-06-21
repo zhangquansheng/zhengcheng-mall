@@ -9,7 +9,6 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.zhengcheng.mall.ddd</groupId>
     <artifactId>zhengcheng-mall-ddd-cola</artifactId>
     <version>0.0.1-SNAPSHOT</version>
 
