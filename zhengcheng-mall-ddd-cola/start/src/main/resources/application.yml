@@ -1,0 +1,17 @@
+spring:
+  application:
+    name: zhengcheng-mall-ddd-cola
+  mvc:
+    pathmatch:
+      matching-strategy: ant_path_matcher
+  cloud:
+    nacos:
+      discovery:
+        server-addr: 127.0.0.1:8848
+      config:
+        group: DEFAULT_GROUP
+        server-addr: 127.0.0.1:8848
+        refresh-enabled: true
+  config:
+    import:
+      - optional:nacos:zhengcheng-mall-ddd-cola.properties
