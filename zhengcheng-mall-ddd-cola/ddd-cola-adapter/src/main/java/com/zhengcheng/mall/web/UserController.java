@@ -11,12 +11,16 @@ import com.zhengcheng.mall.api.UserService;
 import com.zhengcheng.mall.dto.UserByNoQry;
 import com.zhengcheng.mall.dto.data.UserDTO;
 
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
+
 /**
  * UserController
  *
  * @author quansheng1.zhang
  * @since 2022/6/21 10:22
  */
+@Api(tags = { "用户(User)接口" })
 @RestController
 @RequestMapping("/user")
 public class UserController {
@@ -24,6 +28,7 @@ public class UserController {
     @Autowired
     private UserService userService;
 
+    @ApiOperation("通过用户编号获取用户消息")
     @GetMapping("/getByUserNo")
     public Result<UserDTO> getByUserNo(@RequestParam("userNo") String userNo) {
         UserByNoQry userByNoQry = new UserByNoQry();
