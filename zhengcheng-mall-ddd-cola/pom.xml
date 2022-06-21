@@ -10,7 +10,6 @@
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>zhengcheng-mall-ddd-cola</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
 
     <packaging>pom</packaging>
 
