@@ -7,6 +7,7 @@ import com.zhengcheng.mall.dto.OrderCreateCmd;
 import com.zhengcheng.mall.dto.data.OrderDTO;
 import com.zhengcheng.mall.order.gateway.OrderGateway;
 import com.zhengcheng.mall.user.gateway.UserGateway;
+import com.zhengcheng.mall.user.model.User;
 
 /**
  * OrderCreateCmdExe
@@ -25,7 +26,7 @@ public class OrderCreateCmdExe {
     public OrderDTO execute(OrderCreateCmd orderCreateCmd) {
         //The flow of usecase is defined here.
         //The core ablility should be implemented in Domain. or sink to Domian gradually
-
+        User user = userGateway.getByUserNo(orderCreateCmd.getUserNo());
         return null;
     }
 

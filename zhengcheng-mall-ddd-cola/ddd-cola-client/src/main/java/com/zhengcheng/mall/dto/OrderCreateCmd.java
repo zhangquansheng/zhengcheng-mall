@@ -10,4 +10,13 @@ import lombok.Data;
  */
 @Data
 public class OrderCreateCmd {
+
+    /**
+    * 用户编号
+    */
+    private String userNo;
+    /**
+     * 订单备注
+     */
+    private String memo;
 }
