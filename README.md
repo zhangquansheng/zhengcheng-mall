@@ -37,6 +37,7 @@
 |   Jenkins                | 自动化部署工具       | https://github.com/jenkinsci/jenkins                 |
 |   Kubernetes             | 应用容器管理平台     | https://kubernetes.io/
 |   dynamic-tp             | 基于配置中心的轻量级动态线程池     | https://dynamictp.cn/
+|   mzt-biz-log            | Springboot-注解-通用操作日志组件     | https://github.com/mouzt/mzt-biz-log
 
 ### 前端技术
 
