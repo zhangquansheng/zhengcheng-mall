@@ -107,3 +107,6 @@ if (code == 200) {
     ke.global.setHeader("satoken", token);
 }
 ```
+
+## 结合 nacos 实现 sentinel 动态限流
+
