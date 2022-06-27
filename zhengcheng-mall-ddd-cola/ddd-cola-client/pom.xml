@@ -14,7 +14,7 @@
     <dependencies>
         <dependency>
             <groupId>com.alibaba.cola</groupId>
-            <artifactId>zhengcheng-mall-cola-component-dto</artifactId>
+            <artifactId>cola-component-dto</artifactId>
         </dependency>
         <dependency>
             <groupId>javax.validation</groupId>
