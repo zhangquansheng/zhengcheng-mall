@@ -48,6 +48,8 @@ spring.cloud.gateway.routes[2].filters[1]=StripPrefix=1
 
 ## 整合 sentinel + nacos 实现网关限流
 
+> [Sentinel](https://github.com/alibaba/Sentinel) | [Sentinel Example](https://github.com/alibaba/spring-cloud-alibaba/blob/2.2.x/spring-cloud-alibaba-examples/sentinel-example/sentinel-core-example/readme-zh.md) | [How to Use](https://github.com/alibaba/Sentinel/wiki/How-to-Use)
+
 ## 微服务 - 网关统一鉴权
 
 [Sa-Token](https://sa-token.dev33.cn/doc/index.html#/micro/gateway-auth)
