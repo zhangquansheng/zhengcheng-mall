@@ -21,7 +21,7 @@ import io.swagger.annotations.ApiOperation;
  * @author quansheng1.zhang
  * @since 2022/6/28 15:33
  */
-@Api(tags = { "微信小程序用户接口接口" })
+@Api(tags = { "微信小程序用户接口" })
 @RestController
 @RequestMapping("/wx/user/{appid}")
 public class WxMaUserController {
