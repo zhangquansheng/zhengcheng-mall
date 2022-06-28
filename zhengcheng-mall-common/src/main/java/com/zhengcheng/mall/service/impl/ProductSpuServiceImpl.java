@@ -13,6 +13,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zhengcheng.common.exception.BizException;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.mall.common.command.ProductSpuCommand;
 import com.zhengcheng.mall.domain.entity.*;
 import com.zhengcheng.mall.domain.mapper.*;
@@ -99,7 +100,7 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
         for (int sort = 0; sort < specificationIds.size(); sort++) {
             specificationMapper.update(null,
                     new LambdaUpdateWrapper<Specification>().set(Specification::getSort, sort)
-                            .set(Specification::getUpdateUserId, productSpuCommand.getUpdateUserId())
+                            .set(Specification::getUpdateUserId, ZcUserContextHolder.getUserId())
                             .eq(Specification::getId, specificationIds.get(sort)));
         }
 
@@ -126,8 +127,7 @@ public class ProductSpuServiceImpl extends ServiceImpl<ProductSpuMapper, Product
                     ProductSpecificationValue productSpecificationValue = new ProductSpecificationValue();
                     productSpecificationValue.setProductSkuId(skuDTO.getId());
                     productSpecificationValue.setSpecificationValueId(svId);
-                    productSpecificationValue.setCreateUserId(skuDTO.getUpdateUserId());
-                    productSpecificationValue.setUpdateUserId(skuDTO.getUpdateUserId());
+                    productSpecificationValue.setCreateUserId(ZcUserContextHolder.getUserId());
                     productSpecificationValueMapper.insert(productSpecificationValue);
                 });
             }

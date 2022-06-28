@@ -1,10 +1,12 @@
 package com.zhengcheng.mall.common.command;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.zhengcheng.common.web.UserCommand;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * ProductSpuDTO
@@ -12,12 +14,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2022/5/12 20:37
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductSpuCommand extends UserCommand {
+public class ProductSpuCommand implements Serializable {
     private static final long       serialVersionUID = 5062390494790183810L;
     /**
      * SPU ID

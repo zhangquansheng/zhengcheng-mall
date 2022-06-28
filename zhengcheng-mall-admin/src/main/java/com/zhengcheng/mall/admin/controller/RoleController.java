@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
@@ -90,7 +89,6 @@ public class RoleController {
     @ApiOperation("根据ID启用/禁用")
     @PostMapping("/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.enable(enableCommand));
     }
 
@@ -98,7 +96,6 @@ public class RoleController {
     @SaCheckPermission("sys:role:authority")
     @PostMapping("/saveRoleAuthority")
     public @ResponseBody Result<Boolean> saveRoleAuthority(@Valid @RequestBody RoleAuthorityCommand roleAuthorityCommand) {
-        roleAuthorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.saveRoleAuthority(roleAuthorityCommand));
     }
 
@@ -106,7 +103,6 @@ public class RoleController {
     @SaCheckPermission("sys:role:save")
     @PostMapping("/save")
     public @ResponseBody Result<Long> save(@Valid @RequestBody RoleCommand roleCommand) {
-        roleCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.add(roleCommand));
     }
 
@@ -114,7 +110,6 @@ public class RoleController {
     @SaCheckPermission("sys:role:update")
     @PostMapping("/update")
     public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody RoleCommand roleCommand) {
-        roleCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(roleFacade.update(roleCommand));
     }
 

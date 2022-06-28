@@ -10,7 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import com.zhengcheng.common.dto.UserDTO;
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
@@ -79,14 +79,13 @@ public class UserController {
     @ApiOperation("用户后台管理菜单")
     @GetMapping("/menu")
     public @ResponseBody List<MenuDTO> menu() {
-        return userFacade.menu(ZcUserInfoHolder.getUserId());
+        return userFacade.menu(ZcUserContextHolder.getUserId());
     }
 
     @ApiOperation("保存用户")
     @SaCheckPermission("sys:user:save")
     @PostMapping("/save")
     public @ResponseBody Result<Long> save(@Valid @RequestBody UserCommand userCommand) {
-        userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return userFacade.save(userCommand);
     }
 
@@ -94,7 +93,6 @@ public class UserController {
     @SaCheckPermission("sys:user:update")
     @PostMapping("/update")
     public @ResponseBody Result<Void> update(@Valid @RequestBody UserCommand userCommand) {
-        userCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return userFacade.update(userCommand);
     }
 
@@ -102,7 +100,6 @@ public class UserController {
     @SaCheckPermission("sys:user:update")
     @PostMapping("/enable")
     public @ResponseBody Result<Void> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return userFacade.enable(enableCommand);
     }
 }

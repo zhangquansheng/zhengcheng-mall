@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Insert;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.SpecificationValueCommand;
@@ -38,7 +37,6 @@ public class SpecificationValueController {
     @ApiOperation("保存商品规格值")
     @PostMapping("/save")
     public @ResponseBody Result<SpecificationValueDTO> save(@Validated(value = Insert.class) @RequestBody SpecificationValueCommand specificationValueCommand) {
-        specificationValueCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(specificationValueFacade.add(specificationValueCommand));
     }
 

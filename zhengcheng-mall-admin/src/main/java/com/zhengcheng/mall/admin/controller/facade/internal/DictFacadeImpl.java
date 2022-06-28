@@ -10,6 +10,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.*;
 import com.zhengcheng.mall.admin.controller.dto.DictDataDTO;
@@ -82,7 +83,7 @@ public class DictFacadeImpl implements DictFacade {
         BeanUtils.copyProperties(dictDataCommand, dictData);
         dictData.setIsDefault(0);
         dictData.setEnable(Boolean.TRUE);
-        dictData.setCreateUserId(dictDataCommand.getUpdateUserId());
+        dictData.setCreateUserId(ZcUserContextHolder.getUserId());
         return dictDataService.save(dictData);
     }
 
@@ -91,7 +92,7 @@ public class DictFacadeImpl implements DictFacade {
         return dictDataService.update(new LambdaUpdateWrapper<DictData>()
                 .set(DictData::getTypeCode, dictDataCommand.getTypeCode())
                 .set(DictData::getName, dictDataCommand.getName()).set(DictData::getValue, dictDataCommand.getValue())
-                .set(DictData::getUpdateUserId, dictDataCommand.getUpdateUserId())
+                .set(DictData::getUpdateUserId, ZcUserContextHolder.getUserId())
                 .eq(DictData::getId, dictDataCommand.getId()));
     }
 
@@ -109,7 +110,7 @@ public class DictFacadeImpl implements DictFacade {
     public boolean enableData(EnableCommand enableCommand) {
         return dictDataService
                 .update(new LambdaUpdateWrapper<DictData>().set(DictData::getEnable, enableCommand.isEnable())
-                        .set(DictData::getUpdateUserId, enableCommand.getUpdateUserId())
+                        .set(DictData::getUpdateUserId, ZcUserContextHolder.getUserId())
                         .eq(DictData::getId, enableCommand.getId()));
     }
 
@@ -124,7 +125,7 @@ public class DictFacadeImpl implements DictFacade {
         DictType dictType = new DictType();
         BeanUtils.copyProperties(dictTypeCommand, dictType);
         dictType.setEnable(Boolean.TRUE);
-        dictType.setCreateUserId(dictTypeCommand.getUpdateUserId());
+        dictType.setCreateUserId(ZcUserContextHolder.getUserId());
         return dictTypeService.save(dictType);
     }
 
@@ -144,7 +145,7 @@ public class DictFacadeImpl implements DictFacade {
         return dictTypeService.update(new LambdaUpdateWrapper<DictType>()
                 .set(DictType::getCode, dictTypeCommand.getCode()).set(DictType::getName, dictTypeCommand.getName())
                 .set(DictType::getDescription, dictTypeCommand.getDescription())
-                .set(DictType::getUpdateUserId, dictTypeCommand.getUpdateUserId())
+                .set(DictType::getUpdateUserId, ZcUserContextHolder.getUserId())
                 .eq(DictType::getId, dictTypeCommand.getId()));
     }
 
@@ -152,7 +153,7 @@ public class DictFacadeImpl implements DictFacade {
     public boolean enableType(EnableCommand enableCommand) {
         return dictTypeService
                 .update(new LambdaUpdateWrapper<DictType>().set(DictType::getEnable, enableCommand.isEnable())
-                        .set(DictType::getUpdateUserId, enableCommand.getUpdateUserId())
+                        .set(DictType::getUpdateUserId, ZcUserContextHolder.getUserId())
                         .eq(DictType::getId, enableCommand.getId()));
     }
 

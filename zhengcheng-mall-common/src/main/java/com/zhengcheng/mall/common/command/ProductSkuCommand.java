@@ -1,10 +1,12 @@
 package com.zhengcheng.mall.common.command;
 
+import java.io.Serializable;
 import java.util.List;
 
-import com.zhengcheng.common.web.UserCommand;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 添加/更新商品SKU
@@ -12,12 +14,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2022/5/12 19:10
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductSkuCommand extends UserCommand {
+public class ProductSkuCommand implements Serializable {
 
     private static final long serialVersionUID = 3036036161024851066L;
 

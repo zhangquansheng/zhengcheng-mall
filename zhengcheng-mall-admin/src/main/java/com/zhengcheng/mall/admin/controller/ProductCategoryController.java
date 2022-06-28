@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.ProductCategoryCommand;
@@ -62,7 +61,6 @@ public class ProductCategoryController {
     @ApiOperation("保存")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody ProductCategoryCommand productCategoryCommand) {
-        productCategoryCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         productCategoryFacade.save(productCategoryCommand);
         return Result.success();
     }
@@ -70,7 +68,6 @@ public class ProductCategoryController {
     @ApiOperation("更新")
     @PostMapping("/update")
     public @ResponseBody Result<Boolean> update(@Validated(Update.class) @RequestBody ProductCategoryCommand productCategoryCommand) {
-        productCategoryCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(productCategoryFacade.update(productCategoryCommand));
     }
 

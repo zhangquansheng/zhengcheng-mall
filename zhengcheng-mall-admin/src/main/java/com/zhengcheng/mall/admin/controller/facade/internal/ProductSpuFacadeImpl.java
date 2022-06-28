@@ -15,7 +15,6 @@ import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.web.PageCommand;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.dto.ProductSpuDTO;
@@ -275,8 +274,6 @@ public class ProductSpuFacadeImpl implements ProductSpuFacade {
         productSpuCommand.setId(spuId);
         productSpuCommand.setProductCategoryId(sku.getLong("product_type"));
         productSpuCommand.setSpecificationMode(specificationMode);
-        productSpuCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
-        productSpuCommand.setUpdateUserName(ZcUserInfoHolder.getUsername());
         productSpuService.addSku(productSpuCommand);
     }
 

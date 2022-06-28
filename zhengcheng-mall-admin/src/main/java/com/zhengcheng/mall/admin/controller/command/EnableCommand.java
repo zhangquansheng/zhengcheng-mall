@@ -1,10 +1,13 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
-import com.zhengcheng.common.web.UserCommand;
-
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * EnableCommand
@@ -12,12 +15,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2022/4/22 11:16
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class EnableCommand extends UserCommand {
+public class EnableCommand implements Serializable {
     private static final long serialVersionUID = 4898589400166762941L;
 
     /**

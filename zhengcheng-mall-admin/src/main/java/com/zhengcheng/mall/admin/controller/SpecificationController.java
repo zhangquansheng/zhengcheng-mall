@@ -7,7 +7,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Insert;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.SpecificationCommand;

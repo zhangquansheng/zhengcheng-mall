@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
@@ -65,7 +64,6 @@ public class AuthorityController {
     @SaCheckPermission("sys:authority:save")
     @PostMapping("/save")
     public @ResponseBody Result<Void> save(@Valid @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.save(authorityCommand);
         return Result.success();
     }
@@ -81,7 +79,6 @@ public class AuthorityController {
     @SaCheckPermission("sys:authority:update")
     @PostMapping("/update")
     public @ResponseBody Result<Long> update(@Validated(value = Update.class) @RequestBody AuthorityCommand authorityCommand) {
-        authorityCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         authorityFacade.update(authorityCommand);
         return Result.success();
     }
@@ -90,7 +87,6 @@ public class AuthorityController {
     @SaCheckPermission("sys:authority:enable")
     @PostMapping("/operate/enable")
     public @ResponseBody Result<Boolean> enable(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(authorityFacade.enable(enableCommand));
     }
 

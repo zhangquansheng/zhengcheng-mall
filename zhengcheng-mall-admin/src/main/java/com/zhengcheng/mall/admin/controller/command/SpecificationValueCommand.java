@@ -1,13 +1,17 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 
 import com.zhengcheng.common.validation.annotation.Insert;
-import com.zhengcheng.common.web.UserCommand;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * SpecificationValueCommand
@@ -15,12 +19,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2022/5/11 14:34
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class SpecificationValueCommand extends UserCommand {
+public class SpecificationValueCommand implements Serializable {
     private static final long serialVersionUID = 8188279965811937811L;
 
     @ApiModelProperty(value = "名称")

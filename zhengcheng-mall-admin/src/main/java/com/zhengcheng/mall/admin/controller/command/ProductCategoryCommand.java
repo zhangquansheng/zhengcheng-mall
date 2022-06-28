@@ -1,9 +1,10 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.UserCommand;
 
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AllArgsConstructor;
@@ -21,7 +22,7 @@ import lombok.NoArgsConstructor;
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class ProductCategoryCommand extends UserCommand {
+public class ProductCategoryCommand implements Serializable {
     private static final long serialVersionUID = 808453051183645421L;
 
     @ApiModelProperty("ID，更新时候必填")

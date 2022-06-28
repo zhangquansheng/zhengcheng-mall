@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.exception.BizException;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.command.RoleAuthorityCommand;
@@ -90,7 +91,7 @@ public class RoleFacadeImpl implements RoleFacade {
         }
 
         return roleService.update(new LambdaUpdateWrapper<Role>().set(Role::getEnable, enableCommand.isEnable())
-                .set(Role::getUpdateUserId, enableCommand.getUpdateUserId()).eq(Role::getId, enableCommand.getId()));
+                .set(Role::getUpdateUserId, ZcUserContextHolder.getUserId()).eq(Role::getId, enableCommand.getId()));
     }
 
     @Override
@@ -138,8 +139,7 @@ public class RoleFacadeImpl implements RoleFacade {
             RoleAuthority roleAuthority = new RoleAuthority();
             roleAuthority.setRoleId(roleAuthorityCommand.getRoleId());
             roleAuthority.setAuthorityId(Long.valueOf(authorityId));
-            roleAuthority.setCreateUserId(roleAuthorityCommand.getUpdateUserId());
-            roleAuthority.setUpdateUserId(roleAuthorityCommand.getUpdateUserId());
+            roleAuthority.setCreateUserId(ZcUserContextHolder.getUserId());
             roleAuthorities.add(roleAuthority);
         });
         return roleAuthorityService.saveBatch(roleAuthorities);

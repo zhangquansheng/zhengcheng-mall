@@ -1,12 +1,16 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.UserCommand;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * DictTypeCommand
@@ -14,12 +18,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2022/5/4 23:54
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class DictTypeCommand extends UserCommand {
+public class DictTypeCommand implements Serializable {
 
     private static final long serialVersionUID = -767412246489641381L;
 

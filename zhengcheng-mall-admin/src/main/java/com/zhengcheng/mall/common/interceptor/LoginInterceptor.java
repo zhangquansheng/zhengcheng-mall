@@ -13,7 +13,7 @@ import org.springframework.stereotype.Component;
 import org.springframework.web.servlet.HandlerInterceptor;
 
 import com.zhengcheng.common.dto.UserDTO;
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.feign.UserFeignClient;
 import com.zhengcheng.mall.common.constants.CommonConstant;
@@ -49,7 +49,7 @@ public class LoginInterceptor implements HandlerInterceptor {
             throws Exception {
         UserDTO principal = getTokenInfoDTO(request);
         if (principal != null) {
-            ZcUserInfoHolder.setUserInfo(principal);
+            ZcUserContextHolder.setUserInfo(principal);
             return true;
         } else {
             String requestType = request.getHeader("X-Requested-With");
@@ -75,7 +75,7 @@ public class LoginInterceptor implements HandlerInterceptor {
     @Override
     public void afterCompletion(HttpServletRequest request, HttpServletResponse response, Object handler,
                                 Exception ex) {
-        ZcUserInfoHolder.removeUserInfo();
+        ZcUserContextHolder.removeUserInfo();
     }
 
     @Nullable

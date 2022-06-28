@@ -1,12 +1,16 @@
 package com.zhengcheng.mall.admin.controller.command;
 
+import java.io.Serializable;
+
 import javax.validation.constraints.NotNull;
 
 import com.zhengcheng.common.validation.annotation.Update;
-import com.zhengcheng.common.web.UserCommand;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 权限表(Authority)数据查询对象
@@ -14,12 +18,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2021-08-13 14:46:58
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class AuthorityCommand extends UserCommand {
+public class AuthorityCommand implements Serializable {
     private static final long serialVersionUID = 808453051183645421L;
 
     @ApiModelProperty("ID，更新时候必填")

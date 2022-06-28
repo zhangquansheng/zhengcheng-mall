@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import com.zhengcheng.common.holder.ZcUserInfoHolder;
 import com.zhengcheng.common.validation.annotation.Update;
 import com.zhengcheng.common.web.PageInfo;
 import com.zhengcheng.common.web.Result;
@@ -89,7 +88,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:save")
     @PostMapping("/save/data")
     public @ResponseBody Result<Boolean> addData(@Valid @RequestBody DictDataCommand dictDataCommand) {
-        dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.addData(dictDataCommand));
     }
 
@@ -97,7 +95,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:update")
     @PostMapping("/update/data")
     public @ResponseBody Result<Boolean> updateData(@Validated(Update.class) @RequestBody DictDataCommand dictDataCommand) {
-        dictDataCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.updateData(dictDataCommand));
     }
 
@@ -119,7 +116,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:update")
     @PostMapping("/enable/data")
     public @ResponseBody Result<Boolean> enableData(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.enableData(enableCommand));
     }
 
@@ -127,7 +123,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:save")
     @PostMapping("/save/type")
     public @ResponseBody Result<Boolean> saveType(@Valid @RequestBody DictTypeCommand dictTypeCommand) {
-        dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.saveType(dictTypeCommand));
     }
 
@@ -142,7 +137,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:update")
     @PostMapping("/update/type")
     public @ResponseBody Result<Boolean> updateType(@Validated(Update.class) @RequestBody DictTypeCommand dictTypeCommand) {
-        dictTypeCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.updateType(dictTypeCommand));
     }
 
@@ -150,7 +144,6 @@ public class DictController {
     @SaCheckPermission("sys:dict:update")
     @PostMapping("/enable/type")
     public @ResponseBody Result<Boolean> enableType(@Valid @RequestBody EnableCommand enableCommand) {
-        enableCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(dictFacade.enableType(enableCommand));
     }
 

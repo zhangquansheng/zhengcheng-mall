@@ -12,6 +12,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.mzt.logapi.starter.annotation.LogRecord;
 import com.zhengcheng.common.exception.BizException;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.mall.admin.controller.command.AuthorityCommand;
 import com.zhengcheng.mall.admin.controller.command.EnableCommand;
 import com.zhengcheng.mall.admin.controller.dto.AuthorityDTO;
@@ -89,7 +90,7 @@ public class AuthorityFacadeImpl implements AuthorityFacade {
     public boolean enable(EnableCommand enableCommand) {
         return authorityService
                 .update(new LambdaUpdateWrapper<Authority>().set(Authority::getEnable, enableCommand.isEnable())
-                        .set(Authority::getUpdateUserId, enableCommand.getUpdateUserId())
+                        .set(Authority::getUpdateUserId, ZcUserContextHolder.getUserId())
                         .eq(Authority::getId, enableCommand.getId()));
     }
 
