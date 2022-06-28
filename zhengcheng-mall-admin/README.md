@@ -2,3 +2,7 @@
 
 > 前后端不分离
 
+## 获取当前登录用户ID
+
+> ZcUserContextHolder.getUserId()
+

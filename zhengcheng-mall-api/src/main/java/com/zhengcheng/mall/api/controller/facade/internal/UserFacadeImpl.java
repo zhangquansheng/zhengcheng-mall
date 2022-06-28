@@ -14,6 +14,7 @@ import com.baomidou.mybatisplus.core.conditions.update.LambdaUpdateWrapper;
 import com.baomidou.mybatisplus.core.toolkit.CollectionUtils;
 import com.zhengcheng.common.dto.UserDTO;
 import com.zhengcheng.common.exception.BizException;
+import com.zhengcheng.common.holder.ZcUserContextHolder;
 import com.zhengcheng.mall.api.command.UserCommand;
 import com.zhengcheng.mall.api.controller.facade.UserFacade;
 import com.zhengcheng.mall.api.controller.facade.internal.assembler.UserAssembler;
@@ -92,7 +93,7 @@ public class UserFacadeImpl implements UserFacade {
         user.setPassword(this.getPassword(userCommand));
         userService.save(user);
 
-        this.saveBatchUserRole(user.getId(), userCommand.getRoleIds(), userCommand.getUpdateUserId());
+        this.saveBatchUserRole(user.getId(), userCommand.getRoleIds(), ZcUserContextHolder.getUserId());
         return user.getId();
     }
 
@@ -117,7 +118,7 @@ public class UserFacadeImpl implements UserFacade {
 
         // 更新用户的角色
         userRoleService.remove(new LambdaUpdateWrapper<UserRole>().eq(UserRole::getUserId, userCommand.getId()));
-        this.saveBatchUserRole(userCommand.getId(), userCommand.getRoleIds(), userCommand.getUpdateUserId());
+        this.saveBatchUserRole(userCommand.getId(), userCommand.getRoleIds(), ZcUserContextHolder.getUserId());
     }
 
     private String getPassword(UserCommand userCommand) {
