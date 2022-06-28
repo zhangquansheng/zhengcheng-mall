@@ -12,6 +12,7 @@ import org.springframework.web.server.ServerWebExchange;
 
 import com.zhengcheng.common.constant.CommonConstants;
 
+import cn.hutool.core.util.IdUtil;
 import lombok.extern.slf4j.Slf4j;
 import reactor.core.publisher.Mono;
 
@@ -29,7 +30,8 @@ public class AuthFilter implements GlobalFilter, Ordered {
     public Mono<Void> filter(ServerWebExchange exchange, GatewayFilterChain chain) {
         ServerHttpRequest request = exchange.getRequest();
         ServerHttpRequest mutableReq = exchange.getRequest().mutate()
-                .header(CommonConstants.HEADER_CLIENT_IP, getIpAddress(request)).build();
+                .header(CommonConstants.HEADER_CLIENT_IP, getIpAddress(request))
+                .header(CommonConstants.HEADER_GATEWAY_UID, IdUtil.fastSimpleUUID()).build();
         ServerWebExchange mutableExchange = exchange.mutate().request(mutableReq).build();
         return chain.filter(mutableExchange);
     }
