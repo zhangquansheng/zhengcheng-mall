@@ -17,7 +17,7 @@ import org.springframework.stereotype.Service;
 
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.zhengcheng.common.exception.BizException;
-import com.zhengcheng.core.util.IpAddressUtils;
+import com.zhengcheng.common.utils.IpAddressUtil;
 import com.zhengcheng.mall.api.controller.facade.OauthFacade;
 import com.zhengcheng.mall.common.PasswordRsaUtil;
 import com.zhengcheng.mall.domain.entity.User;
@@ -70,7 +70,7 @@ public class OauthFacadeImpl implements OauthFacade {
 
         if (Boolean.FALSE.equals(user.getEnable())) {
             userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
-                    .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
+                    .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtil.getIpAddress(request))
                     .result(LoginResultEnum.FAILURE).content("用户已被禁用！").build());
             throw new BizException("用户已被禁用！");
         }
@@ -105,7 +105,7 @@ public class OauthFacadeImpl implements OauthFacade {
         log.info("用户月活：{}", monthActivityNum);
 
         userLoginLogService.save(UserLoginLog.builder().userId(user.getId()).type(LoginTypeEnum.LOGIN)
-                .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtils.getIpAddress(request))
+                .serverIp(NetUtil.getLocalhostStr()).loginIp(IpAddressUtil.getIpAddress(request))
                 .result(LoginResultEnum.SUCCESS).build());
         return StpUtil.getTokenInfo();
     }

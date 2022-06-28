@@ -1,5 +1,10 @@
 package com.zhengcheng.mall.api.controller;
 
+import java.util.Arrays;
+import java.util.Enumeration;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.jasypt.util.text.BasicTextEncryptor;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -31,7 +36,13 @@ public class CryptoController {
 
     @ApiOperation("MD5加密")
     @PostMapping("/md5")
-    public Result<String> md5(@RequestParam("plaintext") String plaintext) {
+    public Result<String> md5(@RequestParam("plaintext") String plaintext, HttpServletRequest request) {
+        Enumeration<String> mode = request.getHeaderNames();
+
+        while (mode.hasMoreElements()) {
+            String key = mode.nextElement();
+            System.out.println(key + "--->" + Arrays.toString(new String[] { request.getHeader(key) }));
+        }
         return Result.successData(SecureUtil.md5(plaintext));
     }
 
