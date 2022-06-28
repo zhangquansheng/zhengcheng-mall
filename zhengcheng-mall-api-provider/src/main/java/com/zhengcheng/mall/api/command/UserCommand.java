@@ -1,5 +1,6 @@
 package com.zhengcheng.mall.api.command;
 
+import java.io.Serializable;
 import java.util.List;
 
 import javax.validation.constraints.NotNull;
@@ -7,7 +8,10 @@ import javax.validation.constraints.NotNull;
 import com.zhengcheng.common.validation.annotation.Update;
 
 import io.swagger.annotations.ApiModelProperty;
-import lombok.*;
+import lombok.AllArgsConstructor;
+import lombok.Builder;
+import lombok.Data;
+import lombok.NoArgsConstructor;
 
 /**
  * 用户(User)数据查询对象
@@ -15,12 +19,11 @@ import lombok.*;
  * @author quansheng1.zhang
  * @since 2021-07-15 16:31:50
  */
-@EqualsAndHashCode(callSuper = true)
 @Builder
 @AllArgsConstructor
 @NoArgsConstructor
 @Data
-public class UserCommand extends com.zhengcheng.common.web.UserCommand {
+public class UserCommand implements Serializable {
     private static final long  serialVersionUID = -58148876498682370L;
 
     /**

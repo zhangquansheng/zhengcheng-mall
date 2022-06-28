@@ -35,7 +35,6 @@ public class SpecificationController {
     @ApiOperation("保存商品规格")
     @PostMapping("/save")
     public @ResponseBody Result<SpecificationDTO> save(@Validated(value = Insert.class) @RequestBody SpecificationCommand specificationCommand) {
-        specificationCommand.setUpdateUserId(ZcUserInfoHolder.getUserId());
         return Result.successData(specificationFacade.add(specificationCommand));
     }
 
