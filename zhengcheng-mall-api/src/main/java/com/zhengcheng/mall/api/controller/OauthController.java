@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
-import com.alibaba.csp.sentinel.annotation.SentinelResource;
 import com.zhengcheng.common.web.Result;
 import com.zhengcheng.mall.api.controller.facade.OauthFacade;
 import com.zhengcheng.mall.api.dto.TokenInfoDTO;
@@ -42,7 +41,6 @@ public class OauthController implements OauthFeignClient {
         return Result.success();
     }
 
-    @SentinelResource("/tokenSentinelResource")
     @ApiOperation(value = "password获取token")
     @GetMapping("/token")
     @Override
