@@ -19,6 +19,7 @@
         <module>zhengcheng-mall-ddd</module>
         <module>zhengcheng-mall-ddd-cola</module>
         <module>zhengcheng-mall-wx-gw</module>
+        <module>zhengcheng-mall-sso-server</module>
     </modules>
 
     <parent>
